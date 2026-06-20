@@ -50,10 +50,10 @@ function Contact() {
           I'm always glad to hear from curious minds. Fill in the form below or reach me directly
           at{' '}
           <a
-            href="mailto:giulio@starlab.es"
+            href="mailto:giulio.ruffini@mac.com"
             style={{ color: 'var(--champagne)' }}
           >
-            giulio@starlab.es
+            giulio.ruffini@mac.com
           </a>
           .
         </p>
