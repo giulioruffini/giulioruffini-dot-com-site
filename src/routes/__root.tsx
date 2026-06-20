@@ -83,6 +83,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <div className="flex items-center gap-6">
               <a href="https://github.com/giulioruffini" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
               <a href="https://linkedin.com/in/giulioruffini" target="_blank" rel="noopener noreferrer" className="nav-link">LinkedIn</a>
+              <a href="https://bsky.app/profile/giulioruffini.bsky.social" target="_blank" rel="noopener noreferrer" className="nav-link">Bluesky</a>
+              <a href="https://twitter.com/ruffini" target="_blank" rel="noopener noreferrer" className="nav-link">X</a>
+              <a href="https://platoniapirate.substack.com" target="_blank" rel="noopener noreferrer" className="nav-link">Substack</a>
             </div>
           </div>
         </footer>

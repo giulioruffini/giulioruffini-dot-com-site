@@ -68,9 +68,10 @@ function Home() {
                   style={{ color: 'var(--ash)', fontWeight: 300 }}
                 >
                   Researcher at the intersection of physics, computational neuroscience,
-                  and brain stimulation technology. Founder of{' '}
-                  <span style={{ color: 'var(--champagne-light)' }}>Starlab</span> and co-founder of{' '}
-                  <span style={{ color: 'var(--champagne-light)' }}>Neuroelectrics</span>.
+                  and brain stimulation technology. Co-founder of{' '}
+                  <span style={{ color: 'var(--champagne-light)' }}>Starlab</span>,{' '}
+                  <span style={{ color: 'var(--champagne-light)' }}>Neuroelectrics</span>, and the{' '}
+                  <span style={{ color: 'var(--champagne-light)' }}>Barcelona Computational Foundation</span>.
                   Exploring the language of the brain.
                 </p>
               </div>
@@ -127,7 +128,7 @@ function Home() {
                 <div className="h-px" style={{ background: 'rgba(138,148,166,0.15)' }} />
                 <StatBlock number="30+" label="Years in Research" />
                 <div className="h-px" style={{ background: 'rgba(138,148,166,0.15)' }} />
-                <StatBlock number="2" label="Spin-off Companies Founded" />
+                <StatBlock number="3" label="Companies Co-founded" />
                 <div className="h-px" style={{ background: 'rgba(138,148,166,0.15)' }} />
                 <StatBlock number="H-index 47" label="Google Scholar" />
               </div>
@@ -163,17 +164,18 @@ function Home() {
           </div>
           <div className="lg:col-span-8 lg:pt-12">
             <p className="text-lg leading-relaxed mb-6" style={{ color: 'var(--ash)', fontWeight: 300 }}>
-              With a PhD in Physics from the Universitat de Barcelona and decades at the frontier of
-              computational neuroscience, I have built a career around one central question: how can
-              we decode and modulate the electrical language of the brain?
+              With a PhD in Physics from UC Davis / Los Alamos National Laboratory and decades at
+              the frontier of computational neuroscience, I have built a career around one central
+              question: how can we decode and modulate the electrical language of the brain?
             </p>
             <p className="text-lg leading-relaxed" style={{ color: 'var(--ash)', fontWeight: 300 }}>
-              From EEG signal processing to transcranial current stimulation, my work spans the
-              full arc from theoretical physics to clinical applications — always driven by the
-              belief that rigorous science and meaningful technology are not opposites, but partners.
+              From quantum gravity to EEG signal processing to transcranial current stimulation,
+              my work spans the full arc from theoretical physics to clinical applications — now
+              extended through algorithmic information theory and consciousness research at the
+              Barcelona Computational Foundation.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
-              {['Neuroscience', 'Physics', 'EEG/TCS', 'Brain Stimulation', 'Signal Processing', 'AI & ML'].map(tag => (
+              {['Neuroscience', 'Physics', 'EEG/TCS', 'Brain Stimulation', 'Algorithmic Info Theory', 'AI & ML'].map(tag => (
                 <span
                   key={tag}
                   className="text-xs px-3 py-1.5 border tracking-wider uppercase"
