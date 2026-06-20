@@ -63,7 +63,7 @@ function BlogIndex() {
                     <span
                       key={tag}
                       className="text-xs px-2.5 py-1 border"
-                      style={{ borderColor: 'rgba(212,168,83,0.15)', color: 'var(--champagne-muted)', letterSpacing: '0.06em' }}
+                      style={{ borderColor: 'rgba(139,123,255,0.15)', color: 'var(--champagne-muted)', letterSpacing: '0.06em' }}
                     >
                       {tag}
                     </span>

@@ -27,7 +27,7 @@ function Projects() {
               className="card-lift border p-8 flex flex-col"
               style={{
                 borderColor: 'rgba(138,148,166,0.15)',
-                background: 'rgba(22,28,38,0.6)',
+                background: 'rgba(22,19,52,0.6)',
               }}
             >
               <div className="flex items-start justify-between mb-4">
@@ -86,7 +86,7 @@ function Projects() {
                   <span
                     key={tag}
                     className="text-xs px-2.5 py-1 border"
-                    style={{ borderColor: 'rgba(212,168,83,0.2)', color: 'var(--champagne-muted)', letterSpacing: '0.06em' }}
+                    style={{ borderColor: 'rgba(139,123,255,0.2)', color: 'var(--champagne-muted)', letterSpacing: '0.06em' }}
                   >
                     {tag}
                   </span>

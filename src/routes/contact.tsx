@@ -98,12 +98,12 @@ function Contact() {
               rows={7}
               className="w-full px-5 py-4 text-sm outline-none resize-none transition-all duration-200"
               style={{
-                background: 'rgba(22,28,38,0.6)',
+                background: 'rgba(22,19,52,0.6)',
                 border: '1px solid rgba(138,148,166,0.2)',
                 color: 'var(--paper)',
               }}
               placeholder="Tell me what's on your mind..."
-              onFocus={e => { e.currentTarget.style.borderColor = 'rgba(212,168,83,0.5)' }}
+              onFocus={e => { e.currentTarget.style.borderColor = 'rgba(139,123,255,0.5)' }}
               onBlur={e => { e.currentTarget.style.borderColor = 'rgba(138,148,166,0.2)' }}
             />
           </div>
@@ -145,12 +145,12 @@ function FormField({ id, label, type, placeholder }: { id: string; label: string
         required
         className="w-full px-5 py-4 text-sm outline-none transition-all duration-200"
         style={{
-          background: 'rgba(22,28,38,0.6)',
+          background: 'rgba(22,19,52,0.6)',
           border: '1px solid rgba(138,148,166,0.2)',
           color: 'var(--paper)',
         }}
         placeholder={placeholder}
-        onFocus={e => { e.currentTarget.style.borderColor = 'rgba(212,168,83,0.5)' }}
+        onFocus={e => { e.currentTarget.style.borderColor = 'rgba(139,123,255,0.5)' }}
         onBlur={e => { e.currentTarget.style.borderColor = 'rgba(138,148,166,0.2)' }}
       />
     </div>

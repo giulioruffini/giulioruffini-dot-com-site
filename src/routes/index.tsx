@@ -26,8 +26,8 @@ function Home() {
             style={{ background: 'linear-gradient(to bottom, transparent, var(--ash), transparent)' }}
           />
           <div
-            className="absolute top-1/3 left-0 w-64 h-px opacity-15"
-            style={{ background: 'linear-gradient(to right, transparent, var(--champagne), transparent)' }}
+            className="absolute top-1/3 left-0 w-64 h-px opacity-25"
+            style={{ background: 'linear-gradient(to right, transparent, var(--lime), transparent)' }}
           />
         </div>
 
@@ -123,7 +123,7 @@ function Home() {
             >
               <div
                 className="border p-8 space-y-8"
-                style={{ borderColor: 'rgba(212,168,83,0.2)', background: 'rgba(30,38,53,0.5)' }}
+                style={{ borderColor: 'rgba(139,123,255,0.2)', background: 'rgba(36,30,78,0.5)' }}
               >
                 <StatBlock number="12,500+" label="Citations · Google Scholar" />
                 <div className="h-px" style={{ background: 'rgba(138,148,166,0.15)' }} />
@@ -180,7 +180,7 @@ function Home() {
                 <span
                   key={tag}
                   className="text-xs px-3 py-1.5 border tracking-wider uppercase"
-                  style={{ borderColor: 'rgba(212,168,83,0.25)', color: 'var(--champagne)', letterSpacing: '0.08em' }}
+                  style={{ borderColor: 'rgba(139,123,255,0.25)', color: 'var(--champagne)', letterSpacing: '0.08em' }}
                 >
                   {tag}
                 </span>
@@ -192,7 +192,7 @@ function Home() {
 
       {/* Recent writing */}
       {recentPosts.length > 0 && (
-        <section className="px-8 py-24 border-t" style={{ borderColor: 'rgba(138,148,166,0.1)', background: 'rgba(22,28,38,0.4)' }}>
+        <section className="px-8 py-24 border-t" style={{ borderColor: 'rgba(138,148,166,0.1)', background: 'rgba(22,19,52,0.4)' }}>
           <div className="max-w-6xl mx-auto">
             <div className="flex items-end justify-between mb-12">
               <div>
@@ -319,7 +319,7 @@ function StatBlock({ number, label }: { number: string; label: string }) {
     <div>
       <p
         className="font-display"
-        style={{ fontSize: '2.2rem', fontWeight: 300, color: 'var(--champagne)', lineHeight: 1 }}
+        style={{ fontSize: '2.2rem', fontWeight: 300, color: 'var(--lime)', lineHeight: 1 }}
       >
         {number}
       </p>

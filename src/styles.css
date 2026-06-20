@@ -6,37 +6,42 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Core palette — deep navy with champagne accents */
-  --ink: #0d1117;
-  --ink-soft: #161c26;
-  --ink-muted: #1e2635;
-  --smoke: #8a94a6;
-  --ash: #c2c8d4;
-  --paper: #f5f0e8;
-  --champagne: #d4a853;
-  --champagne-light: #e8c97a;
-  --champagne-muted: #a8813e;
+  /* Core palette — "K&AI" psychedelic dusk: deep indigo-black, electric
+     violet-blue primary + chartreuse-lime secondary (the foliage pop).
+     Primary accent vars keep the "champagne" label for compatibility. */
+  --ink: #09081a;
+  --ink-soft: #141233;
+  --ink-muted: #221d52;
+  --smoke: #948cba;
+  --ash: #c8c4de;
+  --paper: #f1effb;
+  --champagne: #7a68ff;
+  --champagne-light: #a99bff;
+  --champagne-muted: #5b4dd6;
+  /* Secondary accent — chartreuse/lime foliage glow */
+  --lime: #c6e24f;
+  --lime-soft: #d8ec85;
 
   /* shadcn tokens */
-  --background: oklch(0.09 0.012 260);
-  --foreground: oklch(0.93 0.008 55);
-  --card: oklch(0.12 0.01 260);
-  --card-foreground: oklch(0.93 0.008 55);
-  --popover: oklch(0.12 0.01 260);
-  --popover-foreground: oklch(0.93 0.008 55);
-  --primary: oklch(0.75 0.1 70);
-  --primary-foreground: oklch(0.09 0.012 260);
-  --secondary: oklch(0.18 0.01 260);
-  --secondary-foreground: oklch(0.75 0.08 70);
-  --muted: oklch(0.16 0.008 260);
-  --muted-foreground: oklch(0.6 0.015 260);
-  --accent: oklch(0.75 0.1 70);
-  --accent-foreground: oklch(0.09 0.012 260);
+  --background: oklch(0.10 0.03 282);
+  --foreground: oklch(0.94 0.01 285);
+  --card: oklch(0.14 0.035 282);
+  --card-foreground: oklch(0.94 0.01 285);
+  --popover: oklch(0.14 0.035 282);
+  --popover-foreground: oklch(0.94 0.01 285);
+  --primary: oklch(0.68 0.18 285);
+  --primary-foreground: oklch(0.10 0.03 282);
+  --secondary: oklch(0.21 0.035 285);
+  --secondary-foreground: oklch(0.80 0.12 285);
+  --muted: oklch(0.18 0.03 285);
+  --muted-foreground: oklch(0.66 0.04 285);
+  --accent: oklch(0.68 0.18 285);
+  --accent-foreground: oklch(0.10 0.03 282);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.22 0.01 260);
-  --input: oklch(0.22 0.01 260);
-  --ring: oklch(0.75 0.1 70 / 0.4);
+  --border: oklch(0.27 0.04 285);
+  --input: oklch(0.27 0.04 285);
+  --ring: oklch(0.68 0.18 285 / 0.4);
   --radius: 0.5rem;
 }
 
@@ -159,9 +164,9 @@
   opacity: 0;
 }
 
-/* Gold accent line */
+/* Accent line — violet fading through lime */
 .gold-line {
-  background: linear-gradient(90deg, var(--champagne), transparent);
+  background: linear-gradient(90deg, var(--champagne), var(--lime) 70%, transparent);
   height: 1px;
 }
 
@@ -201,7 +206,7 @@
   left: 0;
   width: 0;
   height: 1px;
-  background: var(--champagne);
+  background: var(--lime);
   transition: width 0.25s ease;
 }
 
@@ -215,7 +220,7 @@
 }
 
 .nav-link.active {
-  color: var(--champagne);
+  color: var(--lime);
 }
 
 /* Section label */
@@ -224,14 +229,18 @@
   font-size: 0.7rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--champagne);
+  color: var(--lime);
 }
 
 /* Subtle mesh gradient background */
 .mesh-bg {
   background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(212, 168, 83, 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 90%, rgba(100, 130, 200, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 55% at 15% 10%, rgba(122, 104, 255, 0.13) 0%, transparent 58%),
+    radial-gradient(ellipse 70% 80% at 90% 85%, rgba(60, 95, 255, 0.11) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 50% at 55% 0%, rgba(150, 180, 70, 0.13) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 42% at 82% 14%, rgba(198, 226, 79, 0.09) 0%, transparent 52%),
+    radial-gradient(ellipse 40% 38% at 12% 88%, rgba(170, 200, 80, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 32% 96%, rgba(150, 80, 220, 0.06) 0%, transparent 55%),
     var(--ink);
 }
 
@@ -272,7 +281,7 @@
 .prose-article a {
   color: var(--champagne);
   text-decoration: none;
-  border-bottom: 1px solid rgba(212, 168, 83, 0.35);
+  border-bottom: 1px solid rgba(139,123,255, 0.35);
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 .prose-article a:hover {
@@ -306,7 +315,7 @@
 .prose-article code {
   font-size: 0.9em;
   color: var(--champagne-light);
-  background: rgba(212, 168, 83, 0.08);
+  background: rgba(139,123,255, 0.08);
   padding: 0.1rem 0.35rem;
   border-radius: 0.25rem;
 }

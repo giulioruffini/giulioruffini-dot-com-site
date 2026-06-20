@@ -33,7 +33,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="grain mesh-bg min-h-screen">
-        <nav className="fixed top-0 left-0 right-0 z-50 px-8 py-6" style={{ backdropFilter: 'blur(12px)', background: 'linear-gradient(to bottom, rgba(13,17,23,0.9) 0%, transparent 100%)' }}>
+        <nav className="fixed top-0 left-0 right-0 z-50 px-8 py-6" style={{ backdropFilter: 'blur(12px)', background: 'linear-gradient(to bottom, rgba(11,10,28,0.9) 0%, transparent 100%)' }}>
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <Link to="/" className="font-display text-xl font-light tracking-widest" style={{ color: 'var(--paper)', letterSpacing: '0.15em' }}>
               GR

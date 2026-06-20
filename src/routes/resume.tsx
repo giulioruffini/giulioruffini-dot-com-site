@@ -28,7 +28,7 @@ function Resume() {
         {/* Bio card */}
         <div
           className="border p-8 mb-16"
-          style={{ borderColor: 'rgba(212,168,83,0.2)', background: 'rgba(22,28,38,0.5)' }}
+          style={{ borderColor: 'rgba(139,123,255,0.2)', background: 'rgba(22,19,52,0.5)' }}
         >
           <div className="flex flex-col md:flex-row items-start gap-8">
             <div className="flex-1">
@@ -51,7 +51,7 @@ function Resume() {
               src="/giulio.jpg"
               alt="Giulio Ruffini"
               className="w-36 h-44 object-cover shrink-0"
-              style={{ filter: 'grayscale(20%)', border: '1px solid rgba(212,168,83,0.2)' }}
+              style={{ filter: 'grayscale(20%)', border: '1px solid rgba(139,123,255,0.2)' }}
             />
           </div>
         </div>
@@ -91,7 +91,7 @@ function Resume() {
                     <span
                       key={tag}
                       className="text-xs px-2.5 py-1 border"
-                      style={{ borderColor: 'rgba(212,168,83,0.2)', color: 'var(--champagne-muted)', letterSpacing: '0.06em' }}
+                      style={{ borderColor: 'rgba(139,123,255,0.2)', color: 'var(--champagne-muted)', letterSpacing: '0.06em' }}
                     >
                       {tag}
                     </span>

@@ -76,7 +76,7 @@ function BlogPost() {
                 <span
                   key={tag}
                   className="text-xs px-3 py-1 border tracking-wider uppercase"
-                  style={{ borderColor: 'rgba(212,168,83,0.25)', color: 'var(--champagne)', letterSpacing: '0.08em' }}
+                  style={{ borderColor: 'rgba(139,123,255,0.25)', color: 'var(--champagne)', letterSpacing: '0.08em' }}
                 >
                   {tag}
                 </span>
