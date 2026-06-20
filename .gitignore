@@ -1,0 +1,14 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+.netlify
+
+# Generated
+.content-collections
+src/routeTree.gen.ts
+
+# Logs / OS
+*.log
+.DS_Store

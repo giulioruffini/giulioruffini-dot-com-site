@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { allBlogs } from 'content-collections'
-import { Calendar, ArrowRight } from 'lucide-react'
+import { Calendar, ArrowRight, ArrowUpRight } from 'lucide-react'
 
-export const Route = createFileRoute('/blog')({
+export const Route = createFileRoute('/blog/')({
   component: BlogIndex,
 })
 
@@ -25,13 +25,10 @@ function BlogIndex() {
         <div className="gold-line w-20 mb-16" />
 
         <div className="space-y-0 divide-y" style={{ borderColor: 'rgba(138,148,166,0.1)' }}>
-          {posts.map((post, i) => (
-            <Link
-              key={post._meta.path}
-              to="/blog/$slug"
-              params={{ slug: post._meta.path }}
-              className="group flex items-start justify-between py-8 gap-8 transition-all duration-300"
-            >
+          {posts.map((post, i) => {
+            const isExternal = Boolean(post.externalUrl)
+            const inner = (
+              <>
               <div className="flex-1">
                 <div className="flex items-center gap-4 mb-3">
                   <span
@@ -73,13 +70,44 @@ function BlogIndex() {
                   ))}
                 </div>
               </div>
-              <ArrowRight
-                size={18}
-                className="mt-10 shrink-0 transition-transform duration-300 group-hover:translate-x-1"
-                style={{ color: 'var(--champagne)' }}
-              />
-            </Link>
-          ))}
+              {isExternal ? (
+                <ArrowUpRight
+                  size={18}
+                  className="mt-10 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  style={{ color: 'var(--champagne)' }}
+                />
+              ) : (
+                <ArrowRight
+                  size={18}
+                  className="mt-10 shrink-0 transition-transform duration-300 group-hover:translate-x-1"
+                  style={{ color: 'var(--champagne)' }}
+                />
+              )}
+              </>
+            )
+            const className =
+              'group flex items-start justify-between py-8 gap-8 transition-all duration-300'
+            return isExternal ? (
+              <a
+                key={post._meta.path}
+                href={post.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={className}
+              >
+                {inner}
+              </a>
+            ) : (
+              <Link
+                key={post._meta.path}
+                to="/blog/$slug"
+                params={{ slug: post._meta.path }}
+                className={className}
+              >
+                {inner}
+              </Link>
+            )
+          })}
         </div>
 
         {posts.length === 0 && (

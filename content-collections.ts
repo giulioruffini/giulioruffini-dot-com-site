@@ -41,6 +41,7 @@ const blog = defineCollection({
     summary: z.string(),
     tags: z.array(z.string()),
     author: z.string(),
+    externalUrl: z.string().optional(),
     content: z.string(),
   }),
 })
@@ -60,6 +61,18 @@ const projects = defineCollection({
   }),
 })
 
+const pages = defineCollection({
+  name: 'pages',
+  directory: 'content/pages',
+  include: '**/*.md',
+  schema: z.object({
+    title: z.string(),
+    subtitle: z.string().optional(),
+    label: z.string().optional(),
+    content: z.string(),
+  }),
+})
+
 export default defineConfig({
-  collections: [jobs, education, blog, projects],
+  collections: [jobs, education, blog, projects, pages],
 })

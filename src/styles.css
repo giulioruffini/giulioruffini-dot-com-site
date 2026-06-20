@@ -234,3 +234,79 @@
     radial-gradient(ellipse 60% 80% at 80% 90%, rgba(100, 130, 200, 0.03) 0%, transparent 60%),
     var(--ink);
 }
+
+/* Rendered markdown (blog posts + reference pages) */
+.prose-article h1,
+.prose-article h2,
+.prose-article h3,
+.prose-article h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  color: var(--paper);
+  line-height: 1.2;
+}
+.prose-article h2 {
+  font-size: 1.75rem;
+  margin-top: 2.75rem;
+  margin-bottom: 0.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(138, 148, 166, 0.12);
+}
+.prose-article h3 {
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--champagne-light);
+}
+.prose-article h4 {
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose-article p {
+  margin-bottom: 1.1rem;
+}
+.prose-article a {
+  color: var(--champagne);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(212, 168, 83, 0.35);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.prose-article a:hover {
+  color: var(--champagne-light);
+  border-color: var(--champagne-light);
+}
+.prose-article strong {
+  color: var(--paper);
+  font-weight: 500;
+}
+.prose-article em {
+  color: var(--ash);
+}
+.prose-article ul,
+.prose-article ol {
+  margin: 0.5rem 0 1.5rem;
+  padding-left: 1.25rem;
+}
+.prose-article li {
+  margin-bottom: 0.85rem;
+  padding-left: 0.25rem;
+}
+.prose-article li::marker {
+  color: var(--champagne-muted);
+}
+.prose-article hr {
+  border: 0;
+  border-top: 1px solid rgba(138, 148, 166, 0.15);
+  margin: 2.5rem 0;
+}
+.prose-article code {
+  font-size: 0.9em;
+  color: var(--champagne-light);
+  background: rgba(212, 168, 83, 0.08);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+}

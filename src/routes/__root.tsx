@@ -7,9 +7,9 @@ export const Route = createRootRoute({
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { title: 'Giulio Ruffini' },
-      { name: 'description', content: 'Physicist, neuroscientist, and entrepreneur.' },
+      { name: 'description', content: 'Theoretical physicist and computational neuroscientist studying cognition and consciousness through algorithmic information theory — Kolmogorov Theory.' },
       { name: 'og:title', content: 'Giulio Ruffini' },
-      { name: 'og:description', content: 'Physicist, neuroscientist, and entrepreneur.' },
+      { name: 'og:description', content: 'Theoretical physicist and computational neuroscientist. Kolmogorov Theory, brain modeling, and neuromodulation.' },
     ],
   }),
   shellComponent: RootDocument,
@@ -38,11 +38,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <Link to="/" className="font-display text-xl font-light tracking-widest" style={{ color: 'var(--paper)', letterSpacing: '0.15em' }}>
               GR
             </Link>
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-6">
               <NavLink to="/">Home</NavLink>
-              <NavLink to="/resume">Resume</NavLink>
-              <NavLink to="/projects">Projects</NavLink>
-              <NavLink to="/blog">Blog</NavLink>
+              <NavLink to="/kt">Kolmogorov Theory</NavLink>
+              <NavLink to="/neuroscience">Neuroscience</NavLink>
+              <NavLink to="/stimulation">Stimulation</NavLink>
+              <NavLink to="/blog">Writing</NavLink>
+              <NavLink to="/resume">CV</NavLink>
               <Link
                 to="/contact"
                 className="text-xs tracking-widest uppercase px-5 py-2 border transition-all duration-300"
@@ -80,9 +82,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <p className="text-xs tracking-widest uppercase" style={{ color: 'var(--smoke)', letterSpacing: '0.1em' }}>
               &copy; {new Date().getFullYear()} · All rights reserved
             </p>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
               <a href="https://github.com/giulioruffini" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
-              <a href="https://linkedin.com/in/giulioruffini" target="_blank" rel="noopener noreferrer" className="nav-link">LinkedIn</a>
+              <a href="https://x.com/ruffini" target="_blank" rel="noopener noreferrer" className="nav-link">X</a>
+              <a href="https://bsky.app/profile/did:plc:37bwtlke7dplqitxkzqule6e" target="_blank" rel="noopener noreferrer" className="nav-link">Bluesky</a>
+              <a href="https://platoniapirate.substack.com" target="_blank" rel="noopener noreferrer" className="nav-link">Substack</a>
+              <a href="https://open.spotify.com/artist/4zohEvcKbgPdWmLHSlLRWo" target="_blank" rel="noopener noreferrer" className="nav-link">Spotify</a>
+              <a href="https://scholar.google.com/citations?hl=en&user=IxDxqksAAAAJ" target="_blank" rel="noopener noreferrer" className="nav-link">Scholar</a>
+              <a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22Ruffini%2C%20Giulio%22&l=list&p=1&s=10&sort=bestmatch" target="_blank" rel="noopener noreferrer" className="nav-link">Zenodo</a>
+              <a href="https://www.bcom.one" target="_blank" rel="noopener noreferrer" className="nav-link">BCOM</a>
             </div>
           </div>
         </footer>

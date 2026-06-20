@@ -34,12 +34,13 @@ function Resume() {
             <div className="flex-1">
               <p className="section-label mb-4">Summary</p>
               <p className="text-base leading-relaxed" style={{ color: 'var(--ash)', fontWeight: 300, lineHeight: '1.85' }}>
-                Physicist and entrepreneur at the intersection of computational neuroscience,
-                brain stimulation, and artificial intelligence. Co-founder and Chief Science
-                Officer of Neuroelectrics, and founder of Starlab — two companies translating
-                fundamental brain research into clinical and commercial applications. My scientific
-                work focuses on EEG/TCS technology, complexity science, and the computational
-                modeling of the brain.
+                Theoretical physicist and computational neuroscientist working on the
+                foundations of cognition and consciousness through algorithmic information
+                theory — a program I call Kolmogorov Theory. Scientific Director of the
+                Barcelona Computational Foundation, CSTO and co-founder of Neuroelectrics,
+                and co-founder and CEO of Starlab. My path runs from quantum gravity, through
+                a decade of satellite remote sensing for the European Space Agency, to the
+                brain — modeling its dynamics and learning to modulate them.
               </p>
               <div className="mt-6 grid grid-cols-2 gap-4 text-sm" style={{ color: 'var(--smoke)' }}>
                 <div><span style={{ color: 'var(--champagne)' }}>Location</span><br />Barcelona, Spain</div>
@@ -47,7 +48,7 @@ function Resume() {
               </div>
             </div>
             <img
-              src="/headshot-on-white.jpg"
+              src="/giulio.jpg"
               alt="Giulio Ruffini"
               className="w-36 h-44 object-cover shrink-0"
               style={{ filter: 'grayscale(20%)', border: '1px solid rgba(212,168,83,0.2)' }}

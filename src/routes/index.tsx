@@ -39,7 +39,7 @@ function Home() {
                 className="section-label mb-8 animate-fade-in"
                 style={{ animationDelay: '0.1s' }}
               >
-                Physicist · Neuroscientist · Entrepreneur
+                Physicist · Computational Neuroscientist · Founder
               </p>
 
               <h1
@@ -67,11 +67,13 @@ function Home() {
                   className="text-lg leading-relaxed max-w-xl"
                   style={{ color: 'var(--ash)', fontWeight: 300 }}
                 >
-                  Researcher at the intersection of physics, computational neuroscience,
-                  and brain stimulation technology. Founder of{' '}
-                  <span style={{ color: 'var(--champagne-light)' }}>Starlab</span> and co-founder of{' '}
-                  <span style={{ color: 'var(--champagne-light)' }}>Neuroelectrics</span>.
-                  Exploring the language of the brain.
+                  Theoretical physicist and computational neuroscientist studying cognition and
+                  consciousness through algorithmic information theory —{' '}
+                  <span style={{ color: 'var(--champagne-light)' }}>Kolmogorov Theory</span>.
+                  Scientific Director of{' '}
+                  <span style={{ color: 'var(--champagne-light)' }}>BCOM</span>, co-founder of{' '}
+                  <span style={{ color: 'var(--champagne-light)' }}>Neuroelectrics</span> and{' '}
+                  <span style={{ color: 'var(--champagne-light)' }}>Starlab</span>.
                 </p>
               </div>
 
@@ -80,7 +82,7 @@ function Home() {
                 style={{ animationDelay: '0.55s' }}
               >
                 <Link
-                  to="/projects"
+                  to="/kt"
                   className="inline-flex items-center gap-2 px-7 py-3.5 text-sm tracking-wider uppercase transition-all duration-300"
                   style={{
                     background: 'var(--champagne)',
@@ -90,7 +92,7 @@ function Home() {
                   onMouseEnter={e => { e.currentTarget.style.background = 'var(--champagne-light)' }}
                   onMouseLeave={e => { e.currentTarget.style.background = 'var(--champagne)' }}
                 >
-                  View Projects <ArrowRight size={14} />
+                  Kolmogorov Theory <ArrowRight size={14} />
                 </Link>
                 <Link
                   to="/resume"
@@ -123,13 +125,13 @@ function Home() {
                 className="border p-8 space-y-8"
                 style={{ borderColor: 'rgba(212,168,83,0.2)', background: 'rgba(30,38,53,0.5)' }}
               >
-                <StatBlock number="200+" label="Publications & Patents" />
+                <StatBlock number="12,500+" label="Citations · Google Scholar" />
                 <div className="h-px" style={{ background: 'rgba(138,148,166,0.15)' }} />
-                <StatBlock number="30+" label="Years in Research" />
+                <StatBlock number="54" label="h-index" />
                 <div className="h-px" style={{ background: 'rgba(138,148,166,0.15)' }} />
-                <StatBlock number="2" label="Spin-off Companies Founded" />
+                <StatBlock number="3" label="Research Ventures Co-founded" />
                 <div className="h-px" style={{ background: 'rgba(138,148,166,0.15)' }} />
-                <StatBlock number="H-index 47" label="Google Scholar" />
+                <StatBlock number="1995" label="PhD, Physics · UC Davis" />
               </div>
             </div>
           </div>
@@ -163,17 +165,18 @@ function Home() {
           </div>
           <div className="lg:col-span-8 lg:pt-12">
             <p className="text-lg leading-relaxed mb-6" style={{ color: 'var(--ash)', fontWeight: 300 }}>
-              With a PhD in Physics from the Universitat de Barcelona and decades at the frontier of
-              computational neuroscience, I have built a career around one central question: how can
-              we decode and modulate the electrical language of the brain?
+              My PhD was in theoretical physics — the quantization of constrained systems, a toy
+              model for quantum gravity. After a decade working on satellite remote sensing and
+              GNSS reflectometry for the European Space Agency, I turned to the hardest object I
+              could find: the brain.
             </p>
             <p className="text-lg leading-relaxed" style={{ color: 'var(--ash)', fontWeight: 300 }}>
-              From EEG signal processing to transcranial current stimulation, my work spans the
-              full arc from theoretical physics to clinical applications — always driven by the
-              belief that rigorous science and meaningful technology are not opposites, but partners.
+              That arc — from physics, through engineering, to neuroscience — converges on one idea:
+              minds are algorithmic agents that survive by compressing their world. Kolmogorov Theory
+              develops this rigorously; neurotwins and brain stimulation put it to work in the clinic.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
-              {['Neuroscience', 'Physics', 'EEG/TCS', 'Brain Stimulation', 'Signal Processing', 'AI & ML'].map(tag => (
+              {['Kolmogorov Theory', 'Algorithmic Information Theory', 'Consciousness', 'Brain Modeling', 'Neuromodulation', 'EEG / tES'].map(tag => (
                 <span
                   key={tag}
                   className="text-xs px-3 py-1.5 border tracking-wider uppercase"
@@ -211,14 +214,10 @@ function Home() {
             </div>
 
             <div className="space-y-0 divide-y" style={{ borderColor: 'rgba(138,148,166,0.1)' }}>
-              {recentPosts.map((post, i) => (
-                <Link
-                  key={post._meta.path}
-                  to="/blog/$slug"
-                  params={{ slug: post._meta.path }}
-                  className="group flex items-start justify-between py-7 gap-8 transition-all duration-300"
-                  style={{ borderColor: 'rgba(138,148,166,0.1)' }}
-                >
+              {recentPosts.map((post, i) => {
+                const isExternal = Boolean(post.externalUrl)
+                const inner = (
+                  <>
                   <div className="flex-1">
                     <div className="flex items-center gap-4 mb-2">
                       <span
@@ -244,8 +243,33 @@ function Home() {
                     className="mt-8 shrink-0 transition-transform duration-300 group-hover:translate-x-1"
                     style={{ color: 'var(--champagne)' }}
                   />
-                </Link>
-              ))}
+                  </>
+                )
+                const className =
+                  'group flex items-start justify-between py-7 gap-8 transition-all duration-300'
+                return isExternal ? (
+                  <a
+                    key={post._meta.path}
+                    href={post.externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={className}
+                    style={{ borderColor: 'rgba(138,148,166,0.1)' }}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <Link
+                    key={post._meta.path}
+                    to="/blog/$slug"
+                    params={{ slug: post._meta.path }}
+                    className={className}
+                    style={{ borderColor: 'rgba(138,148,166,0.1)' }}
+                  >
+                    {inner}
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </section>
