@@ -17,6 +17,14 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
   ],
+  server: {
+    // Expose the dev server to the LAN and allow mDNS hostnames like
+    // `k.local`. Vite's default host check blocks non-localhost Host
+    // headers (DNS-rebinding guard); a leading dot matches the domain
+    // and all subdomains, so `.local` covers any *.local name.
+    host: true,
+    allowedHosts: ['.local'],
+  },
 })
 
 export default config

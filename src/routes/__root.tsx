@@ -1,4 +1,5 @@
-import { HeadContent, Scripts, createRootRoute, Link, useRouterState } from '@tanstack/react-router'
+import { HeadContent, Scripts, createRootRoute, Link } from '@tanstack/react-router'
+import { SiteNav } from '@/components/SiteNav'
 import '../styles.css'
 
 export const Route = createRootRoute({
@@ -15,17 +16,6 @@ export const Route = createRootRoute({
   shellComponent: RootDocument,
 })
 
-function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
-  const router = useRouterState()
-  const isActive = router.location.pathname === to
-
-  return (
-    <Link to={to} className={`nav-link ${isActive ? 'active' : ''}`}>
-      {children}
-    </Link>
-  )
-}
-
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -33,42 +23,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="grain mesh-bg min-h-screen">
-        <nav className="fixed top-0 left-0 right-0 z-50 px-8 py-6" style={{ backdropFilter: 'blur(12px)', background: 'linear-gradient(to bottom, rgba(11,10,28,0.9) 0%, transparent 100%)' }}>
-          <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <Link to="/" className="font-display text-xl font-light tracking-widest" style={{ color: 'var(--paper)', letterSpacing: '0.15em' }}>
-              GR
-            </Link>
-            <div className="flex items-center gap-6">
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/kt">Kolmogorov Theory</NavLink>
-              <NavLink to="/neuroscience">Neuroscience</NavLink>
-              <NavLink to="/stimulation">Stimulation</NavLink>
-              <NavLink to="/blog">Writing</NavLink>
-              <NavLink to="/resume">CV</NavLink>
-              <Link
-                to="/contact"
-                className="text-xs tracking-widest uppercase px-5 py-2 border transition-all duration-300"
-                style={{
-                  borderColor: 'var(--champagne)',
-                  color: 'var(--champagne)',
-                  letterSpacing: '0.12em',
-                }}
-                onMouseEnter={e => {
-                  const el = e.currentTarget
-                  el.style.background = 'var(--champagne)'
-                  el.style.color = 'var(--ink)'
-                }}
-                onMouseLeave={e => {
-                  const el = e.currentTarget
-                  el.style.background = 'transparent'
-                  el.style.color = 'var(--champagne)'
-                }}
-              >
-                Contact
-              </Link>
-            </div>
-          </div>
-        </nav>
+        <SiteNav />
 
         <main>
           {children}
