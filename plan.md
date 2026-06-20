@@ -14,12 +14,17 @@ _Last updated: 2026-06-20_
 
 ## Open
 
-### P0 — Deploy health
-- [ ] **giulioruffini.com returns 503.** Confirm the Netlify site is git-linked to
-      this repo with continuous deployment, and that the latest build succeeded.
-      If not linked, connect it (Netlify → Site config → Build & deploy → link repo)
-      or run a manual deploy. Check build logs for SSR-function errors.
-- [ ] Verify DNS: apex + `www` → Netlify; HTTPS cert valid.
+### P0 — Migrate to GitHub Pages (in progress)
+- [x] Convert build to static prerender (SSG); drop Netlify SSR plugin.
+- [x] Swap contact form to mailto (no backend).
+- [x] Add Pages workflow, CNAME, .nojekyll.
+- [ ] **Enable Pages:** repo Settings → Pages → Source = "GitHub Actions" (one-time),
+      then confirm the deploy workflow goes green.
+- [ ] **Repoint DNS** at Netlify DNS: replace the two NETLIFY records with
+      apex A records 185.199.108.153 / .109.153 / .110.153 / .111.153 and
+      `www` CNAME → `giulioruffini.github.io`. (Optional AAAA: 2606:50c0:8000–8003::153.)
+- [ ] Confirm custom domain + HTTPS in repo Pages settings once DNS propagates.
+- [ ] Netlify: site can be deleted/unlinked once Pages is serving giulioruffini.com.
 
 ### P1 — Content / polish
 - [ ] Confirm remaining estimated facts: BA start year (1984 assumed; grad 1988 confirmed),

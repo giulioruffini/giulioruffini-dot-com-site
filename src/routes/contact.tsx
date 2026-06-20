@@ -15,17 +15,22 @@ function Contact() {
         <div className="text-center max-w-md mx-auto">
           <CheckCircle size={40} style={{ color: 'var(--champagne)', margin: '0 auto 24px' }} />
           <h2 className="font-display text-4xl font-light mb-4" style={{ color: 'var(--paper)' }}>
-            Message received
+            Almost there
           </h2>
           <p className="mb-8" style={{ color: 'var(--ash)' }}>
-            Thank you for reaching out. I'll reply as soon as I can.
+            Your email app should have opened with the message ready to send. If it
+            didn't, write to me directly at{' '}
+            <a href="mailto:giulio@starlab.es" style={{ color: 'var(--champagne)' }}>
+              giulio@starlab.es
+            </a>
+            .
           </p>
           <button
             onClick={() => setSubmitted(false)}
             className="text-sm tracking-wider uppercase transition-colors"
             style={{ color: 'var(--champagne)', letterSpacing: '0.1em' }}
           >
-            Send another message
+            Back to the form
           </button>
         </div>
       </div>
@@ -60,26 +65,19 @@ function Contact() {
 
         <form
           name="contact"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
           onSubmit={(e) => {
             e.preventDefault()
-            const form = e.currentTarget
-            const formData = new FormData(form)
-            fetch('/contact.html', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
-            }).then(() => setSubmitted(true))
+            const data = new FormData(e.currentTarget)
+            const name = String(data.get('name') || '')
+            const email = String(data.get('email') || '')
+            const message = String(data.get('message') || '')
+            const subject = encodeURIComponent(`Website message from ${name}`)
+            const body = encodeURIComponent(`${message}\n\n— ${name}${email ? ` (${email})` : ''}`)
+            window.location.href = `mailto:giulio@starlab.es?subject=${subject}&body=${body}`
+            setSubmitted(true)
           }}
           className="space-y-8"
         >
-          <input type="hidden" name="form-name" value="contact" />
-          <p hidden>
-            <label>Don't fill this out: <input name="bot-field" /></label>
-          </p>
-
           <FormField id="name" label="Name" type="text" placeholder="Your full name" />
           <FormField id="email" label="Email" type="email" placeholder="your@email.com" />
 

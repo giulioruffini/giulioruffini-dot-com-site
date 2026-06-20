@@ -15,8 +15,8 @@ custom "K&AI" color theme.
 | UI | React 19, Radix UI primitives |
 | Styling | Tailwind CSS v4 + CSS variables |
 | Content | @content-collections (type-safe markdown) |
-| Build | Vite 7 |
-| Deploy | Netlify (SSR function via `@netlify/vite-plugin-tanstack-start`) |
+| Build | Vite 7 — **static prerender** (SSG, no server) |
+| Deploy | **GitHub Pages** via GitHub Actions (`.github/workflows/deploy.yml`) |
 
 ## Routes
 
@@ -57,14 +57,23 @@ Drawn from Giulio's Spotify artist art. Defined in `src/styles.css :root`:
 
 ```bash
 npm install
-npm run dev      # vite dev (port 5173)
-npm run build    # vite build -> dist/client + .netlify/v1/functions/server.mjs
+npm run dev      # vite dev (port 5173, exposed for k.local on LAN)
+npm run build    # vite build -> static SSG into dist/client/ (per-route index.html)
 ```
 
-## Deploy
+The build prerenders every route to static HTML (`tanstackStart({ prerender })` in
+`vite.config.ts`). Output in `dist/client/` is a complete static site — no server.
+
+## Deploy — GitHub Pages
 
 - Repo: `github.com/giulioruffini/giulioruffini-dot-com-site`, branch `main`.
-- `netlify.toml`: `command = "vite build"`, `publish = "dist/client"`.
-- Custom domain: **giulioruffini.com** (attached to the Netlify site).
-- ⚠️ As of 2026-06-20, `giulioruffini.com` returned **HTTP 503** — needs a healthy
-  production deploy. Check the Netlify dashboard build logs / git-link. See `plan.md`.
+- **`.github/workflows/deploy.yml`** builds and publishes `dist/client/` to GitHub
+  Pages on every push to `main` (Pages source must be set to "GitHub Actions").
+- `public/CNAME` = `giulioruffini.com`; `public/.nojekyll` disables Jekyll.
+- Contact form uses a **mailto:** handler (no backend) — `giulio@starlab.es`.
+- **DNS** (managed at Netlify DNS, nameservers `dns#.p06.nsone.net`): apex
+  `giulioruffini.com` → GitHub Pages A records (185.199.108–111.153);
+  `www` → CNAME `giulioruffini.github.io`.
+- History: previously on Netlify (TanStack Start SSR) but the Netlify account hit a
+  usage/credit limit → account-wide `usage_exceeded` 503. Migrated to static + Pages
+  to remove that dependency. (Separate user site `giulioruffini.github.io` is unaffected.)
