@@ -8,6 +8,7 @@ const links = [
   { to: '/neuroscience', label: 'Neuroscience' },
   { to: '/stimulation', label: 'Stimulation' },
   { to: '/blog', label: 'Writing' },
+  { to: '/art', label: 'Art' },
   { to: '/resume', label: 'CV' },
 ]
 

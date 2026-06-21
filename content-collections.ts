@@ -60,6 +60,18 @@ const pages = defineCollection({
   }),
 })
 
+const poems = defineCollection({
+  name: 'poems',
+  directory: 'content/poems',
+  include: '**/*.md',
+  schema: z.object({
+    title: z.string(),
+    order: z.number().optional(),
+    image: z.string().optional(),
+    content: z.string(),
+  }),
+})
+
 export default defineConfig({
-  collections: [jobs, education, blog, pages],
+  collections: [jobs, education, blog, pages, poems],
 })
