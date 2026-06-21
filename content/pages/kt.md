@@ -2,6 +2,8 @@
 title: "Kolmogorov Theory"
 label: "Algorithmic Neuroscience"
 subtitle: "Papers on Kolmogorov Theory — an algorithmic-information account of cognition and consciousness — with abstract summaries."
+image: "/all-agents-welcome.jpg"
+imageCaption: "All agents welcome — robots, slime molds, E. coli, ants, and us. Agency all the way down. (Inspiration from Larson.)"
 ---
 
 ## 2007 – [Information, complexity, brains, and reality (Kolmogorov Manifesto)](https://arxiv.org/abs/0704.1147) (arXiv)  

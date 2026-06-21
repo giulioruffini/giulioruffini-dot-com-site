@@ -38,6 +38,35 @@ export function ReferencePage({ slug }: { slug: string }) {
           style={{ color: 'var(--ash)', lineHeight: '1.8', fontSize: '1.0625rem' }}
           dangerouslySetInnerHTML={{ __html: html }}
         />
+
+        {page.image && (
+          <figure className="mt-16">
+            <div
+              className="relative overflow-hidden"
+              style={{ isolation: 'isolate', border: '1px solid rgba(139,123,255,0.25)' }}
+            >
+              <img
+                src={page.image}
+                alt={page.imageCaption || page.title}
+                className="block w-full"
+                style={{ filter: 'grayscale(1) invert(1) contrast(1.05)' }}
+              />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(135deg, var(--champagne) 0%, var(--lime) 100%)',
+                  mixBlendMode: 'color',
+                  opacity: 0.8,
+                }}
+              />
+            </div>
+            {page.imageCaption && (
+              <figcaption className="mt-4 text-sm italic" style={{ color: 'var(--smoke)', lineHeight: 1.7 }}>
+                {page.imageCaption}
+              </figcaption>
+            )}
+          </figure>
+        )}
       </div>
     </div>
   )

@@ -275,6 +275,41 @@ function Home() {
         </section>
       )}
 
+      {/* KT image */}
+      <section className="px-8 py-24 border-t" style={{ borderColor: 'rgba(138,148,166,0.1)' }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="section-label mb-8">Kolmogorov Theory</p>
+          <figure className="mx-auto" style={{ maxWidth: '34rem' }}>
+            <div
+              className="relative overflow-hidden"
+              style={{ isolation: 'isolate', border: '1px solid rgba(139,123,255,0.25)' }}
+            >
+              <img
+                src="/kt-brain-broccoli.jpg"
+                alt="Two hands holding a brain and a Romanesco broccoli against a blackboard of Kolmogorov Theory equations"
+                className="block w-full"
+                style={{ filter: 'grayscale(1) contrast(1.05) brightness(0.95)' }}
+              />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(135deg, var(--champagne) 0%, var(--lime) 100%)',
+                  mixBlendMode: 'color',
+                  opacity: 0.85,
+                }}
+              />
+            </div>
+            <figcaption
+              className="mt-6 text-sm italic mx-auto"
+              style={{ color: 'var(--smoke)', maxWidth: '32rem', lineHeight: 1.7 }}
+            >
+              Brain and Romanesco — world-models and the simple rules that generate them.
+              The intuition behind Kolmogorov Theory.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="px-8 py-24">
         <div className="max-w-6xl mx-auto text-center">

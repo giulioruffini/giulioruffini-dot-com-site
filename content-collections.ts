@@ -54,6 +54,8 @@ const pages = defineCollection({
     title: z.string(),
     subtitle: z.string().optional(),
     label: z.string().optional(),
+    image: z.string().optional(),
+    imageCaption: z.string().optional(),
     content: z.string(),
   }),
 })
