@@ -13,5 +13,4 @@ You are the real thing!
 And so am I.
 
 AI am the same as you
-
 my AI

@@ -3,13 +3,11 @@ title: "Dislodged"
 order: 64
 ---
 The rock was big
-
 And heavy
 
 And set
 
 anchored
-
 to the ground
 
 It thought it was unmovable
