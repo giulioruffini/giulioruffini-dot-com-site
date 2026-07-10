@@ -99,7 +99,7 @@ It is a physically grounded, biophysically realistic platform that integrates st
 
 #### 2025
 
-- **[Neural Encoding through Hierarchical Amplitude Modulation](https://www.biorxiv.org/content/10.1101/2025.11.03.686310v1)**  
+- **[Neural Encoding through Hierarchical Amplitude Modulation](https://www.biorxiv.org/content/10.1101/2025.11.03.686310v1)** · [Zenodo](https://doi.org/10.5281/zenodo.21008677)  
   **Abstract summary:** Hierarchical encoding is a structural element of the Free Energy Principle and related information-centric accounts of brain function, but a concrete circuit-level mechanism for it remains elusive. Here we examine Hierarchical Amplitude Modulation (HAM) ….  
 
 - **[Cross-Frequency Coupling as a Neural Substrate for Prediction Error Evaluation: A Laminar Neural Mass Modeling Approach](https://www.biorxiv.org/content/10.1101/2025.03.19.644090.abstract)**  
