@@ -20,8 +20,8 @@ function Contact() {
           <p className="mb-8" style={{ color: 'var(--ash)' }}>
             Your email app should have opened with the message ready to send. If it
             didn't, write to me directly at{' '}
-            <a href="mailto:giulio@starlab.es" style={{ color: 'var(--champagne)' }}>
-              giulio@starlab.es
+            <a href="mailto:giulio.ruffini@starlab.es" style={{ color: 'var(--champagne)' }}>
+              giulio.ruffini@starlab.es
             </a>
             .
           </p>
@@ -55,10 +55,10 @@ function Contact() {
           I'm always glad to hear from curious minds. Fill in the form below or reach me directly
           at{' '}
           <a
-            href="mailto:giulio@starlab.es"
+            href="mailto:giulio.ruffini@starlab.es"
             style={{ color: 'var(--champagne)' }}
           >
-            giulio@starlab.es
+            giulio.ruffini@starlab.es
           </a>
           .
         </p>
@@ -73,7 +73,7 @@ function Contact() {
             const message = String(data.get('message') || '')
             const subject = encodeURIComponent(`Website message from ${name}`)
             const body = encodeURIComponent(`${message}\n\n— ${name}${email ? ` (${email})` : ''}`)
-            window.location.href = `mailto:giulio@starlab.es?subject=${subject}&body=${body}`
+            window.location.href = `mailto:giulio.ruffini@starlab.es?subject=${subject}&body=${body}`
             setSubmitted(true)
           }}
           className="space-y-8"
