@@ -6,6 +6,11 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 
 # All Publications
 
+#### 2026
+
+- **[The cortical column as a tuned receiver: a network mechanism for temporal-interference stimulation](https://doi.org/10.5281/zenodo.21009618)**  
+  **Abstract summary:** Temporal-interference (TI) stimulation promises focal, steerable stimulation deep in the brain, where two high-frequency currents overlap and their amplitudes beat at a low difference frequency. Yet an amplitude-modulated field carries no power at that beat frequency, so no passive, linear neuron can follow it. This work resolves the puzzle by modeling the cortical column as a tuned, nonlinear receiver — a network mechanism that demodulates the beat.
+
 #### 2025
 
 - **[Cross-Frequency Coupling as a Neural Substrate for Prediction Error Evaluation: A Laminar Neural Mass Modeling Approach](https://www.biorxiv.org/content/10.1101/2025.03.19.644090.abstract)**  

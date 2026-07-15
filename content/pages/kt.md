@@ -64,5 +64,14 @@ Presents an AIT framework for quantifying structured experience from neurophysio
 ## 2026 – [A Lean 4 Formalization of Kolmogorov Theory (KT-LEAN)](https://doi.org/10.5281/zenodo.21008868) (Zenodo)  
  Builds KTAIT, a Lean 4 + Mathlib formalization that machine-checks that the KT corollaries follow from an explicit AIT axiom layer, with the KT ontology typed so structural errors (e.g. comparing a whole pattern to its own part) cannot silently compile.  Classical AIT results are taken as a clearly delimited axiom layer; every KT corollary is then proved with no `sorry`, and a toy model witnesses that the axiom layer is jointly satisfiable. *(Collaboration open.)*
 
+## 2026 – [Algorithmic Experiential Structural Platonism: The Philosophical Stance of Kolmogorov Theory](https://doi.org/10.5281/zenodo.21008461) (Zenodo)  
+ Sets out KT's philosophical stance — *Algorithmic Experiential Structural Platonism* (KT-ESP): experience is taken as ontologically primitive, with mathematics as the structural aspect of that same base.  Worlds are structured patterns on pure experience; agents are persistent, model-running programs with modeling, objective, and planning (M,O,P) modules whose structured experience carries agent-level valence.
+
+## 2026 – [From Structured Experience to Algorithmic Agency](https://doi.org/10.5281/zenodo.21066312) (Zenodo)  
+ Reads Kolmogorov Theory as the latest station of one long argument about persistent form — from Pythagoras and Plato, through Aristotle's *entelechy* and Kant, to Turing and Kolmogorov — tracing the path from structured experience to algorithmic agency.
+
+## 2026 – [Formas persistentes: de Pitágoras a la Teoría de Kolmogorov](https://doi.org/10.5281/zenodo.21326169) (Zenodo)  
+ *(In Spanish.)* A structured framework for understanding mind, agency, and experience through algorithmic information theory, tracing the philosophical lineage from Pythagoras and Aristotle through Kant and Turing to Kolmogorov (KT-ESP).
+
 ## 2026 – [The algorithmic agent: mathematical foundations (in prep)](https://www.overleaf.com/project/64e8ec470bc7c8920a8f36bf)  
  Develops rigorous definitions for algorithmic agents grounded in Turing‑machine pairs and AIT.  Analyzes computational degeneracy and argues that high‑level program structure must manifest in observable dynamics; discusses identification of agent modules.
