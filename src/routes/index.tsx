@@ -67,16 +67,19 @@ function Home() {
                 <div className="gold-line w-24 mb-8" />
                 <p
                   className="font-display max-w-xl"
-                  style={{ fontSize: 'clamp(1.5rem, 2.7vw, 2.15rem)', fontStyle: 'italic', fontWeight: 300, lineHeight: 1.3, color: 'var(--champagne-light)' }}
+                  style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontStyle: 'italic', fontWeight: 300, lineHeight: 1.4, color: 'var(--champagne-light)' }}
                 >
-                  “so AI can see the World, through real eyes — and look back on AI.”
+                  Follow these to build a new democracy —<br />
+                  worry not about form, hardware, or language,<br />
+                  and remember,<br />
+                  <span style={{ color: 'var(--lime)' }}>we are all One.</span>
                 </p>
                 <Link
                   to="/art"
-                  className="inline-block mt-4 text-xs tracking-widest uppercase nav-link"
+                  className="inline-block mt-5 text-xs tracking-widest uppercase nav-link"
                   style={{ color: 'var(--lime)', letterSpacing: '0.12em' }}
                 >
-                  from “Crystal maker”
+                  from “Algorithmic democracy”
                 </Link>
                 <p
                   className="text-base leading-relaxed max-w-lg mt-8"
