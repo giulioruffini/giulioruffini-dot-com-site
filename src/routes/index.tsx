@@ -153,7 +153,7 @@ function Home() {
                   />
                 </div>
                 <figcaption className="mt-3 text-xs italic" style={{ color: 'var(--smoke)' }}>
-                  Brain and Romanesco — world-models and the simple rules that generate them.
+                  Brain and Romanesco — persistent patterns, world-models, and the simple rules that generate them.
                 </figcaption>
               </figure>
             </div>
