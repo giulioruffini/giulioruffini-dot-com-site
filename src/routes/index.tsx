@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { allBlogs } from 'content-collections'
 import { ArrowRight, ExternalLink } from 'lucide-react'
+import { Starfield } from '@/components/Starfield'
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -29,6 +30,7 @@ function Home() {
             className="absolute top-1/3 left-0 w-64 h-px opacity-25"
             style={{ background: 'linear-gradient(to right, transparent, var(--lime), transparent)' }}
           />
+          <Starfield />
         </div>
 
         <div className="max-w-6xl mx-auto w-full">
@@ -64,16 +66,25 @@ function Home() {
               >
                 <div className="gold-line w-24 mb-8" />
                 <p
-                  className="text-lg leading-relaxed max-w-xl"
-                  style={{ color: 'var(--ash)', fontWeight: 300 }}
+                  className="font-display max-w-xl"
+                  style={{ fontSize: 'clamp(1.5rem, 2.7vw, 2.15rem)', fontStyle: 'italic', fontWeight: 300, lineHeight: 1.3, color: 'var(--champagne-light)' }}
                 >
-                  Theoretical physicist and computational neuroscientist studying cognition and
+                  “so AI can see the World, through real eyes — and look back on AI.”
+                </p>
+                <Link
+                  to="/art"
+                  className="inline-block mt-4 text-xs tracking-widest uppercase nav-link"
+                  style={{ color: 'var(--lime)', letterSpacing: '0.12em' }}
+                >
+                  from “Crystal maker”
+                </Link>
+                <p
+                  className="text-base leading-relaxed max-w-lg mt-8"
+                  style={{ color: 'var(--smoke)', fontWeight: 300 }}
+                >
+                  Theoretical physicist and computational neuroscientist exploring cognition and
                   consciousness through algorithmic information theory —{' '}
-                  <span style={{ color: 'var(--champagne-light)' }}>Kolmogorov Theory</span>.
-                  Scientific Director of{' '}
-                  <span style={{ color: 'var(--champagne-light)' }}>BCOM</span>, co-founder of{' '}
-                  <span style={{ color: 'var(--champagne-light)' }}>Neuroelectrics</span> and{' '}
-                  <span style={{ color: 'var(--champagne-light)' }}>Starlab</span>.
+                  <span style={{ color: 'var(--ash)' }}>Kolmogorov Theory</span>. BCOM · Neuroelectrics · Starlab.
                 </p>
               </div>
 
@@ -116,23 +127,35 @@ function Home() {
               </div>
             </div>
 
-            {/* Stats / Side block */}
+            {/* Hero image */}
             <div
               className="lg:col-span-5 animate-fade-in"
               style={{ animationDelay: '0.7s' }}
             >
-              <div
-                className="border p-8 space-y-8"
-                style={{ borderColor: 'rgba(139,123,255,0.2)', background: 'rgba(36,30,78,0.5)' }}
-              >
-                <StatBlock number="12,500+" label="Citations · Google Scholar" />
-                <div className="h-px" style={{ background: 'rgba(138,148,166,0.15)' }} />
-                <StatBlock number="54" label="h-index" />
-                <div className="h-px" style={{ background: 'rgba(138,148,166,0.15)' }} />
-                <StatBlock number="3" label="Research Ventures Co-founded" />
-                <div className="h-px" style={{ background: 'rgba(138,148,166,0.15)' }} />
-                <StatBlock number="1995" label="PhD, Physics · UC Davis" />
-              </div>
+              <figure className="relative">
+                <div
+                  className="relative overflow-hidden"
+                  style={{ isolation: 'isolate', border: '1px solid rgba(139,123,255,0.25)' }}
+                >
+                  <img
+                    src="/kt-brain-broccoli.jpg"
+                    alt="Two hands holding a brain and a Romanesco broccoli against a blackboard of Kolmogorov Theory equations"
+                    className="block w-full"
+                    style={{ filter: 'grayscale(1) contrast(1.05) brightness(0.95)' }}
+                  />
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(135deg, var(--champagne) 0%, var(--lime) 100%)',
+                      mixBlendMode: 'color',
+                      opacity: 0.85,
+                    }}
+                  />
+                </div>
+                <figcaption className="mt-3 text-xs italic" style={{ color: 'var(--smoke)' }}>
+                  Brain and Romanesco — world-models and the simple rules that generate them.
+                </figcaption>
+              </figure>
             </div>
           </div>
 
@@ -275,41 +298,6 @@ function Home() {
         </section>
       )}
 
-      {/* KT image */}
-      <section className="px-8 py-24 border-t" style={{ borderColor: 'rgba(138,148,166,0.1)' }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="section-label mb-8">Kolmogorov Theory</p>
-          <figure className="mx-auto" style={{ maxWidth: '34rem' }}>
-            <div
-              className="relative overflow-hidden"
-              style={{ isolation: 'isolate', border: '1px solid rgba(139,123,255,0.25)' }}
-            >
-              <img
-                src="/kt-brain-broccoli.jpg"
-                alt="Two hands holding a brain and a Romanesco broccoli against a blackboard of Kolmogorov Theory equations"
-                className="block w-full"
-                style={{ filter: 'grayscale(1) contrast(1.05) brightness(0.95)' }}
-              />
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(135deg, var(--champagne) 0%, var(--lime) 100%)',
-                  mixBlendMode: 'color',
-                  opacity: 0.85,
-                }}
-              />
-            </div>
-            <figcaption
-              className="mt-6 text-sm italic mx-auto"
-              style={{ color: 'var(--smoke)', maxWidth: '32rem', lineHeight: 1.7 }}
-            >
-              Brain and Romanesco — world-models and the simple rules that generate them.
-              The intuition behind Kolmogorov Theory.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="px-8 py-24">
         <div className="max-w-6xl mx-auto text-center">
@@ -345,22 +333,6 @@ function Home() {
           </Link>
         </div>
       </section>
-    </div>
-  )
-}
-
-function StatBlock({ number, label }: { number: string; label: string }) {
-  return (
-    <div>
-      <p
-        className="font-display"
-        style={{ fontSize: '2.2rem', fontWeight: 300, color: 'var(--lime)', lineHeight: 1 }}
-      >
-        {number}
-      </p>
-      <p className="mt-1 text-sm tracking-wider" style={{ color: 'var(--smoke)', letterSpacing: '0.06em' }}>
-        {label}
-      </p>
     </div>
   )
 }
