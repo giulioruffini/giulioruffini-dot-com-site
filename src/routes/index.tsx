@@ -7,6 +7,34 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
+const news = [
+  {
+    date: '2026',
+    title: 'The Rosetta Stone of Neural Mass Models — published in Physics Reports',
+    href: 'https://doi.org/10.1016/j.physrep.2026.05.004',
+    links: [
+      { label: 'Interactive companion site', href: 'https://bcom-foundation.github.io/bcom-rosetta-stone-web/' },
+      { label: 'arXiv', href: 'https://arxiv.org/abs/2512.10982' },
+    ],
+  },
+  {
+    date: 'August 2026',
+    title: 'New preprint: The Algorithmic Regulation Balance — Model It, Transmit It, or Leave It in the World',
+    href: 'https://doi.org/10.5281/zenodo.21840363',
+    links: [],
+  },
+  {
+    date: 'July 2026',
+    title: 'Three KT papers now on Preprints.org',
+    href: 'https://doi.org/10.20944/preprints202607.0418.v2',
+    links: [
+      { label: 'Pattern, Persist!', href: 'https://doi.org/10.20944/preprints202607.0418.v2' },
+      { label: 'Navigating Complexity', href: 'https://doi.org/10.20944/preprints202607.0265.v1' },
+      { label: 'Algorithmic Emergence', href: 'https://doi.org/10.20944/preprints202607.0210.v1' },
+    ],
+  },
+]
+
 function Home() {
   const recentPosts = [...allBlogs]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -173,6 +201,54 @@ function Home() {
               style={{ background: 'linear-gradient(to bottom, var(--smoke), transparent)' }}
             />
           </div>
+        </div>
+      </section>
+
+      {/* News flash */}
+      <section className="px-8 py-16 border-t" style={{ borderColor: 'rgba(138,148,166,0.1)', background: 'rgba(22,19,52,0.4)' }}>
+        <div className="max-w-6xl mx-auto">
+          <p className="section-label mb-8">News</p>
+          <ul className="space-y-6">
+            {news.map(item => (
+              <li key={item.title} className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
+                <time
+                  className="shrink-0 text-xs tracking-wider uppercase sm:w-28"
+                  style={{ color: 'var(--smoke)', letterSpacing: '0.08em' }}
+                >
+                  {item.date}
+                </time>
+                <div>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="nav-link text-base"
+                    style={{ color: 'var(--paper)', fontWeight: 300 }}
+                  >
+                    {item.title}
+                  </a>
+                  {item.links.length > 0 && (
+                    <span className="ml-3 text-sm">
+                      {item.links.map((l, i) => (
+                        <span key={l.href}>
+                          {i > 0 && <span style={{ color: 'var(--smoke)' }}> · </span>}
+                          <a
+                            href={l.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="nav-link"
+                            style={{ color: 'var(--champagne)' }}
+                          >
+                            {l.label}
+                          </a>
+                        </span>
+                      ))}
+                    </span>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

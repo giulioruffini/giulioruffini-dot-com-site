@@ -19,6 +19,11 @@ The Laminar Neural Mass Model (LaNMM) is a computational framework developed to 
 
 These studies introduced a physics-grounded neural mass model capable of generating both alpha/beta and gamma oscillations across cortical layers. The model embeds synaptic sources into a spatially layered medium, enabling simulation of laminar LFPs and their spectral features.
 
+**Unifying Review (2026):**
+
+- [The Rosetta Stone of Neural Mass Models](https://doi.org/10.1016/j.physrep.2026.05.004) (Physics Reports) · [arXiv](https://arxiv.org/abs/2512.10982) · [Interactive companion site](https://bcom-foundation.github.io/bcom-rosetta-stone-web/)  
+  **Abstract summary:** Builds the major neural mass models — from the harmonic and Stuart–Landau oscillators through Wilson–Cowan and Jansen–Rit to the exact mean-field Montbrió–Pazó–Roxin model — as rungs of a single ladder grounded in the push–pull loop between excitatory and inhibitory populations, with each rung presented in isolation, under forcing, and in whole-brain networks.
+
 ## Key Insights
 
 - Alpha/beta (slow/fast) rhythms are generated in deep layers, while gamma rhythms originate in superficial layers.
