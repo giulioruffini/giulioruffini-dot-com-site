@@ -25,6 +25,12 @@ const news = [
   },
   {
     date: 'July 2026',
+    title: 'New preprint: The cortical column as a tuned receiver — a network mechanism for temporal-interference stimulation',
+    href: 'https://doi.org/10.5281/zenodo.21009618',
+    links: [],
+  },
+  {
+    date: 'July 2026',
     title: 'Three KT papers now on Preprints.org',
     href: 'https://doi.org/10.20944/preprints202607.0418.v2',
     links: [
