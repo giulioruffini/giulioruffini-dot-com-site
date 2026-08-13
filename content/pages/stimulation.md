@@ -8,6 +8,9 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 
 #### 2026
 
+- **[The Rosetta Stone of Neural Mass Models](https://doi.org/10.1016/j.physrep.2026.05.004)** (Physics Reports) · [arXiv](https://arxiv.org/abs/2512.10982) · [Interactive companion site](https://bcom-foundation.github.io/bcom-rosetta-stone-web/)  
+  **Abstract summary:** A unifying ladder of neural mass models — from the harmonic and Stuart–Landau oscillators through Wilson–Cowan and Jansen–Rit to the exact mean-field Montbrió–Pazó–Roxin model — written in a single push–pull notation in which stimulation, pharmacology, and coupling all enter as forcing terms on the same underlying oscillator, turning model choice for tES studies into a principled design decision.
+
 - **[The cortical column as a tuned receiver: a network mechanism for temporal-interference stimulation](https://doi.org/10.5281/zenodo.21009618)**  
   **Abstract summary:** Temporal-interference (TI) stimulation promises focal, steerable stimulation deep in the brain, where two high-frequency currents overlap and their amplitudes beat at a low difference frequency. Yet an amplitude-modulated field carries no power at that beat frequency, so no passive, linear neuron can follow it. This work resolves the puzzle by modeling the cortical column as a tuned, nonlinear receiver — a network mechanism that demodulates the beat.
 
