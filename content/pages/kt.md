@@ -37,7 +37,7 @@ Presents an AIT framework for quantifying structured experience from neurophysio
 ## 2024 – [The Algorithmic Agent Perspective and Computational Neuropsychiatry: From Etiology to Advanced Therapy in Major Depressive Disorder](https://www.mdpi.com/1099-4300/26/11/953) (Entropy) 
  Applies the KT framework to model Major Depressive Disorder as low‑valence states in algorithmic agents.  Maps cognitive, affective, and executive deficits to brain circuits and biotypes; proposes personalized interventions combining stimulation, psychotherapy, and pharmacology.
 
-## 2024 – [Navigating Complexity: How Resource‑Limited Agents Derive Probability and Generate Emergence](https://osf.io/3xy5d/)  (PsyArXiv) · [Zenodo](https://doi.org/10.5281/zenodo.21008492)
+## 2024 – [Navigating Complexity: How Resource‑Limited Agents Derive Probability and Generate Emergence](https://osf.io/3xy5d/)  (PsyArXiv) · [Zenodo](https://doi.org/10.5281/zenodo.21008492) · [Preprints.org](https://doi.org/10.20944/preprints202607.0265.v1)
  Shows that finite data access and computational resources naturally generate probabilistic reasoning, Bayesian inference, and a formal notion of emergence via coarse‑graining and algorithmic complexity; connects to Free Energy and Active Inference frameworks.
 
 ## 2025 – [Structured Dynamics in the Algorithmic Agent](https://www.mdpi.com/1099-4300/27/1/90) (Entropy)  
@@ -49,13 +49,13 @@ Presents an AIT framework for quantifying structured experience from neurophysio
 ## 2025 – [The Algorithmic Regulator](https://arxiv.org/abs/2510.10300) (arXiv) · [Entropy](https://doi.org/10.3390/e28030257) · [Zenodo](https://doi.org/10.5281/zenodo.21008038)  
  Reinterprets the classic Good Regulator Theorem through the lens of Algorithmic Information Theory, modeling agents and environments as interacting Turing machines. The author proves that a successful regulator acts as a compressor that reduces the Kolmogorov complexity of the world’s output, thereby minimizing the algorithmic cost of survival. This mathematical framework demonstrates that effective regulation requires high mutual algorithmic information, confirming that agents must structurally mirror the environments they seek to control. Ultimately, the paper bridges control theory and the Free Energy Principle by defining intelligence as the capacity to model and compress environmental data
 
-## 2026 – [Pattern, Persist! (Perspective Paper)](https://doi.org/10.5281/zenodo.21008798) (Zenodo)  
+## 2026 – [Pattern, Persist! (Perspective Paper)](https://doi.org/10.5281/zenodo.21008798) (Zenodo) · [Preprints.org](https://doi.org/10.20944/preprints202607.0418.v2)  
  A substrate-independent account of agency: an *algorithmic agent* is a persistent pattern that regulates its own bounded code through a thin, thermodynamically costly boundary, built from a Modeling Engine, a scalar Objective Function, and a Planning Engine.  Derives the ME/OF/PE structure from algorithmic persistence via the Algorithmic Regulator Theorem, prices regulation with a Landauer cost, and reframes the free-energy principle and alignment as an objective-distribution problem.
 
 ## 2026 – [When Patterns Persist: Reach, Regulation, and Death in the Game of Life](https://doi.org/10.5281/zenodo.21008860) (Zenodo)  
  Uses Conway's Game of Life as a fully computable laboratory for the KT account of persistence (companion to *Pattern, Persist!*).  Shows that persistence is ensemble-relative through a measurable *reach* set—holding identity and region fixed, an evolved local rule lifts reach from 0.000 (a passive block) to 0.892—and that the effective regulator compresses to a single minimal threshold rule: reach is set by the program, not the substrate.
 
-## 2026 – [From "More Is Different" to Algorithmic Emergence: Why Compression Is the Hard Part](https://doi.org/10.5281/zenodo.21008465) (Zenodo)  
+## 2026 – [From "More Is Different" to Algorithmic Emergence: Why Compression Is the Hard Part](https://doi.org/10.5281/zenodo.21008465) (Zenodo) · [Preprints.org](https://doi.org/10.20944/preprints202607.0210.v1)  
  Makes Anderson's "more is different" precise within KT: knowing a system's micro-rules does not let you derive its compressed macro-laws.  Proves an *algorithmic barrier*—for generic data no concise macro-model exists, and even when one does no algorithm can find it (the structure function is uncomputable)—so effective macro-modeling stays irreducibly empirical, even for bounded systems.
 
 ## 2026 – [Telehomeostasis: Nicotine Parasitic Manipulation](https://doi.org/10.5281/zenodo.21008620) (Zenodo)  
@@ -72,6 +72,9 @@ Presents an AIT framework for quantifying structured experience from neurophysio
 
 ## 2026 – [Formas persistentes: de Pitágoras a la Teoría de Kolmogorov](https://doi.org/10.5281/zenodo.21326169) (Zenodo)  
  *(In Spanish.)* A structured framework for understanding mind, agency, and experience through algorithmic information theory, tracing the philosophical lineage from Pythagoras and Aristotle through Kant and Turing to Kolmogorov (KT-ESP).
+
+## 2026 – [The Algorithmic Regulation Balance: Model It, Transmit It, or Leave It in the World](https://doi.org/10.5281/zenodo.21840363) (Zenodo)  
+ Grounds the Algorithmic Regulator Theorem in a conservation statement: the complexity gap between the unregulated and the regulated world must be paid from four ledgers — model content shared by world and regulator, the realized action transcript, retained regulator memory, or a record left hidden in the world.  "Every good regulator is a model" becomes one corner of a balance: a regulator can model it, transmit it, or leave it in the world.
 
 ## 2026 – [The algorithmic agent: mathematical foundations (in prep)](https://www.overleaf.com/project/64e8ec470bc7c8920a8f36bf)  
  Develops rigorous definitions for algorithmic agents grounded in Turing‑machine pairs and AIT.  Analyzes computational degeneracy and argues that high‑level program structure must manifest in observable dynamics; discusses identification of agent modules.
