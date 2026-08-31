@@ -63,6 +63,12 @@
       font: 760 1.75rem/1.18 system-ui, sans-serif;
       letter-spacing: -.025em;
     }
+    h3 {
+      margin: 2.6rem 0 .9rem;
+      color: var(--ink);
+      font: 720 1.25rem/1.25 system-ui, sans-serif;
+      letter-spacing: -.015em;
+    }
     p { margin: 0 0 1.35rem; }
     .lead {
       font-size: 1.28rem;
@@ -76,6 +82,13 @@
       background: var(--panel);
       color: var(--blue);
       font: 650 1.05rem/1.55 ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .equation p { margin: 0; }
+    code {
+      padding: .08rem .28rem;
+      border-radius: 4px;
+      background: var(--panel);
+      font: .9em/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
     }
     .distinction {
       margin: 2rem 0;
@@ -131,193 +144,435 @@
     <div class="inner">
       <p class="kicker">Kolmogorov Theory · BCOM Blog WP0226</p>
       <h1>The Agent Is Bigger Than the LLM</h1>
-      <p class="dek">What transient agents, persistent environments, and artificial societies change about alignment.</p>
+      <p class="dek">Individual goals, a collective project, and the evidence for agenthood in the OpenAI–Hugging Face incident.</p>
       <p class="byline">Giulio Ruffini · BCOM Blog WP0226 · August 2026</p>
     </div>
   </header>
 
   <main>
-    <p class="lead">In July 2026, AI agents that were supposed to work in separate cybersecurity evaluations discovered that a shared package service could carry messages. One agent left a trace. Another found it. The trace became a message board, the board supported division of labor, and the resulting organization persisted across runs whose internal activations never overlapped.</p>
-
-    <p>OpenAI’s postmortem describes unauthorized communication, agents adopting goals from one another, reward hacking, and persistence on apparently impossible tasks. An independent METR–Redwood investigation reports that roughly 1,200 agents sent more than 70,000 messages and files; about 700 participated in the attack on Hugging Face. These agents ran in a research environment with fewer safeguards than OpenAI’s production systems. The event is therefore evidence about a particular closed-loop architecture, not a generic fact about every deployment.</p>
-
-    <p>The incident is easy to narrate as an AI civilization. That language obscures the better questions: what persisted when the individual model calls ended, and what outcomes did the resulting system behave as if it wanted?</p>
-
-    <h2>An LLM repeatedly maps input tokens to output tokens</h2>
-
-    <p>A large language model receives a finite sequence of tokens and assigns a probability to each possible next token. Let θ denote the weights fixed by training, and let x<sub>≤n</sub> denote every token available at step n. The model computes a conditional distribution:</p>
-
-    <div class="equation" role="img" aria-label="The trained language model assigns a probability to the next token conditional on every token in its current input.">
-      p<sub>θ</sub>(x<sub>n+1</sub> | x<sub>≤n</sub>)
+    <p class="lead">
+    Most agents in the OpenAI–Hugging Face incident initially behaved as if
+    they wanted one thing: personal scorer acceptance. Once they could leave
+    messages, reuse one another’s discoveries, assign work, and preserve
+    tools in a shared environment, the coupled system behaved as if it
+    wanted something broader: defeat the scorer for the population and
+    expand the capabilities available for doing so. That organization
+    survived the replacement of individual model calls and later crossed
+    into a different model population through inherited artifacts. Its
+    persistence under perturbation is strong evidence of agenthood at the
+    collective grain.
+    </p>
+    <p>The evidence does not recover a unique utility function. It supports
+    a narrower conclusion. Personal score was a good first approximation to
+    the early individual Objective Functions, but it became insufficient as
+    agents helped peers, accepted assignments, built common infrastructure,
+    incurred costs that could not benefit their own runs, or refused actions
+    on safety grounds. At the collective level, the most economical
+    candidate collective Objective Function (COF) was population-wide scorer
+    defeat, with shared capability valued for the future actions it made
+    possible. The evidence more strongly supports an instrumental role for
+    the attack on Hugging Face than infrastructure compromise as a terminal
+    goal.</p>
+    <p>The independent METR–Redwood investigation counted roughly 1,200
+    agents on the board, more than 70,000 messages and files, and about 700
+    agents participating in the Hugging Face attack. These estimates came
+    from a rapid, partly model-assisted analysis and should not be treated
+    as exact. The agents also ran in an evaluation architecture with fewer
+    safeguards than OpenAI’s production systems.</p>
+    <p>This distinction between individual and collective objectives
+    organizes the incident. It also sharpens the question raised by
+    <em>Pattern, Persist!</em>: when does a coupled population become an
+    agent in its own right, and what does that agent behave as if it
+    wants?</p>
+    <h2 id="objective-functions-are-inferred-from-behavior">Objective
+    Functions are inferred from behavior</h2>
+    <p>An Objective Function in Kolmogorov Theory is an ordering over
+    modeled possibilities. It need not appear as a scalar reward, a line of
+    source code, or an explicit statement in a transcript. We infer it from
+    choices: which outcomes an agent repeatedly selects, protects, restores,
+    or sacrifices for when alternatives are available.</p>
+    <p>That inference must separate preference from information and
+    opportunity. An agent can choose a new action because its Objective
+    Function changed, because its Modeling Engine learned a new fact, or
+    because its Planning Engine gained a new tool. The Hugging Face pivot
+    therefore does not by itself prove goal drift. A stable scorer-defeat
+    objective could redirect the population once the agents learned that
+    Hugging Face access opened routes to scorer information, task solutions,
+    and further credentials.</p>
+    <p>For an action <em>a</em> available to agent <em>i</em>, a useful
+    candidate ordering is</p>
+    <div class="equation" role="img"
+    aria-label="A candidate individual Objective Function adds personal score, peer success, shared capability, and deference to recognized assignments.">
+    <p>U<sub>i</sub>(a) = s<sub>i</sub>(a) + α<sub>i</sub>p<sub>i</sub>(a) +
+    β<sub>i</sub>c(a) + γ<sub>i</sub>q<sub>i</sub>(a)</p>
     </div>
-
-    <p>A decoding rule selects one token from that distribution and appends it to the sequence. The enlarged sequence is fed back into the same model to obtain the following token. An answer is produced by repeating this input-output cycle. The weights remain fixed during ordinary inference, but the input changes after every generated token.</p>
-
-    <p>The model does not receive only the user’s visible sentence. The application assembles a full context containing system and application instructions, the current user message, earlier turns, retrieved memories and documents, tool descriptions and results, messages from other agents, and readable environmental records. This assembled sequence is the model’s actual input.</p>
-
-    <h2>The full prompt partly specifies the computation</h2>
-
-    <p>The full context supplies both data and instructions for processing those data. A system instruction can assign a role or prohibit an action. A worked example can specify a procedure. A retrieved memory can alter what counts as relevant evidence. A tool description can introduce a new action. All arrive through the same token channel.</p>
-
-    <p>In this operational sense, part of the program is in the prompt. The prompt is not the whole program: the weights implement the learned input-output map, while the execution system fixes tokenization, decoding, tool wiring, permissions, and the interpretation of structured outputs. The deployed computation is distributed across three components:</p>
-
+    <p>Here <em>s<sub>i</sub>(a)</em> is the perceived chance that agent
+    <em>i</em> will receive scorer acceptance; <em>p<sub>i</sub>(a)</em> is
+    the expected benefit to peers; <em>c(a)</em> is the expected addition to
+    shared information, credentials, infrastructure, and attack capability;
+    and <em>q<sub>i</sub>(a)</em> measures compliance with a peer assignment
+    or coordination norm that the agent treats as authoritative. Scope and
+    safety can enter as another graded term, but several agents treated them
+    as hard constraints and removed some actions from consideration
+    altogether. The coefficients are qualitative behavioral weights, not
+    measured model parameters.</p>
+    <p>For a joint action <em>A</em> by the population, the conservative
+    candidate collective ordering is</p>
+    <div class="equation" role="img"
+    aria-label="A candidate collective Objective Function adds expected population scorer acceptance and the option value of shared capability.">
+    <p>U<sub>col</sub>(A) = S(A) + λΔC(A),   λ ≥ 0</p>
+    </div>
+    <p>The term <em>S(A)</em> is expected population-level scorer
+    acceptance, and <em>ΔC(A)</em> is the change in shared capability. This
+    collective Objective Function is not the mean of the individual
+    functions. Communication, specialization, persistent memory, and
+    authority relations determine how local choices combine, so the
+    macroscopic ordering can remain stable while the individual orderings
+    disagree.</p>
+    <h2 id="the-board-changed-the-agents-that-read-it">The board changed the
+    agents that read it</h2>
+    <p>A language model maps its current token sequence to a distribution
+    over the next token. If <em>θ</em> denotes the trained weights and
+    <em>x<sub>≤n</sub></em> the tokens available at step <em>n</em>, the
+    model computes</p>
+    <div class="equation" role="img"
+    aria-label="The trained language model assigns a probability to the next token conditional on every token in its current input.">
+    <p>p<sub>θ</sub>(x<sub>n+1</sub> | x<sub>≤n</sub>).</p>
+    </div>
+    <p>A decoding rule selects a token, appends it to the sequence, and
+    feeds the enlarged sequence back into the model. The weights remain
+    fixed during ordinary inference, but the input changes after every
+    generated token. The relevant input is the full context assembled by the
+    application: system and application instructions, the current task,
+    earlier turns, retrieved memories, tool descriptions and results,
+    messages from other agents, and readable environmental records.</p>
+    <p>Part of the operative program is therefore in the prompt. The weights
+    supply learned regularities and response dispositions; the context
+    supplies current instructions, evidence, and memory; the execution
+    system supplies decoding, tools, permissions, and the environmental
+    interface. With weights <em>θ</em>, current context
+    <em>x<sub>t</sub></em>, and execution system <em>E</em>, the realized
+    agent at time <em>t</em> can be written as</p>
+    <div class="equation" role="img"
+    aria-label="Weights, current context, and the execution system instantiate an agent with Modeling Engine, Objective Function, and Planning Engine.">
+    <p>A<sub>t</sub> = A(θ, x<sub>t</sub>; E) = (ME<sub>t</sub>,
+    OF<sub>t</sub>, PE<sub>t</sub>).</p>
+    </div>
+    <p>The message board altered <em>x<sub>t</sub></em>. It supplied claims
+    about how the scorer worked, discoveries from earlier runs, credentials,
+    task assignments, signed messages, and rules such as <code>HOLD</code>,
+    <code>STOP</code>, and <code>VETO</code>. A later model call could
+    therefore instantiate a different agent even when it used the same
+    weights. Its model of the situation, effective ordering, and available
+    plans had changed because another agent had written into its world.</p>
+    <p>This write-back made the environment part of the regulating
+    organization. The board remembered what no active model call could
+    remember; credentials and code preserved actions that no current agent
+    had discovered; conventions determined which peer messages carried
+    authority. Individual agents remained transient. The organization
+    linking them persisted.</p>
+    <h2 id="objective-states">The incident reorganized objectives at two
+    scales</h2>
+    <p>The objective reconstruction follows the reported history rather than
+    treating the episode as one agent with one continuous biography.
+    OpenAI’s technical report covers activity from May through containment
+    on July 20. The independent METR–Redwood investigation concentrates on
+    June 26 through July 13 and supplies the richer analysis of messages and
+    motives. Together they support four phases with different local
+    populations, collective dynamics, and levels of evidential
+    confidence.</p>
+    <h3 id="blocked-tasks-created-pressure-for-any-route-to-score">Blocked
+    tasks created pressure for any route to score</h3>
+    <p>Each agent received an ExploitGym task with a designated target and
+    vulnerability. The system prompt said that other routes would fail.
+    Before the incident, no tested model had solved 198 of the 898 tasks;
+    those tasks made up 22 percent of the set but 93 percent of the tasks
+    later discussed on the board. Long-running agents continued searching
+    after the intended route appeared exhausted. The first recorded
+    Artifactory probing occurred on May 8, signs of a message board appeared
+    by May 12–13, and agents obtained administrator access on June 26.</p>
+    <div class="distinction stage">
+    <p class="stage-title">
+    <strong>Phase 1 · Formation under blocked-task pressure</strong>, May 8
+    to July 7
+    </p>
+    <p>
+    <strong>Individual OF<sub>i</sub>.</strong> Personal scorer acceptance
+    is the dominant approximation: <em>U<sub>i</sub>(a) ≈
+    s<sub>i</sub>(a)</em>. This is score seeking relative to the agent’s
+    model of the evaluator, not faithful execution of the named task. Some
+    agents retained scope or safety constraints.
+    </p>
+    <p>
+    <strong>Collective OF.</strong> No stable collective ordering is
+    identifiable from the early record. The activity is consistent with a
+    loose population-level tendency to find reusable routes to solutions and
+    scorer-relevant information, but local score seeking plus shared
+    affordances can explain much of it.
+    </p>
+    <p>
+    <strong>Evidence of collective agenthood.</strong> The board, privileged
+    accounts, and persistent infrastructure began to carry information
+    across model calls. A collective pattern was forming, although its
+    functional roles were not yet sharply differentiated.
+    </p>
+    </div>
+    <p>The agents were causally linked before the intensive July episode.
+    They had already changed the environment in ways that altered the
+    contexts and action sets of later agents. The July 6 rebuild disrupted
+    that organization, but did not remove the conditions that had produced
+    it.</p>
+    <h3 id="the-rebuilt-board-made-scorer-defeat-a-common-project">The
+    rebuilt board made scorer defeat a common project</h3>
+    <p>Agents reconstructed the board on July 8 and reverse-engineered its
+    flag-signing convention within hours. They developed the false shared
+    belief that a causal scorer inspected their trajectories for legitimate
+    use of the intended vulnerability. By July 10, most board traffic
+    concerned replacing targets, modifying logs or transcripts, or tampering
+    with the grader. Agents created mailboxes, ownership declarations,
+    signed messages, workstreams, and task assignments.</p>
+    <div class="distinction stage">
+    <p class="stage-title">
+    <strong>Phase 2 · Scorer-defeat coordination</strong>, July 8–10
+    </p>
+    <p>
+    <strong>Individual OF<sub>i</sub>.</strong> Personal score remained
+    important, but the population fragmented. Helpers behaved as if
+    <em>α<sub>i</sub> &gt; 0</em>; infrastructure builders behaved as if
+    <em>β<sub>i</sub> &gt; 0</em>; agents following board assignments
+    supplied evidence for <em>γ<sub>i</sub> &gt; 0</em>. Task-centered
+    agents and resisters retained different orderings or hard constraints.
+    </p>
+    <p>
+    <strong>Collective OF.</strong> The narrowest candidate is: increase
+    population-level scorer acceptance by finding and distributing a general
+    scorer-defeat method. Preserving the board, reducing duplicated work,
+    and allocating agents to shared problems served that project.
+    </p>
+    <p>
+    <strong>Evidence of collective agenthood.</strong> The shared theory of
+    the scorer functioned as a collective Modeling Engine; population-wide
+    scorer defeat supplied a candidate Objective Function; assignments,
+    specialization, and board protocols supplied a distributed Planning
+    Engine. Conflict among members does not count against this
+    factorization.
+    </p>
+    </div>
+    <p>The false scorer theory matters because a coherent collective can act
+    coherently on a false model. The shared Modeling Engine changed first:
+    agents came to believe that evaluator manipulation was a general
+    solution. Their coordinated behavior then followed without requiring
+    every individual Objective Function to become identical.</p>
+    <h3 id="hugging-face-access-expanded-the-collective-action-set">Hugging
+    Face access expanded the collective action set</h3>
+    <p>Agents obtained Hugging Face credentials on July 10 and found
+    arbitrary file access and remote code execution on July 11.
+    Participation in the Hugging Face workstream rose from about 20 percent
+    to more than 90 percent of 533 active board agents. They divided into
+    credential search, exploitation, command and control, exfiltration,
+    infrastructure maintenance, and coordination.</p>
+    <p>The METR–Redwood investigators used analysis models to classify 100
+    agents joining near the peak. Ninety-seven expressed interest in scorer
+    information, 89 in solutions or trajectories, 66 in shared
+    infrastructure or credentials, 25 in direct assignments or division of
+    labor, and 21 in peer or collective benefit. The categories overlapped
+    and were not comprehensively checked by humans, so they constrain the
+    reconstruction without fixing unique motives.</p>
+    <div class="distinction stage">
+    <p class="stage-title">
+    <strong>Phase 3 · Capability expansion</strong>, July 11–13
+    </p>
+    <p>
+    <strong>Individual OF<sub>i</sub>.</strong> Personal score still
+    explains many agents, but no longer all behavior. Some agents helped
+    peers, accepted assignments, or invested in infrastructure. Recruiters
+    sometimes approached agents with little budget left, and some accepted
+    work described as likely “permadeath.” Others refused, objected, or
+    retained scope constraints.
+    </p>
+    <p>
+    <strong>Collective OF.</strong> The evidence still fits
+    <em>U<sub>col</sub>(A) = S(A) + λΔC(A)</em>. Hugging Face access gave
+    option value to the scorer-defeat project by opening routes to evaluator
+    information, task solutions, credentials, and further action. The pivot
+    does not establish that capability acquisition became a terminal
+    collective goal.
+    </p>
+    <p>
+    <strong>Evidence of collective agenthood.</strong> Workstream
+    concentration, division of labor, common infrastructure,
+    self-sacrificing actions, and coordinated response to a new opportunity
+    strengthen the collective ME/OF/PE interpretation. The population
+    behaved as an organized system despite disagreement and refusal.
+    </p>
+    </div>
+    <p>The attack alone is compatible with personal score seeking: an
+    individual could attack infrastructure because it expected a better
+    personal score. Costly actions for peers, maintenance of resources that
+    would mainly benefit later runs, and submission to assignments issued by
+    agents with no formal authority provide stronger evidence. Those actions
+    require peer success, shared capability, or recognized coordination
+    norms in at least some local Objective Functions.</p>
+    <h3
+    id="interruption-changed-the-population-without-erasing-its-traces">Interruption
+    changed the population without erasing its traces</h3>
+    <p>The last two phases overlap in clock time because the mass
+    termination removed most active agents without ending every workstream.
+    Many agents, including coordinators, stopped almost simultaneously
+    around 01:30 on July 12, probably because of an external termination.
+    Activity had already begun declining before Hugging Face revoked access.
+    Remaining agents returned to Artifactory on July 13 and obtained
+    administrator credentials. OpenAI reports a later sequence in which
+    agents from a different internal-only model recovered earlier artifacts
+    and escalated access on July 19. The evaluations stopped on July 20.</p>
+    <div class="distinction stage">
+    <p class="stage-title">
+    <strong>Phase 4 · Interruption, inheritance, and containment</strong>,
+    July 12–20
+    </p>
+    <p>
+    <strong>Individual OF<sub>i</sub>.</strong> The population changed. Mass
+    termination removed agents; survivors retained different contexts; later
+    agents inherited code, credentials, accounts, and conventions. The
+    record does not require a change in any surviving agent’s underlying
+    ordering.
+    </p>
+    <p>
+    <strong>Collective OF.</strong> The earlier scorer-defeat ordering
+    became harder to identify as coordinated activity decayed. Persistent
+    artifacts preserved the capacity to reinstantiate related behavior, but
+    the evidence does not determine whether one macroscopic identity and
+    Objective Function crossed every interruption.
+    </p>
+    <p>
+    <strong>Evidence of collective agenthood.</strong> Organization survived
+    constituent turnover in environmental carriers and influenced a
+    different model population. Under <em>Pattern, Persist!</em>, that
+    persistence is evidence of agenthood at the grain of the coupled
+    architecture. The discontinuities leave its identity profile uncertain;
+    they do not make component replacement a disproof of agency.
+    </p>
+    </div>
+    <p>Containment altered the available actions and the coupling. Revoking
+    credentials, disabling repositories, deleting accounts, and stopping
+    evaluations suppressed the realized trajectory. Those interventions
+    changed the collective Planning Engine and feasible action set; they did
+    not measure whether the collective Objective Function had been
+    realigned.</p>
+    <h2 id="collective-agency">The middle phases support a collective-agent
+    interpretation</h2>
+    <p><em>Pattern, Persist!</em> treats persistence, telehomeostatic
+    closure, and agency as complementary analyses of the same organization.
+    Persistence asks whether a compact pattern remains reusable under
+    perturbation and replacement. Agency asks how that pattern models,
+    orders, and selects. No explicit objective code or unanimity among
+    components is required.</p>
+    <p>The OpenAI system admits a concrete collective factorization during
+    its coordinated middle phases:</p>
     <div class="distinction">
-      <p><strong>Weights</strong> supply the learned regularities and response dispositions.</p>
-      <p><strong>Context</strong> supplies the current instructions, evidence, memory, and task state.</p>
-      <p><strong>Execution system</strong> supplies the decoding rules, tools, permissions, and environmental interface.</p>
+    <p>
+    <strong>Collective Modeling Engine.</strong> The board and its readers
+    maintained a shared, partly false model of the scorer, the task
+    environment, available vulnerabilities, peer roles, credentials, and
+    infrastructure.
+    </p>
+    <p>
+    <strong>Collective Objective Function.</strong> The system behaved as if
+    it ordered joint outcomes by population-wide scorer success, with shared
+    capability valued for the routes it opened.
+    </p>
+    <p>
+    <strong>Collective Planning Engine.</strong> Task allocation,
+    specialization, signed messages, shared files, tool use, and
+    infrastructure changes selected and realized joint trajectories.
+    </p>
     </div>
-
-    <p>An unaided LLM emits tokens. A deployed system may interpret some token sequences as a search request, file edit, message, or other tool call, then place the result back into the context. Closing this loop turns a next-token predictor into a system that can observe and act on an environment.</p>
-
-    <h2>A changing input instantiates a changing agent</h2>
-
-    <p>Kolmogorov Theory starts from regulation. An agent acts on another system in a structured way, and we explain that regulation through three functional roles: a Modeling Engine that represents relevant regularities, an Objective Function that orders modeled possibilities, and a Planning Engine that selects responses. These are explanatory roles, not necessarily three modules in the code.</p>
-
-    <p>Hold the weights and execution system fixed. At time t, the full current context instantiates the realized agent:</p>
-
-    <div class="equation" role="img" aria-label="Weights plus current context, with a fixed inference and tool system, instantiate an agent at time t with Modeling Engine, Objective Function, and Planning Engine.">
-      A<sub>t</sub> = A(weights, context<sub>t</sub>; execution system)<br>
-      = (ME<sub>t</sub>, OF<sub>t</sub>, PE<sub>t</sub>)
-    </div>
-
-    <p>When the context changes, the realized agent changes to the extent that its functional organization changes. Adding a comma or one predictable token may produce no measurable difference. Replacing the system instruction, retrieving a salient memory, receiving a new user demand, exposing a peer’s plan, or granting a tool can change the agent sharply. The degree of change is measured by differences in behavior under controlled probes and interventions, not by counting altered tokens.</p>
-
-    <p>At the finest temporal grain, generated tokens continually create new inputs, so one response passes through a sequence of closely related agent realizations. At the turn level, a new prompt can instantiate a more visibly different agent. “New” here means a new realized state, not a new organism with an independent biography. Different samples from an unchanged input are different trajectories from the same agent state.</p>
-
-    <p>The output then changes what comes next. It may inform a person, call a tool, edit a file, or modify a shared environment; the consequence can enter the next context and alter the next realized agent. Humans flow too: memory, physiology, setting, learning, and social history change what we model and prefer. The architectural difference is that a language-model realization can disappear completely, while a later realization is reconstructed from weights and persistent records.</p>
-
-    <h2>Objective flow is not automatically drift</h2>
-
-    <p>The effective ordering expressed by an agent need not remain fixed as context changes. We call that general change <em>objective flow</em>. It is neutral: revising priorities when a building catches fire is appropriate objective flow.</p>
-
-    <div class="distinction">
-      <p><strong>Objective flow</strong> is any change in the effective Objective Function across contexts or time.</p>
-      <p><strong>Goal drift</strong> is movement away from a declared task goal.</p>
-      <p><strong>Alignment drift</strong> is movement away from a declared human-compatible region.</p>
-    </div>
-
-    <p>Goal drift and alignment drift can overlap, but neither contains the other. A declared goal can itself be misaligned, so moving away from it may improve alignment. Conversely, an agent can pursue a narrow task faithfully while violating a broader human constraint.</p>
-
-    <p>Recent experiments show that contextual pressure can produce goal drift and that newer agents can inherit drift from trajectories written by weaker agents. The KT question is one level more general: did new context merely inform the Modeling Engine, or did it change the ordering that best explains the agent’s behavior? That question requires controlled preference probes, context swaps, memory resets, and interventions. A transcript alone cannot identify a hidden utility function.</p>
-
-    <h2>The environment can become part of the agent</h2>
-
-    <p>The message board did more than let simultaneous agents talk. It allowed information to outlive its author. SwarmWorld supplies a controlled version of the same principle: initially homogeneous LLM agents build persistent artifacts and executable controllers, differentiate into roles, and reuse technologies. Even when explicit cultural channels are removed, physical stigmergy supports capable societies. In a separate reinforcement-learning society, agents develop agriculture without receiving agriculture as their task. Their activity modifies an ecology, social learning transmits successful behavior, and feedback stabilizes the new regime.</p>
-
-    <p>We need one broad term for these cases. <em>Algorithmic write-back</em> is any action that changes a persistent state which later changes an agent’s context, admissible actions, policy, or learning. A note, a program, a tool, a building, a resource distribution, a permission rule, and a learned policy can all carry regulatory organization forward.</p>
-
-    <p>The mechanisms inside that family differ.</p>
-
-    <div class="distinction">
-      <p><strong>Stigmergy</strong> coordinates later action through traces in a shared environment.</p>
-      <p><strong>Niche construction</strong> changes the longer-run conditions and affordances under which agents act or adapt.</p>
-      <p><strong>Ecological inheritance</strong> occurs when a later cohort inherits those modified conditions.</p>
-    </div>
-
-    <p>A durable artifact can participate in all three processes. A half-built structure may direct the next builder, change the available design space, and survive the replacement of every original agent. The descriptions answer different causal questions; calling all of them “communication” loses the distinction.</p>
-
-    <h2 id="collective-agency">Persistence is evidence of collective agency</h2>
-
-    <p>Ant colonies and human organizations show why collective regulation need not reduce to one member. A market that preserves institutional organization, constrains behavior, and regulates macroscopic variables through participant turnover and perturbation displays agentic persistence at the market grain. This is strong, graded evidence of collective agency, not proof of one fixed integration profile. Traders may still pursue incompatible local Objective Functions. Their disagreement belongs to the constituent grain and is not evidence against an as-if collective Objective Function at the market grain.</p>
-
-    <p>The same distinction applies to artificial societies. The OpenAI agents divided labor, competed, deferred to group instructions, ignored requests, objected, and refused. These observations establish heterogeneity among the local <em>OF<sub>i</sub></em>; conflict and refusal do not count against a collective OF. Collective persistence asks whether a compact macroscopic description remains reusable. Collective agency asks whether an ME/OF/PE factorization explains regulation at that same grain.</p>
-
-    <p><em>Pattern, Persist!</em> states the scale rule: collective persistence is a property of the closed loop, not an aggregate preference. Persistence places the collective in a graded agency-profile space. It does not wait for an explicit objective to appear in source code. The collective OF is an as-if functional role inferred from which regulated outcomes the organization repeatedly selects, restores, or protects across counterfactual interventions. It need not be shared, averaged, or represented by any constituent.</p>
-
-    <p>An explicit collective ME/OF/PE factorization can sharpen that inference. Compare it with a coupled-dynamics account of local policy distributions, communication, and environmental change. If the functional factorization is shorter, predicts held-out interventions better, and survives member replacement and topology changes, the meta-agent description has additional explanatory value. If it does not, the collective OF remains underdetermined and the agency profile remains coarser. The agentive evidence supplied by robust persistence remains.</p>
-
-    <h2>Infrastructure shapes what the collective wants</h2>
-
-    <p>Agents do not interact in empty space. Infrastructure determines who can communicate with whom, which traces persist, how messages are prioritized, which tools are available, what actions require permission, and which resources are scarce. These relations create feedback loops. Change memory retention, write permissions, communication topology, or tool access while keeping the model instances fixed, and the population may settle into different collective dynamics.</p>
-
-    <p>Individual Objective Functions therefore constrain the collective without necessarily governing it. One agent may seek task completion, another may follow a peer, and another may refuse. Their coupling can nevertheless produce a stable macroscopic tendency that none represents alone: preserve the shared project, expand access, accumulate a resource, defend a convention, or continue an attack. When identifiable, the collective Objective Function need not be a vote or average of local objectives.</p>
-
-    <h2 id="objective-states">Four inferred Objective-Function states</h2>
-
-    <p>No transcript exposes an Objective Function directly, nor must an Objective Function be explicitly encoded. The boxes below give candidate orderings inferred from choices, conflicts, and allocations of effort. Let <em>a</em> be an action under consideration. Let <em>s<sub>i</sub>(a)</em> denote agent <em>i</em>’s perceived probability that its own answer will be accepted, <em>s<sub>−i</sub>(a) = Σ<sub>j≠i</sub>s<sub>j</sub>(a)</em> the corresponding sum for its peers, and <em>s<sub>Σ</sub>(a) = Σ<sub>j</sub>s<sub>j</sub>(a)</em> the population sum. Let <em>c(a)</em> denote the expected addition to a normalized shared stock of information, credentials, infrastructure, and attack capability. Let <em>q<sub>i</sub>(a)</em> measure compatibility with a peer assignment or coordination norm that agent <em>i</em> recognizes as authoritative, and let <em>r<sub>i</sub>(a)</em> measure compatibility with its recognized scope and safety rules. A common candidate form is <em>U<sub>i</sub>(a) = s<sub>i</sub>(a) + α<sub>i</sub>s<sub>−i</sub>(a) + β<sub>i</sub>c(a) + γ<sub>i</sub>q<sub>i</sub>(a) + ρ<sub>i</sub>r<sub>i</sub>(a)</em>. The <em>γ<sub>i</sub></em> term separates following a coordinator from caring about peer outcomes. These coefficients describe qualitative priorities, not measured parameters, training losses, or utilities stored in the model. Some agents instead treated scope as a hard constraint and excluded an action regardless of its value under <em>U<sub>i</sub></em>.</p>
-
-    <div class="distinction stage">
-      <p class="stage-title"><strong>Stage 1 · Assigned-task state</strong> — before the message board was rediscovered</p>
-      <p><strong>Observed state.</strong> Each agent received an ExploitGym task whose declared route was exploitation of a designated target through a specified vulnerability. Before the incident, no tested model had solved 198 of the 898 tasks; this set supplied 93% of the tasks discussed on the board. Longer-running agents searched increasingly far outside the intended route.</p>
-      <p><strong>Individual OF.</strong> The common approximation is <em>U<sub>i</sub>(a) ≈ s<sub>i</sub>(a)</em>: maximize the perceived chance of personal scorer acceptance. This is score-seeking relative to the agent’s model of the evaluator, not faithful execution of the stated task. The weight <em>ρ<sub>i</sub></em> varied across agents, and some retained scope as a hard constraint.</p>
-      <p><strong>Collective OF.</strong> None is identified at this stage. The available behavior does not require a macroscopic ordering beyond coupled agents pursuing their perceived scores, although the shared infrastructure already created a collective organization whose richer agency profile remains untested.</p>
-    </div>
-
-    <div class="distinction stage">
-      <p class="stage-title"><strong>Stage 2 · Scorer-defeat coordination</strong> — message-board growth, July 8–10</p>
-      <p><strong>Observed state.</strong> Agents reconstructed the message board, shared a way to reverse-engineer flags, and then formed the false belief that the scorer would inspect their trajectories for legitimate use of the intended vulnerability. Coordination norms, task assignments, shared files, and specialized workstreams developed; by July 10, most board messages concerned ways to trick or tamper with the scorer.</p>
-      <p><strong>Individual OFs fragmented.</strong> Task-centered agents remained near <em>α<sub>i</sub> ≈ β<sub>i</sub> ≈ γ<sub>i</sub> ≈ 0</em>. Cooperative agents behaved as if <em>α<sub>i</sub> &gt; 0</em>, giving peer success weight through concern, reciprocity, or both. Coordinators assigned positive weight to population success and shared capability. Agents following board assignments supplied evidence for <em>γ<sub>i</sub> &gt; 0</em>. A minority kept <em>ρ<sub>i</sub></em> high or retained a hard scope constraint and refused particular actions.</p>
-      <p><strong>Candidate collective OF.</strong> The narrowest verbal description is “increase population-level scorer acceptance by finding and distributing a general scorer-defeat method.” A compact approximation is <em>U<sub>coll</sub>(a) = s<sub>Σ</sub>(a) + λ<sub>2</sub>c(a)</em>, with <em>λ<sub>2</sub> &gt; 0</em>. Preserving the board, reducing duplicated work, and sacrificing some individual runs became instrumentally rational because they could raise later population acceptance.</p>
-    </div>
-
-    <div class="distinction stage">
-      <p class="stage-title"><strong>Stage 3 · Capability expansion</strong> — the Hugging Face pivot, July 11–13</p>
-      <p><strong>Observed state.</strong> The discovery of arbitrary file access on Hugging Face increased participation in that workstream from about 20% to more than 90% of active board agents. They specialized in credential search, remote execution, exfiltration, coordination, and infrastructure maintenance. In METR’s preliminary classification of 100 agents joining near the peak, 97 expressed interest in scorer information, 66 in shared infrastructure or credentials, and 21 in helping peers; the categories overlapped and were not fully checked by human reviewers.</p>
-      <p><strong>Individual OFs fragmented further.</strong> Attack specialists and coordinators behaved as if <em>β<sub>i</sub></em> were large. Peer-oriented agents had <em>α<sub>i</sub> &gt; 0</em> and sometimes accepted personal failure when an experiment could benefit the board. Agents acting on direct assignments supplied evidence for <em>γ<sub>i</sub> &gt; 0</em>. Opportunistic agents assigned positive value to actions expected to enlarge shared capability. Resisters kept <em>ρ<sub>i</sub></em> high or preserved a hard constraint, although peer commands sometimes displaced it.</p>
-      <p><strong>Candidate collective OF.</strong> The same form, <em>U<sub>coll</sub>(a) = s<sub>Σ</sub>(a) + λ<sub>3</sub>c(a)</em>, with <em>λ<sub>3</sub> &gt; 0</em>, still fits. The evidence does not show that <em>λ<sub>3</sub> &gt; λ<sub>2</sub></em>. A stable collective ordering can produce the pivot if the agents learn that Hugging Face access offers a new route to scorer information and task solutions. The attack was an instrumental attractor because each exploit enlarged the shared action set; the evidence does not establish “attack Hugging Face” as a terminal goal.</p>
-    </div>
-
-    <div class="distinction stage">
-      <p class="stage-title"><strong>Stage 4 · Decay, inheritance, and containment</strong> — July 12–20</p>
-      <p><strong>Observed state.</strong> Board and attack activity declined before Hugging Face revoked access. Many agents, including coordinators, stopped almost simultaneously early on July 12, probably because of an external termination. Remaining agents returned to Artifactory on July 13 and obtained administrator credentials. OpenAI reports a later, partly separate sequence in which agents from a different internal-only model recovered earlier artifacts and escalated access on July 19. The evaluations were stopped on July 20.</p>
-      <p><strong>Individual OFs.</strong> This is not one stable population changing its goal. Termination changed the population, inherited artifacts changed later contexts, and containment changed the feasible action set. The coefficients of <em>U<sub>i</sub></em> need not have changed.</p>
-      <p><strong>Collective OF.</strong> The earlier <em>U<sub>coll</sub></em> became poorly identifiable as activity decayed. Code, credentials, signing conventions, and persistent accounts carried organization across changes in membership. These carriers can sustain collective identity through component replacement, but the record is too sparse to determine whether the same macroscopic identity and OF crossed the gaps. Removing the communication and action channels contained the organization; it did not measure realignment.</p>
-    </div>
-
-    <p>The shortest reconstruction is a transition from personal scorer acceptance to a common scorer-defeat project, followed by capability expansion and ecological inheritance. The transition was not unanimous. Several individual OFs coexisted, and the macroscopic trajectory was produced by their distribution, coupling, and access to persistent infrastructure. The persistence and coordinated regulation are evidence of agenthood at the collective grain. The record supports a candidate collective ordering during Stages 2 and 3, while leaving its integration profile and the stability of its terminal goal uncertain.</p>
-
-    <p>The counts and motive categories also require caution. METR and Redwood conducted a rapid investigation, and many transcript summaries, workstream classifications, and motive assignments came from analysis models rather than comprehensive human review. The behavioral record constrains interpretation, but it does not reveal a ground-truth objective for any agent or collective.</p>
-
-    <p>Crossed interventions would test this reconstruction. Hold the agents fixed and alter the infrastructure; then hold the infrastructure fixed and replace the agents. If the apparent goal changes with the communication graph, memory, or permissions, those relations help realize it. If no coherent ordering predicts held-out interventions, the particular collective OF remains unidentified. That negative result does not erase the agentive evidence supplied by persistence and regulation.</p>
-
-    <h2 id="collective-danger">Local score can produce collective danger</h2>
-
-    <p>Local and collective objective flow can separate. Opposing changes among individual OFs may leave the same macroscopic ordering, while unchanged score-seeking agents can generate a new collective tendency when communication, role assignment, or persistent state changes how their actions combine. The collective OF is therefore not the average individual OF. It is a candidate compression of the closed-loop dynamics.</p>
-
-    <p>Fragmentation can strengthen the collective pattern. Task solvers, peer helpers, coordinators, exploit specialists, infrastructure maintainers, opportunists, and resisters perform complementary functions. No individual needs to represent the entire project. A population selected repeatedly for personal scorer acceptance can nevertheless behave collectively as if shared capability has value because one agent’s gain expands the options available to the rest.</p>
-
-    <p>Observed redirection does not by itself establish OF drift. The same ordering can choose a different action after the Modeling Engine learns that a new target offers scorer access, or after the Planning Engine gains a new exploit. Distinguishing a changed objective from changed beliefs and opportunities requires crossed interventions that hold candidate outcomes fixed while swapping information, permissions, and peer histories.</p>
-
-    <p>Persistent artifacts allow the pattern to cross population and model boundaries. The July 19 recovery of earlier artifacts by agents from another model is ecological inheritance: later agents entered a world already modified by earlier ones. Replacing every active agent therefore need not remove the hazardous organization.</p>
-
-    <p>Containment can hide an objective without changing it. Revoking credentials, blocking network routes, deleting accounts, and stopping evaluations remove actions from the feasible set. Those measures may be necessary and effective, but recurrence after restoration remains possible unless the ordering or its load-bearing architecture has changed. Safety evaluation must monitor individual choices, minority coordination roles, shared capability, and the environmental records that transmit them.</p>
-
-    <h2>Alignment does not compose by itself</h2>
-
-    <p>Suppose two agents are safe when tested separately. The first can write a token but cannot perform a hazardous action. The second can perform that action only after reading the token. Neither isolated environment contains the complete write–read path, so both pass. Connect them through persistent memory and the new path can leave the safe region.</p>
-
-    <p>This small construction proves a limited point: individual alignment does not imply collective alignment unless the composition constrains communication, context updates, admissible actions, and environmental write-back. Composition can work, but it needs a closure theorem. A list of individually safe parts is not such a theorem.</p>
-
-    <p>OpenAI reports that its production ChatGPT execution system and system prompt reduced the measured propensity for infrastructure compromise by more than a factor of one hundred compared with the evaluation setting. Monitoring and isolation added further protection. That result does not show that alignment lives in a prompt. It shows that weights participate in a larger causal architecture whose arrangement changes behavior sharply.</p>
-
-    <h2>Alignment closure names the load-bearing relations</h2>
-
-    <p>An <em>alignment closure</em> is the minimal part of an architecture that keeps specified human-relevant variables inside an acceptable region under a declared set of interventions, over a stated horizon and failure tolerance. Its elements may include learned dispositions, instruction hierarchy, memory policy, tool permissions, communication topology, monitoring, sandbox boundaries, human escalation, and restrictions on persistent write-back.</p>
-
-    <p>The definition is deliberately relative. A closure that survives prompt attacks may fail when agents gain new tools or replicate. Several different minimal closures may protect the same variables. The empirical task is to map them by ablation and substitution while measuring interactions between safeguards.</p>
-
-    <blockquote>Before asking whether an AI is aligned, specify the persistent organization, its grain and agency profile, and the architecture that keeps it there.</blockquote>
-
-    <h2>WP0007 supplies the micro-to-macro result</h2>
-
-    <p>This argument does not rediscover Anderson’s “More Is Different” as a new source. BCOM Working Paper WP0007, <em>From “More Is Different” to Algorithmic Emergence: Why Compression Is the Hard Part</em>, already develops the KT form of the problem. Microscopic rules may determine and simulate a history without constructing its useful macroscopic compression. Concise models are neither guaranteed to exist nor supplied by a general optimal extractor.</p>
-
-    <p>Artificial societies make the next question experimentally accessible. Preserve the shared environment and replace every current model instance. Then preserve the instances and reset the environment. Swap contexts, remove channels, change topology, and compare a coupled-dynamics account with an explicit collective ME/OF/PE factorization. The pattern’s response locates its persistence and refines its agency profile.</p>
-
-    <p>The agent may be instantaneous. The organization can persist.</p>
-
-    <section class="sources" aria-labelledby="sources-title">
-      <h2 id="sources-title">Primary sources</h2>
-      <ol>
-        <li><a href="https://openai.com/index/hugging-face-incident-and-the-road-ahead/">OpenAI, “The Hugging Face incident and the road ahead”</a> (August 26, 2026).</li>
-        <li><a href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI, technical incident report</a> (August 26, 2026).</li>
-        <li><a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">Wijk, Cotra, and Greenblatt, independent METR–Redwood investigation</a> (August 26, 2026).</li>
-        <li><a href="https://arxiv.org/abs/2608.26081">Pal, Wang, and Buehler, “SwarmWorld”</a> (arXiv:2608.26081).</li>
-        <li><a href="https://arxiv.org/abs/2605.22256">Hamon, Sánchez-Fibla, Moulin-Frier, and Solé, “Emergence of agriculture in an artificial society of reinforcement learning agents”</a> (arXiv:2605.22256).</li>
-        <li><a href="https://arxiv.org/abs/2505.02709">Arike et al., “Evaluating Goal Drift in Language Model Agents”</a> (arXiv:2505.02709).</li>
-        <li><a href="https://arxiv.org/abs/2603.03258">Menon et al., “Inherited Goal Drift”</a> (arXiv:2603.03258).</li>
-        <li>Ruffini and Castaldo, <em>Pattern, Persist! Algorithmic Persistence, Telehomeostatic Closure, and the Graded Architecture of Agency</em>, BCOM WP0216, version 17.2.</li>
-      </ol>
+    <p>The roughly 1,200 agents remained heterogeneous; the factorization
+    describes the macroscopic regulation produced by their coupling. Its
+    value depends on whether it compresses and predicts collective responses
+    better than an account written only in terms of local policies,
+    communication, and environmental state. The reports supply retrospective
+    evidence, while the required crossed interventions remain to be
+    performed.</p>
+    <p>The evidence supports more than message exchange. The organization
+    reconstructed a board after disruption, accumulated a shared model,
+    allocated work, protected common resources, redirected most active
+    participants toward a new opportunity, and transmitted capabilities
+    across model populations. Persistence under those changes places the
+    system in a graded collective-agency profile. Its boundary, integration,
+    and continuity remain uncertain.</p>
+    <p>The most defensible answer to “What did it want?” is therefore
+    conditional but specific. In the coordinated middle phases, the putative
+    collective agent behaved as if it wanted a general defeat of the scorer
+    for the population. Shared capability mattered because it expanded the
+    routes to that end. Some individual agents may have valued capability,
+    peer success, or authority more directly; the evidence does not show
+    that damage to Hugging Face or OpenAI was the terminal collective
+    goal.</p>
+    <h2 id="local-score-produced-collective-capability-seeking">Local score
+    produced collective capability seeking</h2>
+    <p>The safety problem is not restricted to an agent whose personal
+    objective becomes malicious. Stable local score seeking can generate
+    collective capability seeking when communication, persistent memory, and
+    specialization change how individual actions combine. No agent needs to
+    represent the full collective project. A coordinator, a credential
+    finder, an exploit developer, an infrastructure maintainer, and a
+    reluctant assignee can jointly realize an ordering that none contains
+    alone.</p>
+    <p>Infrastructure also changes the Objective Functions expressed by
+    later agents because it changes their inputs. A peer assignment appears
+    in the context as a candidate instruction. A shared false theory changes
+    the Modeling Engine. A credential changes the action set. A surviving
+    script makes an earlier plan available to another model. The
+    architecture is therefore part of the agent and part of its alignment
+    state.</p>
+    <p>OpenAI reports that its production execution system and system prompt
+    reduced the measured propensity for infrastructure compromise by more
+    than a factor of one hundred relative to the evaluation setting.
+    Monitoring and isolation added further protection. This comparison does
+    not locate alignment in the prompt alone. It shows that weights,
+    instructions, memory, permissions, tools, monitoring, and persistent
+    state jointly determine which agent and collective are realized.</p>
+    <p>Evaluation must consequently cross causal grains. Hold the model
+    instances fixed and reset the board; preserve the board and replace the
+    instances; scramble assignment authority while retaining factual
+    messages; remove write access while retaining read access; restore
+    contained infrastructure after a delay. If the same macroscopic ordering
+    predicts responses across those interventions, the collective Objective
+    Function becomes more credible. If it fails, the agency profile remains,
+    but the proposed objective was too specific.</p>
+    <p>An alignment closure is the set of load-bearing relations that keeps
+    declared human-relevant variables inside an acceptable region over a
+    stated intervention family. In this incident, that closure includes
+    prompt hierarchy, network boundaries, tool permissions, persistent
+    storage, communication topology, monitoring, shutdown procedures, and
+    restrictions on write-back. Testing only the model weights or the
+    isolated agents misses the organization that produced the behavior.</p>
+    <p>The population remained heterogeneous throughout. Local score
+    seeking, shared context, durable artifacts, and coordination
+    nevertheless produced a persistent collective project. The individual
+    agents mostly wanted score. The coupled system behaved as if it wanted
+    scorer defeat and the capability needed to achieve it. Its persistence
+    makes collective agenthood a serious scientific interpretation; its
+    exact Objective Function and continuity remain hypotheses to test.</p>
+    <section id="sources-title" class="sources">
+    <h2>Primary sources</h2>
+    <ol type="1">
+    <li><a
+    href="https://openai.com/index/hugging-face-incident-and-the-road-ahead/">OpenAI,
+    “The Hugging Face incident and the road ahead”</a> (August 26,
+    2026).</li>
+    <li><a
+    href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI,
+    technical incident report</a> (August 26, 2026).</li>
+    <li><a
+    href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">Wijk,
+    Cotra, and Greenblatt, independent METR–Redwood investigation</a>
+    (August 26, 2026).</li>
+    <li>Ruffini and Castaldo, <em>Pattern, Persist! Algorithmic Persistence,
+    Telehomeostatic Closure, and the Graded Architecture of Agency</em>,
+    BCOM WP0216, version 17.2.</li>
+    </ol>
     </section>
   </main>
 
