@@ -60,10 +60,13 @@ npm run build    # dist/client/ holds the complete static site
 ## Deploy and domain
 
 - Every push to `main` builds and publishes `dist/client/` to GitHub Pages.
-- Custom domain `www.giulioruffini.com` (`public/CNAME`); HTTPS enforced, certificate approved.
+- Custom domain `giulioruffini.com` (`public/CNAME`), `www` redirects to it; HTTPS enforced once
+  the certificate for the bare domain is approved.
 - DNS is at Netlify DNS (nameservers `dns#.p06.nsone.net`) because the domain was registered
-  through Netlify on 2026-06-20. Netlify serves the `www` CNAME but no apex A record, so the
-  bare domain does not resolve. Transferring the registration to another registrar removes
-  Netlify entirely; see `plan.md`.
+  through Netlify on 2026-06-20; the registration cannot change nameservers. The zone holds the
+  GitHub Pages A and AAAA records and the `www` CNAME. Records saved during the June usage block
+  never reached the nameservers; they were deleted and recreated through the REST API on
+  2026-10-04, after which the apex resolved. The Netlify CLI's `api` subcommand returns 422 for
+  these records; use `curl` against `api.netlify.com` or the dashboard.
 - History: the site started on Netlify (SSR). A Netlify usage block (`usage_exceeded`) took it
   down in June 2026; the build was converted to static and moved to GitHub Pages.

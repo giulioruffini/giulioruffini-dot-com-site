@@ -13,13 +13,11 @@ _Last updated: 2026-10-04_
 
 ## Open
 
-### P0 — Leave Netlify
-- [ ] Transfer the domain registration away from Netlify (unlock, authorization code, new registrar).
-- [ ] At the new registrar: apex A records 185.199.108.153 / .109.153 / .110.153 / .111.153,
-      `www` CNAME → `giulioruffini.github.io`.
-- [ ] Set the Pages custom domain back to `giulioruffini.com` (www then redirects to the apex);
-      change `public/CNAME` to match.
-- [ ] Delete the Netlify site and account.
+### P0 — Domain
+- [x] Apex `giulioruffini.com` resolves to GitHub Pages (A + AAAA records live 2026-10-04).
+- [x] Pages custom domain set to the bare domain; `www` redirects.
+- [ ] Optional: transfer the registration away from Netlify (support ticket for the authorization
+      code, then re-enter the same records at the new registrar).
 
 ### P1 — Content
 - [ ] Keep the reference pages and News in step with Calliope's public papers and the github.io source.

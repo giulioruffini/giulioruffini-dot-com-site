@@ -31,6 +31,6 @@ The reference pages and the News list mirror the github.io source. An edit goes 
 
 ## Deployment and domain
 
-GitHub Pages serves `dist/client/` under the custom domain `www.giulioruffini.com` (`public/CNAME`). The contact page is a `mailto:` link; there is no backend.
+GitHub Pages serves `dist/client/` under the custom domain `giulioruffini.com` (`public/CNAME`); `www` redirects to the bare domain. The contact page is a `mailto:` link; there is no backend.
 
-DNS is at Netlify DNS because the domain was registered through Netlify in June 2026, and Netlify-registered domains cannot change nameservers. Netlify publishes the `www` CNAME to `giulioruffini.github.io` but no apex A record, so the bare `giulioruffini.com` does not resolve. The fix is to transfer the registration to another registrar, add apex A records for GitHub Pages (185.199.108.153 through 185.199.111.153) and the `www` CNAME, then set the Pages custom domain back to the apex.
+The domain was registered through Netlify in June 2026, so DNS lives at Netlify DNS and the nameservers cannot be changed. The zone holds the GitHub Pages A records (185.199.108.153 through 185.199.111.153), the matching AAAA records, and the `www` CNAME to `giulioruffini.github.io`. Netlify's own CLI rejects apex records; edit them through the REST API or the dashboard. Moving the registration elsewhere needs a Netlify support ticket for the authorization code.
