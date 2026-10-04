@@ -102,6 +102,11 @@ It is a physically grounded, biophysically realistic platform that integrates st
 
 # All Computational Neuroscience related Publications
 
+#### 2026
+
+- **[Persistent infection and chronic neurological disease: reservoirs, CNS seeding, entrenchment, and neural erosion](https://doi.org/10.5281/zenodo.22131446)** (Zenodo)  
+  **Abstract summary:** Organizes infectious contributions to immune-mediated and neurodegenerative disease into one causal sequence (reservoir, seeding, engagement, response, entrenchment, erosion), anchored in reference disorders such as SSPE, PML, neuroHIV, VZV vasculopathy, EBV-associated multiple sclerosis, and post-HSV autoimmune encephalitis, with SARS-CoV-2 as a bridge case. Each less certain branch (HSV-1, HCMV, *Chlamydia pneumoniae*, periodontal communities, HHV-6/7) must name its reservoir, seeding route, local mediator, entrenchment mechanism, counterevidence, and falsifier.
+
 #### 2025
 
 - **[Neural Encoding through Hierarchical Amplitude Modulation](https://www.biorxiv.org/content/10.1101/2025.11.03.686310v1)** · [Zenodo](https://doi.org/10.5281/zenodo.21008677)  

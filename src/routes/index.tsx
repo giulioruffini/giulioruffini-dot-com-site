@@ -9,34 +9,51 @@ export const Route = createFileRoute('/')({
 
 const news = [
   {
+    date: 'October 2026',
+    title: 'From "More Is Different" to Algorithmic Emergence — accepted in Entropy',
+    href: 'https://doi.org/10.5281/zenodo.21008465',
+    links: [
+      { label: 'Preprints.org', href: 'https://doi.org/10.20944/preprints202607.0210.v1' },
+      { label: 'Code and examples', href: 'https://github.com/giulioruffini/WP0007-algorithmic-emergence' },
+    ],
+  },
+  {
+    date: 'September 2026',
+    title: 'The Good Algorithmic Regulator Theorem — Model It, Transmit It, or Leave It in the World, submitted to Entropy',
+    href: 'https://doi.org/10.20944/preprints202609.1967.v1',
+    links: [
+      { label: 'Preprints.org', href: 'https://doi.org/10.20944/preprints202609.1967.v1' },
+      { label: 'Zenodo', href: 'https://doi.org/10.5281/zenodo.21840363' },
+    ],
+  },
+  {
+    date: 'August 2026',
+    title: 'New preprint: Persistent infection and chronic neurological disease — reservoirs, CNS seeding, entrenchment, and neural erosion',
+    href: 'https://doi.org/10.5281/zenodo.22131446',
+    links: [],
+  },
+  {
+    date: 'August 2026',
+    title: 'New preprint: From Kolmogorov to Free Energy — data compression as a common problem for AIT, MDL, Bayes, and the FEP',
+    href: 'https://doi.org/10.5281/zenodo.22084394',
+    links: [],
+  },
+  {
+    date: 'August 2026',
+    title: 'Two KT preprints: Pattern, Persist! (review article) and What Flows When Information Is Conserved?',
+    href: 'https://doi.org/10.5281/zenodo.22033426',
+    links: [
+      { label: 'Pattern, Persist!', href: 'https://doi.org/10.5281/zenodo.22033426' },
+      { label: 'What Flows When Information Is Conserved?', href: 'https://doi.org/10.5281/zenodo.21976830' },
+    ],
+  },
+  {
     date: '2026',
     title: 'The Rosetta Stone of Neural Mass Models — published in Physics Reports',
     href: 'https://doi.org/10.1016/j.physrep.2026.05.004',
     links: [
       { label: 'Interactive companion site', href: 'https://bcom-foundation.github.io/bcom-rosetta-stone-web/' },
       { label: 'arXiv', href: 'https://arxiv.org/abs/2512.10982' },
-    ],
-  },
-  {
-    date: 'August 2026',
-    title: 'New preprint: The Algorithmic Regulation Balance — Model It, Transmit It, or Leave It in the World',
-    href: 'https://doi.org/10.5281/zenodo.21840363',
-    links: [],
-  },
-  {
-    date: 'July 2026',
-    title: 'New preprint: The cortical column as a tuned receiver — a network mechanism for temporal-interference stimulation',
-    href: 'https://doi.org/10.5281/zenodo.21009618',
-    links: [],
-  },
-  {
-    date: 'July 2026',
-    title: 'Three KT papers now on Preprints.org',
-    href: 'https://doi.org/10.20944/preprints202607.0418.v2',
-    links: [
-      { label: 'Pattern, Persist!', href: 'https://doi.org/10.20944/preprints202607.0418.v2' },
-      { label: 'Navigating Complexity', href: 'https://doi.org/10.20944/preprints202607.0265.v1' },
-      { label: 'Algorithmic Emergence', href: 'https://doi.org/10.20944/preprints202607.0210.v1' },
     ],
   },
 ]

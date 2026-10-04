@@ -1,79 +1,69 @@
 # Current State — giulioruffini.com
 
-_Last updated: 2026-06-20_
+_Last updated: 2026-10-04_
 
-Personal website for **Giulio Ruffini** — theoretical physicist & computational
-neuroscientist (Kolmogorov Theory; BCOM, Neuroelectrics, Starlab). Rebuilt from
-a Netlify-generated TanStack Start scaffold into a real, content-rich site with a
-custom "K&AI" color theme.
+Personal website for Giulio Ruffini. Rebuilt from a Netlify-generated TanStack Start
+scaffold into a static, content-driven site with the "K&AI" color theme.
 
 ## Stack
 
 | Layer | Tech |
 |-------|------|
-| Framework | TanStack Start (SSR) + TanStack Router v1 |
+| Framework | TanStack Start + TanStack Router v1 |
 | UI | React 19, Radix UI primitives |
 | Styling | Tailwind CSS v4 + CSS variables |
 | Content | @content-collections (type-safe markdown) |
-| Build | Vite 7 — **static prerender** (SSG, no server) |
-| Deploy | **GitHub Pages** via GitHub Actions (`.github/workflows/deploy.yml`) |
+| Build | Vite 7, static prerender (SSG, no server) |
+| Deploy | GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`) |
 
 ## Routes
 
 | Path | Source | Notes |
 |------|--------|-------|
-| `/` | `routes/index.tsx` | Hero, about strip, recent writing, CTA |
+| `/` | `routes/index.tsx` | Hero with starfield, News list, recent writing |
 | `/kt` | `routes/kt.tsx` → `content/pages/kt.md` | Kolmogorov Theory reference list |
 | `/neuroscience` | `routes/neuroscience.tsx` → `content/pages/neuroscience.md` | LaNMM / computational neuroscience |
-| `/stimulation` | `routes/stimulation.tsx` → `content/pages/stimulation.md` | tES publications (full history) |
-| `/blog` | `routes/blog/index.tsx` | 13 hosted essays + "Elsewhere" sections |
-| `/blog/$slug` | `routes/blog/$slug.tsx` | Local post detail (external posts link out) |
+| `/stimulation` | `routes/stimulation.tsx` → `content/pages/stimulation.md` | tES and the full publication list |
+| `/blog` | `routes/blog/index.tsx` | Writing: hosted essays + external sections (BCOM, Neuroelectrics, Math Corner, Substack) |
+| `/blog/$slug` | `routes/blog/$slug.tsx` | Local post detail; external posts link out |
+| `/art` | `routes/art.tsx` → `content/poems/` | Poems with images and a sticky index |
 | `/resume` | `routes/resume.tsx` | CV: jobs + education + bio |
-| `/contact` | `routes/contact.tsx` | Netlify Forms |
+| `/contact` | `routes/contact.tsx` | `mailto:` link, no backend |
 
-`ReferencePage` (`src/components/ReferencePage.tsx`) renders `pages` markdown via `marked`.
-`SiteNav` (`src/components/SiteNav.tsx`) is the responsive nav (desktop row + mobile hamburger).
+`ReferencePage` renders `pages` markdown via `marked`; `SiteNav` is the responsive nav;
+`Starfield` is the hero canvas.
 
 ## Content
 
-- **Source of truth:** mirrors `github.com/giulioruffini/giulioruffini.github.io`.
-  Reference pages (`content/pages/`) are copied verbatim from its `kt.md`,
-  `lanmm.md`, `tES.md`.
-- **Blog:** the 13 "hosted here" essays are content-collection entries linking to
-  the canonical hosted HTML (`externalUrl`). External sections (BCOM, Neuroelectrics,
-  Math Corner, Substack) are hardcoded in `blog/index.tsx`.
-- **Jobs / education / projects metadata:** `content/jobs`, `content/education`.
+- **Source of truth:** `github.com/giulioruffini/giulioruffini.github.io` (branch `recovery`).
+  Reference pages are copied from its `kt.md`, `lanmm.md`, `tES.md`; the News list mirrors
+  its `index.md`. Edits go to both repositories.
+- **Blog:** entries are content-collection records. Most link to the canonical HTML on
+  github.io (`externalUrl`); four are self-hosted under `public/blogs/`.
+- **Poems:** 37 published, curated through `poems-to-publish.csv`.
+- **Social preview:** `public/og.jpg` (1200×630) with Open Graph and Twitter meta in `__root.tsx`.
 
 ## Theme — "K&AI"
 
-Drawn from Giulio's Spotify artist art. Defined in `src/styles.css :root`:
-- Background: deep indigo-black `--ink: #09081a`, multi-hue mesh glow (`.mesh-bg`).
-- Primary accent: electric violet-blue `--champagne: #7a68ff` (var name kept for compat).
-- Secondary accent: chartreuse-lime `--lime: #c6e24f` (section labels, nav, stat numbers, dividers).
-- Fonts: Cormorant Garamond (display) + DM Sans (body).
-- `.prose-article` styles the rendered markdown (blog + reference pages).
+Defined in `src/styles.css :root`: deep indigo-black background (`--ink`), violet-blue primary
+accent (`--champagne`, legacy name), chartreuse secondary (`--lime`), Cormorant Garamond +
+DM Sans. `.prose-article` styles the rendered markdown.
 
 ## Build / run
 
 ```bash
 npm install
-npm run dev      # vite dev (port 5173, exposed for k.local on LAN)
-npm run build    # vite build -> static SSG into dist/client/ (per-route index.html)
+npm run dev      # port 5173, exposed for k.local on the LAN
+npm run build    # dist/client/ holds the complete static site
 ```
 
-The build prerenders every route to static HTML (`tanstackStart({ prerender })` in
-`vite.config.ts`). Output in `dist/client/` is a complete static site — no server.
+## Deploy and domain
 
-## Deploy — GitHub Pages
-
-- Repo: `github.com/giulioruffini/giulioruffini-dot-com-site`, branch `main`.
-- **`.github/workflows/deploy.yml`** builds and publishes `dist/client/` to GitHub
-  Pages on every push to `main` (Pages source must be set to "GitHub Actions").
-- `public/CNAME` = `giulioruffini.com`; `public/.nojekyll` disables Jekyll.
-- Contact form uses a **mailto:** handler (no backend) — `giulio@starlab.es`.
-- **DNS** (managed at Netlify DNS, nameservers `dns#.p06.nsone.net`): apex
-  `giulioruffini.com` → GitHub Pages A records (185.199.108–111.153);
-  `www` → CNAME `giulioruffini.github.io`.
-- History: previously on Netlify (TanStack Start SSR) but the Netlify account hit a
-  usage/credit limit → account-wide `usage_exceeded` 503. Migrated to static + Pages
-  to remove that dependency. (Separate user site `giulioruffini.github.io` is unaffected.)
+- Every push to `main` builds and publishes `dist/client/` to GitHub Pages.
+- Custom domain `www.giulioruffini.com` (`public/CNAME`); HTTPS enforced, certificate approved.
+- DNS is at Netlify DNS (nameservers `dns#.p06.nsone.net`) because the domain was registered
+  through Netlify on 2026-06-20. Netlify serves the `www` CNAME but no apex A record, so the
+  bare domain does not resolve. Transferring the registration to another registrar removes
+  Netlify entirely; see `plan.md`.
+- History: the site started on Netlify (SSR). A Netlify usage block (`usage_exceeded`) took it
+  down in June 2026; the build was converted to static and moved to GitHub Pages.

@@ -11,8 +11,14 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 - **[The Rosetta Stone of Neural Mass Models](https://doi.org/10.1016/j.physrep.2026.05.004)** (Physics Reports) · [arXiv](https://arxiv.org/abs/2512.10982) · [Interactive companion site](https://bcom-foundation.github.io/bcom-rosetta-stone-web/)  
   **Abstract summary:** A unifying ladder of neural mass models — from the harmonic and Stuart–Landau oscillators through Wilson–Cowan and Jansen–Rit to the exact mean-field Montbrió–Pazó–Roxin model — written in a single push–pull notation in which stimulation, pharmacology, and coupling all enter as forcing terms on the same underlying oscillator, turning model choice for tES studies into a principled design decision.
 
+- **[From "More Is Different" to Algorithmic Emergence: Regularity, Compression, and the Limits of Discovery](https://doi.org/10.5281/zenodo.21008465)** (Entropy, accepted October 2026) · [Preprints.org](https://doi.org/10.20944/preprints202607.0210.v1) · [Code and examples](https://github.com/giulioruffini/WP0007-algorithmic-emergence)  
+  **Abstract summary:** Knowing microscopic laws does not guarantee a short description of a retained history, a terminating method that finds one whenever it exists, or a uniformly near-optimal code. Algorithmic emergence is defined through an observer's acquisition of a reusable compressive model, with implementation cost and later coding gains counted.
+
 - **[The cortical column as a tuned receiver: a network mechanism for temporal-interference stimulation](https://doi.org/10.5281/zenodo.21009618)**  
   **Abstract summary:** Temporal-interference (TI) stimulation promises focal, steerable stimulation deep in the brain, where two high-frequency currents overlap and their amplitudes beat at a low difference frequency. Yet an amplitude-modulated field carries no power at that beat frequency, so no passive, linear neuron can follow it. This work resolves the puzzle by modeling the cortical column as a tuned, nonlinear receiver — a network mechanism that demodulates the beat.
+
+- **[Persistent infection and chronic neurological disease: reservoirs, CNS seeding, entrenchment, and neural erosion](https://doi.org/10.5281/zenodo.22131446)** (Zenodo)  
+  **Abstract summary:** Organizes infectious contributions to immune-mediated and neurodegenerative disease into one causal sequence (reservoir, seeding, engagement, response, entrenchment, erosion), anchored in reference disorders such as SSPE, PML, neuroHIV, VZV vasculopathy, EBV-associated multiple sclerosis, and post-HSV autoimmune encephalitis, with SARS-CoV-2 as a bridge case. Each less certain branch (HSV-1, HCMV, *Chlamydia pneumoniae*, periodontal communities, HHV-6/7) must name its reservoir, seeding route, local mediator, entrenchment mechanism, counterevidence, and falsifier.
 
 #### 2025
 
