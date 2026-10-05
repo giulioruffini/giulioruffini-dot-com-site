@@ -15,8 +15,7 @@ _Last updated: 2026-10-04_
 
 ### P0 — Domain
 - [x] Apex `giulioruffini.com` resolves to GitHub Pages (A + AAAA records live 2026-10-04).
-- [ ] Pages custom domain on the bare name: retry when GitHub issues the certificate (request stuck
-      in `dns_changed` on 2026-10-04; `www` restored meanwhile).
+- [x] Certificate for www + apex approved 2026-10-05; HTTPS enforced; apex redirects to www.
 - [ ] Optional: transfer the registration away from Netlify (support ticket for the authorization
       code, then re-enter the same records at the new registrar).
 

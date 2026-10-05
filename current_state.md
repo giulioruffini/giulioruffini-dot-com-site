@@ -61,8 +61,8 @@ npm run build    # dist/client/ holds the complete static site
 
 - Every push to `main` builds and publishes `dist/client/` to GitHub Pages.
 - Custom domain `www.giulioruffini.com` (`public/CNAME`); the bare domain resolves to GitHub Pages
-  and redirects to `www`. A switch to the bare name on 2026-10-04 left GitHub's certificate request
-  in `dns_changed` for over an hour, so the domain was put back on `www`; retry later.
+  and redirects to `www`. One certificate covers both names (approved 2026-10-05 after GitHub
+  support ticket #4823649 restarted a stalled issuance); HTTPS enforced.
 - DNS is at Netlify DNS (nameservers `dns#.p06.nsone.net`) because the domain was registered
   through Netlify on 2026-06-20; the registration cannot change nameservers. The zone holds the
   GitHub Pages A and AAAA records and the `www` CNAME. Records saved during the June usage block
