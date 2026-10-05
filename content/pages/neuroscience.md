@@ -104,6 +104,9 @@ It is a physically grounded, biophysically realistic platform that integrates st
 
 #### 2026
 
+- **[A whole-brain modeling framework for tDCS montage optimization in drug-resistant epilepsy](https://doi.org/10.64898/2026.09.22.26363221)** (medRxiv, September 2026)  
+  **Abstract summary:** A neurotwin pipeline for epilepsy tDCS that couples the biophysical head model of the induced field with a personalized whole-brain model of seizure dynamics constrained by structural connectivity and intracranial recordings. In 12 patients the network-informed and field-based optimizations produced different montages despite comparable inhibitory fields at the epileptogenic zone; the differences trace to a few propagation-zone and off-target parcels, often connectome hubs. In six treated patients the predicted spread reduction tracked clinical seizure-frequency change in the expected direction, not significantly; the hypothesis is under prospective test (NCT06334952).
+
 - **[Persistent infection and chronic neurological disease: reservoirs, CNS seeding, entrenchment, and neural erosion](https://doi.org/10.5281/zenodo.22131446)** (Zenodo)  
   **Abstract summary:** Organizes infectious contributions to immune-mediated and neurodegenerative disease into one causal sequence (reservoir, seeding, engagement, response, entrenchment, erosion), anchored in reference disorders such as SSPE, PML, neuroHIV, VZV vasculopathy, EBV-associated multiple sclerosis, and post-HSV autoimmune encephalitis, with SARS-CoV-2 as a bridge case. Each less certain branch (HSV-1, HCMV, *Chlamydia pneumoniae*, periodontal communities, HHV-6/7) must name its reservoir, seeding route, local mediator, entrenchment mechanism, counterevidence, and falsifier.
 

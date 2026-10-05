@@ -19,6 +19,12 @@ const news = [
   },
   {
     date: 'September 2026',
+    title: 'New preprint: A whole-brain modeling framework for tDCS montage optimization in drug-resistant epilepsy',
+    href: 'https://doi.org/10.64898/2026.09.22.26363221',
+    links: [{ label: 'medRxiv', href: 'https://www.medrxiv.org/content/10.64898/2026.09.22.26363221v1' }],
+  },
+  {
+    date: 'September 2026',
     title: 'The Good Algorithmic Regulator Theorem — Model It, Transmit It, or Leave It in the World, submitted to Entropy',
     href: 'https://doi.org/10.20944/preprints202609.1967.v1',
     links: [
