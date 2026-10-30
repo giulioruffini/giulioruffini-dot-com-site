@@ -10,12 +10,27 @@ export const Route = createFileRoute('/')({
 const news = [
   {
     date: 'October 2026',
-    title: 'From "More Is Different" to Algorithmic Emergence — accepted in Entropy',
-    href: 'https://doi.org/10.5281/zenodo.21008465',
+    title: 'The Good Algorithmic Regulator Theorem — Model It, Transmit It, or Leave It in the World, published in Entropy 28, 1182',
+    href: 'https://doi.org/10.3390/e28111182',
+    links: [
+      { label: 'Preprints.org', href: 'https://doi.org/10.20944/preprints202609.1967.v1' },
+      { label: 'Zenodo', href: 'https://doi.org/10.5281/zenodo.21840363' },
+    ],
+  },
+  {
+    date: 'October 2026',
+    title: 'From "More Is Different" to Algorithmic Emergence — published in Entropy 28, 1090',
+    href: 'https://doi.org/10.3390/e28101090',
     links: [
       { label: 'Preprints.org', href: 'https://doi.org/10.20944/preprints202607.0210.v1' },
       { label: 'Code and examples', href: 'https://github.com/giulioruffini/WP0007-algorithmic-emergence' },
     ],
+  },
+  {
+    date: 'October 2026',
+    title: 'New preprint: cyto7, an open, vertex-level cortical type atlas of the human cortex',
+    href: 'https://doi.org/10.64898/2026.10.01.755866',
+    links: [{ label: 'Zenodo', href: 'https://doi.org/10.5281/zenodo.23063166' }],
   },
   {
     date: 'September 2026',
@@ -25,12 +40,9 @@ const news = [
   },
   {
     date: 'September 2026',
-    title: 'The Good Algorithmic Regulator Theorem — Model It, Transmit It, or Leave It in the World, submitted to Entropy',
-    href: 'https://doi.org/10.20944/preprints202609.1967.v1',
-    links: [
-      { label: 'Preprints.org', href: 'https://doi.org/10.20944/preprints202609.1967.v1' },
-      { label: 'Zenodo', href: 'https://doi.org/10.5281/zenodo.21840363' },
-    ],
+    title: 'New preprint: Large-Language Models as a Cognitive Virus, with Ricard Solé and colleagues',
+    href: 'https://arxiv.org/abs/2609.03344',
+    links: [{ label: 'Preprints.org', href: 'https://doi.org/10.20944/preprints202609.1536.v1' }],
   },
   {
     date: 'August 2026',
