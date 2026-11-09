@@ -66,6 +66,36 @@ const news = [
     ],
   },
   {
+    date: 'August 2026',
+    title: 'Variational autoencoder for explainable seizure onset phases detection (Capallera, Mercadal, Bartolomei, Ruffini), published in Journal of Neural Engineering 23, 046004',
+    href: 'https://doi.org/10.1088/1741-2552/ae7d56',
+    links: [],
+  },
+  {
+    date: 'July 2026',
+    title: 'Cross-Frequency Coupling as a Neural Substrate for Prediction Error Evaluation, published in Neural Computation 38, 1299–1343',
+    href: 'https://doi.org/10.1162/neco.a.1537',
+    links: [{ label: 'bioRxiv', href: 'https://www.biorxiv.org/content/10.1101/2025.03.19.644090v3' }],
+  },
+  {
+    date: 'June 2026',
+    title: 'Restoring oscillatory dynamics in Alzheimer\'s disease — a laminar whole-brain model of serotonergic psychedelic effects, published in Network Neuroscience 10, 303–328',
+    href: 'https://doi.org/10.1162/netn.a.540',
+    links: [{ label: 'bioRxiv', href: 'https://www.biorxiv.org/content/10.1101/2024.12.15.628565v4' }],
+  },
+  {
+    date: 'April 2026',
+    title: 'Emergence of multifrequency activity in a laminar neural mass model, published in PLoS Computational Biology 22, e1014022',
+    href: 'https://doi.org/10.1371/journal.pcbi.1014022',
+    links: [],
+  },
+  {
+    date: 'January 2026',
+    title: 'Fast interneuron dysfunction in the laminar neural mass model reproduces Alzheimer\'s oscillatory biomarkers, published in Human Brain Mapping 47, e70428',
+    href: 'https://doi.org/10.1002/hbm.70428',
+    links: [{ label: 'bioRxiv', href: 'https://www.biorxiv.org/content/10.1101/2025.03.26.645407v1' }],
+  },
+  {
     date: '2026',
     title: 'The Rosetta Stone of Neural Mass Models — published in Physics Reports',
     href: 'https://doi.org/10.1016/j.physrep.2026.05.004',
@@ -73,6 +103,12 @@ const news = [
       { label: 'Interactive companion site', href: 'https://bcom-foundation.github.io/bcom-rosetta-stone-web/' },
       { label: 'arXiv', href: 'https://arxiv.org/abs/2512.10982' },
     ],
+  },
+  {
+    date: 'October 2025',
+    title: 'Personalized whole-brain models of seizure propagation (Lopez-Sola, Mercadal, Lleal-Custey, Salvador, Sanchez-Todo, Wendling, Bartolomei, Ruffini), published in Journal of Neural Engineering 22, 056019',
+    href: 'https://doi.org/10.1088/1741-2552/ae08e9',
+    links: [{ label: 'bioRxiv', href: 'https://www.biorxiv.org/content/10.1101/2025.05.15.654238v3' }],
   },
 ]
 

@@ -104,6 +104,24 @@ It is a physically grounded, biophysically realistic platform that integrates st
 
 #### 2026
 
+- **[Higher signal diversity, network dysregulation, and increased well-being under DMT administration: An EEG study](https://doi.org/10.1016/j.brainres.2026.150530)** (Brain Research 1892, 150530, December 2026)  
+  **Abstract summary:** EEG from 13 participants under intravenous DMT versus placebo. DMT reduced broadband symbolic-mutual-information connectivity, segregation, and efficiency, most in alpha and beta over posterior and frontoparietal regions; Higuchi fractal dimension and permutation entropy rose in beta and gamma, fell in delta, theta, and alpha, and tracked subjective intensity, as did the beta-to-alpha ratio and frontal alpha asymmetry.  
+
+- **[Variational autoencoder for explainable seizure onset phases detection](https://doi.org/10.1088/1741-2552/ae7d56)** (Journal of Neural Engineering 23, 046004, August 2026)  
+  **Abstract summary:** A one-dimensional variational autoencoder encodes 2-second SEEG segments into a 60-dimensional latent space and classifies them as interictal, ictal, or low-voltage fast activity, yielding per-channel onset markers at 0.5 s resolution. Trained and cross-validated on 37 patients with manual annotations, it reaches an ictal recall of 0.84 (0.91 on seizure-onset-zone channels) and detects seizures with 99.1% recall at 1% false positives; the latent dimensions track amplitude, band power, and spectral flatness.  
+
+- **[Cross-Frequency Coupling as a Neural Substrate for Prediction Error Evaluation: A Laminar Neural Mass Modeling Approach](https://doi.org/10.1162/neco.a.1537)** (Neural Computation 38, 1299–1343, July 2026) · [bioRxiv](https://www.biorxiv.org/content/10.1101/2025.03.19.644090v3)  
+  **Abstract summary:** Predictive coding frameworks suggest that neural computations rely on hierarchical error minimization, where sensory signals are evaluated against internal model predictions. The paper proposes laminar cross-frequency coupling in the LaNMM as the circuit mechanism that evaluates prediction error, and applies it to Alzheimer's disease and psychedelics.  
+
+- **[Restoring oscillatory dynamics in Alzheimer's disease: A laminar whole-brain model of serotonergic psychedelic effects](https://doi.org/10.1162/netn.a.540)** (Network Neuroscience 10, 303–328, June 2026) · [bioRxiv](https://www.biorxiv.org/content/10.1101/2024.12.15.628565v4)  
+  **Abstract summary:** Personalized laminar whole-brain models of 30 patients with mild to moderate Alzheimer's disease simulate serotonin 2A receptor activation by raising the excitability of layer 5 pyramidal neurons. The models reproduce the alpha suppression and gamma enhancement seen under psychedelics, the shifts track the regional 5-HT2A receptor density, and simulated EEG complexity and entropy increase.  
+
+- **[Emergence of multifrequency activity in a laminar neural mass model](https://doi.org/10.1371/journal.pcbi.1014022)** (PLoS Computational Biology 22, e1014022, April 2026)  
+  **Abstract summary:** A dynamical-systems analysis of the laminar neural mass model. Bifurcation analysis and simulation show periodic, quasiperiodic, and chaotic regimes and the emergence of delta–gamma, theta–gamma, and alpha–gamma coupling; Alzheimer's-like parameter changes impair the multifrequency activity, and the dynamics persist when two masses are coupled.  
+
+- **[Fast Interneuron Dysfunction in Laminar Neural Mass Model Reproduces Alzheimer's Oscillatory Biomarkers](https://doi.org/10.1002/hbm.70428)** (Human Brain Mapping 47, e70428, January 2026) · [bioRxiv](https://www.biorxiv.org/content/10.1101/2025.03.26.645407v1)  
+  **Abstract summary:** Simulated fast (PV+) interneuron dysfunction followed by pyramidal cell loss in the LaNMM reproduces the biphasic M/EEG trajectory of Alzheimer's disease: early hyperexcitability with increased gamma and alpha power, then slowing and reduced power as the disease progresses.  
+
 - **[A whole-brain modeling framework for tDCS montage optimization in drug-resistant epilepsy](https://doi.org/10.64898/2026.09.22.26363221)** (medRxiv, September 2026)  
   **Abstract summary:** A neurotwin pipeline for epilepsy tDCS that couples the biophysical head model of the induced field with a personalized whole-brain model of seizure dynamics constrained by structural connectivity and intracranial recordings. In 12 patients the network-informed and field-based optimizations produced different montages despite comparable inhibitory fields at the epileptogenic zone; the differences trace to a few propagation-zone and off-target parcels, often connectome hubs. In six treated patients the predicted spread reduction tracked clinical seizure-frequency change in the expected direction, not significantly; the hypothesis is under prospective test (NCT06334952).
 
@@ -115,19 +133,37 @@ It is a physically grounded, biophysically realistic platform that integrates st
 
 #### 2025
 
+- **[Personalized whole-brain models of seizure propagation](https://doi.org/10.1088/1741-2552/ae08e9)** (Journal of Neural Engineering 22, 056019, October 2025) · [bioRxiv](https://www.biorxiv.org/content/10.1101/2025.05.15.654238v3)  
+  **Abstract summary:** Patient-specific whole-brain models of seizure propagation built from SEEG, MRI, and diffusion MRI, with a neural mass model at each network node; an evolutionary algorithm tunes global and regional excitability to match the empirical SEEG functional connectivity. The personalized models reproduce individual propagation patterns and simulate surgery, stimulation, and pharmacological interventions in one framework, revealing patient-specific responses and critical regions whose removal or modulation reduces seizure spread.  
+
+- **[Whole-Brain Models of Advanced Concentrative Absorption Meditation: Approaching Critical Dynamics through Jhāna](https://www.biorxiv.org/content/10.1101/2025.09.25.678574v2)** (bioRxiv, September 2025)  
+  **Abstract summary:** First-person reports, model-free analyses, and whole-brain models of 7T fMRI from advanced practitioners entering the eight jhāna states of advanced concentrative absorption meditation. The later states, candidates for minimal phenomenal experience, show increased large-scale integration and a shift toward near-critical dynamics that is largest in the default mode network; the trajectory across states is nonlinear.  
+
+- **[Bridging local and global dynamics: a biologically grounded model for cooperative and competitive interactions in the brain](https://www.biorxiv.org/content/10.1101/2025.07.09.663817v1)** (bioRxiv, July 2025) · [Zenodo](https://doi.org/10.5281/zenodo.21008809)  
+  **Abstract summary:** In a laminar whole-brain model, homologous long-range excitatory projections between parcels (slow-to-slow or fast-to-fast populations) produce positive correlations of infra-slow alpha envelopes and simulated BOLD, while heterologous projections produce anticorrelations. Personalized models for 60 subjects, with signed effective connectivity inferred from resting fMRI by maximum-entropy (Ising) fitting, reproduce static and dynamic functional connectivity and the gamma–BOLD and alpha–BOLD sign relations better than cooperative-only variants.  
+
+- **[Exploring Whole-Brain Dynamics of Epileptic Networks During tDCS Using Neural Mass Modeling](https://doi.org/10.1109/embc58623.2025.11254840)** (47th Annual International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC), July 2025)  
+  **Abstract summary:** A pipeline that couples finite-element modeling of the tDCS electric field with neural mass models of epileptogenic networks, used to study how weak fields change network connectivity and seizure propensity; simulated stimulation reduced the epileptiform activity of the propagation zones.  
+
 - **[Neural Encoding through Hierarchical Amplitude Modulation](https://www.biorxiv.org/content/10.1101/2025.11.03.686310v1)** · [Zenodo](https://doi.org/10.5281/zenodo.21008677)  
   **Abstract summary:** Hierarchical encoding is a structural element of the Free Energy Principle and related information-centric accounts of brain function, but a concrete circuit-level mechanism for it remains elusive. Here we examine Hierarchical Amplitude Modulation (HAM) ….  
-
-- **[Cross-Frequency Coupling as a Neural Substrate for Prediction Error Evaluation: A Laminar Neural Mass Modeling Approach](https://www.biorxiv.org/content/10.1101/2025.03.19.644090.abstract)**  
-  **Abstract summary:** Predictive coding frameworks suggest that neural computations rely on hierarchical error minimization, where sensory signals are evaluated against internal model predictions ….  
 
 - **[Structured dynamics in the algorithmic agent](https://pmc.ncbi.nlm.nih.gov/articles/PMC11765005/)**  
   **Abstract summary:** In the Kolmogorov Theory of Consciousness, algorithmic agents utilize inferred compressive models to track coarse-grained data produced by simplified world models, capturing ….  
 
-- **[Fast Interneuron Dysfunction in Laminar Neural Mass Model Reproduces Alzheimer's Oscillatory Biomarkers](https://www.biorxiv.org/content/10.1101/2025.03.26.645407.abstract)**  
-  **Abstract summary:** Alzheimer's disease (AD) is characterized by a progressive cognitive decline underpinned by disruptions in neural circuit dynamics.  
-
 #### 2024
+
+- **[Brain dynamics of classical psychedelics show paradoxical hierarchical flattening with increased complexity](https://www.biorxiv.org/content/10.1101/2024.12.21.629922v2)** (bioRxiv, December 2024) · [SSRN](https://doi.org/10.2139/ssrn.6137001)  
+  **Abstract summary:** Defines functional hierarchy by the brain's distance from thermodynamic equilibrium and applies it to psilocybin, LSD, and DMT. All three flatten the hierarchy, as loss of consciousness does, but displace the brain toward equilibrium while increasing the complexity of neural activity, a signature tied to the reconfiguration and differentiation of resting-state networks.  
+
+- **[tDCS montage optimization for the treatment of epilepsy using Neurotwins](https://doi.org/10.31641/nmj-rcwa5184)** (Neuromodec Journal, October 2024; conference abstract)  
+  **Abstract summary:** Conference abstract on the neurotwin approach to personalized tDCS montage optimization in epilepsy (Mercadal, Lopez-Sola, Guasch-Morgades, Lleal-Custey, Galán-Augé, Salvador, Sanchez-Todo, Wendling, Bartolomei, Ruffini).  
+
+- **[Advancing epilepsy treatment with computational modelling: From SEEG data to personalized models of seizure spread](https://hal.science/hal-05042586)** (conference paper, 2024)  
+  **Abstract summary:** Conference presentation of the SEEG-constrained personalized whole-brain models of seizure spread (Lopez-Sola, Mercadal, and colleagues).  
+
+- **[Optimization of tES montages in epilepsy: A computational modelling approach](https://hal.science/hal-05042589)** (conference paper, 2024)  
+  **Abstract summary:** Conference presentation of model-based tES montage optimization for epilepsy (Mercadal, Lopez-Sola, and colleagues).  
 
 - **[Neural geometrodynamics, complexity, and plasticity: a psychedelics perspective](https://www.mdpi.com/1099-4300/26/1/90)**  
   **Abstract summary:** We explore the intersection of neural dynamics and the effects of psychedelics in light of distinct timescales in a framework integrating concepts from dynamics, complexity, and ….  
@@ -141,12 +177,8 @@ It is a physically grounded, biophysically realistic platform that integrates st
 - **[NeoCOMM: A neocortical neuroinspired computational model for the reconstruction and simulation of epileptiform events](https://www.sciencedirect.com/science/article/pii/S0010482524010199)**  
   **Abstract summary:** Background: Understanding the pathophysiological dynamics that underline Interictal Epileptiform Events (IEEs) such as epileptic spikes, spike-and-waves or High-Frequency ….  
 
-- **[Restoring Oscillatory Dynamics in Alzheimer's Disease: A Laminar Whole-Brain Model of Serotonergic Psychedelic Effects](https://www.biorxiv.org/content/10.1101/2024.12.15.628565.abstract)**  
-  **Abstract summary:** Classical serotonergic psychedelics show promise in addressing neurodegenerative disorders such as Alzheimer's disease by modulating pathological brain dynamics ….  
-
 - **[Collapse of directed functional hierarchy under classical serotonergic psychedelics](https://www.biorxiv.org/content/10.1101/2024.12.21.629922.abstract)**  
   **Abstract summary:** It has been proposed that psychedelics induce profound functional changes to the hierarchical organisation of the human brain.  
-
 
 #### 2023
 
@@ -173,7 +205,6 @@ It is a physically grounded, biophysically realistic platform that integrates st
 
 - **[Model-driven tACS in Alzheimer's disease with personalized hybrid brain models](https://www.brainstimjrnl.com/article/S1935-861X(23)00804-5/fulltext)**  
   **Abstract summary:** Animal models suggest that 40 Hz induced gamma oscillations reduce Aβ and p-Tau deposition, which is considered central to Alzheimer's disease (AD) pathophysiology ….  
-
 
 - **[CONNECTIVITY PROFILES OF THE BRAIN AND THE IMPORTANCE OF HOMOTOPIC CONNECTIVITY FOR INFORMATION PROCESSING](https://www.ibroneuroreports.org/article/S2667-2421(23)01726-8/fulltext)**  
   **Abstract summary:** Methods: Functional connectomes derived from functional magnetic resonance imaging are an intuitive summary of various brain states.  
@@ -234,7 +265,6 @@ It is a physically grounded, biophysically realistic platform that integrates st
 - **[Evaluating optimal strategies for electric field dosimetry from intracranial electrodes](https://hal.science/hal-03388585/)**  
   **Abstract summary:** Intracranial electrodes are used clinically for diagnostic (eg in drug-refractory epilepsy) or therapeutic (deep brain stimulation, eg epilepsy) purposes.  
 
-
 - **[Personalized multichannel transcranial direct current electrical stimulation guided by SEEG in epilepsy: Clinical and neurophysiological effects](https://hal.science/hal-03469066/)**  
   **Abstract summary:** Personalized multichannel transcranial direct current electrical stimulation guided by SEEG in epilepsy: Clinical and neurophysiological effects - Archive ouverte HAL Accéder ….  
 
@@ -260,7 +290,6 @@ It is a physically grounded, biophysically realistic platform that integrates st
 - **[Evaluating complexity of fetal MEG signals: a comparison of different metrics and their applicability](https://www.frontiersin.org/articles/10.3389/fnsys.2019.00023/full)**  
   **Abstract summary:** In this work, we aim to investigate whether information based metrics of neural activity are a useful tool for the quantification of consciousness before and shortly after birth.  
 
-
 - **[Realistic modeling of ephaptic fields in the human brain](https://www.biorxiv.org/content/10.1101/688101.abstract)**  
   **Abstract summary:** Several decades of research suggest that weak electric fields may influence neural processing, including those induced by neuronal activity and recently proposed as substrate ….  
 
@@ -269,10 +298,8 @@ It is a physically grounded, biophysically realistic platform that integrates st
 
 - **[Resting eyes closed beta-phase high gamma-amplitude coupling deficits in children with attention deficit hyperactivity disorder](https://www.biorxiv.org/content/10.1101/598003.abstract)**  
   **Abstract summary:** Objective Attention-deficit hyperactivity disorder (ADHD) is the neurobehavioral disorder with the largest prevalence rate in childhood.  
-  
 
 #### 2018
-
 
 - **[Targeting brain networks with multichannel transcranial current stimulation (tCS)](https://www.sciencedirect.com/science/article/pii/S2468451118300564)**  
   **Abstract summary:** The brain is a complex, plastic, electrical network whose dysfunctions result in neurological disorders.  
@@ -296,13 +323,11 @@ It is a physically grounded, biophysically realistic platform that integrates st
 
 #### 2017
 
-
 - **[Lempel-Zip Complexity Reference](https://arxiv.org/abs/1707.09848)**  
   **Abstract summary:** The aim of this note is to provide some reference facts for LZW---mostly from Thomas and Cover\cite {Cover: 2006aa} and provide a reference for some metrics that can be derived ….  
 
 - **[Algorithmic complexity of EEG as a prognosis biomarker of neurodegeneration in idiopathic rapid eye movement behavior disorder (RBD)](https://www.biorxiv.org/content/10.1101/200543.abstract)**  
   **Abstract summary:** Rapid eye movement sleep (REM) behavior disorder (RBD) is a serious risk factor for neurodegenerative ailments such as Parkinson's disease (PD).  
-
 
 #### 2016
 
@@ -312,13 +337,10 @@ It is a physically grounded, biophysically realistic platform that integrates st
 - **[Evaluation of the electric field in the brain during transcranial direct current stimulation: a sensitivity analysis](https://ieeexplore.ieee.org/abstract/document/7591062/)**  
   **Abstract summary:** The use of computational modeling studies accounts currently for the best approach to predict the electric field (E-field) distribution in transcranial direct current stimulation.  
 
-
 #### 2015
 
 - **[Application of the reciprocity theorem to EEG inversion and optimization of EEG-driven transcranial current stimulation (tCS, including tDCS, tACS, tRNS)](https://arxiv.org/abs/1506.04835)**  
   **Abstract summary:** Multichannel transcranial current stimulation (tCS) systems offer the possibility of EEG-guided optimized, non-invasive brain stimulation.  
-
-
 
 #### 2014
 
@@ -328,14 +350,11 @@ It is a physically grounded, biophysically realistic platform that integrates st
 - **[Conscious brain-to-brain communication in humans using non-invasive technologies](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0105225&onwardjourney=584162_c1)**  
   **Abstract summary:** Human sensory and motor systems provide the natural means for the exchange of information between individuals, and, hence, the basis for human civilization.  
 
-
 - **[Quantitative EEG for Brain–Computer Interfaces](https://api.taylorfrancis.com/content/chapters/edit/download?identifierName=doi&identifierValue=10.1201/b17605-11&type=chapterpdf)**  
   **Abstract summary:** This chapter attempts to give different examples of applications of quantitative EEG (qEEG) for the realization of brain–computer interfaces (BCIs).  
 
-
 - **[Advanced Machine Learning for classification of EEG traits as Parkinson's biomarker](https://www.frontiersin.org/10.3389/conf.fninf.2014.18.00071/event_abstract)**  
   **Abstract summary:** We aim to develop non-invasive, low-cost preclinical markers for synucleinopathies (Parkinson's Disease-PD or Dementia with Lewy Bodies-DLB) with impact on ….  
-
 
 #### 2013
 
@@ -351,22 +370,18 @@ It is a physically grounded, biophysically realistic platform that integrates st
 - **[Guest editorial: special issue on noninvasive electromagnetic brain stimulation](https://ieeexplore.ieee.org/abstract/document/6514149/)**  
   **Abstract summary:** For several decades, electromagnetic brain stimulation for clinical applications has been investigated mainly with invasive techniques, such as deep brain stimulation (DBS), and this ….  
 
-
 #### 2012
 
 - **[Transcranial current brain stimulation (tCS): models and technologies](https://ieeexplore.ieee.org/abstract/document/6290404/)**  
   **Abstract summary:** In this paper, we provide a broad overview of models and technologies pertaining to transcranial current brain stimulation (tCS), a family of related noninvasive techniques ….  
 
-
 - **[The relationship between transcranial current stimulation electrode montages and the effect of the skull orbital openings](https://ieeexplore.ieee.org/abstract/document/6346060/)**  
   **Abstract summary:** Due to its low electric conductivity, the skull has a major impact on the electric field distribution in the brain in transcranial current stimulation (tCS).  
-
 
 #### 2005
 
 - **[Combined ICA-LORETA analysis of mismatch negativity](https://www.sciencedirect.com/science/article/pii/S1053811904007116)**  
   **Abstract summary:** A major challenge for neuroscience is to map accurately the spatiotemporal patterns of activity of the large neuronal populations that are believed to underlie computing in the ….  
-
 
 #### 2004
 
@@ -378,4 +393,3 @@ It is a physically grounded, biophysically realistic platform that integrates st
 
 - **[Comparison between an exact and a heuristic neural mass model with second-order synapses](https://recercat.cat/handle/2117/406318)**  
   **Abstract summary:** Neural mass models (NMMs) are designed to reproduce the collective dynamics of neuronal populations.  
-

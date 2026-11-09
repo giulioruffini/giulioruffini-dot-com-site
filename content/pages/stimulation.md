@@ -8,6 +8,33 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 
 #### 2026
 
+- **[Higher signal diversity, network dysregulation, and increased well-being under DMT administration: An EEG study](https://doi.org/10.1016/j.brainres.2026.150530)** (Brain Research 1892, 150530, December 2026)  
+  **Abstract summary:** EEG from 13 participants under intravenous DMT versus placebo. DMT reduced broadband symbolic-mutual-information connectivity, segregation, and efficiency, most in alpha and beta over posterior and frontoparietal regions; Higuchi fractal dimension and permutation entropy rose in beta and gamma, fell in delta, theta, and alpha, and tracked subjective intensity, as did the beta-to-alpha ratio and frontal alpha asymmetry.  
+
+- **[Paradoxical inhibition of autonomic output following cortical suppression: When inhibiting an inhibitor results in more (not less) inhibition](https://doi.org/10.1016/j.neuropsychologia.2026.109519)** (Neuropsychologia 230, 109519, September 2026)  
+  **Abstract summary:** Optimized inhibitory multichannel tDCS over the right ventrolateral prefrontal cortex strengthened, rather than weakened, the suppression of autonomic skin conductance responses in people with signs of cortical hyperexcitability (Joshi et al., 2024). The paper reads this paradox through precision predictive coding, cortical gain control, and inhibition-stabilized network models, arguing that suppressed excitatory drive can trigger a stabilizing inhibitory response.  
+
+- **[Variational autoencoder for explainable seizure onset phases detection](https://doi.org/10.1088/1741-2552/ae7d56)** (Journal of Neural Engineering 23, 046004, August 2026)  
+  **Abstract summary:** A one-dimensional variational autoencoder encodes 2-second SEEG segments into a 60-dimensional latent space and classifies them as interictal, ictal, or low-voltage fast activity, yielding per-channel onset markers at 0.5 s resolution. Trained and cross-validated on 37 patients with manual annotations, it reaches an ictal recall of 0.84 (0.91 on seizure-onset-zone channels) and detects seizures with 99.1% recall at 1% false positives; the latent dimensions track amplitude, band power, and spectral flatness.  
+
+- **[Optimized multichannel 4 mA vs conventional transcranial direct current stimulation for major depressive disorder: A randomized sham-controlled trial](https://doi.org/10.1038/s41380-026-03560-0)** (Molecular Psychiatry 31, 4632–4644, August 2026) · [medRxiv](https://www.medrxiv.org/content/10.1101/2025.02.12.25322157v2)  
+  **Abstract summary:** Seventy-one patients with unipolar depression were randomized to computationally optimized multichannel tDCS (seven small electrodes, about 4 mA total), conventional 2 mA tDCS, or sham. Both active arms reduced depressive symptoms relative to sham; the multichannel protocol acted earlier and more strongly, with response rates of 75%, 45%, and 20%, and also improved cognitive control and depression-related connectivity markers.  
+
+- **[Cross-Frequency Coupling as a Neural Substrate for Prediction Error Evaluation: A Laminar Neural Mass Modeling Approach](https://doi.org/10.1162/neco.a.1537)** (Neural Computation 38, 1299–1343, July 2026) · [bioRxiv](https://www.biorxiv.org/content/10.1101/2025.03.19.644090v3)  
+  **Abstract summary:** Predictive coding frameworks suggest that neural computations rely on hierarchical error minimization, where sensory signals are evaluated against internal model predictions. The paper proposes laminar cross-frequency coupling in the LaNMM as the circuit mechanism that evaluates prediction error, and applies it to Alzheimer's disease and psychedelics.  
+
+- **[Restoring oscillatory dynamics in Alzheimer's disease: A laminar whole-brain model of serotonergic psychedelic effects](https://doi.org/10.1162/netn.a.540)** (Network Neuroscience 10, 303–328, June 2026) · [bioRxiv](https://www.biorxiv.org/content/10.1101/2024.12.15.628565v4)  
+  **Abstract summary:** Personalized laminar whole-brain models of 30 patients with mild to moderate Alzheimer's disease simulate serotonin 2A receptor activation by raising the excitability of layer 5 pyramidal neurons. The models reproduce the alpha suppression and gamma enhancement seen under psychedelics, the shifts track the regional 5-HT2A receptor density, and simulated EEG complexity and entropy increase.  
+
+- **[Low intensity transcranial electric stimulation: Safety, ethical, legal regulatory and application guidelines (2017–2025: An update)](https://doi.org/10.1016/j.clinph.2025.2111436)** (Clinical Neurophysiology 184, 2111436, April 2026; endorsed by ESBS and IFCN)  
+  **Abstract summary:** Updated guideline on low-intensity tES (tDCS, otDCS, tACS, tRNS, tTIS) summarizing safety data from 2017 to 2025. Across more than 300,000 sessions in healthy participants and clinical populations no tES-related serious adverse event has been reported; moderate events are rare and tied to specific applications, and mild transient sensations are common.  
+
+- **[Emergence of multifrequency activity in a laminar neural mass model](https://doi.org/10.1371/journal.pcbi.1014022)** (PLoS Computational Biology 22, e1014022, April 2026)  
+  **Abstract summary:** A dynamical-systems analysis of the laminar neural mass model. Bifurcation analysis and simulation show periodic, quasiperiodic, and chaotic regimes and the emergence of delta–gamma, theta–gamma, and alpha–gamma coupling; Alzheimer's-like parameter changes impair the multifrequency activity, and the dynamics persist when two masses are coupled.  
+
+- **[Fast Interneuron Dysfunction in Laminar Neural Mass Model Reproduces Alzheimer's Oscillatory Biomarkers](https://doi.org/10.1002/hbm.70428)** (Human Brain Mapping 47, e70428, January 2026) · [bioRxiv](https://www.biorxiv.org/content/10.1101/2025.03.26.645407v1)  
+  **Abstract summary:** Simulated fast (PV+) interneuron dysfunction followed by pyramidal cell loss in the LaNMM reproduces the biphasic M/EEG trajectory of Alzheimer's disease: early hyperexcitability with increased gamma and alpha power, then slowing and reduced power as the disease progresses.  
+
 - **[The Rosetta Stone of Neural Mass Models](https://doi.org/10.1016/j.physrep.2026.05.004)** (Physics Reports) · [arXiv](https://arxiv.org/abs/2512.10982) · [Interactive companion site](https://bcom-foundation.github.io/bcom-rosetta-stone-web/)  
   **Abstract summary:** A unifying ladder of neural mass models — from the harmonic and Stuart–Landau oscillators through Wilson–Cowan and Jansen–Rit to the exact mean-field Montbrió–Pazó–Roxin model — written in a single push–pull notation in which stimulation, pharmacology, and coupling all enter as forcing terms on the same underlying oscillator, turning model choice for tES studies into a principled design decision.
 
@@ -34,8 +61,32 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 
 #### 2025
 
-- **[Cross-Frequency Coupling as a Neural Substrate for Prediction Error Evaluation: A Laminar Neural Mass Modeling Approach](https://www.biorxiv.org/content/10.1101/2025.03.19.644090.abstract)**  
-  **Abstract summary:** Predictive coding frameworks suggest that neural computations rely on hierarchical error minimization, where sensory signals are evaluated against internal model predictions ….  
+- **[Enhancing mental well-being through AI-generated art: Insights from EEG responses to Refik Anadol's Unsupervised at MoMA](https://doi.org/10.1016/j.aip.2025.102347)** (The Arts in Psychotherapy 96, 102347, November 2025) · [OSF preprint](https://osf.io/h6gvc_v1/)  
+  **Abstract summary:** Subjective and electrophysiological responses of participants before, during, and after engaging with Refik Anadol's AI data sculpture Unsupervised at MoMA, measured with EEG.  
+
+- **[Personalized whole-brain models of seizure propagation](https://doi.org/10.1088/1741-2552/ae08e9)** (Journal of Neural Engineering 22, 056019, October 2025) · [bioRxiv](https://www.biorxiv.org/content/10.1101/2025.05.15.654238v3)  
+  **Abstract summary:** Patient-specific whole-brain models of seizure propagation built from SEEG, MRI, and diffusion MRI, with a neural mass model at each network node; an evolutionary algorithm tunes global and regional excitability to match the empirical SEEG functional connectivity. The personalized models reproduce individual propagation patterns and simulate surgery, stimulation, and pharmacological interventions in one framework, revealing patient-specific responses and critical regions whose removal or modulation reduces seizure spread.  
+
+- **[Whole-Brain Models of Advanced Concentrative Absorption Meditation: Approaching Critical Dynamics through Jhāna](https://www.biorxiv.org/content/10.1101/2025.09.25.678574v2)** (bioRxiv, September 2025)  
+  **Abstract summary:** First-person reports, model-free analyses, and whole-brain models of 7T fMRI from advanced practitioners entering the eight jhāna states of advanced concentrative absorption meditation. The later states, candidates for minimal phenomenal experience, show increased large-scale integration and a shift toward near-critical dynamics that is largest in the default mode network; the trajectory across states is nonlinear.  
+
+- **[Transcranial Direct Current Stimulation of the Temporoparietal Junction in Autism Spectrum Disorder: Results of a Phase-IIa Randomized, Double-Blind, Sham-Controlled Feasibility Study](https://doi.org/10.1002/aur.70084)** (Autism Research 18, 1861–1876, September 2025)  
+  **Abstract summary:** Multicenter, randomized, sham-controlled Phase IIa trial of 10 sessions of 2 mA anodal tDCS over the bilateral temporoparietal junction added to social-cognitive training in 24 autistic youths aged 10 to 17. Recruitment feasibility was low (11% of those screened), retention and tolerability were high, no serious adverse events occurred, social responsiveness did not differ from sham after treatment, and secondary outcomes showed improved compulsive behavior and quality of life.  
+
+- **[The quantum-classical complexity of consciousness and orchestrated objective reduction](https://doi.org/10.3389/fnhum.2025.1630906)** (Frontiers in Human Neuroscience 19, 1630906, September 2025)  
+  **Abstract summary:** Perspective on the orchestrated objective reduction (Orch OR) model of consciousness and on the complexity of consciousness, surveying the estimated microtubule decoherence and collapse times (10⁻⁶ to 10⁻⁴ s) and the open question of how slower synaptic, membrane, and calcium dynamics could orchestrate quantum dynamics in the microtubule lattice.  
+
+- **[Group optimization methods for dose planning in tES](https://doi.org/10.1088/1741-2552/adf887)** (Journal of Neural Engineering, August 2025) · [bioRxiv](https://www.biorxiv.org/content/10.1101/2025.03.18.643934v1)  
+  **Abstract summary:** A group-level optimization framework for tES montages that uses several representative head models in place of one personalized MRI model. In leave-one-out validation on 54 subjects it outperformed template-based and randomly chosen individual models and reduced the inter-subject variability of the induced field; head perimeter and tissue volumes predict the field parameters and guide the choice of representative models.  
+
+- **[Bridging local and global dynamics: a biologically grounded model for cooperative and competitive interactions in the brain](https://www.biorxiv.org/content/10.1101/2025.07.09.663817v1)** (bioRxiv, July 2025) · [Zenodo](https://doi.org/10.5281/zenodo.21008809)  
+  **Abstract summary:** In a laminar whole-brain model, homologous long-range excitatory projections between parcels (slow-to-slow or fast-to-fast populations) produce positive correlations of infra-slow alpha envelopes and simulated BOLD, while heterologous projections produce anticorrelations. Personalized models for 60 subjects, with signed effective connectivity inferred from resting fMRI by maximum-entropy (Ising) fitting, reproduce static and dynamic functional connectivity and the gamma–BOLD and alpha–BOLD sign relations better than cooperative-only variants.  
+
+- **[Exploring Whole-Brain Dynamics of Epileptic Networks During tDCS Using Neural Mass Modeling](https://doi.org/10.1109/embc58623.2025.11254840)** (47th Annual International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC), July 2025)  
+  **Abstract summary:** A pipeline that couples finite-element modeling of the tDCS electric field with neural mass models of epileptogenic networks, used to study how weak fields change network connectivity and seizure propensity; simulated stimulation reduced the epileptiform activity of the propagation zones.  
+
+- **[A Randomized Sham-Control Trial for Home-Based Transcranial Alternating Current Stimulation (tACS) in Alzheimer's Disease](https://www.medrxiv.org/content/10.1101/2025.04.14.25325464v1)** (medRxiv, April 2025)  
+  **Abstract summary:** Protocol for a randomized, double-blind, sham-controlled crossover pilot of model-driven personalized home-based 40 Hz tACS in mild Alzheimer's disease: 40 daily one-hour sessions over 8 weeks on bilateral dorsolateral prefrontal and temporal cortex, with safety, feasibility, and ADAS-Cog 13 as primary outcomes and MRI, EEG, TMS-EEG, and blood biomarkers as exploratory measures.  
 
 - **[Structured dynamics in the algorithmic agent](https://pmc.ncbi.nlm.nih.gov/articles/PMC11765005/)**  
   **Abstract summary:** In the Kolmogorov Theory of Consciousness, algorithmic agents utilize inferred compressive models to track coarse-grained data produced by simplified world models, capturing ….  
@@ -46,9 +97,6 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 - **[Preclinical insights into gamma-tACS: foundations for clinical translation in neurodegenerative diseases](https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2025.1549230/full)**  
   **Abstract summary:** Gamma transcranial alternating current stimulation (gamma-tACS) represents a novel neuromodulation technique with promising therapeutic applications across ….  
 
-- **[Fast Interneuron Dysfunction in Laminar Neural Mass Model Reproduces Alzheimer's Oscillatory Biomarkers](https://www.biorxiv.org/content/10.1101/2025.03.26.645407.abstract)**  
-  **Abstract summary:** Alzheimer's disease (AD) is characterized by a progressive cognitive decline underpinned by disruptions in neural circuit dynamics.  
-
 - **[Repeated net-tDCS of the hypothalamus appetite-control network enhances inhibitory control and decreases sweet food intake in persons with overweight or …](https://www.sciencedirect.com/science/article/pii/S1935861X25000944)**  
   **Abstract summary:** Background Reduced inhibitory control is associated with obesity and neuroimaging studies indicate that diminished prefrontal cortex activity influence eating behavior and metabolism ….  
 
@@ -57,9 +105,6 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 
 - **[Preliminary Evidence for Perturbation‐Based tACS‐EEG Biomarkers of Gamma Activity in Alzheimer's Disease](https://onlinelibrary.wiley.com/doi/abs/10.1002/gps.70025)**  
   **Abstract summary:** Background Alzheimer's disease (AD) is characterized by impaired inhibitory circuitry and GABAergic dysfunction, which is associated with reduced fast brain oscillations in the ….  
-
-- **[Group optimization methods for dose planning in transcranial electrical current stimulation (tES)](https://www.biorxiv.org/content/10.1101/2025.03.18.643934.abstract)**  
-  **Abstract summary:** Objective: Optimizing transcranial electrical stimulation (tES) parameters-including stimulator settings and electrode placements-using magnetic resonance imaging-derived ….  
 
 - **[Local and network changes after multichannel transcranial direct current stimulation using magnetoencephalography in patients with refractory epilepsy](https://www.sciencedirect.com/science/article/pii/S1388245724003651)**  
   **Abstract summary:** Objective Non-invasive neuromodulation techniques, particularly transcranial direct current stimulation (tDCS), are promising for drug-resistant epilepsy (DRE), though the mechanisms ….  
@@ -71,6 +116,24 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
   **Abstract summary:** Introduction: Transcranial direct current stimulation (tDCS) has been increasingly used in neuropsychiatric disorders, especially depression, in the last decade.  
 
 #### 2024
+
+- **[Brain dynamics of classical psychedelics show paradoxical hierarchical flattening with increased complexity](https://www.biorxiv.org/content/10.1101/2024.12.21.629922v2)** (bioRxiv, December 2024) · [SSRN](https://doi.org/10.2139/ssrn.6137001)  
+  **Abstract summary:** Defines functional hierarchy by the brain's distance from thermodynamic equilibrium and applies it to psilocybin, LSD, and DMT. All three flatten the hierarchy, as loss of consciousness does, but displace the brain toward equilibrium while increasing the complexity of neural activity, a signature tied to the reconfiguration and differentiation of resting-state networks.  
+
+- **[tDCS montage optimization for the treatment of epilepsy using Neurotwins](https://doi.org/10.31641/nmj-rcwa5184)** (Neuromodec Journal, October 2024; conference abstract)  
+  **Abstract summary:** Conference abstract on the neurotwin approach to personalized tDCS montage optimization in epilepsy (Mercadal, Lopez-Sola, Guasch-Morgades, Lleal-Custey, Galán-Augé, Salvador, Sanchez-Todo, Wendling, Bartolomei, Ruffini).  
+
+- **[Population-based optimization of transcranial electrical stimulation protocols](https://doi.org/10.31641/nmj-yfyo2850)** (Neuromodec Journal, October 2024; conference abstract)  
+  **Abstract summary:** Conference abstract on population-level optimization of tES protocols across representative head models (Salvador, Zhou, Damiani, Martens, Galán-Augé, Manor, Ruffini).  
+
+- **[Long-term Effect of Multichannel tDCS Protocol in Patients with Central Cortex Epilepsies Associated with Epilepsia Partialis Continua](https://doi.org/10.1007/s10548-024-01045-3)** (Brain Topography 37, 897–906, September 2024)  
+  **Abstract summary:** Three patients with drug-resistant epilepsia partialis continua received repeated five-day cycles of personalized multichannel cathodal tDCS (2 mA, 2 × 20 min) targeting the epileptogenic zone over 6 to 22 months. Seizure frequency fell by at least 75% in two patients and severe motor seizures ceased in one, without serious side effects; the continuous myoclonus of EPC was unchanged.  
+
+- **[Advancing epilepsy treatment with computational modelling: From SEEG data to personalized models of seizure spread](https://hal.science/hal-05042586)** (conference paper, 2024)  
+  **Abstract summary:** Conference presentation of the SEEG-constrained personalized whole-brain models of seizure spread (Lopez-Sola, Mercadal, and colleagues).  
+
+- **[Optimization of tES montages in epilepsy: A computational modelling approach](https://hal.science/hal-05042589)** (conference paper, 2024)  
+  **Abstract summary:** Conference presentation of model-based tES montage optimization for epilepsy (Mercadal, Lopez-Sola, and colleagues).  
 
 - **[Multichannel tDCS with advanced targeting for major depressive disorder: a tele-supervised at-home pilot study](https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2024.1427365/full)**  
   **Abstract summary:** Introduction Proof-of-principle human studies suggest that transcranial direct current stimulation (tDCS) over the dorsolateral prefrontal cortex (DLPFC) may improve depression ….  
@@ -102,23 +165,14 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 - **[Can transcranial direct current stimulation (tDCS) over the motor cortex increase endurance running performance? a randomized crossover-controlled trial](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0312084)**  
   **Abstract summary:** Transcranial direct current stimulation (tDCS), a non-invasive brain stimulation technique, has been shown to increase exercise performance in strength and cycling studies but its ….  
 
-- **[Optimized multichannel tDCS protocol for clinical use in patients with major depressive disorder: A randomized, controlled trial](https://osf.io/tms4h/download)**  
-  **Abstract summary:** Application of transcranial direct current stimulation (tDCS) has been increased in neuropsychiatric disorders, especially depression, in the last decade.  
-
 - **[Optimised Multi-Channel Transcranial Direct Current Stimulation (MtDCS) Reveals Differential Involvement of the Right-Ventrolateral Prefrontal Cortex …](https://www.sciencedirect.com/science/article/pii/S1053810023001472)**  
   **Abstract summary:** Research has shown a prominent role for cortical hyperexcitability underlying aberrant perceptions, hallucinations, and distortions in human conscious experience–even in ….  
 
 - **[Repeated net-tDCS of the hypothalamus appetite-control network reduces inhibitory control and sweet food intake in persons with overweight or obesity](https://www.medrxiv.org/content/10.1101/2024.12.11.24318873.abstract)**  
   **Abstract summary:** Background Reduced inhibitory control is associated with obesity and neuroimaging studies indicate that diminished prefrontal cortex activity influence eating behavior and metabolism ….  
 
-- **[Restoring Oscillatory Dynamics in Alzheimer's Disease: A Laminar Whole-Brain Model of Serotonergic Psychedelic Effects](https://www.biorxiv.org/content/10.1101/2024.12.15.628565.abstract)**  
-  **Abstract summary:** Classical serotonergic psychedelics show promise in addressing neurodegenerative disorders such as Alzheimer's disease by modulating pathological brain dynamics ….  
-
 - **[Collapse of directed functional hierarchy under classical serotonergic psychedelics](https://www.biorxiv.org/content/10.1101/2024.12.21.629922.abstract)**  
   **Abstract summary:** It has been proposed that psychedelics induce profound functional changes to the hierarchical organisation of the human brain.  
-
-- **[Exploring the Neural Impact of AI-Generated Art at MoMA: An EEG Study on Refik Anadol's Unsupervised](https://osf.io/h6gvc_v1/)**  
-  **Abstract summary:** This study investigates the subjective and electrophysiological responses of participants before, during, and after engaging with Refik Anadol's dynamic AI Data Sculpture" ….  
 
 - **[Exploring the neurophysiological effects of combined electrical and auditory stimulation in healthy subjects](https://orbi.uliege.be/handle/2268/320621)**  
   **Abstract summary:** Background: Today, effective treatments for patients suffering from disorders of consciousness are lacking.  
@@ -180,6 +234,9 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 
 #### 2022
 
+- **[Towards the identification and optimization of the "dose-response" relationship of transcranial direct current stimulation](https://www.biorxiv.org/content/10.1101/2022.01.22.477353v1)** (bioRxiv, January 2022)  
+  **Abstract summary:** In 12 older adults from a sham-controlled tDCS pilot, individualized finite-element models show the normal electric field over the left DLPFC varying by 21% across subjects; among the stimulated participants, larger normal fields predicted larger cognitive-motor gains, whereas the injected current did not. Retrospective montage optimization halves the field variability and reduces spill-over to other cortical areas.  
+
 - **[Toward noninvasive brain stimulation 2.0 in Alzheimer's disease](https://www.sciencedirect.com/science/article/pii/S1568163721003020)**  
   **Abstract summary:** Noninvasive brain stimulation techniques (NiBS) have gathered substantial interest in the study of dementia, considered their possible role in help defining diagnostic biomarkers of ….  
 
@@ -239,6 +296,9 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 - **[TH-230. Mechanistic understanding of Alzheimer's disease through hybrid brain models: from mesoscale to macroscale, and design of personalized …]()**  
 
 #### 2021
+
+- **[Personalization of Multi-electrode Setups in tCS/tES: Methods and Advantages](https://doi.org/10.1007/978-3-030-45623-8_7)** (in Brain and Human Body Modeling 2020, Springer, 2021, pp. 119–135)  
+  **Abstract summary:** Describes a pipeline for personalizing multichannel tCS montages from individual MRI-derived head models so that the induced electric field over the targets is homogeneous across subjects, and the advantages over fixed montages.  
 
 - **[Impact of multisession 40Hz tACS on hippocampal perfusion in patients with Alzheimer's disease](https://link.springer.com/article/10.1186/s13195-021-00922-4)**  
   **Abstract summary:** Background Alzheimer's disease (AD) is associated with alterations in cortical perfusion that correlate with cognitive impairment.  
@@ -314,6 +374,9 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 
 #### 2020
 
+- **[Noninvasive Brain Stimulation & Space Exploration: Opportunities and Challenges](https://doi.org/10.1016/j.neubiorev.2020.09.005)** (Neuroscience & Biobehavioral Reviews 119, 294–319, December 2020)  
+  **Abstract summary:** Review of the opportunities and challenges for noninvasive brain stimulation (TMS and tES) in long-duration spaceflight, where fluid shifts, intracranial pressure changes, radiation, and extreme environments produce cognitive, sleep, visuomotor, and psychological effects.  
+
 - **[Deep learning convolutional neural networks discriminate adult ADHD from healthy individuals on the basis of event-related spectral EEG](https://www.frontiersin.org/articles/10.3389/fnins.2020.00251/full)**  
   **Abstract summary:** Attention deficit hyperactivity disorder (ADHD) is a heterogeneous neurodevelopmental disorder that affects 5% of the pediatric and adult population worldwide.  
 
@@ -377,6 +440,9 @@ subtitle: "Publications on transcranial electrical stimulation (tDCS, tACS, tRNS
 - **[Transcranial Direct Current Stimulation Modulates Dysexecutive Deficits and its Neurophysiological Signatures in Attention-Deficit Hyperactivity Disorder]()**  
 
 #### 2019
+
+- **[Reduction of intratumoral brain perfusion by noninvasive transcranial electrical stimulation](https://doi.org/10.1126/sciadv.aau9309)** (Science Advances 5, eaau9309, August 2019)  
+  **Abstract summary:** Patients with glioblastoma or brain metastasis received multichannel tES with montages optimized by personalized biophysical modeling to maximize the field over the tumor; perfusion MRI showed a selective reduction of intratumoral perfusion, with no adverse effects.  
 
 - **[Deep learning with EEG spectrograms in rapid eye movement behavior disorder](https://www.frontiersin.org/articles/10.3389/fneur.2019.00806/full)**  
   **Abstract summary:** REM Behavior Disorder (RBD) is now recognized as the prodromal stage of α-synucleinopathies such as Parkinson's disease (PD).  
