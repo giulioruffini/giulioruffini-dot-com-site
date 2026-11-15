@@ -159,6 +159,10 @@ h1 em { font-style: italic; color: var(--band-coral); }
 .story > h2::before { content: ""; display: block; width: 2.25rem; height: 3px; margin-bottom: 1rem; background: var(--coral); }
 .story em { font-style: italic; }
 .story > .lede { font-size: 1.17em; line-height: 1.5; }
+/* Epigraph, as under the paper's first heading: indented, source ranged right */
+.epigraph { margin: 0 0 2.3rem; padding-left: clamp(1.25rem, 10%, 3.75rem); max-width: var(--measure); }
+.epigraph p { margin: 0; font-style: italic; line-height: 1.5; text-wrap: balance; }
+.epigraph footer { margin-top: 0.6rem; text-align: right; font-family: var(--util); font-size: 0.8125rem; letter-spacing: 0.03em; color: var(--muted); }
 .follow { padding-top: 0; }
 .follow > p:first-child { margin-top: 0; }
 
@@ -238,7 +242,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
   h1 span { display: block; }
   .hero-text { padding-block: 2.6rem clamp(3.25rem, 6vw, 4.75rem); }
   .hero-fig { max-width: none; }
-  .story > p, .story > h2 { max-width: min(var(--measure), calc(100% - var(--rail) - var(--gap))); }
+  .story > p, .story > h2, .story > .epigraph { max-width: min(var(--measure), calc(100% - var(--rail) - var(--gap))); }
   .rail { float: right; clear: right; width: var(--rail); max-width: none; margin: 0.45rem 0 2rem var(--gap); }
   .rail.fig .plate { max-width: none; }
   .lead-cap { margin-top: calc(var(--hang) - var(--lead) + 0.85rem); max-width: none; }
@@ -283,6 +287,11 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <div class="rail cap lead-cap" id="hero-cap"><strong>The comparison.</strong> A brain and a running emulator are each reduced to a simpler description that keeps selected variables and their dynamics. If the two retained organizations correspond, in matching states, the preservation hypothesis says the systems share the features of experience that this organization constitutes. Other aspects of their experience may differ.
         <span class="credit">Figure 1a of the paper. Illustration made with OpenAI’s image-generation tool.</span></div>
+
+    <blockquote class="epigraph">
+      <p>The objects and theorems of mathematics are as objective and independent of our free choice and our creative acts as is the physical world.</p>
+      <footer>Kurt Gödel, Gibbs Lecture, 1951</footer>
+    </blockquote>
 
     <p class="lede">In 2024, neuroscientists published a map of the neurons and synapses in the brain of an adult fruit fly. A computer model built on that map, with each neuron reduced to a unit that adds up its inputs and fires when they cross a threshold, reproduced the effects of selected interventions on the animal’s feeding and grooming circuits. The model eats nothing and grooms nothing. It is a table of numbers that a program updates.</p>
 
