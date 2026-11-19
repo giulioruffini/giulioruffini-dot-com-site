@@ -1,5 +1,7 @@
 # TODO — giulioruffini.com
 
+- [ ] Verify the November 19 WP0215 blog deployment: approved minor revision, state-merging figure, and previously held hypercomputation paragraph
+
 - [ ] when the Mercadal cooperation/competition paper (bioRxiv 2025.07.09.663817) and the two Vohryzek preprints are published, replace the preprint links on /neuroscience and All Publications
 - [ ] ask Ricard Solé where the cognitive-virus paper is under review; update its entries when it is published
 - [ ] optional: transfer the domain registration away from Netlify (support ticket for the authorization code; re-enter the same DNS records at the new registrar)

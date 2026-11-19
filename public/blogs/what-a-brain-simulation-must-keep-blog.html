@@ -17,6 +17,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="article:published_time" content="2026-11-15">
+<meta property="article:modified_time" content="2026-11-19">
 <meta name="twitter:card" content="summary_large_image">
 <title>What a Brain Simulation Must Keep</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -158,6 +159,7 @@ h1 em { font-style: italic; color: var(--band-coral); }
 }
 .story > h2::before { content: ""; display: block; width: 2.25rem; height: 3px; margin-bottom: 1rem; background: var(--coral); }
 .story em { font-style: italic; }
+.story sup { font-size: 0.68em; line-height: 0; vertical-align: baseline; position: relative; top: -0.5em; }
 .story > .lede { font-size: 1.17em; line-height: 1.5; }
 /* Epigraph, as under the paper's first heading: indented, source ranged right */
 .epigraph { margin: 0 0 2.3rem; padding-left: clamp(1.25rem, 10%, 3.75rem); max-width: var(--measure); }
@@ -272,7 +274,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
       </div>
       <div class="hero-text">
         <p class="deck">A computer model can reproduce a brain’s activity and behavior and still be organized differently inside. Which of the brain’s mathematical relations a model must preserve, if a feature of experience is to survive the copy, can be stated exactly and put to experiment.</p>
-        <p class="meta"><span>By <strong>Giulio Ruffini</strong> with <strong>Klaus</strong></span><span>November 2026</span><span>13-minute read</span></p>
+        <p class="meta"><span>By <strong>Giulio Ruffini</strong> with <strong>Klaus</strong></span><span>November 2026</span><span>14-minute read</span></p>
       </div>
       <div class="hero-fig plate" role="figure" aria-labelledby="hero-cap">
         <img src="what-a-brain-simulation-must-keep/hero.webp" width="886" height="884" alt="A brain and a circuit board labeled Running emulator. Each is reduced by an arrow labeled Coarse-graining to a small network of colored nodes and a looping trajectory labeled Retained dynamics. A two-headed arrow between the networks asks: Corresponding organization? A dashed arrow labeled Preservation hypothesis leads to the question: Shared experiential features?">
@@ -348,9 +350,24 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <h2>Exact copies share an update monoid</h2>
 
-    <p>Fix the content to be preserved and the operations allowed. A classical result of computer science, going back to Edward Moore and Anil Nerode in the 1950s, then gives a coarsest self-contained description that retains the content: merge any two states that no sequence of operations can tell apart. The description is unique up to the naming of its states. The result guarantees that it exists. It does not promise that it is small or within reach of experiment.</p>
+    <p>Fix the content to preserve and the operations allowed. For deterministic systems, a classical result going back to Edward Moore and Anil Nerode in the 1950s tells us which states we can merge: those that give the same content after every allowed sequence of operations. Combining them gives the coarsest self-contained description retaining that content, unique apart from the names of its states. The result guarantees that this description exists, without promising that it is small or within reach of experiment.</p>
+  </div>
+  <figure class="band-fig quotient-fig" aria-labelledby="quotient-caption">
+    <div class="wrap">
+      <div class="plate">
+        <picture>
+          <source media="(max-width: 44rem)" srcset="what-a-brain-simulation-must-keep/coarsest-counter-mobile.svg" width="520" height="840">
+          <img loading="lazy" decoding="async" src="what-a-brain-simulation-must-keep/coarsest-counter.svg" width="1320" height="790" alt="Successive mergers reduce eight counter states to four and then two. Blue states 0 and 4 merge, as do 2 and 6; those two blue groups then merge into Even. Coral states 1 and 5 merge, as do 3 and 7; those two groups then merge into Odd. The arrows show which states are combined. Even and Odd cannot merge without losing the chosen content.">
+        </picture>
+      </div>
+      <figcaption id="quotient-caption"><strong>Merge until only the required distinctions remain.</strong> A counter can use eight, four, or two states while keeping the same even/odd answer at every tick. The arrows show successive mergers. At two states we stop: merging Even and Odd would erase the distinction we chose to keep.
+        <span class="credit">An illustration of the coarsest-graining construction.</span></figcaption>
+    </div>
+  </figure>
+  <div class="wrap story follow">
 
-    <p>The updates of this description form a definite mathematical object. Each allowed operation changes the retained state, operations applied in sequence make a further update, and doing nothing counts as an update. A collection with these properties is a monoid, and this one is the system’s <em>update monoid</em>. Two deterministic systems that agree on the content after every sequence of operations have matching minimal descriptions on the states they can reach, with matching updates. Whatever else differs between a brain and an exact emulator, they share this much.</p>
+
+    <p>The updates of this description form a definite mathematical object. Each allowed operation acts on the retained state, operations applied in sequence make a further update, and doing nothing counts as an update. A collection with these properties is a monoid, and this one is the system’s <em>update monoid</em>. Two deterministic systems that agree on the content from their chosen starting states after every allowed sequence have matching minimal descriptions on the states they can reach, with matching updates. Whatever else differs between a brain and an exact emulator, they share this much.</p>
 
     <p>For one kind of system the update monoid can be written out in full. Take a system that keeps a record of something in the world, such as a compass heading, and suppose only two kinds of event occur. The world can turn, and the record turns with it. Or the system can observe the heading and overwrite its record. A turn can be undone, because turning back restores the old record. An observation cannot, because whatever the record held before, it now reads East.</p>
 
@@ -372,9 +389,9 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
   <div class="wrap story follow">
 
-    <p>The paper proves that, at the minimal description, the tracker’s update monoid contains nothing else. Every sequence of events acts either as a reversible turn or as an irreversible overwrite. The reversible updates form a group, which is a monoid in which every update can be undone; here it consists of the four turns, counting no turn. This group is the tracker’s <em>symmetry core</em>, and the overwrites are the part of the monoid that cannot be undone. The statement applies to digital systems and to models written as differential equations alike, and its proof has been checked by machine in the Lean proof assistant.</p>
+    <p>The paper proves that, at the minimal description, the tracker’s update monoid contains nothing else. Every sequence of events acts either as a reversible turn or as an irreversible overwrite. The reversible updates form a group, which is a monoid in which every update can be undone; here it consists of the four turns, counting no turn. This group is the tracker’s <em>symmetry core</em>, and the overwrites are the part of the monoid that cannot be undone. The statement applies to digital systems and to differential-equation models with resets alike, and its proof has been checked by machine in the Lean proof assistant.</p>
 
-    <p>The result constrains any machine that emulates the tracker exactly. A finite machine must contain, among its own updates, groups that map onto the tracker’s groups. A machine whose own update monoid contains no reversible cycle cannot reproduce the four-heading compass over all sequences of events, whatever its program.</p>
+    <p>The result constrains any machine that emulates the tracker exactly. A finite machine must contain, among its own updates, groups that map onto the tracker’s groups. A finite-state machine whose update monoid contains no nontrivial group cannot reproduce the four-heading compass exactly over all sequences of events, whatever its program.</p>
 
     <p>Different programs can also share a law. Euler’s method and the fourth-order Runge–Kutta method advance a simulation through different intermediate steps. Given the compiled code of both, and told neither the equation nor the method, an analysis of the programs recovers the same differential equation from each. The demonstration covers a restricted class of arithmetic programs. The equation is what the two programs share, and their step-by-step arithmetic differs.</p>
 
@@ -382,7 +399,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <h2>The human candidate is an agent that reports to itself</h2>
 
-    <p>For human experience the paper offers a conjecture. At a suitable boundary, which may include the body, human brain dynamics admit a self-contained description, identifiable through feasible experiments, that retains the organization necessary and sufficient for the features of experience under study. My candidate is the algorithmic agent with internal reports. The agent couples a modeling engine, which builds and runs models of the world and of the agent itself; an objective function, which evaluates and ranks the states those models represent; and a planning engine, which uses both to select actions.</p>
+    <p>For human experience the paper offers a conjecture. At a suitable boundary, which may include the body, human brain dynamics admit a self-contained description, identifiable through feasible experiments, that retains the organization necessary and sufficient for the features of experience under study. The coarse-graining must be fine enough to retain what a person reports to themselves or others, including how those reports are produced and used. These reports also provide evidence for testing it. My candidate is the algorithmic agent with internal reports. The agent couples a modeling engine, which builds and runs models of the world and of the agent itself; an objective function, which evaluates and ranks the states those models represent; and a planning engine, which uses both to select actions.</p>
 
     <figure class="rail fig">
       <div class="plate">
@@ -408,6 +425,8 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <p>Another objection holds that digital computers cannot approximate brain dynamics even in principle. The brain would then have to perform hypercomputation, a task that no Turing machine can carry out, and the objector must identify that task in brain dynamics and explain how its inputs are reliably prepared and its outputs read.</p>
 
+    <p>Physics limits what such a task could draw on. An ordinary computer may use unlimited memory and time, but each memory element holds one of finitely many symbols, and each answer arrives after finitely many steps. Under assumptions the paper states, a mechanism of that kind is computable, so a proposal to do more has to violate at least one of the assumptions. A neural network with a noncomputable connection weight gives up finite memory elements. It treats one bounded component as an unlimited read-only memory, read at ever finer resolution. An accelerating machine gives up finite steps and completes infinitely many before it answers. Where they apply, known physical bounds grant neither resource to a system of finite size and energy. Black-hole thermodynamics limits the information such a system can hold, to about 2.6 × 10<sup>42</sup> bits for the rest energy of a 1.5-kilogram mass within a radius of 6.7 centimeters, comparable to a human brain. Describing a voltage by a real number adds no capacity, because digits serve as memory only if the device can tell apart the alternatives they encode. Each step to a fully distinguishable state takes a minimum time set by the available energy, so infinitely many such steps in a finite time would require unlimited energy. A claim of hypercomputation in the brain must show that its complete setup, preparation and readout included, escapes these bounds.</p>
+
     <p>Integrated information theory shares the view that experience depends on realized structure and not on behavior alone. It differs on which structure counts. The theory grants experience only to maximally irreducible structures, each at one selected grain, and it concludes that a simulation on a stored-program computer does not share a brain’s experience. In the present account no grain is privileged, and an emulator shares each feature whose constitutive organization it realizes.</p>
 
     <h2>The tests start in human brains</h2>
@@ -420,7 +439,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <p>An investigator can also run such experiments on their own brain, comparing their experience under controlled stimulation with measurements and model predictions. The most direct test of substrate is still hypothetical. Neural circuits would be replaced gradually with artificial components that preserve the proposed organization, and the participant would compare experience along the way. Experience that persisted through a complete replacement would count against the claim that biology is necessary for any experience.</p>
 
-    <p>A candidate that survives these tests in people, with its update monoid, becomes a specification of what an emulator must preserve. Whether a given emulator meets it, including in its responses to matched interventions, has to be established separately.</p>
+    <p>Under the preservation hypothesis, a candidate that survives these tests in people becomes a specification of what an emulator must preserve, including its update monoid. Whether a given emulator meets it, including in its responses to matched interventions, has to be established separately.</p>
 
     
 
@@ -459,7 +478,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
     <div class="cols">
       <div><h3>Source</h3><p>Giulio Ruffini, <i>What Must a Brain Simulation Retain to Preserve Experience?</i> BCOM working paper WP0215 (2026), <a href="https://doi.org/10.5281/zenodo.24280672" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24280672</a>. The paper gives the formal statements, the proofs and the references for every study mentioned here.</p></div>
       <div><h3>Code and proofs</h3><p>Machine-checked proofs: <a href="https://github.com/giulioruffini/KTAIT" target="_blank" rel="noopener">github.com/giulioruffini/KTAIT</a>. Executable checks: <a href="https://github.com/giulioruffini/WP0215-brain-simulation-preservation" target="_blank" rel="noopener">github.com/giulioruffini/WP0215-brain-simulation-preservation</a>.</p></div>
-      <div><h3>About this essay</h3><p>The figures are taken from the paper. Klaus is a BCOM research agent running on Claude (Anthropic) and drafted the text from the paper with the author.</p></div>
+      <div><h3>About this essay</h3><p>The figures come from the paper, except for the state-merging illustration drawn for this essay. Klaus (Claude, Anthropic) drafted the essay with the author; Kaiti (Codex, OpenAI) revised it and prepared the new illustration.</p></div>
     </div>
     <p class="line"><span>Barcelona Computational Foundation · BCOM Blog · Companion to WP0215</span><span><a href="https://www.giulioruffini.com/blog">More writing at giulioruffini.com</a></span></p>
   </div>
