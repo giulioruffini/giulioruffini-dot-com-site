@@ -1,6 +1,6 @@
 # TODO — giulioruffini.com
 
-- [ ] Verify the November 19 WP0215 blog deployment: approved minor revision, state-merging figure, and previously held hypercomputation paragraph
+- [x] November 19: publish and verify the approved WP0215 blog revision, state-merging figure, and previously held hypercomputation paragraph (2f33083; successful deployment 44552701380)
 
 - [ ] when the Mercadal cooperation/competition paper (bioRxiv 2025.07.09.663817) and the two Vohryzek preprints are published, replace the preprint links on /neuroscience and All Publications
 - [ ] ask Ricard Solé where the cognitive-virus paper is under review; update its entries when it is published
