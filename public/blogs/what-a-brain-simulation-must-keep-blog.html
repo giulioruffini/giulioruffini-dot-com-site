@@ -7,9 +7,12 @@
 <meta name="author" content="Giulio Ruffini">
 <meta name="theme-color" content="#001A52">
 <link rel="canonical" href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog.html">
+<link rel="alternate" hreflang="en" href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog.html">
+<link rel="alternate" hreflang="es" href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog-es.html">
 <link rel="icon" href="/favicon.ico">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Giulio Ruffini">
+<meta property="og:locale" content="en_US">
 <meta property="og:title" content="What a Brain Simulation Must Keep">
 <meta property="og:description" content="A model can reproduce a brain’s activity and still be organized differently inside. What a brain simulation must preserve for a feature of experience to survive the copy.">
 <meta property="og:url" content="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog.html">
@@ -17,7 +20,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="article:published_time" content="2026-11-15">
-<meta property="article:modified_time" content="2026-11-19">
+<meta property="article:modified_time" content="2026-11-21">
 <meta name="twitter:card" content="summary_large_image">
 <title>What a Brain Simulation Must Keep</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -120,6 +123,8 @@ a:focus-visible, .plate:focus-visible { outline: 2px solid var(--coral); outline
 }
 .top a { color: var(--band-soft); text-decoration: none; }
 .top a:hover { color: var(--band-ink); text-decoration: underline; }
+.top { flex-wrap: wrap; row-gap: 0.35rem; }
+.top-links { display: flex; gap: 1.5rem; }
 .hero-grid { display: grid; gap: 0 var(--gap); margin-top: clamp(2.25rem, 6vw, 4.25rem); }
 .hero-head { min-width: 0; }
 .hero-text { min-width: 0; padding-block: 1.7rem 2.25rem; }
@@ -265,7 +270,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
   <div class="wrap">
     <nav class="top" aria-label="Site">
       <a href="https://www.giulioruffini.com/">Giulio Ruffini</a>
-      <a href="https://www.giulioruffini.com/blog">All writing</a>
+      <span class="top-links"><a href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog-es.html" lang="es" hreflang="es">Español</a><a href="https://www.giulioruffini.com/blog">All writing</a></span>
     </nav>
     <div class="hero-grid">
       <div class="hero-head">
@@ -274,7 +279,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
       </div>
       <div class="hero-text">
         <p class="deck">A computer model can reproduce a brain’s activity and behavior and still be organized differently inside. Which of the brain’s mathematical relations a model must preserve, if a feature of experience is to survive the copy, can be stated exactly and put to experiment.</p>
-        <p class="meta"><span>By <strong>Giulio Ruffini</strong> with <strong>Klaus</strong></span><span>November 2026</span><span>14-minute read</span></p>
+        <p class="meta"><span>By <strong>Giulio Ruffini</strong> with <strong>Klaus</strong></span><span>November 2026</span><span>15-minute read</span></p>
       </div>
       <div class="hero-fig plate" role="figure" aria-labelledby="hero-cap">
         <img src="what-a-brain-simulation-must-keep/hero.webp" width="886" height="884" alt="A brain and a circuit board labeled Running emulator. Each is reduced by an arrow labeled Coarse-graining to a small network of colored nodes and a looping trajectory labeled Retained dynamics. A two-headed arrow between the networks asks: Corresponding organization? A dashed arrow labeled Preservation hypothesis leads to the question: Shared experiential features?">
@@ -315,7 +320,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <p>Each choice is a coarse-graining, a decision about which distinctions to retain. The level of detail it keeps is its grain.</p>
 
-    <p>A coarse-graining is useful to science when it is self-contained: the retained variables, together with the inputs, determine their own future. Physics has familiar cases. Two masses joined by a spring vibrate as they travel, yet with no outside force their center of mass moves at constant velocity whatever the vibration, so its position and velocity form a closed description. Neuroscience has such cases too. For an idealized population of model neurons, under conditions the mathematics states exactly, the firing rate and the mean membrane voltage together obey two exact equations. The firing rate alone does not. Two populations with the same rate and different mean voltages evolve differently.</p>
+    <p>A coarse-graining is useful to science when it is self-contained: the retained variables, together with the inputs, determine their own future, exactly in the ideal case and to a stated accuracy in practice. Physics has familiar cases. Two masses joined by a spring vibrate as they travel, yet with no outside force their center of mass moves at constant velocity whatever the vibration, so its position and velocity form a closed description. Neuroscience has such cases too. For an idealized population of model neurons, under conditions the mathematics states exactly, the firing rate and the mean membrane voltage together obey two exact equations. The firing rate alone does not. Two populations with the same rate and different mean voltages evolve differently.</p>
 
     <p>A self-contained description can still lose what matters. A counter that cycles through 0, 1, 2 and 3 has a self-contained summary, even or odd, which flips at every tick and never needs more information. The summary has erased the difference between 0 and 2. If a feature of experience depended on that difference, the summary would run without error and the feature would be gone. Deciding what a simulation must keep therefore takes two separate checks, one for self-containment and one for content.</p>
 
@@ -326,7 +331,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
       <dl>
         <div><dt>H0 <span>· premise</span></dt><dd>Structured experience corresponds to the mathematical organization a system realizes. Every admissible coarse-graining of a system has its own structured experience, and no boundary or grain has exclusive status.</dd></div>
         <div><dt>H1 <span>· hypothesis</span></dt><dd>A feature of experience corresponds one to one with the organization that constitutes it. Systems share the feature exactly when they realize that organization in corresponding states or histories.</dd></div>
-        <div><dt>C1 <span>· conjecture</span></dt><dd>At a suitable system boundary, human brain dynamics admit a self-contained description, accessible to experiment, that retains the organization necessary and sufficient for the targeted features of experience.</dd></div>
+        <div><dt>C1 <span>· conjecture</span></dt><dd>At a suitable system boundary, human brain dynamics admit a self-contained description, accessible to experiment, that retains the organization necessary and sufficient for the targeted features of human experience.</dd></div>
         <div><dt>H2 <span>· working hypothesis</span></dt><dd>One algorithm can approximate the retained neural dynamics to any requested finite accuracy.</dd></div>
       </dl>
       <p>None of the four is proved. The paper’s theorems concern shared mathematical structure; their bearing on experience rests on these statements.</p>
@@ -350,7 +355,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <h2>Exact copies share an update monoid</h2>
 
-    <p>Fix the content to preserve and the operations allowed. For deterministic systems, a classical result going back to Edward Moore and Anil Nerode in the 1950s tells us which states we can merge: those that give the same content after every allowed sequence of operations. Combining them gives the coarsest self-contained description retaining that content, unique apart from the names of its states. The result guarantees that this description exists, without promising that it is small or within reach of experiment.</p>
+    <p>Fix the content to preserve and the operations allowed. For deterministic systems, a classical result going back to Edward Moore and Anil Nerode in the 1950s tells us which states we can merge: those that give the same content after every allowed sequence of operations. Combining them gives the coarsest self-contained description retaining that content, unique apart from the names of its states. The paper calls it the system’s minimal organization for that content. The result guarantees that it exists, without promising that it is small or within reach of experiment.</p>
   </div>
   <figure class="band-fig quotient-fig" aria-labelledby="quotient-caption">
     <div class="wrap">
@@ -367,7 +372,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
   <div class="wrap story follow">
 
 
-    <p>The updates of this description form a definite mathematical object. Each allowed operation acts on the retained state, operations applied in sequence make a further update, and doing nothing counts as an update. A collection with these properties is a monoid, and this one is the system’s <em>update monoid</em>. Two deterministic systems that agree on the content from their chosen starting states after every allowed sequence have matching minimal descriptions on the states they can reach, with matching updates. Whatever else differs between a brain and an exact emulator, they share this much.</p>
+    <p>The updates of this description form a definite mathematical object. Each allowed operation acts on the retained state, operations applied in sequence make a further update, and doing nothing counts as an update. A collection with these properties is a monoid, and this one is the system’s <em>update monoid</em>. Two deterministic systems that agree on the content from their chosen starting states after every allowed sequence carry the same minimal organization on the states they can reach, with matching updates. Whatever else differs between a brain and an exact emulator, they share this much.</p>
 
     <p>For one kind of system the update monoid can be written out in full. Take a system that keeps a record of something in the world, such as a compass heading, and suppose only two kinds of event occur. The world can turn, and the record turns with it. Or the system can observe the heading and overwrite its record. A turn can be undone, because turning back restores the old record. An observation cannot, because whatever the record held before, it now reads East.</p>
 
@@ -391,11 +396,13 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <p>The paper proves that, at the minimal description, the tracker’s update monoid contains nothing else. Every sequence of events acts either as a reversible turn or as an irreversible overwrite. The reversible updates form a group, which is a monoid in which every update can be undone; here it consists of the four turns, counting no turn. This group is the tracker’s <em>symmetry core</em>, and the overwrites are the part of the monoid that cannot be undone. The statement applies to digital systems and to differential-equation models with resets alike, and its proof has been checked by machine in the Lean proof assistant.</p>
 
-    <p>The result constrains any machine that emulates the tracker exactly. A finite machine must contain, among its own updates, groups that map onto the tracker’s groups. A finite-state machine whose update monoid contains no nontrivial group cannot reproduce the four-heading compass exactly over all sequences of events, whatever its program.</p>
+    <p>The result constrains any machine that emulates the tracker exactly. A finite machine must contain, among its own updates, groups that map onto the tracker’s groups. A finite-state machine whose update monoid contains no nontrivial group cannot reproduce the four-heading compass exactly over all sequences of events, whatever its program. An emulator that errs can still keep the whole monoid. If a deterministic emulator’s estimate always stays less than 45 degrees from the correct heading, the nearest of the four headings is always the right one, and on those headings it reproduces every turn and every overwrite exactly.</p>
+
+    <p>Insect brains are a place to look for such a tracker. In the fruit fly, a signal for the animal’s heading follows its turns in darkness, slowly drifting. It can persist when the fly stops and realign when a visual landmark shifts. In the tracker’s terms these are a turn, no turn, and, when the landmark fully fixes the new heading, an overwrite. Bumble bees appear to encode heading in a similar way, which gives a second animal in which to test for the same monoid.</p>
 
     <p>Different programs can also share a law. Euler’s method and the fourth-order Runge–Kutta method advance a simulation through different intermediate steps. Given the compiled code of both, and told neither the equation nor the method, an analysis of the programs recovers the same differential equation from each. The demonstration covers a restricted class of arithmetic programs. The equation is what the two programs share, and their step-by-step arithmetic differs.</p>
 
-    <p>Agreement therefore comes in levels. Two systems can compute the same function by different algorithms, run one algorithm as different programs, and run one program on different machinery. The mathematics identifies what is shared at each level. It does not say which level a feature of experience depends on, and the paper fixes none.</p>
+    <p>Agreement therefore comes in levels. Two systems can compute the same function by different algorithms, run one algorithm as different programs, and run one program on different machinery. The mathematics identifies what is shared at each level. It does not say which level a feature of experience depends on. Two systems share the features constituted by the organization they have in common, and they can differ in the features carried by whatever else they realize.</p>
 
     <h2>The human candidate is an agent that reports to itself</h2>
 
@@ -413,7 +420,9 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <p>Internal reports are part of the agent’s model. They are compressed records of past inputs and of the agent’s own earlier states, which the agent uses in modeling, evaluating and planning. A memoryless thermostat has none, since it maps the present temperature reading to a command. A navigation system that carries forward its estimates of position and velocity does. I hypothesize that the sense of continuing to be requires internal reports of a represented past that the system uses, and that such reports are probably not sufficient by themselves. Experience in general does not require reports.</p>
 
-    <p>A consequence concerns time. On this account, the duration an agent experiences between two events depends on its own activity between them: inputs processed, records formed and reused, actions simulated and evaluated. Running the emulator on a slower computer, or with more arithmetic steps per update, adds nothing to that activity. If the agent and its virtual world are slowed together, its experienced durations do not change. Greg Egan’s novel <i>Permutation City</i> follows people who live as software copies of their brains, and the paper thanks him for the inspiration.</p>
+    <p>A consequence concerns time. An agent has access to the past only through the records in its current model. On this account, the duration it experiences between two events depends on the records of intervening change that the model holds: reports created, contents updated, and any trace it keeps of the simulations and planning behind each action. Running the emulator on a slower computer, or with more arithmetic steps per update, adds nothing to those records. If the agent and its virtual world are slowed together, its experienced durations do not change. Greg Egan’s novel <i>Permutation City</i> follows people who live as software copies of their brains, and the paper thanks him for the inspiration.</p>
+
+    <p>Exact self-containment is an idealization. Even a laptop can leave the path its program predicts when a stray particle flips a bit. In a brain, details that a description leaves out can still influence what happens next, and from what it senses and remembers the brain builds approximate stories about itself and its world, which it uses to predict and act. I propose that to share the features of experience a person reports, an emulator must mirror the imperfect coarse-grainings through which that person builds and uses these stories. Such an emulator can follow a different path from the brain it copies, just as one person can diverge on repeated trials from the same retained state. An approximate copy needs one more assumption: that a feature of experience changes little when its organization changes little.</p>
 
     <h2>Biological objections become questions about detail</h2>
 
@@ -431,7 +440,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <h2>The tests start in human brains</h2>
 
-    <p>Humans are the reference case because first-person descriptions can be set beside neural measurements. A candidate description of brain dynamics is tested first for self-containment. Prepare the same retained state with different omitted details, apply the same inputs and stimulation, and check that a single law predicts what follows. It is tested next against experience. People are unresponsive under propofol, xenon and ketamine, yet the complexity of the brain’s response to a perturbation and the experiences reported afterward differ among the three, so responsiveness alone does not say what a person experienced. With a laser that stimulates selected cone cells in the retina, people have reported colors outside the ordinary gamut, and one can ask whether preserving the relations among patterns of receptor activity preserves the relations among experienced colors.</p>
+    <p>Humans are the reference case because first-person descriptions can be set beside neural measurements. A candidate description of brain dynamics is tested first for self-containment. Prepare the same retained state with different omitted details, apply the same inputs and stimulation, and check that a single law predicts what follows, to the stated accuracy. It is tested next against experience. People are unresponsive under propofol, xenon and ketamine, yet the complexity of the brain’s response to a perturbation and the experiences reported afterward differ among the three, so responsiveness alone does not say what a person experienced. With a laser that stimulates selected cone cells in the retina, people have reported colors outside the ordinary gamut, and one can ask whether preserving the relations among patterns of receptor activity preserves the relations among experienced colors.</p>
 
     <p>The same logic is being applied to mental health. At BCOM, the Algorithmic Neuropsychiatry program (ANPSY), led by Francesca Castaldo, is working toward a clinical system in which personalized brain and agent models, constrained by paired neural measurements, clinical assessments and structured first-person reports, would forecast how a given treatment changes a person’s neural activity, behavior and experience. Depression shows the kind of prediction at stake. An account that attributes reduced anticipated pleasure to impaired reward valuation predicts that anticipated pleasure rises when valuation is restored, with beliefs about reward availability held fixed. Predicting the brain, predicting experience and benefiting the patient are separate tests, and success on one does not establish the others.</p>
 
@@ -439,7 +448,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
     <p>An investigator can also run such experiments on their own brain, comparing their experience under controlled stimulation with measurements and model predictions. The most direct test of substrate is still hypothetical. Neural circuits would be replaced gradually with artificial components that preserve the proposed organization, and the participant would compare experience along the way. Experience that persisted through a complete replacement would count against the claim that biology is necessary for any experience.</p>
 
-    <p>Under the preservation hypothesis, a candidate that survives these tests in people becomes a specification of what an emulator must preserve, including its update monoid. Whether a given emulator meets it, including in its responses to matched interventions, has to be established separately.</p>
+    <p>Under the preservation hypothesis, a candidate that survives these tests in people becomes a specification of what an emulator must preserve, including its update monoid. Whether a given emulator meets it, including in its responses to matched interventions, has to be established separately. Emulation or mind uploading aimed at human experience has to begin by building that specification from neural measurements, interventions and first-person reports. Without it, no one can say what a given emulator preserves.</p>
 
     
 
@@ -460,7 +469,7 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
         <span class="credit">Figure 2 of the paper</span></figcaption>
     </figure>
 
-    <p>It also implies a limit. Human experience, with its self-model and its internal reports, is one case among those the premise allows. A cat, a cricket, a plant, a cell or a digital system may each be an agent of the same kind at its own grain, with its own contents and timescales, and other organizations may support experience without reports. Much of this may have no path by which its contents could reach us. Such experience is dark matter relative to our means of access. The limits of what we can communicate and investigate do not mark the limits of experience.</p>
+    <p>It also implies a limit. Human experience, with its self-model and its internal reports, is one case among those the premise allows. A cat, a cockroach, a plant, a cell or a digital system may each be an agent of the same kind at its own grain, with its own contents and timescales, and other organizations may support experience without reports. Much of this may have no path by which its contents could reach us. Such experience is dark matter relative to our means of access. The limits of what we can communicate and investigate do not mark the limits of experience.</p>
 
     <p>The limit has an ethical side. Valence, on this account, follows the ranking made by the objective function and does not require memory. A system could suffer and never be able to say so afterward. A missing report does not remove the concern.</p>
 
@@ -476,9 +485,9 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 <footer class="night colophon">
   <div class="wrap">
     <div class="cols">
-      <div><h3>Source</h3><p>Giulio Ruffini, <i>What Must a Brain Simulation Retain to Preserve Experience?</i> BCOM working paper WP0215 (2026), <a href="https://doi.org/10.5281/zenodo.24280672" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24280672</a>. The paper gives the formal statements, the proofs and the references for every study mentioned here.</p></div>
+      <div><h3>Source</h3><p>Giulio Ruffini, <i>What Must a Brain Simulation Retain to Preserve Experience?</i> BCOM working paper WP0215 (2026), <a href="https://doi.org/10.5281/zenodo.24280672" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24280672</a>. The paper gives the formal statements, the proofs and the references for the studies mentioned here. The sources for the insect compass are Seelig and Jayaraman (<i>Nature</i>, 2015) and Chittka and Heinze (<i>Science</i>, 2026).</p></div>
       <div><h3>Code and proofs</h3><p>Machine-checked proofs: <a href="https://github.com/giulioruffini/KTAIT" target="_blank" rel="noopener">github.com/giulioruffini/KTAIT</a>. Executable checks: <a href="https://github.com/giulioruffini/WP0215-brain-simulation-preservation" target="_blank" rel="noopener">github.com/giulioruffini/WP0215-brain-simulation-preservation</a>.</p></div>
-      <div><h3>About this essay</h3><p>The figures come from the paper, except for the state-merging illustration drawn for this essay. Klaus (Claude, Anthropic) drafted the essay with the author; Kaiti (Codex, OpenAI) revised it and prepared the new illustration.</p></div>
+      <div><h3>About this essay</h3><p>The figures come from the paper, except for the state-merging illustration drawn for this essay. Klaus (Claude, Anthropic) drafted the essay with the author; Kaiti (Codex, OpenAI) revised it and prepared the new illustration. Last revised November 21, 2026.</p></div>
     </div>
     <p class="line"><span>Barcelona Computational Foundation · BCOM Blog · Companion to WP0215</span><span><a href="https://www.giulioruffini.com/blog">More writing at giulioruffini.com</a></span></p>
   </div>

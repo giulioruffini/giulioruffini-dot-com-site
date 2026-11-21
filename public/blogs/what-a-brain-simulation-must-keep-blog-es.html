@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Un modelo puede reproducir la actividad de un cerebro y estar organizado por dentro de otra manera. Qué debe preservar una simulación cerebral para que un rasgo de la experiencia sobreviva a la copia.">
+<meta name="author" content="Giulio Ruffini">
+<meta name="theme-color" content="#001A52">
+<link rel="canonical" href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog-es.html">
+<link rel="alternate" hreflang="en" href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog.html">
+<link rel="alternate" hreflang="es" href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog-es.html">
+<link rel="icon" href="/favicon.ico">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Giulio Ruffini">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Lo que una simulación cerebral debe conservar">
+<meta property="og:description" content="Un modelo puede reproducir la actividad de un cerebro y estar organizado por dentro de otra manera. Qué debe preservar una simulación cerebral para que un rasgo de la experiencia sobreviva a la copia.">
+<meta property="og:url" content="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog-es.html">
+<meta property="og:image" content="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep/og-es.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-11-21">
+<meta property="article:modified_time" content="2026-11-21">
+<meta name="twitter:card" content="summary_large_image">
+<title>Lo que una simulación cerebral debe conservar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..600&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap">
+<style>
+/* Layout: three full-width bands on a paper page. A deep-blue opening band carries the title,
+   and the lead illustration hangs from it into the right column. The text runs in the left
+   column; the right column carries the figures, the list of assumptions and the pull quote.
+   The update-monoid figure sits on a pale band across both columns, and the closing section,
+   on experience beyond our means of access, is set on a night band that also holds the
+   colophon. Figures stay on white plates in both themes because the paper's artwork is drawn
+   on white. */
+:root {
+  --paper: #FFFDF9;
+  --ink: #172036;
+  --muted: #586276;
+  --rule: #D8DFEB;
+  --blue: #002878;
+  --coral: #FF6657;
+  --coral-ink: #C63B2C;
+  --panel: #EEF3FA;
+  --plate: #FFFFFF;
+  /* the bands keep their own colors in both themes */
+  --band-a: #001A52;
+  --band-b: #002878;
+  --band-ink: #FFFFFF;
+  --band-soft: #DCE6FF;
+  --band-muted: #B7C6EC;
+  --band-rule: rgba(255, 255, 255, 0.2);
+  --band-coral: #FF7A6C;
+  --band-shadow: 0 2px 4px rgba(0, 8, 40, 0.25), 0 34px 60px -28px rgba(0, 8, 40, 0.75);
+  --night: #080C1F;
+  --night-ink: #E9EDF7;
+  --night-muted: #A8B3CC;
+  --night-rule: #27315A;
+  --night-link: #A9C0FF;
+  --night-coral: #FF9488;
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --text: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --util: "DM Sans", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --measure: 37rem;
+  --rail: clamp(19rem, 32vw, 25rem);
+  --gap: clamp(1.75rem, 3.4vw, 3.25rem);
+  --lead: 2.5rem;   /* space between the opening band and the text */
+  --hang: 2.5rem;   /* how far the lead illustration hangs below the band */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0B1126; --ink: #E9EDF7; --muted: #A8B3CC; --rule: #28335C; --blue: #A9C0FF;
+    --coral: #FF7566; --coral-ink: #FF9488; --panel: #121A3A; --plate: #FFFFFF; --night: #04060F;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0B1126; --ink: #E9EDF7; --muted: #A8B3CC; --rule: #28335C; --blue: #A9C0FF;
+  --coral: #FF7566; --coral-ink: #FF9488; --panel: #121A3A; --plate: #FFFFFF; --night: #04060F;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: clamp(1.125rem, 1.02rem + 0.32vw, 1.3rem);
+  line-height: 1.62;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; height: auto; display: block; }
+figure { margin: 0; }
+a { color: var(--blue); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { color: var(--coral-ink); }
+a:focus-visible, .plate:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+::selection { background: rgba(255, 102, 87, 0.28); }
+
+/* One wrapper width for every band, so the right column lines up from title to colophon */
+.wrap {
+  width: min(100% - clamp(0rem, 5vw, 3rem), 70rem);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Opening band */
+.hero {
+  color: var(--band-ink);
+  background:
+    radial-gradient(circle at 86% 10%, rgba(255, 102, 87, 0.5), transparent 30rem),
+    radial-gradient(circle at 4% 115%, rgba(96, 140, 255, 0.3), transparent 28rem),
+    linear-gradient(135deg, var(--band-a), var(--band-b));
+}
+.hero .wrap { padding-block: 1.1rem 0; }
+.top {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  padding-bottom: 0.95rem; border-bottom: 1px solid var(--band-rule);
+  font-family: var(--util); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase;
+}
+.top a { color: var(--band-soft); text-decoration: none; }
+.top a:hover { color: var(--band-ink); text-decoration: underline; }
+.top { flex-wrap: wrap; row-gap: 0.35rem; }
+.top-links { display: flex; gap: 1.5rem; }
+.hero-grid { display: grid; gap: 0 var(--gap); margin-top: clamp(2.25rem, 6vw, 4.25rem); }
+.hero-head { min-width: 0; }
+.hero-text { min-width: 0; padding-block: 1.7rem 2.25rem; }
+.kicker {
+  display: flex; align-items: center; gap: 0.75rem; margin: 0 0 1.25rem;
+  font-family: var(--util); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--band-soft);
+}
+.kicker::before { content: ""; flex: none; width: 1.9rem; height: 2px; background: var(--band-coral); }
+h1 {
+  margin: 0; font-family: var(--display); font-weight: 400; color: var(--band-ink);
+  font-size: clamp(3rem, 1.55rem + 5.6vw, 6.4rem); line-height: 0.98; letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+h1 em { font-style: italic; color: var(--band-coral); }
+.deck { margin: 0; max-width: 33rem; color: var(--band-soft); font-size: 1.14em; line-height: 1.45; }
+.meta {
+  display: flex; flex-wrap: wrap; gap: 0.35rem 1.7rem; margin: 1.9rem 0 0; padding-top: 1.05rem;
+  border-top: 1px solid var(--band-rule); font-family: var(--util); font-size: 0.875rem; color: var(--band-muted);
+}
+.meta strong { color: var(--band-ink); font-weight: 600; }
+.plate { background: var(--plate); border: 1px solid var(--rule); border-radius: 10px; padding: 0.6rem; }
+.plate img { border-radius: 5px; }
+.hero-fig {
+  position: relative; z-index: 1; align-self: end; max-width: 30rem;
+  margin-bottom: calc(-1 * var(--hang)); border: 0; box-shadow: var(--band-shadow);
+}
+
+/* Story: one column by default, text and right column from 62rem up */
+.story { padding-top: var(--lead); }
+.story::after { content: ""; display: block; clear: both; }
+.story > p, .story > h2 { max-width: var(--measure); }
+.story > p { margin: 0 0 1.1em; hanging-punctuation: first; }
+.story > h2 {
+  margin: 2.5em 0 0.65em; font-family: var(--display); font-weight: 400; color: var(--blue);
+  font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.5rem); line-height: 1.08; text-wrap: balance;
+}
+.story > h2::before { content: ""; display: block; width: 2.25rem; height: 3px; margin-bottom: 1rem; background: var(--coral); }
+.story em { font-style: italic; }
+.story sup { font-size: 0.68em; line-height: 0; vertical-align: baseline; position: relative; top: -0.5em; }
+.story > .lede { font-size: 1.17em; line-height: 1.5; }
+/* Epigraph, as under the paper's first heading: indented, source ranged right */
+.epigraph { margin: 0 0 2.3rem; padding-left: clamp(1.25rem, 10%, 3.75rem); max-width: var(--measure); }
+.epigraph p { margin: 0; font-style: italic; line-height: 1.5; text-wrap: balance; }
+.epigraph footer { margin-top: 0.6rem; text-align: right; font-family: var(--util); font-size: 0.8125rem; letter-spacing: 0.03em; color: var(--muted); }
+.follow { padding-top: 0; }
+.follow > p:first-child { margin-top: 0; }
+
+/* Right-column items */
+.rail { margin: 2rem 0 2.2rem; max-width: var(--measure); }
+.rail.fig .plate { max-width: 26rem; }
+figcaption, .cap {
+  margin-top: 0.75rem; max-width: var(--measure);
+  font-family: var(--util); font-size: 0.875rem; line-height: 1.5; color: var(--muted);
+}
+figcaption strong, .cap strong { color: var(--ink); font-weight: 600; }
+.credit { display: block; margin-top: 0.35rem; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.lead-cap { margin: calc(var(--hang) - var(--lead) + 0.85rem) 0 2rem; max-width: 30rem; }
+.pull {
+  padding: 1.1rem 0 0; border-top: 3px solid var(--coral);
+  font-family: var(--display); font-style: italic; color: var(--blue);
+  font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); line-height: 1.15; text-wrap: balance;
+}
+
+/* What the argument assumes */
+.assume {
+  background: var(--panel); border-left: 4px solid var(--coral); padding: 1.3rem 1.4rem 1.2rem;
+  font-family: var(--util); font-size: 0.875rem; line-height: 1.5;
+}
+.assume h3 {
+  margin: 0 0 0.95rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--coral-ink);
+}
+.assume dl { margin: 0; display: grid; gap: 0.9rem; }
+.assume dt { font-weight: 600; color: var(--blue); }
+.assume dt span { font-weight: 400; color: var(--muted); }
+.assume dd { margin: 0.1rem 0 0; }
+.assume p { margin: 1rem 0 0; padding-top: 0.9rem; border-top: 1px solid var(--rule); color: var(--muted); }
+
+/* Pale band for the figure that spans both columns */
+.band-fig { margin-block: 2.6rem 3rem; background: var(--panel); border-block: 1px solid var(--rule); }
+.band-fig .wrap { padding-block: clamp(1.75rem, 4.5vw, 3.25rem); }
+.band-fig .plate { padding: clamp(0.6rem, 1.6vw, 1.1rem); }
+.band-fig figcaption { margin-top: 1.1rem; }
+.swipe { display: none; margin: 0 0 0.5rem; font-family: var(--util); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+/* Night band: the closing section and the colophon */
+.night {
+  --ink: var(--night-ink); --muted: var(--night-muted); --rule: var(--night-rule);
+  --blue: var(--night-link); --coral-ink: var(--night-coral);
+  background: var(--night); color: var(--ink);
+}
+section.night {
+  margin-top: clamp(3.5rem, 8vw, 5.5rem);
+  background: radial-gradient(circle at 90% 0%, rgba(255, 102, 87, 0.2), transparent 28rem), var(--night);
+}
+section.night .story { padding-block: clamp(3rem, 7vw, 5rem) clamp(2.5rem, 6vw, 4rem); }
+section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
+.night .plate { border: 0; }
+.colophon { font-family: var(--util); font-size: 0.875rem; line-height: 1.55; color: var(--muted); }
+.colophon .wrap { padding-block: 0 2.5rem; }
+.colophon .cols { display: grid; gap: 1.5rem var(--gap); padding-top: 1.75rem; border-top: 1px solid var(--rule); }
+.colophon h3 {
+  margin: 0 0 0.5rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--coral-ink);
+}
+.colophon p { margin: 0; overflow-wrap: anywhere; }
+.colophon i { color: var(--ink); }
+.colophon .line {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 2rem;
+  margin-top: 2.25rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
+  font-size: 0.8125rem; letter-spacing: 0.04em;
+}
+
+@media (min-width: 48rem) {
+  .colophon .cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 62rem) {
+  :root { --lead: 3.75rem; --hang: 6.5rem; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) var(--rail); }
+  .hero-head { grid-column: 1 / -1; }
+  h1 span { display: block; }
+  .hero-text { padding-block: 2.6rem clamp(3.25rem, 6vw, 4.75rem); }
+  .hero-fig { max-width: none; }
+  .story > p, .story > h2, .story > .epigraph { max-width: min(var(--measure), calc(100% - var(--rail) - var(--gap))); }
+  .rail { float: right; clear: right; width: var(--rail); max-width: none; margin: 0.45rem 0 2rem var(--gap); }
+  .rail.fig .plate { max-width: none; }
+  .lead-cap { margin-top: calc(var(--hang) - var(--lead) + 0.85rem); max-width: none; }
+  .band-fig figcaption { max-width: none; columns: 2; column-gap: var(--gap); }
+  .band-fig figcaption .credit { break-before: avoid; }
+}
+@media (max-width: 44rem) {
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .scroll img { width: 44rem; max-width: none; }
+  .swipe { display: block; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="top" aria-label="Sitio">
+      <a href="https://www.giulioruffini.com/">Giulio Ruffini</a>
+      <span class="top-links"><a href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog.html" lang="en" hreflang="en">English</a><a href="https://www.giulioruffini.com/blog">Más textos</a></span>
+    </nav>
+    <div class="hero-grid">
+      <div class="hero-head">
+        <p class="kicker">Teoría de Kolmogorov · Blog de BCOM</p>
+        <h1><span>Lo que una simulación</span> <span>cerebral debe <em>conservar</em></span></h1>
+      </div>
+      <div class="hero-text">
+        <p class="deck">Un modelo informático puede reproducir la actividad y la conducta de un cerebro y, aun así, estar organizado por dentro de otra manera. Qué relaciones matemáticas del cerebro debe preservar un modelo para que un rasgo de la experiencia sobreviva a la copia es algo que puede enunciarse con exactitud y someterse a experimento.</p>
+        <p class="meta"><span>Por <strong>Giulio Ruffini</strong> con <strong>Klaus</strong></span><span>Noviembre de 2026</span><span>Lectura de 17 minutos</span></p>
+      </div>
+      <div class="hero-fig plate" role="figure" aria-labelledby="hero-cap">
+        <img src="what-a-brain-simulation-must-keep/hero.webp" width="886" height="884" alt="Un cerebro y una placa de circuitos rotulada «Running emulator» (emulador en marcha). Una flecha rotulada «Coarse-graining» (descripción de grano grueso) reduce cada uno a una pequeña red de nodos de colores y a una trayectoria en bucle rotulada «Retained dynamics» (dinámica retenida). Una flecha de doble punta entre las dos redes pregunta «Corresponding organization?» (¿organización correspondiente?). Una flecha discontinua rotulada «Preservation hypothesis» (hipótesis de preservación) lleva a la pregunta «Shared experiential features?» (¿rasgos de la experiencia compartidos?).">
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+
+  <div class="wrap story">
+
+    <div class="rail cap lead-cap" id="hero-cap"><strong>La comparación.</strong> Un cerebro y un emulador en marcha se reducen, cada uno, a una descripción más simple que conserva variables seleccionadas y su dinámica. Si las dos organizaciones retenidas se corresponden, en estados correspondientes, la hipótesis de preservación dice que los sistemas comparten los rasgos de la experiencia que esa organización constituye. Otros aspectos de su experiencia pueden diferir.
+        <span class="credit">Figura 1a del artículo, con los rótulos en inglés. Ilustración creada con la herramienta de generación de imágenes de OpenAI.</span></div>
+
+    <blockquote class="epigraph">
+      <p>Los objetos y los teoremas de las matemáticas son tan objetivos e independientes de nuestra libre elección y de nuestros actos creativos como lo es el mundo físico.</p>
+      <footer>Kurt Gödel, Conferencia Gibbs, 1951</footer>
+    </blockquote>
+
+    <p class="lede">En 2024, un equipo de neurocientíficos publicó un mapa de las neuronas y las sinapsis del cerebro de una mosca de la fruta adulta. Un modelo informático construido sobre ese mapa, en el que cada neurona queda reducida a una unidad que suma sus entradas y dispara cuando superan un umbral, reprodujo los efectos de determinadas intervenciones en los circuitos de alimentación y de acicalamiento del animal. El modelo no come ni se acicala. Es una tabla de números que un programa va actualizando.</p>
+
+    <p>Supongamos que se hiciera lo mismo con un cerebro humano. La pregunta habitual es si el resultado sería consciente. En un nuevo artículo planteo otra más acotada, sobre la que se puede trabajar: ¿qué debe retener una simulación de un cerebro para que se preserve un rasgo dado de su experiencia? La respuesta que propongo depende del rasgo. Bajo unas hipótesis que enuncio más abajo, una simulación comparte el rojo que se experimenta ante una puesta de sol, o la sensación de que el tiempo pasa, exactamente cuando realiza la organización matemática que constituye ese rasgo en el cerebro, en un estado correspondiente. En todo lo demás, los dos sistemas pueden diferir.</p>
+
+    <p>La pregunta tiene consecuencias prácticas. Las interfaces cerebrales que cierran un bucle entre registro y estimulación han tendido puentes sobre vías corticales dañadas en animales y han mejorado la codificación de la memoria en personas. Los dispositivos que sustituyan o amplíen partes mayores de la corteza son, por ahora, una extensión conceptual de ese trabajo, y plantean el mismo problema en la clínica: ¿qué aspectos de la vida mental de una persona retendría el dispositivo? Los grandes modelos de lenguaje lo plantean desde otro ángulo. Aprenden a predecir texto a partir de registros del lenguaje humano, y su fluidez ha dado lugar a evaluaciones sobre si podrían tener experiencia.</p>
+
+    <h2>Todo modelo conserva unas distinciones y descarta el resto</h2>
+
+    <p>Ninguna simulación lo contiene todo. Un modelo del gusano <i>C. elegans</i> puede seguir la actividad de calcio de neuronas individuales. El modelo de la mosca sigue sus disparos, los modelos de la corteza visual del ratón siguen células y sinapsis, y los modelos de cerebro completo en personas siguen la actividad media de poblaciones neuronales. Un modelo de lenguaje trabaja a un nivel aún más grueso. Su unidad es el token, un fragmento de texto, y el texto funde las historias neuronales, corporales y motoras que lo produjeron.</p>
+
+    <figure class="rail fig">
+      <div class="plate">
+        <img loading="lazy" decoding="async" src="what-a-brain-simulation-must-keep/cards.png" width="936" height="1512" alt="Cuatro fichas, con los rótulos en inglés. C. elegans: grano, actividad de calcio neuronal; emulador, dinámica lineal ajustada en espacio de estados; evidencia, respuestas a perturbaciones en animales no usados en el ajuste. Mosca de la fruta: grano, estados neuronales en un modelo de disparos; emulador, modelo de integración y disparo basado en el conectoma; evidencia, pruebas de intervención seleccionadas sobre alimentación y acicalamiento. Ratón: grano, estados celulares y sinápticos en la corteza visual; emulador, redes de V1 compartimentales y de neuronas puntuales; evidencia, respuestas visuales comparadas con registros. Humano: grano, poblaciones neuronales, tokens o características aprendidas; emulador, NMM2, LLM y modelos multimodales; evidencia, predicción de respuestas neuronales y alineamiento de modelos.">
+      </div>
+      <figcaption><strong>Cuatro objetivos, cuatro granos.</strong> Para cada animal, la ficha indica el nivel de detalle que retiene un modelo actual (<i lang="en">grain</i>), el tipo de modelo (<i lang="en">emulator</i>) y lo que se ha comparado con el sistema vivo (<i lang="en">evidence</i>). NMM2 es una familia de modelos de poblaciones neuronales, V1 es la corteza visual primaria y los LLM son grandes modelos de lenguaje. Ninguna entrada establece por sí sola una correspondencia en la experiencia.
+        <span class="credit">Figura 4b del artículo, dispuesta en dos filas; rótulos en inglés</span></figcaption>
+    </figure>
+
+    <p>Cada elección es una decisión sobre qué distinciones retener, y su resultado es una descripción de grano grueso (<i lang="en">coarse-graining</i>, en inglés). El nivel de detalle que conserva es su grano.</p>
+
+    <p>Una descripción de grano grueso le sirve a la ciencia cuando es autocontenida: las variables retenidas, junto con las entradas, determinan su propio futuro, de forma exacta en el caso ideal y con una precisión declarada en la práctica. La física ofrece casos conocidos. Dos masas unidas por un muelle vibran mientras se desplazan y, sin embargo, en ausencia de fuerzas externas su centro de masas se mueve a velocidad constante sea cual sea la vibración, de modo que su posición y su velocidad forman una descripción cerrada. La neurociencia también los tiene. Para una población idealizada de neuronas modelo, en condiciones que las matemáticas enuncian con exactitud, la tasa de disparo y el potencial de membrana medio obedecen juntos dos ecuaciones exactas. La tasa de disparo por sí sola, no. Dos poblaciones con la misma tasa y distinto potencial medio evolucionan de manera diferente.</p>
+
+    <p>Una descripción autocontenida puede, aun así, perder lo que importa. Un contador que recorre en ciclo 0, 1, 2 y 3 admite un resumen autocontenido, par o impar, que cambia en cada paso y nunca necesita más información. El resumen ha borrado la diferencia entre 0 y 2. Si un rasgo de la experiencia dependiera de esa diferencia, el resumen funcionaría sin error y el rasgo habría desaparecido. Decidir qué debe conservar una simulación exige, por tanto, dos comprobaciones distintas: una de autocontención y otra de contenido.</p>
+
+    <h2>Según la premisa, la simulación ya tiene experiencia</h2>
+
+    <aside class="rail assume" aria-labelledby="assume-h">
+      <h3 id="assume-h">Lo que el argumento supone</h3>
+      <dl>
+        <div><dt>H0 <span>· premisa</span></dt><dd>La experiencia estructurada corresponde a la organización matemática que un sistema realiza. Toda descripción de grano grueso admisible de un sistema tiene su propia experiencia estructurada, y ninguna frontera ni ningún grano tienen un estatus exclusivo.</dd></div>
+        <div><dt>H1 <span>· hipótesis</span></dt><dd>Un rasgo de la experiencia se corresponde uno a uno con la organización que lo constituye. Los sistemas comparten el rasgo exactamente cuando realizan esa organización en estados o historias correspondientes.</dd></div>
+        <div><dt>C1 <span>· conjetura</span></dt><dd>Con una frontera del sistema adecuada, la dinámica del cerebro humano admite una descripción autocontenida, accesible al experimento, que retiene la organización necesaria y suficiente para los rasgos de la experiencia humana que se estudian.</dd></div>
+        <div><dt>H2 <span>· hipótesis de trabajo</span></dt><dd>Un único algoritmo puede aproximar la dinámica neuronal retenida con cualquier precisión finita que se le pida.</dd></div>
+      </dl>
+      <p>Ninguna de las cuatro está demostrada. Los teoremas del artículo tratan de estructura matemática compartida; su alcance sobre la experiencia descansa en estos enunciados.</p>
+    </aside>
+
+    <p>Las matemáticas del artículo pueden evaluarse con independencia de mi punto de partida filosófico, que conviene declarar. La Teoría de Kolmogorov, el marco al que pertenece este trabajo, toma la experiencia como fundamental y las matemáticas como su aspecto estructural. La experiencia estructurada de un sistema corresponde a la organización matemática que realiza. Es un idealismo en forma estructural. No afirma que las partículas sean pequeños sujetos. Afirma que hay una única base experiencial y que la organización da a la experiencia su forma particular, en un cerebro o en cualquier otro lugar.</p>
+
+    <p>Un mismo sistema admite muchas descripciones. Un cerebro puede describirse célula a célula, circuito a circuito o como un todo, y dónde se traza su frontera es también una elección. Según esta premisa, toda descripción de grano grueso admisible de un sistema lleva consigo su propia experiencia estructurada, donde <i>admisible</i> significa que la descripción es autocontenida y que la propia dinámica del sistema la realiza. Ninguna tiene un estatus exclusivo. Varias coexisten en un mismo cerebro, y varias en una misma simulación en marcha.</p>
+
+    <p>Una simulación cerebral en marcha tiene, por tanto, experiencia estructurada propia. Lo que queda abierto es qué rasgos comparte con el cerebro que copia. Una segunda hipótesis aporta el criterio. Un rasgo de la experiencia y la organización que lo constituye se corresponden uno a uno, de modo que dos sistemas comparten el rasgo exactamente cuando realizan esa organización, en estados o historias correspondientes, estén hechos de lo que estén hechos. El principio de invariancia organizativa de David Chalmers es un precedente.</p>
+
+    <p>La comparación se hace rasgo a rasgo. Los rasgos de la experiencia corporal y afectiva pueden depender de relaciones hormonales y metabólicas que un modelo grueso omite, mientras que otros rasgos sobreviven en la descripción gruesa. El resultado es un perfil de rasgos compartidos, sin un umbral único a partir del cual una máquina pase a ser semejante a un humano.</p>
+
+    <h2>Reproducir un registro es menos que reproducir todas las respuestas</h2>
+
+    <p>Una simulación puede reproducir un registro de la actividad cerebral sin realizar la organización que lo produjo. El criterio del artículo se refiere a las respuestas. En el grano elegido y con una precisión declarada, el emulador debe responder como el cerebro a entradas e intervenciones que no se usaron para construirlo ni para ajustarlo. Las intervenciones actúan sobre el interior del sistema, como hace la estimulación cerebral, y la comparación incluye lecturas de variables internas, como las que proporciona un registro neuronal.</p>
+
+    <blockquote class="pull rail">El emulador debe responder como el cerebro a entradas e intervenciones que no se usaron para construirlo.</blockquote>
+
+    <p>Los clasificadores de imágenes muestran qué aspecto tiene el fracaso. Una imagen puede alterarse de modo que una persona siga informando del mismo objeto mientras una red cambia su respuesta. Si esas imágenes figuran entre las entradas admitidas, la red no se corresponde con la percepción humana en el grano de la categoría de objeto de la que se informa. Un remedio es cambiar lo que el modelo retiene. Las redes entrenadas solo con imágenes nítidas se apoyan en detalles finos a los que el informe humano es en gran medida insensible, y entrenarlas con imágenes desenfocadas acerca su comportamiento a la percepción humana. Cada modelo revisado se enfrenta después a la misma prueba.</p>
+
+    <h2>Las copias exactas comparten un monoide de actualización</h2>
+
+    <p>Fijemos el contenido que se quiere preservar y las operaciones permitidas. Para sistemas deterministas, un resultado clásico que se remonta a Edward Moore y Anil Nerode, en los años cincuenta, nos dice qué estados podemos fusionar: los que dan el mismo contenido tras cualquier secuencia permitida de operaciones. Al combinarlos se obtiene la descripción autocontenida más gruesa que retiene ese contenido, única salvo por los nombres de sus estados. El artículo la llama la organización mínima del sistema para ese contenido. El resultado garantiza que existe, sin prometer que sea pequeña ni que esté al alcance del experimento.</p>
+  </div>
+  <figure class="band-fig quotient-fig" aria-labelledby="quotient-caption">
+    <div class="wrap">
+      <div class="plate">
+        <picture>
+          <source media="(max-width: 44rem)" srcset="what-a-brain-simulation-must-keep/coarsest-counter-mobile-es.svg" width="520" height="840">
+          <img loading="lazy" decoding="async" src="what-a-brain-simulation-must-keep/coarsest-counter-es.svg" width="1320" height="790" alt="Fusiones sucesivas reducen los ocho estados de un contador a cuatro y luego a dos. Los estados azules 0 y 4 se fusionan, igual que 2 y 6; esos dos grupos azules se fusionan después en Par. Los estados de color coral 1 y 5 se fusionan, igual que 3 y 7; esos dos grupos se fusionan en Impar. Las flechas indican qué estados se combinan. Par e Impar no pueden fusionarse sin perder el contenido elegido.">
+        </picture>
+      </div>
+      <figcaption id="quotient-caption"><strong>Fusionar hasta que solo queden las distinciones necesarias.</strong> Un contador puede usar ocho, cuatro o dos estados y conservar la misma respuesta, par o impar, en cada paso. Las flechas muestran fusiones sucesivas. Con dos estados nos detenemos: fusionar Par e Impar borraría la distinción que elegimos conservar.
+        <span class="credit">Ilustración de la construcción de la descripción más gruesa.</span></figcaption>
+    </div>
+  </figure>
+  <div class="wrap story follow">
+
+
+    <p>Las actualizaciones de esta descripción forman un objeto matemático bien definido. Cada operación permitida actúa sobre el estado retenido, las operaciones aplicadas en secuencia dan otra actualización, y no hacer nada cuenta como una actualización. Una colección con estas propiedades es un monoide, y este es el <em>monoide de actualización</em> del sistema. Dos sistemas deterministas que coinciden en el contenido, desde los estados iniciales elegidos, tras cualquier secuencia permitida tienen la misma organización mínima en los estados que pueden alcanzar, con actualizaciones correspondientes. Por mucho que difieran en lo demás un cerebro y un emulador exacto, esto lo comparten.</p>
+
+    <p>Para una clase de sistemas, el monoide de actualización puede escribirse por completo. Tomemos un sistema que mantiene un registro de algo del mundo, como el rumbo de una brújula, y supongamos que solo ocurren dos tipos de suceso. El mundo puede girar, y el registro gira con él. O el sistema puede observar el rumbo y sobrescribir su registro. Un giro puede deshacerse, porque girar en sentido contrario restituye el registro anterior. Una observación no, porque, contuviera lo que contuviera antes, el registro marca ahora el este.</p>
+
+
+
+  </div>
+
+  <figure class="band-fig">
+    <div class="wrap">
+      <p class="swipe">Desliza hacia los lados para leer la figura</p>
+      <div class="plate scroll" tabindex="0" role="group" aria-label="Figura: las ocho actualizaciones de un seguidor de rumbo, desplazable">
+        <img loading="lazy" decoding="async" src="what-a-brain-simulation-must-keep/compass.png" width="1962" height="913" alt="Tres paneles, con los rótulos en inglés. Panel a: una brújula en el mundo apunta al este y el registro del agente, uno de cuatro estados N, E, S, W (norte, este, sur, oeste), marca el este. Panel b: el monoide de actualización en ocho pequeños diagramas. Cuatro diagramas azules, rotulados «symmetry core» (núcleo de simetría) y «reversible», muestran el giro nulo y los giros de 90, 180 y 270 grados; cada uno reordena los cuatro estados del registro. Cuatro diagramas de color coral, rotulados «observation writes» (escrituras por observación) e «irreversible», muestran observar N, E, S y W; cada uno envía los cuatro estados al rumbo observado. Panel c: secuencias con el mismo efecto: girar 90 grados cuatro veces equivale a no girar; observar E y luego girar 90 grados equivale a observar S; girar 90 grados y luego observar E equivale a observar E.">
+      </div>
+      <figcaption><strong>El monoide de actualización de un seguidor de rumbo.</strong> (a) El registro tiene cuatro estados (N, E, S y W: norte, este, sur y oeste) y, mientras el seguimiento es exacto, coincide con el mundo. (b) Las ocho actualizaciones posibles. Cuatro son giros (<i lang="en">turn</i>), contando el giro nulo (<i lang="en">no turn</i>): reordenan los estados del registro y pueden deshacerse. Cuatro son observaciones (<i lang="en">observe</i>): envían todos los estados al rumbo observado y no pueden deshacerse. (c) Cualquier secuencia de sucesos actúa sobre el registro como una de estas ocho. Si se observa el este y luego se gira un cuarto de vuelta, el registro marca el sur, contuviera lo que contuviera antes.
+        <span class="credit">Figura 7 del artículo; rótulos en inglés</span></figcaption>
+
+    </div>
+  </figure>
+
+  <div class="wrap story follow">
+
+    <p>El artículo demuestra que, en la descripción mínima, el monoide de actualización del seguidor no contiene nada más. Toda secuencia de sucesos actúa como un giro reversible o como una sobrescritura irreversible. Las actualizaciones reversibles forman un grupo, que es un monoide en el que toda actualización puede deshacerse; aquí lo componen los cuatro giros, contando el giro nulo. Este grupo es el <em>núcleo de simetría</em> del seguidor, y las sobrescrituras son la parte del monoide que no puede deshacerse. El enunciado vale por igual para sistemas digitales y para modelos de ecuaciones diferenciales con reinicios, y su demostración se ha verificado por ordenador con el asistente de demostración Lean.</p>
+
+    <p>El resultado impone una condición a cualquier máquina que emule el seguidor de forma exacta. Una máquina finita debe contener, entre sus propias actualizaciones, grupos que se proyecten sobre los grupos del seguidor. Una máquina de estados finitos cuyo monoide de actualización no contenga ningún grupo no trivial no puede reproducir exactamente la brújula de cuatro rumbos en todas las secuencias de sucesos, sea cual sea su programa. Un emulador que comete errores puede, aun así, conservar el monoide entero. Si la estimación de un emulador determinista se mantiene siempre a menos de 45 grados del rumbo correcto, el más cercano de los cuatro rumbos es siempre el acertado, y sobre esos rumbos reproduce exactamente cada giro y cada sobrescritura.</p>
+
+    <p>El cerebro de los insectos es un lugar donde buscar un seguidor así. En la mosca de la fruta, una señal que codifica el rumbo del animal sigue sus giros en la oscuridad, con una deriva lenta. Puede mantenerse cuando la mosca se detiene y realinearse cuando una referencia visual se desplaza. En los términos del seguidor, son un giro, el giro nulo y, cuando la referencia fija por completo el nuevo rumbo, una sobrescritura. Los abejorros parecen codificar el rumbo de manera parecida, lo que ofrece un segundo animal en el que buscar el mismo monoide.</p>
+
+    <p>Programas distintos pueden compartir también una ley. El método de Euler y el método de Runge-Kutta de cuarto orden hacen avanzar una simulación mediante pasos intermedios diferentes. Dado el código compilado de ambos, y sin conocer ni la ecuación ni el método, un análisis de los programas recupera de cada uno la misma ecuación diferencial. El ejemplo cubre una clase restringida de programas aritméticos. La ecuación es lo que los dos programas comparten, y su aritmética paso a paso difiere.</p>
+
+    <p>La coincidencia tiene, por tanto, niveles. Dos sistemas pueden calcular la misma función con algoritmos distintos, ejecutar un mismo algoritmo como programas distintos y ejecutar un mismo programa en maquinaria distinta. Las matemáticas identifican qué se comparte en cada nivel. No dicen de qué nivel depende un rasgo de la experiencia. Dos sistemas comparten los rasgos constituidos por la organización que tienen en común, y pueden diferir en los rasgos que dependen de todo lo demás que realizan.</p>
+
+    <h2>El candidato humano es un agente con informes internos</h2>
+
+    <p>Para la experiencia humana, el artículo propone una conjetura. Con una frontera adecuada, que puede incluir el cuerpo, la dinámica del cerebro humano admite una descripción autocontenida, identificable mediante experimentos factibles, que retiene la organización necesaria y suficiente para los rasgos de la experiencia que se estudian. El grano debe ser lo bastante fino para retener aquello de lo que una persona informa, a sí misma o a los demás, incluido cómo se producen y se usan esos informes. Los informes aportan además evidencia para ponerla a prueba. Mi candidato es el agente algorítmico con informes internos. El agente acopla un motor de modelado, que construye y ejecuta modelos del mundo y del propio agente; una función objetivo, que evalúa y ordena los estados que esos modelos representan; y un motor de planificación, que usa ambos para seleccionar acciones.</p>
+
+    <figure class="rail fig">
+      <div class="plate">
+        <img loading="lazy" decoding="async" src="what-a-brain-simulation-must-keep/agent.png" width="1711" height="1687" alt="Diagrama de bloques de un agente acoplado a un mundo, con los rótulos en inglés. Dentro del agente, un motor de modelado (Modeling Engine) contiene un modelo, un simulador, un comparador y un actualizador: el simulador envía una predicción y una precisión al comparador, que recibe también la entrada del mundo; el error impulsa el actualizador, que revisa el modelo. El modelo alimenta una función objetivo (Objective Function), cuya evaluación alimenta un motor de planificación (Planning Engine). El plan vuelve al motor de modelado y una salida actúa sobre el mundo. Flechas discontinuas que cruzan la frontera del agente marcan las intervenciones, hacia dentro, y las mediciones, hacia fuera.">
+      </div>
+      <figcaption><strong>El agente algorítmico.</strong> El motor de modelado (<i lang="en">Modeling Engine</i>) predice su entrada, compara la predicción con ella y revisa sus modelos del mundo y de sí mismo. La función objetivo (<i lang="en">Objective Function</i>) evalúa, y el motor de planificación (<i lang="en">Planning Engine</i>) actúa sobre el mundo. Vínculos propuestos con la experiencia: la estructura de los modelos con la estructura de la experiencia, la evaluación con la valencia, la disposición a actuar con la activación. Las flechas discontinuas marcan dónde un experimentador puede intervenir en un módulo o medirlo, al margen de la entrada y la salida ordinarias del agente.
+        <span class="credit">Figura 1b del artículo; rótulos en inglés</span></figcaption>
+    </figure>
+
+    <p>Cada parte del agente tiene una contrapartida propuesta en la experiencia. La estructura de sus modelos del mundo y de sí mismo corresponde a la estructura de su experiencia del mundo y de sí mismo. La ordenación de los estados que hace su función objetivo corresponde a la valencia, lo agradable o desagradable que resulta un estado. La disposición del motor de planificación para una acción prevista corresponde a la activación (<i lang="en">arousal</i>, en inglés). Si estos vínculos se sostienen, un emulador que preserve la estructura de los modelos, la ordenación y la disposición a actuar, en estados correspondientes, comparte la estructura de la experiencia, la valencia y la activación correspondientes.</p>
+
+    <p>Los informes internos forman parte del modelo del agente. Son registros comprimidos de entradas pasadas y de estados anteriores del propio agente, que este usa al modelar, evaluar y planificar. Un termostato sin memoria no tiene ninguno, pues asigna una orden a la lectura actual de temperatura. Un sistema de navegación que mantiene y actualiza sus estimaciones de posición y velocidad sí los tiene. Mi hipótesis es que la sensación de seguir siendo requiere informes internos de un pasado representado que el sistema usa, y que esos informes probablemente no bastan por sí solos. La experiencia en general no requiere informes.</p>
+
+    <p>Una consecuencia atañe al tiempo. Un agente solo tiene acceso al pasado a través de los registros de su modelo actual. Según esta propuesta, la duración que experimenta entre dos sucesos depende de los registros del cambio intermedio que ese modelo conserva: los informes creados, los contenidos actualizados y cualquier huella que guarde de las simulaciones y la planificación que hay detrás de cada acción. Ejecutar el emulador en un ordenador más lento, o con más pasos aritméticos por actualización, no añade nada a esos registros. Si el agente y su mundo virtual se ralentizan a la vez, las duraciones que experimenta no cambian. La novela <i>Ciudad Permutación</i> (<i lang="en">Permutation City</i>), de Greg Egan, sigue a personas que viven como copias en <i lang="en">software</i> de sus cerebros, y el artículo le agradece la inspiración.</p>
+
+    <p>La autocontención exacta es una idealización. Hasta un portátil puede apartarse de la trayectoria que predice su programa cuando una partícula perdida le invierte un bit. En un cerebro, los detalles que una descripción deja fuera pueden influir en lo que ocurre después, y, a partir de lo que percibe y recuerda, el cerebro construye relatos aproximados sobre sí mismo y su mundo, que usa para predecir y actuar. Propongo que, para compartir los rasgos de la experiencia de los que una persona informa, un emulador debe reflejar las descripciones de grano grueso imperfectas con las que esa persona construye y usa esos relatos. Un emulador así puede seguir una trayectoria distinta de la del cerebro que copia, igual que una misma persona puede divergir en ensayos repetidos desde el mismo estado retenido. Una copia aproximada necesita un supuesto más: que un rasgo de la experiencia cambie poco cuando su organización cambia poco.</p>
+
+    <h2>Las objeciones biológicas se vuelven preguntas sobre el detalle</h2>
+
+    <p>Las principales objeciones vienen de la biología. Anil Seth subraya el metabolismo, la regulación del cuerpo y el automantenimiento, y admite a la vez que podrían cumplir los requisitos sistemas artificiales suficientemente parecidos a un cerebro o a un ser vivo. En este marco, eso es una afirmación sobre qué relaciones debe retener un modelo. Si un rasgo de la experiencia corporal o afectiva depende de procesos hormonales o metabólicos, un emulador tiene que realizar esas relaciones, mediante variables añadidas o una frontera ampliada que abarque el cuerpo, y un modelo grueso de poblaciones que las omita pierde el rasgo. El nivel de detalle necesario es una cuestión empírica. La conjetura no fija de antemano ningún nivel anatómico.</p>
+
+    <blockquote class="pull rail">El nivel de detalle necesario es una cuestión empírica.</blockquote>
+
+    <p>La afirmación más fuerte, que sin biología no hay experiencia de ningún tipo, niega la premisa. Debe una explicación de qué propiedad biológica se requiere, por qué sin ella no habría experiencia y qué pruebas lo demuestran.</p>
+
+    <p>Otra objeción sostiene que los ordenadores digitales no pueden aproximar la dinámica cerebral ni siquiera en principio. El cerebro tendría entonces que efectuar hipercomputación, una tarea que ninguna máquina de Turing puede llevar a cabo, y quien objeta debe identificar esa tarea en la dinámica cerebral y explicar cómo se preparan sus entradas y se leen sus salidas de forma fiable.</p>
+
+    <p>La física limita aquello de lo que una tarea así podría valerse. Un ordenador corriente puede usar memoria y tiempo ilimitados, pero cada elemento de memoria guarda uno de un número finito de símbolos, y cada respuesta llega tras un número finito de pasos. Bajo supuestos que el artículo enuncia, un mecanismo de esa clase es computable, de modo que una propuesta que pretenda hacer más tiene que violar al menos uno de los supuestos. Una red neuronal con un peso de conexión no computable renuncia a los elementos de memoria finitos. Trata un componente acotado como una memoria ilimitada de solo lectura, leída con resolución cada vez más fina. Una máquina acelerada renuncia a los pasos finitos y completa infinitos antes de responder. Allí donde son aplicables, los límites físicos conocidos no conceden ninguno de los dos recursos a un sistema de tamaño y energía finitos. La termodinámica de los agujeros negros limita la información que puede contener un sistema así: unos 2,6 × 10<sup>42</sup> bits para la energía en reposo de una masa de 1,5 kilogramos dentro de un radio de 6,7 centímetros, comparable a un cerebro humano. Describir un voltaje con un número real no añade capacidad, porque los dígitos sirven de memoria solo si el dispositivo puede distinguir las alternativas que codifican. Cada paso hacia un estado plenamente distinguible lleva un tiempo mínimo fijado por la energía disponible, de modo que infinitos pasos de ese tipo en un tiempo finito exigirían energía ilimitada. Quien afirme que hay hipercomputación en el cerebro debe mostrar que su montaje completo, preparación y lectura incluidas, escapa a estos límites.</p>
+
+    <p>La teoría de la información integrada comparte la idea de que la experiencia depende de la estructura realizada y no solo de la conducta. Difiere en qué estructura cuenta. La teoría concede experiencia únicamente a estructuras máximamente irreducibles, cada una en un grano seleccionado, y concluye que una simulación en un ordenador de programa almacenado no comparte la experiencia de un cerebro. En la propuesta que aquí se presenta ningún grano es privilegiado, y un emulador comparte cada rasgo cuya organización constitutiva realiza.</p>
+
+    <h2>Las pruebas empiezan en cerebros humanos</h2>
+
+    <p>Los humanos son el caso de referencia porque las descripciones en primera persona pueden ponerse junto a las mediciones neuronales. Una descripción candidata de la dinámica cerebral se pone a prueba primero en su autocontención. Se prepara el mismo estado retenido con distintos detalles omitidos, se aplican las mismas entradas y la misma estimulación, y se comprueba que una única ley predice lo que sigue, con la precisión declarada. Después se pone a prueba frente a la experiencia. Bajo los efectos del propofol, del xenón y de la ketamina, las personas no responden y, sin embargo, la complejidad de la respuesta del cerebro a una perturbación y las experiencias relatadas después difieren entre los tres, de modo que la falta de respuesta no dice por sí sola qué experimentó una persona. Con un láser que estimula conos seleccionados de la retina, hay personas que han descrito colores fuera de la gama ordinaria, y cabe preguntar si preservar las relaciones entre patrones de actividad de los receptores preserva las relaciones entre los colores experimentados.</p>
+
+    <p>La misma lógica se está aplicando a la salud mental. En BCOM, el programa de Neuropsiquiatría Algorítmica (ANPSY), dirigido por Francesca Castaldo, trabaja para llegar a un sistema clínico en el que modelos personalizados del cerebro y del agente, acotados por mediciones neuronales, evaluaciones clínicas e informes estructurados en primera persona, obtenidos conjuntamente, pronosticarían cómo un tratamiento dado cambia la actividad neuronal, la conducta y la experiencia de una persona. La depresión muestra el tipo de predicción en juego. Una explicación que atribuya la reducción del placer anticipado a un deterioro en la valoración de la recompensa predice que el placer anticipado aumenta cuando se restablece la valoración, manteniendo fijas las creencias sobre la disponibilidad de recompensa. Predecir el cerebro, predecir la experiencia y beneficiar al paciente son pruebas distintas, y el éxito en una no establece las demás.</p>
+
+    <blockquote class="pull rail">Predecir el cerebro, predecir la experiencia y beneficiar al paciente son pruebas distintas.</blockquote>
+
+    <p>Un investigador puede también hacer estos experimentos con su propio cerebro, comparando su experiencia bajo estimulación controlada con las mediciones y las predicciones del modelo. La prueba más directa del sustrato sigue siendo hipotética. Los circuitos neuronales se sustituirían poco a poco por componentes artificiales que preserven la organización propuesta, y el participante compararía su experiencia a lo largo del proceso. Una experiencia que persistiera tras una sustitución completa contaría en contra de la afirmación de que la biología es necesaria para cualquier experiencia.</p>
+
+    <p>Según la hipótesis de preservación, un candidato que supere estas pruebas en personas se convierte en una especificación de lo que un emulador debe preservar, incluido su monoide de actualización. Que un emulador concreto la cumpla, también en sus respuestas a intervenciones equivalentes, debe establecerse aparte. La emulación, o la transferencia de una mente a otro soporte (<i lang="en">mind uploading</i>), que aspire a la experiencia humana tiene que empezar por construir esa especificación a partir de mediciones neuronales, intervenciones e informes en primera persona. Sin ella, nadie puede decir qué preserva un emulador dado.</p>
+
+
+
+  </div>
+
+  <section class="night">
+    <div class="wrap story">
+
+<h2>Materia oscura experiencial</h2>
+
+    <p>Atribuir experiencia a un emulador prolonga una inferencia que la gente ya hace. Solo la experiencia propia es directamente accesible, y atribuimos experiencia a los demás. Las encuestas a filósofos e investigadores de la conciencia encuentran tasas altas de atribución para los humanos y los mamíferos que nos resultan familiares, y más bajas para las moscas, las plantas y los sistemas de IA de su momento. El marco da a esa inferencia una base estructural explícita.</p>
+
+    <figure class="rail fig">
+      <div class="plate">
+        <img loading="lazy" decoding="async" src="what-a-brain-simulation-must-keep/venn.png" width="1431" height="1103" alt="Regiones anidadas, con los rótulos en inglés. Un recuadro exterior rotulado «Experience (E)», experiencia, contiene otro rotulado «Structured experience (SE)», experiencia estructurada, que contiene una elipse rotulada «Agents (A)», agentes. Dentro de la elipse, un círculo coral rotulado «With a self-model (AS)», con modelo de sí mismo, se solapa con un círculo azul rotulado «With internal reports (AR)», con informes internos; el solapamiento lleva el rótulo ARS.">
+      </div>
+      <figcaption><strong>Tipos de experiencia en el marco.</strong> La experiencia estructurada (SE) queda dentro de la experiencia (E). Parte de ella está asociada a agentes (A). Entre los agentes, algunos tienen un modelo de sí mismos (AS), algunos mantienen informes internos (AR) y algunos tienen ambas cosas; la organización humana propuesta en el artículo se sitúa en ese solapamiento. Las áreas no indican lo frecuente que es cada tipo.
+        <span class="credit">Figura 2 del artículo; rótulos en inglés</span></figcaption>
+    </figure>
+
+    <p>También implica un límite. La experiencia humana, con su modelo del propio agente y sus informes internos, es un caso entre los que la premisa permite. Un gato, una cucaracha, una planta, una célula o un sistema digital pueden ser, cada uno, un agente de la misma clase en su propio grano, con sus propios contenidos y escalas de tiempo, y otras organizaciones pueden sostener experiencia sin informes. Gran parte de todo ello puede carecer de un camino por el que sus contenidos lleguen hasta nosotros. Esa experiencia es materia oscura respecto a nuestros medios de acceso. Los límites de lo que podemos comunicar e investigar no marcan los límites de la experiencia.</p>
+
+    <p>El límite tiene una vertiente ética. La valencia, en esta propuesta, sigue la ordenación que hace la función objetivo y no requiere memoria. Un sistema podría sufrir y no ser capaz nunca de decirlo después. Que falte un informe no elimina la preocupación.</p>
+
+    <p>El modelo de la mosca de 2024 preserva, hasta donde se ha comprobado, respuestas seleccionadas de dos circuitos. Según la propuesta expuesta aquí, tiene experiencia estructurada propia y comparte con el animal exactamente aquellos rasgos cuya organización realiza. Cuáles son esos rasgos se desconoce, para la mosca y para los modelos mayores que vendrán. Los experimentos descritos más arriba son la manera de averiguarlo.</p>
+
+
+
+    </div>
+  </section>
+
+</article>
+
+<footer class="night colophon">
+  <div class="wrap">
+    <div class="cols">
+      <div><h3>Fuente</h3><p>Giulio Ruffini, <i lang="en">What Must a Brain Simulation Retain to Preserve Experience?</i>, documento de trabajo WP0215 de BCOM (2026), <a href="https://doi.org/10.5281/zenodo.24280672" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24280672</a>. El artículo, en inglés, contiene los enunciados formales, las demostraciones y las referencias de los estudios mencionados aquí. Las fuentes sobre la brújula de los insectos son Seelig y Jayaraman (<i>Nature</i>, 2015) y Chittka y Heinze (<i>Science</i>, 2026).</p></div>
+      <div><h3>Código y demostraciones</h3><p>Demostraciones verificadas por ordenador: <a href="https://github.com/giulioruffini/KTAIT" target="_blank" rel="noopener">github.com/giulioruffini/KTAIT</a>. Comprobaciones ejecutables: <a href="https://github.com/giulioruffini/WP0215-brain-simulation-preservation" target="_blank" rel="noopener">github.com/giulioruffini/WP0215-brain-simulation-preservation</a>.</p></div>
+      <div><h3>Sobre este ensayo</h3><p>Las figuras proceden del artículo y conservan sus rótulos en inglés, salvo la ilustración de la fusión de estados, dibujada para este ensayo. Klaus (Claude, Anthropic) redactó el ensayo con el autor y preparó esta versión en español; Kaiti (Codex, OpenAI) lo revisó y preparó la ilustración nueva. La traducción de la cita de Gödel es nuestra. Última revisión: 21 de noviembre de 2026.</p></div>
+    </div>
+    <p class="line"><span>Barcelona Computational Foundation · Blog de BCOM · Complemento del WP0215</span><span><a href="https://www.giulioruffini.com/blog">Más textos en giulioruffini.com</a></span></p>
+  </div>
+</footer>
+
+</body>
+</html>

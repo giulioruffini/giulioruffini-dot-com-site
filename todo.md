@@ -1,5 +1,6 @@
 # TODO — giulioruffini.com
 
+- [x] November 21: "What a Brain Simulation Must Keep" revised against the current WP0215 source and published with a Spanish edition, "Lo que una simulación cerebral debe conservar" (/blogs/what-a-brain-simulation-must-keep-blog-es.html, entry content/blog/what-a-brain-simulation-must-keep-es.md); the two pages link to each other; record in WP0215 notes/2026-11-21_klaus/blog_revision
 - [x] November 19: publish and verify the approved WP0215 blog revision, state-merging figure, and previously held hypercomputation paragraph (2f33083; successful deployment 44552701380)
 
 - [ ] when the Mercadal cooperation/competition paper (bioRxiv 2025.07.09.663817) and the two Vohryzek preprints are published, replace the preprint links on /neuroscience and All Publications
