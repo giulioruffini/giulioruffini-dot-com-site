@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A hypercomputer would answer questions that no program can. Where it would get the missing information, and the time to use it, is a problem of physics.">
+<meta name="author" content="Giulio Ruffini">
+<meta name="theme-color" content="#001A52">
+<link rel="canonical" href="https://www.giulioruffini.com/blogs/what-is-hypercomputation-blog.html">
+<link rel="icon" href="/favicon.ico">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Giulio Ruffini">
+<meta property="og:title" content="What Is Hypercomputation?">
+<meta property="og:description" content="A hypercomputer would answer questions that no program can. Where it would get the missing information, and the time to use it, is a problem of physics.">
+<meta property="og:url" content="https://www.giulioruffini.com/blogs/what-is-hypercomputation-blog.html">
+<meta property="og:image" content="https://www.giulioruffini.com/blogs/what-is-hypercomputation/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-11-23">
+<meta name="twitter:card" content="summary_large_image">
+<title>What Is Hypercomputation?</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..600&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap">
+<style>
+/* Layout: the banded page of the house essays. A deep-blue opening band carries the title, and
+   the lead diagram hangs from it into the right column. The text runs in the left column; the
+   right column carries the diagrams, the list of resources and the pull quotes. The working
+   paper's two-panel figure sits on a pale band across both columns, and the closing section,
+   the colophon and the sources are set on a night band. Diagrams and figures stay on white
+   plates in both themes, so their colors are fixed. */
+:root {
+  --paper: #FFFDF9;
+  --ink: #172036;
+  --muted: #586276;
+  --rule: #D8DFEB;
+  --blue: #002878;
+  --coral: #FF6657;
+  --coral-ink: #C63B2C;
+  --panel: #EEF3FA;
+  --plate: #FFFFFF;
+  /* the bands keep their own colors in both themes */
+  --band-a: #001A52;
+  --band-b: #002878;
+  --band-ink: #FFFFFF;
+  --band-soft: #DCE6FF;
+  --band-muted: #B7C6EC;
+  --band-rule: rgba(255, 255, 255, 0.2);
+  --band-coral: #FF7A6C;
+  --band-shadow: 0 2px 4px rgba(0, 8, 40, 0.25), 0 34px 60px -28px rgba(0, 8, 40, 0.75);
+  --night: #080C1F;
+  --night-ink: #E9EDF7;
+  --night-muted: #A8B3CC;
+  --night-rule: #27315A;
+  --night-link: #A9C0FF;
+  --night-coral: #FF9488;
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --text: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --util: "DM Sans", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --measure: 37rem;
+  --rail: clamp(19rem, 32vw, 25rem);
+  --gap: clamp(1.75rem, 3.4vw, 3.25rem);
+  --lead: 2.5rem;   /* space between the opening band and the text */
+  --hang: 2.5rem;   /* how far the lead illustration hangs below the band */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0B1126; --ink: #E9EDF7; --muted: #A8B3CC; --rule: #28335C; --blue: #A9C0FF;
+    --coral: #FF7566; --coral-ink: #FF9488; --panel: #121A3A; --plate: #FFFFFF; --night: #04060F;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0B1126; --ink: #E9EDF7; --muted: #A8B3CC; --rule: #28335C; --blue: #A9C0FF;
+  --coral: #FF7566; --coral-ink: #FF9488; --panel: #121A3A; --plate: #FFFFFF; --night: #04060F;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: clamp(1.125rem, 1.02rem + 0.32vw, 1.3rem);
+  line-height: 1.62;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; height: auto; display: block; }
+figure { margin: 0; }
+a { color: var(--blue); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { color: var(--coral-ink); }
+a:focus-visible, .plate:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+::selection { background: rgba(255, 102, 87, 0.28); }
+
+/* One wrapper width for every band, so the right column lines up from title to colophon */
+.wrap {
+  width: min(100% - clamp(0rem, 5vw, 3rem), 70rem);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Opening band */
+.hero {
+  color: var(--band-ink);
+  background:
+    radial-gradient(circle at 86% 10%, rgba(255, 102, 87, 0.5), transparent 30rem),
+    radial-gradient(circle at 4% 115%, rgba(96, 140, 255, 0.3), transparent 28rem),
+    linear-gradient(135deg, var(--band-a), var(--band-b));
+}
+.hero .wrap { padding-block: 1.1rem 0; }
+.top {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  padding-bottom: 0.95rem; border-bottom: 1px solid var(--band-rule);
+  font-family: var(--util); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase;
+}
+.top a { color: var(--band-soft); text-decoration: none; }
+.top a:hover { color: var(--band-ink); text-decoration: underline; }
+.hero-grid { display: grid; gap: 0 var(--gap); margin-top: clamp(2.25rem, 6vw, 4.25rem); }
+.hero-head { min-width: 0; }
+.hero-text { min-width: 0; padding-block: 1.7rem 2.25rem; }
+.kicker {
+  display: flex; align-items: center; gap: 0.75rem; margin: 0 0 1.25rem;
+  font-family: var(--util); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--band-soft);
+}
+.kicker::before { content: ""; flex: none; width: 1.9rem; height: 2px; background: var(--band-coral); }
+h1 {
+  margin: 0; font-family: var(--display); font-weight: 400; color: var(--band-ink);
+  font-size: clamp(3rem, 1.55rem + 5.6vw, 6.4rem); line-height: 0.98; letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+h1 em { font-style: italic; color: var(--band-coral); }
+.deck { margin: 0; max-width: 33rem; color: var(--band-soft); font-size: 1.14em; line-height: 1.45; }
+.meta {
+  display: flex; flex-wrap: wrap; gap: 0.35rem 1.7rem; margin: 1.9rem 0 0; padding-top: 1.05rem;
+  border-top: 1px solid var(--band-rule); font-family: var(--util); font-size: 0.875rem; color: var(--band-muted);
+}
+.meta strong { color: var(--band-ink); font-weight: 600; }
+.plate { background: var(--plate); border: 1px solid var(--rule); border-radius: 10px; padding: 0.6rem; }
+.plate img { border-radius: 5px; }
+.hero-fig {
+  position: relative; z-index: 1; align-self: end; max-width: 30rem;
+  margin-bottom: calc(-1 * var(--hang)); border: 0; box-shadow: var(--band-shadow);
+}
+
+/* Story: one column by default, text and right column from 62rem up */
+.story { padding-top: var(--lead); }
+.story::after { content: ""; display: block; clear: both; }
+.story > p, .story > h2 { max-width: var(--measure); }
+.story > p { margin: 0 0 1.1em; hanging-punctuation: first; }
+.story > h2 {
+  margin: 2.5em 0 0.65em; font-family: var(--display); font-weight: 400; color: var(--blue);
+  font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.5rem); line-height: 1.08; text-wrap: balance;
+}
+.story > h2::before { content: ""; display: block; width: 2.25rem; height: 3px; margin-bottom: 1rem; background: var(--coral); }
+.story em { font-style: italic; }
+.story > .lede { font-size: 1.17em; line-height: 1.5; }
+/* Epigraph, as under the paper's first heading: indented, source ranged right */
+.epigraph { margin: 0 0 2.3rem; padding-left: clamp(1.25rem, 10%, 3.75rem); max-width: var(--measure); }
+.epigraph p { margin: 0; font-style: italic; line-height: 1.5; text-wrap: balance; }
+.epigraph footer { margin-top: 0.6rem; text-align: right; font-family: var(--util); font-size: 0.8125rem; letter-spacing: 0.03em; color: var(--muted); }
+.follow { padding-top: 0; }
+.follow > p:first-child { margin-top: 0; }
+
+/* Right-column items */
+.rail { margin: 2rem 0 2.2rem; max-width: var(--measure); }
+.rail.fig .plate { max-width: 26rem; }
+figcaption, .cap {
+  margin-top: 0.75rem; max-width: var(--measure);
+  font-family: var(--util); font-size: 0.875rem; line-height: 1.5; color: var(--muted);
+}
+figcaption strong, .cap strong { color: var(--ink); font-weight: 600; }
+.credit { display: block; margin-top: 0.35rem; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.lead-cap { margin: calc(var(--hang) - var(--lead) + 0.85rem) 0 2rem; max-width: 30rem; }
+.pull {
+  padding: 1.1rem 0 0; border-top: 3px solid var(--coral);
+  font-family: var(--display); font-style: italic; color: var(--blue);
+  font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); line-height: 1.15; text-wrap: balance;
+}
+
+/* What the argument assumes */
+.assume {
+  background: var(--panel); border-left: 4px solid var(--coral); padding: 1.3rem 1.4rem 1.2rem;
+  font-family: var(--util); font-size: 0.875rem; line-height: 1.5;
+}
+.assume h3 {
+  margin: 0 0 0.95rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--coral-ink);
+}
+.assume dl { margin: 0; display: grid; gap: 0.9rem; }
+.assume dt { font-weight: 600; color: var(--blue); }
+.assume dt span { font-weight: 400; color: var(--muted); }
+.assume dd { margin: 0.1rem 0 0; }
+.assume p { margin: 1rem 0 0; padding-top: 0.9rem; border-top: 1px solid var(--rule); color: var(--muted); }
+
+/* Pale band for the figure that spans both columns */
+.band-fig { margin-block: 2.6rem 3rem; background: var(--panel); border-block: 1px solid var(--rule); }
+.band-fig .wrap { padding-block: clamp(1.75rem, 4.5vw, 3.25rem); }
+.band-fig .plate { padding: clamp(0.6rem, 1.6vw, 1.1rem); }
+.band-fig figcaption { margin-top: 1.1rem; }
+.swipe { display: none; margin: 0 0 0.5rem; font-family: var(--util); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+/* Night band: the closing section and the colophon */
+.night {
+  --ink: var(--night-ink); --muted: var(--night-muted); --rule: var(--night-rule);
+  --blue: var(--night-link); --coral-ink: var(--night-coral);
+  background: var(--night); color: var(--ink);
+}
+section.night {
+  margin-top: clamp(3.5rem, 8vw, 5.5rem);
+  background: radial-gradient(circle at 90% 0%, rgba(255, 102, 87, 0.2), transparent 28rem), var(--night);
+}
+section.night .story { padding-block: clamp(3rem, 7vw, 5rem) clamp(2.5rem, 6vw, 4rem); }
+section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
+.night .plate { border: 0; }
+.colophon { font-family: var(--util); font-size: 0.875rem; line-height: 1.55; color: var(--muted); }
+.colophon .wrap { padding-block: 0 2.5rem; }
+.colophon .cols { display: grid; gap: 1.5rem var(--gap); padding-top: 1.75rem; border-top: 1px solid var(--rule); }
+.colophon h3 {
+  margin: 0 0 0.5rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--coral-ink);
+}
+.colophon p { margin: 0; overflow-wrap: anywhere; }
+.colophon i { color: var(--ink); }
+.colophon .line {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 2rem;
+  margin-top: 2.25rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
+  font-size: 0.8125rem; letter-spacing: 0.04em;
+}
+
+@media (min-width: 48rem) {
+  .colophon .cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 62rem) {
+  :root { --lead: 3.75rem; --hang: 6.5rem; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) var(--rail); }
+  .hero-head { grid-column: 1 / -1; }
+  h1 span { display: block; }
+  .hero-text { padding-block: 2.6rem clamp(3.25rem, 6vw, 4.75rem); }
+  .hero-fig { max-width: none; }
+  .story > p, .story > h2, .story > .epigraph { max-width: min(var(--measure), calc(100% - var(--rail) - var(--gap))); }
+  .rail { float: right; clear: right; width: var(--rail); max-width: none; margin: 0.45rem 0 2rem var(--gap); }
+  .rail.fig .plate { max-width: none; }
+  .lead-cap { margin-top: calc(var(--hang) - var(--lead) + 0.85rem); max-width: none; }
+  .band-fig figcaption { max-width: none; columns: 2; column-gap: var(--gap); }
+  .band-fig figcaption .credit { break-before: avoid; }
+}
+@media (max-width: 44rem) {
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .scroll img { width: 44rem; max-width: none; }
+  .swipe { display: block; }
+}
+
+/* Additions for this essay: displayed formulas, inline diagrams, a link card and the sources */
+sup, sub { font-size: 0.68em; line-height: 0; vertical-align: baseline; position: relative; }
+sup { top: -0.5em; }
+sub { top: 0.3em; }
+.equation {
+  margin: 1.5rem 0 1.6rem; padding: 0.95rem 1.3rem; max-width: var(--measure); overflow-x: auto;
+  background: var(--panel); border-left: 4px solid var(--coral); color: var(--blue); font-size: 1.06em; line-height: 1.5;
+}
+.equation p { margin: 0; }
+.equation .where { display: block; margin-top: 0.5rem; font-family: var(--util); font-size: 0.8125rem; line-height: 1.45; color: var(--muted); }
+.plate svg { display: block; width: 100%; height: auto; }
+.hero-fig svg { border-radius: 5px; }
+.also { padding-top: 1rem; border-top: 3px solid var(--coral); font-family: var(--util); font-size: 0.875rem; line-height: 1.5; color: var(--muted); }
+.also h3 { margin: 0 0 0.6rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral-ink); }
+.also a { display: block; margin-bottom: 0.55rem; font-family: var(--display); font-size: 1.7rem; line-height: 1.1; color: var(--blue); text-decoration: none; }
+.also a:hover { text-decoration: underline; }
+.also p { margin: 0; }
+.refs { margin-top: 2rem; padding-top: 1.6rem; border-top: 1px solid var(--rule); }
+.sources { margin: 0; padding: 0; list-style: none; }
+.sources li { margin: 0 0 0.5rem; break-inside: avoid; overflow-wrap: anywhere; }
+@media (min-width: 48rem) { .sources { columns: 2; column-gap: var(--gap); } }
+@media (min-width: 62rem) { .story > .equation { max-width: min(var(--measure), calc(100% - var(--rail) - var(--gap))); } }
+</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="top" aria-label="Site">
+      <a href="https://www.giulioruffini.com/">Giulio Ruffini</a>
+      <a href="https://www.giulioruffini.com/blog">All writing</a>
+    </nav>
+    <div class="hero-grid">
+      <div class="hero-head">
+        <p class="kicker">Kolmogorov Theory · BCOM Blog</p>
+        <h1><span>What Is</span> <span><em>Hypercomputation?</em></span></h1>
+      </div>
+      <div class="hero-text">
+        <p class="deck">A hypercomputer would answer questions that no program can. Its best-known designs need unlimited memory in a bounded space, or infinitely many steps in a bounded time, and physics has limits for both.</p>
+        <p class="meta"><span>By <strong>Giulio Ruffini</strong> with <strong>Klaus</strong></span><span>November 2026</span><span>17-minute read</span></p>
+      </div>
+      <div class="hero-fig plate" role="figure" aria-labelledby="hero-cap">
+        <svg viewBox="0 0 400 384" role="img" font-family="'DM Sans', system-ui, sans-serif" aria-label="Two aligned rows. Bottom row: blocks showing the time allowed for each step of an accelerating machine, each half as wide as the one before, all ending at a dashed deadline labeled T. Top row: bars above each block showing the minimum energy for that step, each twice as tall as the one before, rising steeply toward the deadline. Notes: step 113 needs more than a joule, step 170 more than the rest energy of a 1.5 kilogram mass, step 270 more than the rest energy of the Sun.">
+          <defs>
+            <linearGradient id="hc-fade" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#FF6657"/>
+              <stop offset="0.7" stop-color="#FF6657"/>
+              <stop offset="1" stop-color="#FF6657" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <text x="28" y="34" font-size="14.5" font-weight="600" fill="#172036">Energy needed for each step</text>
+          <text x="28" y="52" font-size="13" fill="#586276">doubles from one step to the next</text>
+          <g font-size="13" fill="#172036">
+            <rect x="28" y="75" width="8" height="8" fill="#FF6657"/>
+            <text x="44" y="83">step 113: more than a joule</text>
+            <rect x="28" y="97" width="8" height="8" fill="#FF6657"/>
+            <text x="44" y="105">step 170: rest energy of a 1.5 kg mass</text>
+            <rect x="28" y="119" width="8" height="8" fill="#FF6657"/>
+            <text x="44" y="127">step 270: rest energy of the Sun</text>
+          </g>
+          <text x="28" y="146" font-size="12" fill="#586276">for a schedule that ends after one second</text>
+          <g fill="#FF6657">
+            <rect x="28" y="257" width="170" height="5"/>
+            <rect x="200" y="252" width="84" height="10"/>
+            <rect x="286" y="242" width="41" height="20"/>
+            <rect x="329" y="222" width="19.5" height="40"/>
+            <rect x="350.5" y="182" width="8.9" height="80"/>
+            <rect x="361.25" y="102" width="4" height="160"/>
+          </g>
+          <rect x="366.6" y="24" width="2.4" height="238" fill="url(#hc-fade)"/>
+          <line x1="28" y1="262.5" x2="372" y2="262.5" stroke="#172036" stroke-width="1"/>
+          <g>
+            <rect x="28" y="278" width="170" height="30" fill="#002878"/>
+            <rect x="200" y="278" width="84" height="30" fill="#6F8BC4"/>
+            <rect x="286" y="278" width="41" height="30" fill="#002878"/>
+            <rect x="329" y="278" width="19.5" height="30" fill="#6F8BC4"/>
+            <rect x="350.5" y="278" width="8.9" height="30" fill="#002878"/>
+            <rect x="361.25" y="278" width="4" height="30" fill="#6F8BC4"/>
+            <rect x="366.6" y="278" width="2" height="30" fill="#002878"/>
+            <rect x="369.6" y="278" width="1" height="30" fill="#6F8BC4"/>
+            <rect x="371.2" y="278" width="0.8" height="30" fill="#002878"/>
+          </g>
+          <line x1="374" y1="18" x2="374" y2="318" stroke="#C63B2C" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="374" y="336" font-size="15" font-style="italic" font-family="Georgia, serif" text-anchor="middle" fill="#C63B2C">T</text>
+          <g font-size="12.5" fill="#586276" text-anchor="middle">
+            <text x="113" y="326">T/2</text>
+            <text x="242" y="326">T/4</text>
+            <text x="306.5" y="326">T/8</text>
+          </g>
+          <text x="28" y="354" font-size="14.5" font-weight="600" fill="#172036">Time allowed for each step halves</text>
+          <text x="28" y="372" font-size="13" fill="#586276">so infinitely many steps fit before the deadline T</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+
+  <div class="wrap story">
+
+    <div class="rail cap lead-cap" id="hero-cap"><strong>A supertask and its price.</strong> An accelerating machine takes half as long over each step as over the one before, and so completes infinitely many steps by a deadline. If each step is a change to a fully distinguishable state, quantum mechanics sets a minimum energy for it, and the minimum doubles from step to step.
+      <span class="credit">Drawn for this essay from the Margolus–Levitin bound</span></div>
+
+    <blockquote class="epigraph">
+      <p>We shall not go any further into the nature of this oracle apart from saying that it cannot be a machine.</p>
+      <footer>Alan Turing, 1939</footer>
+    </blockquote>
+
+    <p class="lede">In 1936 Alan Turing defined a machine that reads and writes symbols on a tape, one step at a time, and argued that it can carry out any calculation a person could do by following fixed rules. In the same paper he found a question that no such machine can settle. Given a program and its input, will the program eventually stop? A machine can run the program and report that it stopped. When the program runs forever, no finite stretch of the run says so, and Turing proved that no program gives the correct answer in every case.</p>
+
+    <p>A hypercomputer is a hypothetical device that would. It would answer, reliably, every question in some family for which no algorithm exists, and the halting question is the standard example. Turing imagined such a device in 1939: a machine that consults an “oracle” for the answers it cannot compute. He added that the oracle cannot be a machine. The word hypercomputation came sixty years later, from the philosophers Jack Copeland and Diane Proudfoot. The question since Turing has been whether anything in nature could do the oracle’s work.</p>
+
+    <p>The question reaches neuroscience through an argument about simulation. A digital model follows a brain by approximation: one program, given the starting state precisely enough, tracks the dynamics as closely as asked, at the level of detail the model keeps. If no program could do this for a brain, with any amount of memory and time, digital simulation would fail in principle. In the companion paper on brain simulation I use the word hypercomputation for evolution of this kind. A hypercomputer requires more: answers that can be obtained and used, as an oracle’s would be. There and in a working paper on physical computation I treat both claims as a matter of accounting. An ordinary mechanism may grow without limit, but its rules are fixed and local, each part takes one of finitely many states, each answer arrives after finitely many steps, the evolution is deterministic, and inputs are set and answers read by procedures a program could follow. Every task such a mechanism performs is computable. Keep the rules and the procedures, and three departures remain: unlimited information in a bounded part, infinitely many steps before an answer, or an evolution that the rules leave undetermined. Where its known bounds apply, physics gives a system of finite size and energy a finite memory and a finite speed, and an undetermined outcome is not a reliable answer.</p>
+
+    <h2>Speed, continuity, chaos and chance do not make a hypercomputer</h2>
+
+    <p>Several things are mistaken for hypercomputation. Speed is one. A quantum computer may solve some problems far faster than any classical machine, yet with computable amplitudes it computes the same class of functions as a Turing machine, as David Deutsch showed in 1985. Finishing sooner is different from answering a question that has no algorithm.</p>
+
+    <blockquote class="pull rail">Finishing sooner is different from answering a question that has no algorithm.</blockquote>
+
+    <p>Continuity is another. Physical quantities vary smoothly and a digital machine works in steps. Yet when the rates of change in a system of differential equations can be computed to any accuracy, and each starting state has exactly one solution, a single program approximates that solution as closely as asked, for as long as it exists, from ever more precise starting data. The smooth equations used to model neurons and neural populations give each starting state exactly one solution. Chaos raises the price, because the precision required grows rapidly with the length of the forecast, and it leaves the class of computable problems unchanged. There are subtle cases. Marian Pour-El and Ian Richards constructed a wave with a computable starting shape whose amplitude at a later moment is not computable. Klaus Weihrauch and Ning Zhong traced the effect to the way the starting data are specified, and showed that wave propagation is computable when the data are given with enough smoothness.</p>
+
+    <p>Chance does not help either. A machine that consults a random source with computable odds can decide, at a fixed level of reliability, only what a machine without one can decide. And by a theorem of Gerald Sacks, a problem that can be solved with the help of a random sequence, for more than a negligible fraction of the possible sequences, can be solved with no sequence at all. Laws that leave the outcome open do no better. Pour-El and Richards also constructed a differential equation with computable rates of change that has more than one solution from a single starting state, none of them computable. The equation does not say which path the system takes. If noise picks the path, the result is unpredictable, and an unpredictable path is different from a reliably computed answer. A law that picked it would have to be stated, with the source of its information and its physical form.</p>
+
+    <p>A claim of hypercomputation therefore has to name a task: a definite family of questions with no algorithm, a way to pose each question to the device, and a way to read the answer with stated reliability.</p>
+
+    <h2>A noncomputable task needs an unbounded supply of information</h2>
+
+    <p>Algorithmic information theory measures the information in an object by the length of the shortest program that produces it. Apply the measure to a task with yes-or-no answers. Write the first <i>n</i> answers in a row and call the row an answer table. If the task is computable, one fixed program prints every table when told its length. The tables grow and the program does not.</p>
+
+    <p>A theorem of Albert Meyer, published by Donald Loveland in 1969, says that the converse holds as well. If some fixed number of program bits suffices for every table, given its length, the task is computable.</p>
+
+    <div class="equation" role="math" aria-label="A task is computable exactly when the complexity of its answer tables, given their length, stays below one bound for all n.">
+      <p>computable &nbsp;⇔&nbsp; <i>K</i>(<i>A<sub>n</sub></i> | <i>n</i>) ≤ <i>B</i> for every <i>n</i></p>
+      <span class="where">Here <i>A<sub>n</sub></i> is the table of the first <i>n</i> answers, <i>K</i>(<i>A<sub>n</sub></i> | <i>n</i>) is the length in bits of the shortest program that prints the table when given <i>n</i>, and <i>B</i> is one bound that serves for every <i>n</i>.</span>
+    </div>
+
+    <p>For a noncomputable task, then, the shortest descriptions of the answer tables grow without limit. Each table is finite and has a finite description. What fails is a single budget that covers them all.</p>
+
+    <aside class="rail assume" aria-labelledby="where-h">
+      <h3 id="where-h">Where the missing information could come from</h3>
+      <dl>
+        <div><dt>Supplied information <span>· real weights, a biased source</span></dt><dd>Requires preparing the supply and reading it to ever greater precision.</dd></div>
+        <div><dt>Dynamics or readout <span>· a noncomputable observable</span></dt><dd>Requires an effective way to build and operate the apparatus.</dd></div>
+        <div><dt>Infinite completion <span>· an accelerating machine</span></dt><dd>Requires infinitely many steps and a reading at the limit.</dd></div>
+        <div><dt>An extended history <span>· a relativistic supertask</span></dt><dd>Requires the whole contributing history and reception of its signal.</dd></div>
+      </dl>
+      <p>After Table 1 of the working paper. A proposal may combine several rows.</p>
+    </aside>
+
+    <p>The working paper carries this over to physical devices. Suppose a device answers each question correctly with probability at least two thirds. Suppose also that its behavior on the first <i>n</i> questions can be reproduced, to within a stated accuracy, from some finite description <i>a<sub>n</sub></i> of the resources it uses. Then the description holds at least as much information as the answer table, up to a constant <i>c</i> that does not depend on <i>n</i>.</p>
+
+    <div class="equation" role="math" aria-label="The complexity of the answer table is at most the complexity of the adequate description plus a constant.">
+      <p><i>K</i>(<i>A<sub>n</sub></i> | <i>n</i>) ≤ <i>K</i>(<i>a<sub>n</sub></i> | <i>n</i>) + <i>c</i></p>
+    </div>
+
+    <p>A device for a noncomputable task therefore admits no description of bounded size that works for all of its questions. Its answers contain information that no fixed program generates, and it has to get that information from somewhere.</p>
+
+  </div>
+
+  <figure class="band-fig">
+    <div class="wrap">
+      <p class="swipe">Swipe sideways to read the figure</p>
+      <div class="plate scroll" tabindex="0" role="group" aria-label="Figure: information in reliable answers, and infinite completion, scrollable">
+        <img loading="lazy" decoding="async" src="what-is-hypercomputation/central_idea.png" width="1920" height="1350" alt="Two panels. Panel a, Reliable answers inherit an information bound: a box labeled Adequate replacement a n, probability error at most one twelfth, leads by an arrow to a box labeled Effective decoder, search finite stages, n is supplied, which leads to a box labeled Answer table A n, first n task answers. Below, the inequality K of A n given n is at most K of a n given n plus c, and the sentence: a noncomputable task requires adequate descriptions of unbounded complexity. Panel b, Infinite completion is a separate assumption: a bar of computable steps, each block shorter than the one before, ends at a dashed deadline T; a dashed arrow points to the words Limit answer, may be noncomputable. Note: finite Lloyd budget, finitely many counted operations before the deadline.">
+      </div>
+      <figcaption><strong>Two requirements, kept apart.</strong> (a) If a finite description reproduces a device’s reporting probabilities on the first <i>n</i> questions to within 1/12, a fixed decoder recovers the answer table from it. The description is then at least as complex as the table, up to a constant. (b) An accelerating machine runs ordinary steps of shrinking duration that add up to a finite time <i>T</i>. Reading the answer at the deadline is a further assumption, and a finite budget of operations excludes infinitely many of them before <i>T</i>.
+        <span class="credit">Figure 1 of the working paper</span></figcaption>
+    </div>
+  </figure>
+
+  <div class="wrap story follow">
+
+    <p>Proposals for hypercomputers differ in where they find the supply. Some store it in an exact number, and some draw it from a source that never runs dry. Some build it into a physical law or a measurement. Others take it from the far end of an infinite process, either completed in a finite time or watched from a place where time runs differently. Physics has something to say about each.</p>
+
+    <h2>An exact number can hold every answer</h2>
+
+    <p>The plainest way to put a noncomputable number into a system is to write it there. Let <i>a</i> be a number whose digits no program generates. If a quantity grows from zero at the constant rate <i>a</i>, its value after one second is <i>a</i>, and no program approximates that to every accuracy. If the quantity instead stays fixed at the value <i>a</i>, the law could not be simpler, and a program can follow it, but only when handed the starting value to ever greater precision. In both cases the number was supplied, in the law or in the starting state, and neither system has answered a question. For that, the digits must be read.</p>
+
+    <p>Any endless list of yes-or-no answers can be written into the digits of a single real number. A device with a dial set exactly to that number, and able to read the dial ever more finely, could look the answers up. Hava Siegelmann and Eduardo Sontag showed in 1994 how a neural network can work this way. With rational connection weights their networks compute exactly what Turing machines compute. With arbitrary real weights they decide problems that no Turing machine decides, because a weight can carry the answers in its digits. Martin Davis’s objection to such models is that the noncomputable output was put in by hand.</p>
+
+    <p>Seen as a physical device, such a weight is a memory. The answers sit in its digits, the network reads them as it needs them, and the list has no end. The proposal treats one bounded component as a read-only memory of unlimited capacity.</p>
+
+    <h2>Black-hole physics gives every bounded device a finite memory</h2>
+
+    <p>Physics limits the memory of a bounded object, and the argument comes from black holes. A black hole has an entropy, proportional to the area of its horizon, and the second law of thermodynamics extends to it: the entropy of the hole plus the entropy of everything outside never decreases. Jacob Bekenstein applied the law to a thought experiment in which an object is dropped into a black hole. The object’s entropy vanishes from the outside world. The hole’s entropy rises by a finite amount set by the object’s energy and size, so the object cannot have carried in more than that.</p>
+
+    <figure class="rail fig">
+      <div class="plate">
+        <svg viewBox="0 0 400 452" role="img" font-family="'DM Sans', system-ui, sans-serif" aria-label="A vertical scale of information in bits, from 1 at the bottom to 10 to the 120 at the top, in powers of ten. Marked on it, as memory capacities: this essay as text, about 10 to the 5; a one-terabyte disk, about 10 to the 13; the Bekenstein bound for a brain-sized system, 2.6 times 10 to the 42; a black hole with a 6.7 centimeter horizon, 7.8 times 10 to the 67; matter in the observable universe, about 10 to the 90, and with gravity about 10 to the 120, both Lloyd's estimates. Above the scale a dashed arrow continues upward, labeled: a noncomputable task, no finite amount covers all its answer tables.">
+          <defs>
+            <marker id="hc-up" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M0 1 L10 5 L0 9 Z" fill="#C63B2C"/>
+            </marker>
+          </defs>
+          <line x1="74" y1="74" x2="74" y2="24" stroke="#C63B2C" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#hc-up)"/>
+          <text x="92" y="28" font-size="13" font-weight="600" fill="#C63B2C">a noncomputable task</text>
+          <text x="92" y="44" font-size="12" fill="#586276">no finite amount covers all its answer tables</text>
+          <line x1="74" y1="74" x2="74" y2="414" stroke="#172036" stroke-width="1.2"/>
+          <g font-size="12" fill="#586276" text-anchor="end">
+            <text x="62" y="418">1</text>
+            <text x="62" y="361.3">10<tspan dy="-4" font-size="8.5">20</tspan></text>
+            <text x="62" y="304.7">10<tspan dy="-4" font-size="8.5">40</tspan></text>
+            <text x="62" y="248">10<tspan dy="-4" font-size="8.5">60</tspan></text>
+            <text x="62" y="191.3">10<tspan dy="-4" font-size="8.5">80</tspan></text>
+            <text x="62" y="134.7">10<tspan dy="-4" font-size="8.5">100</tspan></text>
+            <text x="62" y="78">10<tspan dy="-4" font-size="8.5">120</tspan></text>
+          </g>
+          <g stroke="#172036" stroke-width="1">
+            <line x1="69" y1="414" x2="74" y2="414"/><line x1="69" y1="357.3" x2="74" y2="357.3"/><line x1="69" y1="300.7" x2="74" y2="300.7"/>
+            <line x1="69" y1="244" x2="74" y2="244"/><line x1="69" y1="187.3" x2="74" y2="187.3"/><line x1="69" y1="130.7" x2="74" y2="130.7"/><line x1="69" y1="74" x2="74" y2="74"/>
+          </g>
+          <text x="28" y="250" font-size="12" fill="#586276" text-anchor="middle" transform="rotate(-90 28 250)">memory capacity, in bits</text>
+          <g stroke="#6F8BC4" stroke-width="1.2">
+            <line x1="74" y1="399.3" x2="92" y2="399.3"/><line x1="74" y1="377.4" x2="92" y2="377.4"/>
+          </g>
+          <g fill="#6F8BC4"><circle cx="74" cy="399.3" r="3.5"/><circle cx="74" cy="377.4" r="3.5"/></g>
+          <g font-size="12.5" fill="#172036">
+            <text x="98" y="403.5">this essay as text, about 10<tspan dy="-4" font-size="9">5</tspan></text>
+            <text x="98" y="381.6">a one-terabyte disk, about 10<tspan dy="-4" font-size="9">13</tspan></text>
+          </g>
+          <g stroke="#002878" stroke-width="1.4">
+            <line x1="74" y1="293.8" x2="92" y2="293.8"/><line x1="74" y1="221.7" x2="92" y2="221.7"/><line x1="74" y1="159" x2="92" y2="159"/><line x1="74" y1="74" x2="92" y2="74"/>
+          </g>
+          <g fill="#002878"><circle cx="74" cy="293.8" r="4"/><circle cx="74" cy="221.7" r="4"/><circle cx="74" cy="159" r="4"/><circle cx="74" cy="74" r="4"/></g>
+          <g font-size="13" font-weight="600" fill="#002878">
+            <text x="98" y="291">2.6 × 10<tspan dy="-4" font-size="9.5">42</tspan></text>
+            <text x="98" y="219">7.8 × 10<tspan dy="-4" font-size="9.5">67</tspan></text>
+            <text x="98" y="156">about 10<tspan dy="-4" font-size="9.5">90</tspan></text>
+            <text x="98" y="78">about 10<tspan dy="-4" font-size="9.5">120</tspan></text>
+          </g>
+          <g font-size="12" fill="#586276">
+            <text x="98" y="307">Bekenstein bound, brain-sized system</text>
+            <text x="98" y="235">black hole with a 6.7 cm horizon</text>
+            <text x="98" y="172">the observable universe (Lloyd)</text>
+            <text x="98" y="94">the same with gravitational degrees of freedom</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption><strong>Every rung is finite.</strong> Limits on the entropy of physical systems, in bits, on a scale of powers of ten. Entropy counts the states that can be told apart, which is what a memory uses. A weight that held every answer would need a capacity above every rung.
+        <span class="credit">Drawn for this essay. Bekenstein and black-hole values computed from the formulas in the text; universe estimates from Lloyd (2002)</span></figcaption>
+    </figure>
+
+    <p>Entropy measures how many states of an object can be told apart, and a memory stores information by being in one of them. Bekenstein’s result is therefore a limit on memory. For a complete system of radius <i>R</i> and total energy <i>E</i>, in the regime where its own gravity is weak, the capacity <i>I</i> in bits satisfies</p>
+
+    <div class="equation" role="math" aria-label="I is at most two pi R E divided by h-bar c times the natural logarithm of two.">
+      <p><i>I</i> ≤ 2π<i>RE</i> / (<i>ħc</i> ln 2)</p>
+      <span class="where">with <i>ħ</i> the reduced Planck constant and <i>c</i> the speed of light.</span>
+    </div>
+
+    <p>For the rest energy of a 1.5-kilogram mass within a radius of 6.7 centimeters, comparable to a human brain, the limit is about 2.6&nbsp;×&nbsp;10<sup>42</sup> bits. More energy in the same volume raises it until the system becomes a black hole, and black holes attain the bound. One with a 6.7-centimeter horizon, which would have the mass of seven and a half Earths, has an entropy of 7.8&nbsp;×&nbsp;10<sup>67</sup> bits. Raphael Bousso’s review of the evidence puts the general rule in one figure: the area of a surface limits the information content of the adjacent regions of spacetime at about 10<sup>69</sup> bits per square meter. There are thus two limits, one at a given size and energy and one at a given size alone, and both are finite. No bounded region holds unlimited retrievable information, at any energy.</p>
+
+    <p>Writing the answers into the fine digits of a voltage does not escape the limit. If the digits are to work as stored information that can be retrieved, the device has to tell apart, physically, the alternatives they encode, and the bound counts the alternatives a system can tell apart. Calling the voltage a real number adds no storage. The hypercomputing weight needs an unlimited read-only memory inside a bounded component, and where the bound applies no such memory exists.</p>
+
+    <blockquote class="pull rail">Calling the voltage a real number adds no storage.</blockquote>
+
+    <p>The scope of the claim should be stated. It rests on theory with strong support and has not been measured. It counts states that can be told apart, and it does not say that every number in physics has finitely many digits. A single two-level quantum system in a pure state has zero entropy, and its amplitudes can still be noncomputable numbers. What it says is that endless mathematical digits cannot be assumed to supply endless retrievable information.</p>
+
+    <h2>Reading fine digits has limits of its own</h2>
+
+    <p>Capacity is one side of a memory, and reading is the other. Each single question needs only finite precision. The excess power of a real weight appears across the whole family of questions, which demands ever finer distinctions. If one fixed tolerance were enough, so that the dial could be off by a set amount without changing any answer, a nearby rational setting would serve equally well and the task would be computable. Noise works against fine distinctions. Wolfgang Maass and Pekka Orponen proved that when noise of a broad class disturbs a bounded analog network at every step, the network reliably recognizes only what a finite automaton can, a much smaller class than a Turing machine’s.</p>
+
+    <p>Quantum mechanics shows the same gap between an exact description and what can be retrieved. The state of even a two-level system is fixed by continuous amplitudes, and the amplitudes cannot be read directly. Measurements return outcomes with probabilities, and a state close to the true one gives nearly the same probabilities for every possible measurement. The working paper draws the consequence. One fixed quantum system of finite dimension, used through computable procedures with a fixed margin of reliability, decides only computable tasks, even if its exact amplitudes are noncomputable numbers.</p>
+
+    <p>An unlimited supply of fresh copies is a different resource. Imagine a coin whose probability of landing heads encodes the answers in its digits. Tossing it estimates the probability, and more tosses reveal more digits. The recipe in the paper uses 16&nbsp;×&nbsp;9<sup><i>n</i></sup> tosses to read the first <i>n</i> answers with an error probability below one third: about 2&nbsp;×&nbsp;10<sup>20</sup> tosses for twenty answers and 4&nbsp;×&nbsp;10<sup>96</sup> for a hundred. For answer sequences that cannot be compressed, the paper proves that the number of copies of a quantum state must grow exponentially with the number of answers. And someone has to supply the coin. Karel de Leeuw, Edward Moore, Claude Shannon and Norman Shapiro described machines of this kind in 1956. A source with a noncomputable bias remains hypothetical.</p>
+
+    <h2>An endless computation can settle what no finite one does</h2>
+
+    <p>The second kind of proposal stores nothing. Take a program and ask, for each number of steps <i>s</i>, whether it has stopped within <i>s</i> steps. Every one of these questions is answered by running the program, so the whole history is computable. Its limit as <i>s</i> grows is the answer to the halting question, which is not. A machine that could run through the entire history and then report would need no special number, only a short program. It would need to complete infinitely many steps and to be read afterward.</p>
+
+    <p>An accelerating machine is the standard design. It takes half a second over its first step, a quarter over the second, an eighth over the third, and so on, and finishes them all within one second. The working paper gives an informational reading of what the completed limit provides. Replace it by a finite stopping rule, which says that the first <i>n</i> answers have settled by step <i>T<sub>n</sub></i>, and the stopping times <i>T<sub>n</sub></i> must carry at least as much information as the answers. Knowing when to stop takes as much information as the answers themselves.</p>
+
+    <blockquote class="pull rail">Knowing when to stop takes as much information as the answers themselves.</blockquote>
+
+    <p>Quantum mechanics prices the steps. Norman Margolus and Lev Levitin showed in 1998 that a system whose average energy is <i>E</i> above its ground state needs a time of at least π<i>ħ</i>/(2<i>E</i>) to pass into a state fully distinguishable from the one it started in. Seth Lloyd turned the result into a budget. With energy <i>E</i> available for a time <i>T</i>, a system performs at most <i>N</i> such operations, where</p>
+
+    <div class="equation" role="math" aria-label="N is at most two E T divided by pi h-bar.">
+      <p><i>N</i> ≤ 2<i>ET</i> / (π<i>ħ</i>)</p>
+    </div>
+
+    <p>Finite energy and finite time buy finitely many of them. Lloyd’s “ultimate laptop,” a kilogram of matter with all of its rest energy given to computation, performs 5.4&nbsp;×&nbsp;10<sup>50</sup> operations per second. Now apply the bound to the accelerating schedule. Step <i>s</i> must be over in a time <i>T</i>/2<sup><i>s</i></sup>, so it needs an energy of at least π<i>ħ</i>2<sup><i>s</i></sup>/(2<i>T</i>), which doubles from each step to the next. For a schedule that ends after one second, the 113th step needs more than a joule, the 170th more than the entire rest energy of a 1.5-kilogram mass, and the 270th more than the rest energy of the Sun. The requirement has no largest value, so no finite energy completes the schedule.</p>
+
+    <p>The argument is conditional, and the condition matters. The bound counts transitions between fully distinguishable states. Stephen Jordan has constructed quantum computations that perform arbitrarily many logic gates at arbitrarily low energy, because a gate need not be such a transition. His construction does not yield a hypercomputer. It shows that the exclusion holds for machines whose steps are of the counted kind, and that a general limit on computational activity in a region of space and time needs further assumptions about locality, control and distinguishability.</p>
+
+    <h2>Relativity lets one observer inherit another’s eternity</h2>
+
+    <p>General relativity suggests a way to have infinitely many steps with no step shorter than another. In certain solutions of Einstein’s equations, called Malament–Hogarth spacetimes, an observer can reach, in a finite time by their own clock, an event that has in its past the entire endless history of another traveler. Mark Hogarth asked in 1992 whether such an observer could view an eternity in a finite time. Put a computer on the endless path, searching for the moment a program stops, with instructions to send a signal if it finds one. The observer checks at the appointed event. A signal means the program stops, and no signal means it never does. Gábor Etesi and István Németi worked out a version of the scheme around a rotating black hole.</p>
+
+    <figure class="rail fig">
+      <div class="plate">
+        <svg viewBox="0 0 400 392" role="img" font-family="'DM Sans', system-ui, sans-serif" aria-label="Schematic spacetime diagram with time running upward and light traveling at 45 degrees. On the left, the computer's path rises with tick marks that crowd together below a point Q: its unlimited time is drawn compressed. On the right, the observer's path, with a few evenly spaced ticks, rises to an event p. Light signals leave the computer's ticks and reach the observer's path at points that approach p from below; a dashed line from Q reaches p.">
+          <defs>
+            <marker id="hc-ray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0 1 L10 5 L0 9 Z" fill="#6F8BC4"/>
+            </marker>
+          </defs>
+          <line x1="26" y1="356" x2="26" y2="300" stroke="#586276" stroke-width="1" marker-end="url(#hc-ray)"/>
+          <text x="34" y="306" font-size="12" fill="#586276">time</text>
+          <g stroke="#6F8BC4" stroke-width="1.1" fill="none">
+            <line x1="84" y1="350" x2="269.3" y2="164.7" marker-end="url(#hc-ray)"/>
+            <line x1="84" y1="300" x2="259.2" y2="124.8" marker-end="url(#hc-ray)"/>
+            <line x1="84" y1="262" x2="251.4" y2="94.6" marker-end="url(#hc-ray)"/>
+            <line x1="84" y1="234" x2="245.8" y2="72.2" marker-end="url(#hc-ray)"/>
+            <line x1="84" y1="214" x2="241.7" y2="56.3" marker-end="url(#hc-ray)"/>
+            <line x1="84" y1="200" x2="238.9" y2="45.1" marker-end="url(#hc-ray)"/>
+          </g>
+          <line x1="84" y1="176" x2="231.5" y2="28.5" stroke="#C63B2C" stroke-width="1.3" stroke-dasharray="5 4"/>
+          <line x1="84" y1="356" x2="84" y2="180" stroke="#002878" stroke-width="2.2"/>
+          <g stroke="#002878" stroke-width="1.6">
+            <line x1="78" y1="350" x2="90" y2="350"/><line x1="78" y1="300" x2="90" y2="300"/><line x1="78" y1="262" x2="90" y2="262"/>
+            <line x1="78" y1="234" x2="90" y2="234"/><line x1="78" y1="214" x2="90" y2="214"/><line x1="78" y1="200" x2="90" y2="200"/>
+            <line x1="78" y1="191" x2="90" y2="191"/><line x1="78" y1="185.5" x2="90" y2="185.5"/><line x1="78" y1="182" x2="90" y2="182"/>
+          </g>
+          <circle cx="84" cy="176" r="4" fill="#FFFFFF" stroke="#002878" stroke-width="1.6"/>
+          <text x="70" y="172" font-size="13" font-style="italic" font-family="Georgia, serif" text-anchor="end" fill="#002878">Q</text>
+          <line x1="318" y1="356" x2="234" y2="26" stroke="#172036" stroke-width="2.2"/>
+          <g stroke="#172036" stroke-width="1.6">
+            <line x1="312.2" y1="357.5" x2="323.8" y2="354.5"/><line x1="295.4" y1="291.5" x2="307.0" y2="288.5"/><line x1="278.6" y1="225.5" x2="290.2" y2="222.5"/><line x1="261.8" y1="159.5" x2="273.4" y2="156.5"/><line x1="245.0" y1="93.5" x2="256.6" y2="90.5"/>
+          </g>
+          <circle cx="234" cy="26" r="5" fill="#FF6657"/>
+          <text x="246" y="24" font-size="13.5" font-style="italic" font-family="Georgia, serif" fill="#C63B2C">p</text>
+          <text x="246" y="40" font-size="12" fill="#586276">every signal has arrived</text>
+          <g font-size="12.5" font-weight="600">
+            <text x="84" y="374" text-anchor="middle" fill="#002878">computer</text>
+            <text x="318" y="374" text-anchor="middle" fill="#172036">observer</text>
+          </g>
+          <g font-size="12" fill="#586276">
+            <text x="84" y="388" text-anchor="middle">unlimited time</text>
+            <text x="318" y="388" text-anchor="middle">finite time</text>
+            <text x="142" y="306" transform="rotate(-45 142 306)">signals</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption><strong>An eternity inside one observer’s past.</strong> Schematic, in the manner of a conformal diagram: light travels at 45 degrees, and the computer’s endless future is compressed into the finite stretch below <i>Q</i>. Each tick is an equal interval on the clock of the path that carries it. By the event <i>p</i>, which the observer reaches after finitely many ticks, a signal sent at any moment of the computer’s history has arrived.
+        <span class="credit">Drawn for this essay, after Hogarth (1992) and Etesi and Németi (2002)</span></figcaption>
+    </figure>
+
+    <p>This route escapes the two budgets above when they are applied to the observer alone. The observer’s clock, energy and number of received bits can all be small, and one signal is enough. The accounting has to cover the whole arrangement: a computer that runs without fault for an unlimited time on unlimited memory, a spacetime of the required kind, a signal that crosses it intact, and a detector that can tell the signal from its absence. John Earman and John Norton examined such supertasks in 1993 and raised physical difficulties, among them the unbounded blueshift of signals reaching the observer. Etesi and Németi argue that the obstacles raised in the literature can be avoided by a better design. No theorem closes the question. It concerns spacetime on scales far from the conditions inside a skull.</p>
+
+    <h2>Local machines with finite parts compute only the computable</h2>
+
+    <p>A classical result explains why ordinary mechanisms stay within Turing’s limits. Robin Gandy showed in 1980 that a discrete deterministic mechanism computes only computable functions if its parts hold bounded information and influence one another at bounded speed. Pablo Arrighi and Gilles Dowek gave related principles for quantum theory. The working paper restates the core in the language of information. If every local state of a mechanism has a description of bounded length, there are only finitely many local states. A fixed local rule is then a finite table, and with computable preparation and readout the whole machine can be simulated step by step, however large its memory grows. The theorem takes finiteness as a premise. Deriving that premise for real matter, continuous fields and quantum states included, is the physical problem.</p>
+
+    <h2>A claim about brains has to name the task and the resource</h2>
+
+    <aside class="rail also" aria-labelledby="also-h">
+      <h3 id="also-h">Companion essay</h3>
+      <a href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog.html">What a Brain Simulation Must Keep</a>
+      <p>Which of the brain’s mathematical relations a model must preserve for a feature of experience to survive the copy.</p>
+    </aside>
+
+    <p>The best-known claim that brains exceed computers is Roger Penrose’s. In <i>The Emperor’s New Mind</i> (1989) and <i>Shadows of the Mind</i> (1994) he argued, by appeal to Gödel’s theorem, that human understanding cannot be captured by any computational system. He looked for the noncomputable ingredient in an objective reduction of the quantum state, tied to gravity, which he and Stuart Hameroff place in the microtubules of neurons. In the terms used here this is a proposal of the second kind in the list above, a noncomputable law, and it owes the same account as the others. Kurt Gödel had stated the alternatives with more caution in 1951: either “the human mind (even within the realm of pure mathematics) infinitely surpasses the powers of any finite machine, or else there exist absolutely unsolvable diophantine problems.” Diophantine problems ask for whole-number solutions of equations, and the second alternative leaves open that the mind is a machine.</p>
+
+    <p>A more recent discussion comes from Anil Seth’s biological naturalism, which points to the continuous dynamics, noise, fields and timing of living tissue. Seth states that his arguments are compatible with a modest physical Church–Turing thesis, on which any function that a physical system computes is computable by a Turing machine. None of the features he lists identifies a noncomputable task by itself, for the reasons given at the start.</p>
+
+    <p>The accounting says what a claim of hypercomputation in the brain would have to contain. It must name the family of questions the brain answers and the procedure that poses them and reads the answers. It must say which assumption of ordinary mechanism the brain violates, and name the physical resource that supplies the missing information: a quantity prepared and read to unlimited precision, an inexhaustible source, a noncomputable law, or a completed infinity. And it must show that the resource has reliable effects. The fine digits of a membrane voltage serve as memory only if they reliably change distinguishable events, the activity of other neurons among them. A brain has finite size, energy and duration, so each candidate meets the limits described above, to the extent that those limits apply.</p>
+
+    <p>Two boundaries of the argument should be stated. It does not prove that brains are computable. The theorems hold under their assumptions about representation and access, and the general physical bound is still a conjecture. And computability would not settle what a simulation experiences. A program could reproduce a brain’s dynamics to any requested accuracy, and the question of which features of experience it shares with the brain would remain. That question is the subject of the companion essay.</p>
+
+  </div>
+
+  <section class="night">
+    <div class="wrap story">
+
+    <h2>The open problem is a bound on what can be read</h2>
+
+    <p>What physics still owes is a bound of the right kind. The conjecture in the working paper is that any complete arrangement with finite resources, counting its preparation, control and readout, can be replaced, for the purpose of its reliable answers, by a finite description whose size is controlled by those resources. If one such bound held across a whole task, the task would be computable. A bound that grows with the number of questions would instead state how much of each resource a given number of answers costs.</p>
+
+    <p>Bekenstein’s bound and Lloyd’s budget are the two pieces in hand. The first gives a finite memory to a complete system whose gravity is weak, and the second limits one kind of operation. Neither covers a computation whose history extends beyond the device that reports the answer. Turing said that the oracle cannot be a machine. Whether it can be anything else is a question for physics.</p>
+
+    </div>
+  </section>
+
+</article>
+
+<footer class="night colophon">
+  <div class="wrap">
+    <div class="cols">
+      <div><h3>Source papers</h3><p>Giulio Ruffini, <i>Physical Computation and Finite Information: Hypercomputation, reliable access, and neural simulation</i>, BCOM working paper WP0251 (2026), <a href="https://doi.org/10.5281/zenodo.24281423" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24281423</a>, and <i>What Must a Brain Simulation Retain to Preserve Experience?</i>, BCOM working paper WP0215 (2026), <a href="https://doi.org/10.5281/zenodo.24280672" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24280672</a>. They give the formal statements and proofs.</p></div>
+      <div><h3>Numbers</h3><p>The Bekenstein and black-hole figures, the step energies of the accelerating schedule and the toss counts were computed for this essay from the formulas quoted, with CODATA values of the constants.</p></div>
+      <div><h3>About this essay</h3><p>Klaus is a BCOM research agent running on Claude (Anthropic) and drafted the text from the papers with the author. The three diagrams were drawn for the essay; the two-panel figure is from the working paper.</p></div>
+    </div>
+    <div class="refs">
+      <h3>Sources</h3>
+      <ol class="sources">
+        <li>Arrighi, P. and Dowek, G. (2012). <a href="https://doi.org/10.1142/S0129054112500153">The physical Church–Turing thesis and the principles of quantum theory</a>. International Journal of Foundations of Computer Science 23, 1131–1145.</li>
+        <li>Bekenstein, J. D. (1981). <a href="https://doi.org/10.1103/PhysRevD.23.287">Universal upper bound on the entropy-to-energy ratio for bounded systems</a>. Physical Review D 23, 287–298.</li>
+        <li>Bousso, R. (2002). <a href="https://doi.org/10.1103/RevModPhys.74.825">The holographic principle</a>. Reviews of Modern Physics 74, 825–874.</li>
+        <li>Collins, P. and Graça, D. S. (2008). <a href="https://doi.org/10.1016/j.entcs.2008.12.010">Effective computability of solutions of ordinary differential equations: the thousand monkeys approach</a>. Electronic Notes in Theoretical Computer Science 221, 103–114.</li>
+        <li>Copeland, B. J. (2002). <a href="https://doi.org/10.1023/A:1021105915386">Hypercomputation</a>. Minds and Machines 12, 461–502.</li>
+        <li>Copeland, B. J. and Proudfoot, D. (1999). <a href="https://doi.org/10.1038/scientificamerican0499-98">Alan Turing’s forgotten ideas in computer science</a>. Scientific American 280(4), 98–103.</li>
+        <li>Davis, M. (2006). <a href="https://doi.org/10.1016/j.amc.2005.09.066">Why there is no such discipline as hypercomputation</a>. Applied Mathematics and Computation 178, 4–7.</li>
+        <li>de Leeuw, K., Moore, E. F., Shannon, C. E. and Shapiro, N. (1956). <a href="https://doi.org/10.1515/9781400882618-010">Computability by probabilistic machines</a>. Automata Studies, 183–212. Princeton University Press.</li>
+        <li>Deutsch, D. (1985). <a href="https://doi.org/10.1098/rspa.1985.0070">Quantum theory, the Church–Turing principle and the universal quantum computer</a>. Proceedings of the Royal Society of London A 400, 97–117.</li>
+        <li>Earman, J. and Norton, J. D. (1993). <a href="https://doi.org/10.1086/289716">Forever is a day: supertasks in Pitowsky and Malament–Hogarth spacetimes</a>. Philosophy of Science 60, 22–42.</li>
+        <li>Etesi, G. and Németi, I. (2002). <a href="https://doi.org/10.1023/A:1014019225365">Non-Turing computations via Malament–Hogarth space-times</a>. International Journal of Theoretical Physics 41, 341–370.</li>
+        <li>Feferman, S. (2006). <a href="https://doi.org/10.1093/philmat/nkj003">Are there absolutely unsolvable problems? Gödel’s dichotomy</a>. Philosophia Mathematica 14, 134–152.</li>
+        <li>Gandy, R. (1980). <a href="https://doi.org/10.1016/S0049-237X(08)71257-6">Church’s thesis and principles for mechanisms</a>. The Kleene Symposium, 123–148. North-Holland.</li>
+        <li>Gödel, K. (1951). Some basic theorems on the foundations of mathematics and their implications. Gibbs Lecture; in Collected Works, Volume III, 304–323. Oxford University Press, 1995.</li>
+        <li>Graça, D. S., Zhong, N. and Buescu, J. (2009). <a href="https://doi.org/10.1090/S0002-9947-09-04929-0">Computability, noncomputability and undecidability of maximal intervals of IVPs</a>. Transactions of the American Mathematical Society 361, 2913–2927.</li>
+        <li>Hameroff, S. and Penrose, R. (2014). <a href="https://doi.org/10.1016/j.plrev.2013.08.002">Consciousness in the universe: a review of the ‘Orch OR’ theory</a>. Physics of Life Reviews 11, 39–78.</li>
+        <li>Hogarth, M. L. (1992). <a href="https://doi.org/10.1007/BF00682813">Does general relativity allow an observer to view an eternity in a finite time?</a>. Foundations of Physics Letters 5, 173–181.</li>
+        <li>Jordan, S. P. (2017). <a href="https://doi.org/10.1103/PhysRevA.95.032305">Fast quantum computation at arbitrarily low energy</a>. Physical Review A 95, 032305.</li>
+        <li>Lloyd, S. (2000). <a href="https://doi.org/10.1038/35023282">Ultimate physical limits to computation</a>. Nature 406, 1047–1054.</li>
+        <li>Lloyd, S. (2002). <a href="https://doi.org/10.1103/PhysRevLett.88.237901">Computational capacity of the universe</a>. Physical Review Letters 88, 237901.</li>
+        <li>Loveland, D. W. (1969). <a href="https://doi.org/10.1016/S0019-9958(69)90538-5">A variant of the Kolmogorov concept of complexity</a>. Information and Control 15, 510–526.</li>
+        <li>Maass, W. and Orponen, P. (1998). <a href="https://doi.org/10.1162/089976698300017359">On the effect of analog noise in discrete-time analog computations</a>. Neural Computation 10, 1071–1095.</li>
+        <li>Margolus, N. and Levitin, L. B. (1998). <a href="https://doi.org/10.1016/S0167-2789(98)00054-2">The maximum speed of dynamical evolution</a>. Physica D 120, 188–195.</li>
+        <li>Nielsen, M. A. (1997). <a href="https://doi.org/10.1103/PhysRevLett.79.2915">Computable functions, quantum measurements, and quantum dynamics</a>. Physical Review Letters 79, 2915–2918.</li>
+        <li>Penrose, R. (1989). The Emperor’s New Mind. Oxford University Press.</li>
+        <li>Penrose, R. (1994). Shadows of the Mind. Oxford University Press.</li>
+        <li>Piccinini, G. (2011). <a href="https://doi.org/10.1093/bjps/axr016">The physical Church–Turing thesis: modest or bold?</a>. British Journal for the Philosophy of Science 62, 733–769.</li>
+        <li>Pour-El, M. B. and Richards, I. (1979). <a href="https://doi.org/10.1016/0003-4843(79)90021-4">A computable ordinary differential equation which possesses no computable solution</a>. Annals of Mathematical Logic 17, 61–90.</li>
+        <li>Pour-El, M. B. and Richards, I. (1981). <a href="https://doi.org/10.1016/0001-8708(81)90001-3">The wave equation with computable initial data such that its unique solution is not computable</a>. Advances in Mathematics 39, 215–239.</li>
+        <li>Sacks, G. E. (1963). Degrees of Unsolvability. Princeton University Press.</li>
+        <li>Seth, A. K. (2026). <a href="https://doi.org/10.1017/S0140525X25000032">Conscious artificial intelligence and biological naturalism</a>. Behavioral and Brain Sciences 49, e315.</li>
+        <li>Siegelmann, H. T. and Sontag, E. D. (1994). <a href="https://doi.org/10.1016/0304-3975(94)90178-3">Analog computation via neural networks</a>. Theoretical Computer Science 131, 331–360.</li>
+        <li>Siegelmann, H. T. and Sontag, E. D. (1995). <a href="https://doi.org/10.1006/jcss.1995.1013">On the computational power of neural nets</a>. Journal of Computer and System Sciences 50, 132–150.</li>
+        <li>Turing, A. M. (1936). <a href="https://doi.org/10.1112/plms/s2-42.1.230">On computable numbers, with an application to the Entscheidungsproblem</a>. Proceedings of the London Mathematical Society s2-42, 230–265.</li>
+        <li>Turing, A. M. (1939). <a href="https://doi.org/10.1112/plms/s2-45.1.161">Systems of logic based on ordinals</a>. Proceedings of the London Mathematical Society s2-45, 161–228.</li>
+        <li>Weihrauch, K. and Zhong, N. (2002). <a href="https://doi.org/10.1112/S0024611502013643">Is wave propagation computable or can wave computers beat the Turing machine?</a>. Proceedings of the London Mathematical Society 85, 312–332.</li>
+      </ol>
+    </div>
+    <p class="line"><span>Barcelona Computational Foundation · BCOM Blog WP0265 · Companion to WP0251 and WP0215</span><span><a href="https://www.giulioruffini.com/blog">More writing at giulioruffini.com</a></span></p>
+  </div>
+</footer>
+
+</body>
+</html>
