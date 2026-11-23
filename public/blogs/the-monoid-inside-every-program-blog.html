@@ -569,6 +569,286 @@ sub { top: 0.3em; }
     <p>One kind does nothing but permute its states, and its operations form a simple group, one of the pieces that cannot be divided. The other kind is a flip-flop, a memory with two states and three operations: set, reset, and do nothing. The simple groups that appear all come from the monoid of the original machine: each is a group found among its operations, or a simplified image of one. The theorem never calls for a group from outside.</p>
     <p>The chain is more than a list of parts. Each part reads the input and the states of the parts before it, so an earlier part can determine what a later one does next. Two counters of two make a counter of four when the second advances only as the first comes round, and they remain two independent counters when it does not. The decomposition exposes both the algebraic parts of a machine and the way they are coupled.</p>
     <p>The theorem also runs the other way, and here the toolkit principle is exact. For every simple group that comes from the machine’s monoid in this sense, some part of any chain that emulates the machine must contain a group that maps onto it. Parts that lack such a group cannot make up for it, however many are chained: counters of two and flip-flops will never reproduce a cycle of three. With counters of every size and flip-flops, a chain can emulate a machine exactly when every group in the machine’s monoid is solvable. When one of them is not, at least one part must supply a piece that is no counter, such as the sixty rotations of the icosahedron. This is the counterpart for machines of Galois’s criterion for equations. The restriction to chains matters: with feedback, a flip-flop that reads its own state can toggle.</p>
+    <figure class="krc-figure">
+<style>
+.story > .krc-figure { clear:both; max-width:54rem; margin:2rem auto; }
+.krc-figure { container:krc / inline-size; display:block; box-sizing:border-box; width:100%; margin:0; color:#182b43; background:#fff; font:16px/1.45 Helvetica,Arial,sans-serif; text-align:left; }
+.krc-figure * { box-sizing:border-box; }
+.krc-figure .kc-art { width:100%; padding:0; }
+.krc-figure .kc-art svg { display:block; width:100%; height:auto; }
+.krc-figure .kc-narrow { display:none; }
+.krc-figure .kc-controls { padding:13px 16px 15px; border-top:1px solid #b8c5d1; background:#f4f7fa; }
+.krc-figure .kc-controls[hidden] { display:none; }
+.krc-figure .kc-buttons { display:flex; flex-wrap:wrap; gap:9px; align-items:center; }
+.krc-figure .kc-buttons button { min-height:42px; padding:6px 18px; border:1.5px solid #194e80; border-radius:5px; font:600 15px Helvetica,Arial,sans-serif; cursor:pointer; color:#194e80; background:#fff; }
+.krc-figure button[data-act="step"] { background:#194e80; color:#fff; }
+.krc-figure button[data-act="clear"] { border-color:#743962; color:#743962; }
+.krc-figure button[data-act="restart"] { border-color:transparent; background:transparent; text-decoration:underline; color:#425970; padding-inline:4px; }
+.krc-figure button:focus-visible { outline:3px solid #0e4a81; outline-offset:3px; }
+.krc-figure .kc-status { margin:10px 0 0; color:#182b43; font-size:15px; }
+.krc-figure figcaption { margin:0; padding:14px 16px 16px; font:16px/1.5 Georgia,serif; color:#24384e; }
+.krc-figure figcaption a { color:#194e80; text-decoration:underline; }
+@container krc (max-width:560px) {
+  .krc-figure .kc-wide { display:none; }
+  .krc-figure .kc-narrow { display:block; }
+  .krc-figure .kc-controls, .krc-figure figcaption { padding-inline:10px; }
+}
+@media print {
+  .krc-figure .kc-controls { display:none; }
+}
+</style>
+<div class="kc-art kc-wide">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 493" width="680" height="493" font-family="Helvetica, Arial, sans-serif" role="img" aria-labelledby="kc-wide-title kc-wide-desc">
+  <title id="kc-wide-title">When cyclic counters and reset memories suffice</title>
+  <desc id="kc-wide-desc">Any finite deterministic machine can be emulated by a feed-forward cascade of simple group actions and two-state reset memories. Cyclic counters suffice for the group stages exactly when every subgroup of the target's transition monoid is solvable. The 60 rotations of an icosahedron require a nonsolvable group stage. In the example, Step advances a three-position dial. A step from 2 to 0 sets a lamp, and Clear turns it off while holding the dial fixed. The old dial position feeds forward to the lamp. Both stages receive the input.</desc>
+  <rect x="0" y="0" width="680" height="493" fill="#FFFFFF" />
+  <text x="13" y="27" font-size="16" fill="#425970" font-weight="700" text-anchor="start">(a)</text>
+  <text x="47" y="28" font-size="22" fill="#182B43" font-weight="700" text-anchor="start">Exact emulation by a feed-forward cascade</text>
+  <text x="18" y="57" font-size="14.5" fill="#425970" font-weight="700" text-anchor="start">Target machine</text>
+  <text x="384" y="57" font-size="14.5" fill="#425970" font-weight="700" text-anchor="start">Cascade components</text>
+  <path d="M15,66 H665" fill="none" stroke="#A5B4C1" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="18" y="96" font-size="17" fill="#182B43" font-weight="400" text-anchor="start">Any finite deterministic machine</text>
+  <path d="M319,90 L355,90" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M349.0,86.28 L355,90 L349.0,93.72" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="384" y="86" font-size="17" fill="#182B43" font-weight="400" text-anchor="start">Simple group actions and</text>
+  <text x="384" y="107" font-size="17" fill="#182B43" font-weight="400" text-anchor="start">two-state reset memories</text>
+  <rect x="5" y="119" width="670" height="59" rx="5" fill="#EAF2F8" />
+  <text x="18" y="143" font-size="17" fill="#182B43" font-weight="700" text-anchor="start">Every subgroup of its transition</text>
+  <text x="18" y="164" font-size="17" fill="#182B43" font-weight="700" text-anchor="start">monoid is solvable</text>
+  <path d="M319,145.7 L355,145.7" fill="none" stroke="#194E80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M350.0,142.6 L355,145.7 L350.0,148.79999999999998" fill="none" stroke="#194E80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M355,152.3 L319,152.3" fill="none" stroke="#194E80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M324.0,155.4 L319,152.3 L324.0,149.20000000000002" fill="none" stroke="#194E80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="384" y="143" font-size="17" fill="#194E80" font-weight="700" text-anchor="start">Cyclic counters and two-state</text>
+  <text x="384" y="164" font-size="17" fill="#194E80" font-weight="700" text-anchor="start">reset memories suffice</text>
+  <polygon points="24.69,209.10 36.78,206.51 39.31,207.67" fill="#FFFFFF" stroke="#425970" stroke-width="0.9" />
+  <polygon points="36.78,206.51 39.31,207.67 46.78,196.61" fill="#FFFFFF" stroke="#425970" stroke-width="0.9" />
+  <polygon points="24.69,209.10 17.22,195.39 23.12,198.93" fill="#FFFFFF" stroke="#425970" stroke-width="0.9" />
+  <polygon points="17.22,195.39 24.69,184.33 23.12,198.93" fill="#FFFFFF" stroke="#425970" stroke-width="0.9" />
+  <polygon points="36.78,191.21 39.31,182.90 46.78,196.61" fill="#FFFFFF" stroke="#425970" stroke-width="0.9" />
+  <polygon points="24.69,184.33 36.78,191.21 39.31,182.90" fill="#EAF2F8" stroke="#425970" stroke-width="0.9" />
+  <polygon points="24.69,209.10 36.78,206.51 23.12,198.93" fill="#EAF2F8" stroke="#425970" stroke-width="0.9" />
+  <polygon points="36.78,206.51 36.78,191.21 46.78,196.61" fill="#EAF2F8" stroke="#425970" stroke-width="0.9" />
+  <polygon points="24.69,184.33 23.12,198.93 36.78,191.21" fill="#EAF2F8" stroke="#425970" stroke-width="0.9" />
+  <polygon points="36.78,206.51 23.12,198.93 36.78,191.21" fill="#EAF2F8" stroke="#425970" stroke-width="0.9" />
+  <text x="59" y="201" font-size="14.5" fill="#425970" font-weight="400" text-anchor="start">The 60 rotations of an icosahedron require a nonsolvable group stage.</text>
+  <path d="M15,214 H665" fill="none" stroke="#A5B4C1" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="13" y="244" font-size="16" fill="#425970" font-weight="700" text-anchor="start">(b)</text>
+  <text x="47" y="245" font-size="22" fill="#182B43" font-weight="700" text-anchor="start">A dial that remembers a lap</text>
+  <text x="18" y="274" font-size="15.5" fill="#182B43" font-weight="700" text-anchor="start">Step or Clear</text>
+  <path d="M127,269 H555" fill="none" stroke="#425970" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M138,269 L138,290" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M141.72,284.0 L138,290 L134.28,284.0" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M555,269 L555,290" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M558.72,284.0 L555,290 L551.28,284.0" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="138" cy="269" r="2.6" fill="#425970" />
+  <rect x="12" y="293" width="237" height="107" rx="7" fill="#F8FBFE" stroke="#194E80" stroke-width="1.8" />
+  <text x="25" y="316" font-size="17" fill="#194E80" font-weight="700" text-anchor="start">Three-position counter</text>
+  <circle cx="61" cy="361" r="30" fill="#FFFFFF" stroke="#194E80" stroke-width="2" />
+  <path d="M61.0,335.0 L61.0,332.0" fill="none" stroke="#194E80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="61.0" y="345.4" font-size="14" fill="#194E80" font-weight="700" text-anchor="middle">0</text>
+  <path d="M83.51666049839541,374.0 L86.11473670974873,375.5" fill="none" stroke="#194E80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="78.32050807568878" y="375.4" font-size="14" fill="#194E80" font-weight="700" text-anchor="middle">1</text>
+  <path d="M38.48333950160459,374.0 L35.885263290251274,375.5" fill="none" stroke="#194E80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="43.67949192431122" y="375.4" font-size="14" fill="#194E80" font-weight="700" text-anchor="middle">2</text>
+  <g transform="translate(61 361)">
+    <path d="M-2.7,2 L0,-13 L2.7,2 Z" fill="#194E80" transform="rotate(240)" data-hand="" />
+    <circle cx="0" cy="0" r="3.2" fill="#194E80" />
+  </g>
+  <text x="105" y="355" font-size="15.6" fill="#182B43" font-weight="400" text-anchor="start">Step adds one.</text>
+  <text x="105" y="376" font-size="15.6" fill="#182B43" font-weight="400" text-anchor="start">Clear holds.</text>
+  <rect x="430" y="293" width="238" height="107" rx="7" fill="#F7F0F5" stroke="#743962" stroke-width="1.8" />
+  <text x="443" y="316" font-size="17" fill="#743962" font-weight="700" text-anchor="start">Two-state reset memory</text>
+  <g transform="translate(471 355)">
+    <path d="M-7,13 C-7,7 -16,4 -16,-6 A16,16 0 1 1 16,-6 C16,4 7,7 7,13 Z" fill="#FFFFFF" stroke="#743962" stroke-width="1.8" data-bulb="" />
+    <path d="M-6,17 H6 M-3,21 H3" fill="none" stroke="#743962" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <g data-rays="" opacity="0">
+      <path d="M-18.270909152852013,-14.134732861516008 L-21.925090983422418,-15.76167943381921" fill="none" stroke="#743962" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M-11.75570504584946,-22.18033988749895 L-14.106846055019354,-25.41640786499874" fill="none" stroke="#743962" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M1.2246467991473533e-15,-26.0 L1.4695761589768238e-15,-30.0" fill="none" stroke="#743962" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M11.755705045849464,-22.18033988749895 L14.106846055019355,-25.41640786499874" fill="none" stroke="#743962" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M18.270909152852017,-14.134732861516005 L21.92509098342242,-15.761679433819205" fill="none" stroke="#743962" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+  </g>
+  <text x="471" y="392" font-size="13.3" fill="#743962" font-weight="700" text-anchor="middle" data-lamp-label="">OFF</text>
+  <text x="512" y="347.0" font-size="15.1" fill="#182B43" font-weight="400" text-anchor="start">A wrap sets it.</text>
+  <text x="512" y="366.5" font-size="15.1" fill="#182B43" font-weight="400" text-anchor="start">Clear turns it off.</text>
+  <text x="512" y="386.0" font-size="15.1" fill="#182B43" font-weight="400" text-anchor="start">Otherwise it holds.</text>
+  <text x="340" y="342" font-size="15.2" fill="#194E80" font-weight="400" text-anchor="middle">old dial position</text>
+  <path d="M251,352 L427,352" fill="none" stroke="#194E80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M420.0,347.66 L427,352 L420.0,356.34" fill="none" stroke="#194E80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="18" y="430" font-size="15" fill="#425970" font-weight="700" text-anchor="start">One input sequence</text>
+  <rect x="14.0" y="450" width="112" height="30" rx="15" fill="#FFFFFF" stroke="#A5B4C1" stroke-width="1.2" />
+  <text x="70" y="470" font-size="16.5" fill="#182B43" font-weight="700" text-anchor="middle">2 / off</text>
+  <rect x="195.0" y="450" width="112" height="30" rx="15" fill="#F7F0F5" stroke="#743962" stroke-width="1.2" />
+  <text x="251" y="470" font-size="16.5" fill="#743962" font-weight="700" text-anchor="middle">0 / on</text>
+  <path d="M129.0,465 L192.0,465" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M187.4,462.148 L192.0,465 L187.4,467.852" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="160.5" y="456" font-size="14.5" fill="#425970" font-weight="400" text-anchor="middle">Step</text>
+  <rect x="374.0" y="450" width="112" height="30" rx="15" fill="#F7F0F5" stroke="#743962" stroke-width="1.2" />
+  <text x="430" y="470" font-size="16.5" fill="#743962" font-weight="700" text-anchor="middle">1 / on</text>
+  <path d="M310.0,465 L371.0,465" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M366.4,462.148 L371.0,465 L366.4,467.852" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="340.5" y="456" font-size="14.5" fill="#425970" font-weight="400" text-anchor="middle">Step</text>
+  <rect x="554.0" y="450" width="112" height="30" rx="15" fill="#FFFFFF" stroke="#A5B4C1" stroke-width="1.2" />
+  <text x="610" y="470" font-size="16.5" fill="#182B43" font-weight="700" text-anchor="middle">1 / off</text>
+  <path d="M489.0,465 L551.0,465" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M546.4,462.148 L551.0,465 L546.4,467.852" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="520.0" y="456" font-size="14.5" fill="#425970" font-weight="400" text-anchor="middle">Clear</text>
+</svg>
+
+</div>
+<div class="kc-art kc-narrow">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 685" width="360" height="685" font-family="Helvetica, Arial, sans-serif" role="img" aria-labelledby="kc-small-title kc-small-desc">
+  <title id="kc-small-title">When cyclic counters and reset memories suffice</title>
+  <desc id="kc-small-desc">Any finite deterministic machine can be emulated by a feed-forward cascade of simple group actions and two-state reset memories. Cyclic counters suffice for the group stages exactly when every subgroup of the target's transition monoid is solvable. The 60 rotations of an icosahedron require a nonsolvable group stage. In the example, Step advances a three-position dial. A step from 2 to 0 sets a lamp, and Clear turns it off while holding the dial fixed. The old dial position feeds forward to the lamp. Both stages receive the input.</desc>
+  <rect x="0" y="0" width="360" height="685" fill="#FFFFFF" />
+  <text x="12" y="23" font-size="16.0" fill="#425970" font-weight="700" text-anchor="start">(a)</text>
+  <text x="46" y="24" font-size="19.0" fill="#182B43" font-weight="700" text-anchor="start">Exact emulation by a cascade</text>
+  <text x="14" y="55" font-size="16.0" fill="#182B43" font-weight="700" text-anchor="start">Any finite deterministic machine</text>
+  <path d="M17,77 L41,77" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M35.0,73.28 L41,77 L35.0,80.72" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="52" y="77" font-size="15.5" fill="#182B43" font-weight="400" text-anchor="start">Simple group actions and</text>
+  <text x="52" y="95" font-size="15.5" fill="#182B43" font-weight="400" text-anchor="start">two-state reset memories</text>
+  <rect x="3" y="109" width="354" height="113" rx="5" fill="#EAF2F8" />
+  <text x="15" y="131" font-size="16.0" fill="#182B43" font-weight="700" text-anchor="start">Every subgroup of the target’s</text>
+  <text x="15" y="151" font-size="16.0" fill="#182B43" font-weight="700" text-anchor="start">transition monoid is solvable</text>
+  <text x="15" y="173" font-size="14.8" fill="#425970" font-weight="400" text-anchor="start">if and only if</text>
+  <text x="15" y="194" font-size="16.0" fill="#194E80" font-weight="700" text-anchor="start">Cyclic counters and two-state</text>
+  <text x="15" y="214" font-size="16.0" fill="#194E80" font-weight="700" text-anchor="start">reset memories suffice</text>
+  <polygon points="23.71,256.84 37.42,253.92 40.29,255.22" fill="#FFFFFF" stroke="#425970" stroke-width="0.9" />
+  <polygon points="37.42,253.92 40.29,255.22 48.76,242.69" fill="#FFFFFF" stroke="#425970" stroke-width="0.9" />
+  <polygon points="23.71,256.84 15.24,241.31 21.94,245.32" fill="#FFFFFF" stroke="#425970" stroke-width="0.9" />
+  <polygon points="15.24,241.31 23.71,228.78 21.94,245.32" fill="#FFFFFF" stroke="#425970" stroke-width="0.9" />
+  <polygon points="37.42,236.57 40.29,227.16 48.76,242.69" fill="#FFFFFF" stroke="#425970" stroke-width="0.9" />
+  <polygon points="23.71,228.78 37.42,236.57 40.29,227.16" fill="#EAF2F8" stroke="#425970" stroke-width="0.9" />
+  <polygon points="23.71,256.84 37.42,253.92 21.94,245.32" fill="#EAF2F8" stroke="#425970" stroke-width="0.9" />
+  <polygon points="37.42,253.92 37.42,236.57 48.76,242.69" fill="#EAF2F8" stroke="#425970" stroke-width="0.9" />
+  <polygon points="23.71,228.78 21.94,245.32 37.42,236.57" fill="#EAF2F8" stroke="#425970" stroke-width="0.9" />
+  <polygon points="37.42,253.92 21.94,245.32 37.42,236.57" fill="#EAF2F8" stroke="#425970" stroke-width="0.9" />
+  <text x="58" y="237" font-size="14.8" fill="#425970" font-weight="400" text-anchor="start">The 60 rotations of an icosahedron</text>
+  <text x="58" y="257" font-size="14.8" fill="#425970" font-weight="400" text-anchor="start">require a nonsolvable group stage.</text>
+  <path d="M12,268 H348" fill="none" stroke="#A5B4C1" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="12" y="295" font-size="16.0" fill="#425970" font-weight="700" text-anchor="start">(b)</text>
+  <text x="46" y="296" font-size="19.0" fill="#182B43" font-weight="700" text-anchor="start">A dial that remembers a lap</text>
+  <text x="14" y="323" font-size="15.5" fill="#182B43" font-weight="700" text-anchor="start">Step or Clear</text>
+  <path d="M30,333 V537" fill="none" stroke="#425970" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M30,388 L73,388" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M67.0,384.28 L73,388 L67.0,391.72" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M30,537 L73,537" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M67.0,533.28 L73,537 L67.0,540.72" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="30" cy="388" r="2.6" fill="#425970" />
+  <rect x="75" y="337" width="271" height="107" rx="7" fill="#F8FBFE" stroke="#194E80" stroke-width="1.8" />
+  <text x="88" y="360" font-size="17.0" fill="#194E80" font-weight="700" text-anchor="start">Three-position counter</text>
+  <circle cx="124" cy="405" r="30" fill="#FFFFFF" stroke="#194E80" stroke-width="2" />
+  <path d="M124.0,379.0 L124.0,376.0" fill="none" stroke="#194E80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="124.0" y="389.4" font-size="14.8" fill="#194E80" font-weight="700" text-anchor="middle">0</text>
+  <path d="M146.5166604983954,418.0 L149.1147367097487,419.5" fill="none" stroke="#194E80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="141.32050807568876" y="419.4" font-size="14.8" fill="#194E80" font-weight="700" text-anchor="middle">1</text>
+  <path d="M101.48333950160459,418.0 L98.88526329025127,419.5" fill="none" stroke="#194E80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="106.67949192431122" y="419.4" font-size="14.8" fill="#194E80" font-weight="700" text-anchor="middle">2</text>
+  <g transform="translate(124 405)">
+    <path d="M-2.7,2 L0,-13 L2.7,2 Z" fill="#194E80" transform="rotate(240)" data-hand="" />
+    <circle cx="0" cy="0" r="3.2" fill="#194E80" />
+  </g>
+  <text x="168" y="399" font-size="15.6" fill="#182B43" font-weight="400" text-anchor="start">Step adds one.</text>
+  <text x="168" y="420" font-size="15.6" fill="#182B43" font-weight="400" text-anchor="start">Clear holds.</text>
+  <rect x="75" y="486" width="271" height="107" rx="7" fill="#F7F0F5" stroke="#743962" stroke-width="1.8" />
+  <text x="88" y="509" font-size="17.0" fill="#743962" font-weight="700" text-anchor="start">Two-state reset memory</text>
+  <g transform="translate(116 548)">
+    <path d="M-7,13 C-7,7 -16,4 -16,-6 A16,16 0 1 1 16,-6 C16,4 7,7 7,13 Z" fill="#FFFFFF" stroke="#743962" stroke-width="1.8" data-bulb="" />
+    <path d="M-6,17 H6 M-3,21 H3" fill="none" stroke="#743962" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <g data-rays="" opacity="0">
+      <path d="M-18.270909152852013,-14.134732861516008 L-21.925090983422418,-15.76167943381921" fill="none" stroke="#743962" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M-11.75570504584946,-22.18033988749895 L-14.106846055019354,-25.41640786499874" fill="none" stroke="#743962" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M1.2246467991473533e-15,-26.0 L1.4695761589768238e-15,-30.0" fill="none" stroke="#743962" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M11.755705045849464,-22.18033988749895 L14.106846055019355,-25.41640786499874" fill="none" stroke="#743962" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M18.270909152852017,-14.134732861516005 L21.92509098342242,-15.761679433819205" fill="none" stroke="#743962" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+  </g>
+  <text x="116" y="585" font-size="14.8" fill="#743962" font-weight="700" text-anchor="middle" data-lamp-label="">OFF</text>
+  <text x="157" y="540.0" font-size="15.1" fill="#182B43" font-weight="400" text-anchor="start">A wrap sets it.</text>
+  <text x="157" y="559.5" font-size="15.1" fill="#182B43" font-weight="400" text-anchor="start">Clear turns it off.</text>
+  <text x="157" y="579.0" font-size="15.1" fill="#182B43" font-weight="400" text-anchor="start">Otherwise it holds.</text>
+  <path d="M198,445 L198,483" fill="none" stroke="#194E80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M201.72,477.0 L198,483 L194.28,477.0" fill="none" stroke="#194E80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="210" y="470" font-size="14.8" fill="#194E80" font-weight="400" text-anchor="start">old dial position</text>
+  <text x="14" y="620" font-size="15.0" fill="#425970" font-weight="700" text-anchor="start">One input sequence</text>
+  <rect x="13.0" y="640" width="58" height="30" rx="15" fill="#FFFFFF" stroke="#A5B4C1" stroke-width="1.2" />
+  <text x="42" y="660" font-size="14.8" fill="#182B43" font-weight="700" text-anchor="middle">2 / off</text>
+  <rect x="106.0" y="640" width="58" height="30" rx="15" fill="#F7F0F5" stroke="#743962" stroke-width="1.2" />
+  <text x="135" y="660" font-size="14.8" fill="#743962" font-weight="700" text-anchor="middle">0 / on</text>
+  <path d="M74.0,655 L103.0,655" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M98.4,652.148 L103.0,655 L98.4,657.852" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="88.5" y="646" font-size="14.8" fill="#425970" font-weight="400" text-anchor="middle">Step</text>
+  <rect x="197.0" y="640" width="58" height="30" rx="15" fill="#F7F0F5" stroke="#743962" stroke-width="1.2" />
+  <text x="226" y="660" font-size="14.8" fill="#743962" font-weight="700" text-anchor="middle">1 / on</text>
+  <path d="M167.0,655 L194.0,655" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M189.4,652.148 L194.0,655 L189.4,657.852" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="180.5" y="646" font-size="14.8" fill="#425970" font-weight="400" text-anchor="middle">Step</text>
+  <rect x="289.0" y="640" width="58" height="30" rx="15" fill="#FFFFFF" stroke="#A5B4C1" stroke-width="1.2" />
+  <text x="318" y="660" font-size="14.8" fill="#182B43" font-weight="700" text-anchor="middle">1 / off</text>
+  <path d="M258.0,655 L286.0,655" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M281.4,652.148 L286.0,655 L281.4,657.852" fill="none" stroke="#425970" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="272.0" y="646" font-size="14.8" fill="#425970" font-weight="400" text-anchor="middle">Clear</text>
+</svg>
+
+</div>
+<div class="kc-controls" hidden>
+  <div class="kc-buttons" role="group" aria-label="Operate the dial and lap lamp">
+    <button type="button" data-act="step">Step</button>
+    <button type="button" data-act="clear">Clear</button>
+    <button type="button" data-act="restart">Start over</button>
+  </div>
+  <p class="kc-status" role="status" aria-live="polite" aria-atomic="true"></p>
+</div>
+<figcaption>
+Each pair in the trace gives the dial position and lamp state. Step from 2 to 0 to light the lamp. Three consecutive steps return any dial to its starting position with the lamp on. On those three states, Step acts as a rotation. In the general result, a group is solvable when the successive quotients in a composition series are cyclic groups of prime order. The available counter sizes can be chosen for the machine.
+<a href="https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/1106-2.pdf#page=11">Ésik, Corollary 6.4.</a>
+</figcaption>
+<script>
+(() => {
+  const figure = document.currentScript.closest("figure");
+  const panel = figure.querySelector(".kc-controls");
+  const message = figure.querySelector(".kc-status");
+  let dial = 2;
+  let lit = false;
+
+  function paint(explanation) {
+    for (const hand of figure.querySelectorAll("[data-hand]"))
+      hand.setAttribute("transform", "rotate(" + (dial * 120) + ")");
+    for (const bulb of figure.querySelectorAll("[data-bulb]"))
+      bulb.setAttribute("fill", lit ? "#eab75f" : "#ffffff");
+    for (const rays of figure.querySelectorAll("[data-rays]"))
+      rays.setAttribute("opacity", lit ? "1" : "0");
+    for (const lampLabel of figure.querySelectorAll("[data-lamp-label]"))
+      lampLabel.textContent = lit ? "ON" : "OFF";
+    message.textContent = "Dial " + dial + ". Lamp " + (lit ? "on. " : "off. ") + explanation;
+  }
+
+  function operate(action) {
+    if (action === "restart") {
+      dial = 2;
+      lit = false;
+      paint("Try Step twice, then Clear.");
+    } else if (action === "clear") {
+      lit = false;
+      paint("Clear holds the dial and turns the lamp off.");
+    } else {
+      const wrapped = dial === 2;
+      dial = (dial + 1) % 3;
+      if (wrapped) lit = true;
+      paint(wrapped ? "The dial wrapped from 2 to 0 and set the lamp." : "The lamp kept its previous state.");
+    }
+  }
+
+  for (const button of panel.querySelectorAll("[data-act]"))
+    button.addEventListener("click", () => operate(button.dataset.act));
+  paint("Try Step twice, then Clear.");
+  panel.hidden = false;
+})();
+</script>
+</figure>
     <p>Group theory therefore supplies the parts list for finite computation. The finite simple groups play the part of the primes, and the flip-flops supply memory and contribute no group beyond the trivial one. For small machines the decomposition can be computed today: the SgpDec package for the GAP computer algebra system takes a machine’s operations and returns a chain of this kind, whose groups may themselves come apart further.</p>
 
     <h2>The groups a program contains limit what it can compute</h2>
