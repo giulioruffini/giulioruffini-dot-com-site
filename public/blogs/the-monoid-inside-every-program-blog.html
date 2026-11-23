@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A program is a sequence of operations, and operations compose. That gives every computation a monoid, and lets group theory say what a program is made of.">
+<meta name="author" content="Giulio Ruffini">
+<meta name="theme-color" content="#001A52">
+<link rel="canonical" href="https://www.giulioruffini.com/blogs/the-monoid-inside-every-program-blog.html">
+<link rel="icon" href="/favicon.ico">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Giulio Ruffini">
+<meta property="og:title" content="The Monoid Inside Every Program">
+<meta property="og:description" content="A program is a sequence of operations, and operations compose. That gives every computation a monoid, and lets group theory say what a program is made of.">
+<meta property="og:url" content="https://www.giulioruffini.com/blogs/the-monoid-inside-every-program-blog.html">
+<meta property="og:image" content="https://www.giulioruffini.com/blogs/the-monoid-inside-every-program/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-11-23">
+<meta name="twitter:card" content="summary_large_image">
+<title>The Monoid Inside Every Program</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..600&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap">
+<style>
+/* Layout: the banded page of the house essays. A deep-blue opening band carries the title, and
+   the lead diagram hangs from it into the right column. The text runs in the left column; the
+   right column carries the two diagrams, the definition box, the list of examples and the pull
+   quotes. The closing section, the colophon and the sources are set on a night band. Diagrams
+   stay on white plates in both themes, so their colors are fixed. */
+:root {
+  --paper: #FFFDF9;
+  --ink: #172036;
+  --muted: #586276;
+  --rule: #D8DFEB;
+  --blue: #002878;
+  --coral: #FF6657;
+  --coral-ink: #C63B2C;
+  --panel: #EEF3FA;
+  --plate: #FFFFFF;
+  /* the bands keep their own colors in both themes */
+  --band-a: #001A52;
+  --band-b: #002878;
+  --band-ink: #FFFFFF;
+  --band-soft: #DCE6FF;
+  --band-muted: #B7C6EC;
+  --band-rule: rgba(255, 255, 255, 0.2);
+  --band-coral: #FF7A6C;
+  --band-shadow: 0 2px 4px rgba(0, 8, 40, 0.25), 0 34px 60px -28px rgba(0, 8, 40, 0.75);
+  --night: #080C1F;
+  --night-ink: #E9EDF7;
+  --night-muted: #A8B3CC;
+  --night-rule: #27315A;
+  --night-link: #A9C0FF;
+  --night-coral: #FF9488;
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --text: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --util: "DM Sans", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --measure: 37rem;
+  --rail: clamp(19rem, 32vw, 25rem);
+  --gap: clamp(1.75rem, 3.4vw, 3.25rem);
+  --lead: 2.5rem;   /* space between the opening band and the text */
+  --hang: 2.5rem;   /* how far the lead illustration hangs below the band */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0B1126; --ink: #E9EDF7; --muted: #A8B3CC; --rule: #28335C; --blue: #A9C0FF;
+    --coral: #FF7566; --coral-ink: #FF9488; --panel: #121A3A; --plate: #FFFFFF; --night: #04060F;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0B1126; --ink: #E9EDF7; --muted: #A8B3CC; --rule: #28335C; --blue: #A9C0FF;
+  --coral: #FF7566; --coral-ink: #FF9488; --panel: #121A3A; --plate: #FFFFFF; --night: #04060F;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: clamp(1.125rem, 1.02rem + 0.32vw, 1.3rem);
+  line-height: 1.62;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; height: auto; display: block; }
+figure { margin: 0; }
+a { color: var(--blue); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { color: var(--coral-ink); }
+a:focus-visible, .plate:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+::selection { background: rgba(255, 102, 87, 0.28); }
+
+/* One wrapper width for every band, so the right column lines up from title to colophon */
+.wrap {
+  width: min(100% - clamp(0rem, 5vw, 3rem), 70rem);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Opening band */
+.hero {
+  color: var(--band-ink);
+  background:
+    radial-gradient(circle at 86% 10%, rgba(255, 102, 87, 0.5), transparent 30rem),
+    radial-gradient(circle at 4% 115%, rgba(96, 140, 255, 0.3), transparent 28rem),
+    linear-gradient(135deg, var(--band-a), var(--band-b));
+}
+.hero .wrap { padding-block: 1.1rem 0; }
+.top {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  padding-bottom: 0.95rem; border-bottom: 1px solid var(--band-rule);
+  font-family: var(--util); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase;
+}
+.top a { color: var(--band-soft); text-decoration: none; }
+.top a:hover { color: var(--band-ink); text-decoration: underline; }
+.hero-grid { display: grid; gap: 0 var(--gap); margin-top: clamp(2.25rem, 6vw, 4.25rem); }
+.hero-head { min-width: 0; }
+.hero-text { min-width: 0; padding-block: 1.7rem 2.25rem; }
+.kicker {
+  display: flex; align-items: center; gap: 0.75rem; margin: 0 0 1.25rem;
+  font-family: var(--util); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--band-soft);
+}
+.kicker::before { content: ""; flex: none; width: 1.9rem; height: 2px; background: var(--band-coral); }
+h1 {
+  margin: 0; font-family: var(--display); font-weight: 400; color: var(--band-ink);
+  font-size: clamp(3rem, 1.55rem + 5.6vw, 6.4rem); line-height: 0.98; letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+h1 em { font-style: italic; color: var(--band-coral); }
+.deck { margin: 0; max-width: 33rem; color: var(--band-soft); font-size: 1.14em; line-height: 1.45; }
+.meta {
+  display: flex; flex-wrap: wrap; gap: 0.35rem 1.7rem; margin: 1.9rem 0 0; padding-top: 1.05rem;
+  border-top: 1px solid var(--band-rule); font-family: var(--util); font-size: 0.875rem; color: var(--band-muted);
+}
+.meta strong { color: var(--band-ink); font-weight: 600; }
+.plate { background: var(--plate); border: 1px solid var(--rule); border-radius: 10px; padding: 0.6rem; }
+.plate img { border-radius: 5px; }
+.hero-fig {
+  position: relative; z-index: 1; align-self: end; max-width: 30rem;
+  margin-bottom: calc(-1 * var(--hang)); border: 0; box-shadow: var(--band-shadow);
+}
+
+/* Story: one column by default, text and right column from 62rem up */
+.story { padding-top: var(--lead); }
+.story::after { content: ""; display: block; clear: both; }
+.story > p, .story > h2 { max-width: var(--measure); }
+.story > p { margin: 0 0 1.1em; hanging-punctuation: first; }
+.story > h2 {
+  margin: 2.5em 0 0.65em; font-family: var(--display); font-weight: 400; color: var(--blue);
+  font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.5rem); line-height: 1.08; text-wrap: balance;
+}
+.story > h2::before { content: ""; display: block; width: 2.25rem; height: 3px; margin-bottom: 1rem; background: var(--coral); }
+.story em { font-style: italic; }
+.story > .lede { font-size: 1.17em; line-height: 1.5; }
+/* Epigraph, as under the paper's first heading: indented, source ranged right */
+.epigraph { margin: 0 0 2.3rem; padding-left: clamp(1.25rem, 10%, 3.75rem); max-width: var(--measure); }
+.epigraph p { margin: 0; font-style: italic; line-height: 1.5; text-wrap: balance; }
+.epigraph footer { margin-top: 0.6rem; text-align: right; font-family: var(--util); font-size: 0.8125rem; letter-spacing: 0.03em; color: var(--muted); }
+.follow { padding-top: 0; }
+.follow > p:first-child { margin-top: 0; }
+
+/* Right-column items */
+.rail { margin: 2rem 0 2.2rem; max-width: var(--measure); }
+.rail.fig .plate { max-width: 26rem; }
+figcaption, .cap {
+  margin-top: 0.75rem; max-width: var(--measure);
+  font-family: var(--util); font-size: 0.875rem; line-height: 1.5; color: var(--muted);
+}
+figcaption strong, .cap strong { color: var(--ink); font-weight: 600; }
+.credit { display: block; margin-top: 0.35rem; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.lead-cap { margin: calc(var(--hang) - var(--lead) + 0.85rem) 0 2rem; max-width: 30rem; }
+.pull {
+  padding: 1.1rem 0 0; border-top: 3px solid var(--coral);
+  font-family: var(--display); font-style: italic; color: var(--blue);
+  font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); line-height: 1.15; text-wrap: balance;
+}
+
+/* What the argument assumes */
+.assume {
+  background: var(--panel); border-left: 4px solid var(--coral); padding: 1.3rem 1.4rem 1.2rem;
+  font-family: var(--util); font-size: 0.875rem; line-height: 1.5;
+}
+.assume h3 {
+  margin: 0 0 0.95rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--coral-ink);
+}
+.assume dl { margin: 0; display: grid; gap: 0.9rem; }
+.assume dt { font-weight: 600; color: var(--blue); }
+.assume dt span { font-weight: 400; color: var(--muted); }
+.assume dd { margin: 0.1rem 0 0; }
+.assume p { margin: 1rem 0 0; padding-top: 0.9rem; border-top: 1px solid var(--rule); color: var(--muted); }
+
+/* Pale band for the figure that spans both columns */
+.band-fig { margin-block: 2.6rem 3rem; background: var(--panel); border-block: 1px solid var(--rule); }
+.band-fig .wrap { padding-block: clamp(1.75rem, 4.5vw, 3.25rem); }
+.band-fig .plate { padding: clamp(0.6rem, 1.6vw, 1.1rem); }
+.band-fig figcaption { margin-top: 1.1rem; }
+.band-fig .trio { display: grid; gap: clamp(0.6rem, 1.6vw, 1.1rem); }
+.band-fig .trio .plate { padding: clamp(0.35rem, 0.9vw, 0.6rem); }
+.band-fig .trio img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+@media (min-width: 48rem) { .band-fig .trio { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.swipe { display: none; margin: 0 0 0.5rem; font-family: var(--util); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+/* Night band: the closing section and the colophon */
+.night {
+  --ink: var(--night-ink); --muted: var(--night-muted); --rule: var(--night-rule);
+  --blue: var(--night-link); --coral-ink: var(--night-coral);
+  background: var(--night); color: var(--ink);
+}
+section.night {
+  margin-top: clamp(3.5rem, 8vw, 5.5rem);
+  background: radial-gradient(circle at 90% 0%, rgba(255, 102, 87, 0.2), transparent 28rem), var(--night);
+}
+section.night .story { padding-block: clamp(3rem, 7vw, 5rem) clamp(2.5rem, 6vw, 4rem); }
+section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
+.night .plate { border: 0; }
+.colophon { font-family: var(--util); font-size: 0.875rem; line-height: 1.55; color: var(--muted); }
+.colophon .wrap { padding-block: 0 2.5rem; }
+.colophon .cols { display: grid; gap: 1.5rem var(--gap); padding-top: 1.75rem; border-top: 1px solid var(--rule); }
+.colophon h3 {
+  margin: 0 0 0.5rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--coral-ink);
+}
+.colophon p { margin: 0; overflow-wrap: anywhere; }
+.colophon i { color: var(--ink); }
+.colophon .line {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 2rem;
+  margin-top: 2.25rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
+  font-size: 0.8125rem; letter-spacing: 0.04em;
+}
+
+@media (min-width: 48rem) {
+  .colophon .cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 62rem) {
+  :root { --lead: 3.75rem; --hang: 6.5rem; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) var(--rail); }
+  .hero-head { grid-column: 1 / -1; }
+  h1 span { display: block; }
+  .hero-text { padding-block: 2.6rem clamp(3.25rem, 6vw, 4.75rem); }
+  .hero-fig { max-width: none; }
+  .story > p, .story > h2, .story > .epigraph { max-width: min(var(--measure), calc(100% - var(--rail) - var(--gap))); }
+  .rail { float: right; clear: right; width: var(--rail); max-width: none; margin: 0.45rem 0 2rem var(--gap); }
+  .rail.fig .plate { max-width: none; }
+  .lead-cap { margin-top: calc(var(--hang) - var(--lead) + 0.85rem); max-width: none; }
+  .band-fig figcaption { max-width: none; columns: 2; column-gap: var(--gap); }
+  .band-fig figcaption .credit { break-before: avoid; }
+}
+@media (max-width: 44rem) {
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .scroll img { width: 44rem; max-width: none; }
+  .swipe { display: block; }
+}
+
+/* Additions for this essay: displayed formulas, inline diagrams, a link card and the sources */
+sup, sub { font-size: 0.68em; line-height: 0; vertical-align: baseline; position: relative; }
+sup { top: -0.5em; }
+sub { top: 0.3em; }
+.equation {
+  margin: 1.5rem 0 1.6rem; padding: 0.95rem 1.3rem; max-width: var(--measure); overflow-x: auto;
+  background: var(--panel); border-left: 4px solid var(--coral); color: var(--blue); font-size: 1.06em; line-height: 1.5;
+}
+.equation p { margin: 0; }
+.equation .where { display: block; margin-top: 0.5rem; font-family: var(--util); font-size: 0.8125rem; line-height: 1.45; color: var(--muted); }
+.plate svg { display: block; width: 100%; height: auto; }
+.hero-fig svg { border-radius: 5px; }
+.also { padding-top: 1rem; border-top: 3px solid var(--coral); font-family: var(--util); font-size: 0.875rem; line-height: 1.5; color: var(--muted); }
+.also h3 { margin: 0 0 0.6rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral-ink); }
+.also a { display: block; margin-bottom: 0.55rem; font-family: var(--display); font-size: 1.7rem; line-height: 1.1; color: var(--blue); text-decoration: none; }
+.also a:hover { text-decoration: underline; }
+.also p { margin: 0; }
+.refs { margin-top: 2rem; padding-top: 1.6rem; border-top: 1px solid var(--rule); }
+.sources { margin: 0; padding: 0; list-style: none; }
+.sources li { margin: 0 0 0.5rem; break-inside: avoid; overflow-wrap: anywhere; }
+@media (min-width: 48rem) { .sources { columns: 2; column-gap: var(--gap); } }
+@media (min-width: 62rem) { .story > .equation { max-width: min(var(--measure), calc(100% - var(--rail) - var(--gap))); } }
+</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="top" aria-label="Site">
+      <a href="https://www.giulioruffini.com/">Giulio Ruffini</a>
+      <a href="https://www.giulioruffini.com/blog">All writing</a>
+    </nav>
+    <div class="hero-grid">
+      <div class="hero-head">
+        <p class="kicker">Kolmogorov Theory · BCOM Blog</p>
+        <h1><span>The Monoid Inside</span> <span><em>Every Program</em></span></h1>
+      </div>
+      <div class="hero-text">
+        <p class="deck">A program is a sequence of operations, and operations compose. That gives every computation an algebra, a monoid acting on the machine’s states, and it lets two centuries of group theory say what a program is made of.</p>
+        <p class="meta"><span>By <strong>Giulio Ruffini</strong> with <strong>Klaus</strong></span><span>November 2026</span><span>19-minute read</span></p>
+      </div>
+      <div class="hero-fig plate" role="figure" aria-labelledby="hero-cap">
+        <svg viewBox="0 0 400 384" role="img" font-family="'DM Sans', system-ui, sans-serif" aria-label="Two dials, each with the four headings north, east, south and west. On the left dial, blue arrows lead from each heading to the next one clockwise: a quarter turn, which can be undone. On the right dial, coral arrows lead from every heading to north: an observation of north, which cannot be undone.">
+          <defs>
+            <marker id="mo-ab" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#002878"/></marker>
+            <marker id="mo-ac" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#C63B2C"/></marker>
+          </defs>
+          <text x="28" y="34" font-size="14.5" font-weight="600" fill="#172036">Two kinds of operation</text>
+          <text x="28" y="52" font-size="13" fill="#586276">on a record of four headings</text>
+          <text x="105" y="96" font-size="13.5" font-weight="600" text-anchor="middle" fill="#002878">a quarter turn</text>
+          <text x="295" y="96" font-size="13.5" font-weight="600" text-anchor="middle" fill="#C63B2C">an observation: north</text>
+          <g fill="none" stroke="#002878" stroke-width="2.2">
+            <path d="M123.9 141.2 A58 58 0 0 1 159.8 177.1" marker-end="url(#mo-ab)"/>
+            <path d="M159.8 214.9 A58 58 0 0 1 123.9 250.8" marker-end="url(#mo-ab)"/>
+            <path d="M86.1 250.8 A58 58 0 0 1 50.2 214.9" marker-end="url(#mo-ab)"/>
+            <path d="M50.2 177.1 A58 58 0 0 1 86.1 141.2" marker-end="url(#mo-ab)"/>
+          </g>
+          <g fill="none" stroke="#C63B2C" stroke-width="2.2">
+            <path d="M341 184 L308.4 151.4" marker-end="url(#mo-ac)"/>
+            <path d="M249 184 L281.6 151.4" marker-end="url(#mo-ac)"/>
+            <path d="M295 237 L295 158" marker-end="url(#mo-ac)"/>
+            <path d="M284 126 C270 100 320 100 306 126" marker-end="url(#mo-ac)"/>
+          </g>
+          <g stroke="#172036" stroke-width="1.4" fill="#FFFFFF">
+            <circle cx="105" cy="138" r="15"/><circle cx="163" cy="196" r="15"/><circle cx="105" cy="254" r="15"/><circle cx="47" cy="196" r="15"/>
+            <circle cx="353" cy="196" r="15"/><circle cx="295" cy="254" r="15"/><circle cx="237" cy="196" r="15"/>
+          </g>
+          <circle cx="295" cy="138" r="15" fill="#FFE3DF" stroke="#C63B2C" stroke-width="1.6"/>
+          <g font-size="13" font-weight="600" fill="#172036" text-anchor="middle">
+            <text x="105" y="142.5">N</text><text x="163" y="200.5">E</text><text x="105" y="258.5">S</text><text x="47" y="200.5">W</text>
+            <text x="295" y="142.5">N</text><text x="353" y="200.5">E</text><text x="295" y="258.5">S</text><text x="237" y="200.5">W</text>
+          </g>
+          <g font-size="13" text-anchor="middle">
+            <text x="105" y="302" fill="#172036">moves every heading on</text>
+            <text x="105" y="320" fill="#586276">can be undone</text>
+            <text x="295" y="302" fill="#172036">sends every heading to N</text>
+            <text x="295" y="320" fill="#586276">cannot be undone</text>
+          </g>
+          <line x1="28" y1="340" x2="372" y2="340" stroke="#D8DFEB" stroke-width="1"/>
+          <text x="200" y="364" font-size="13.5" font-weight="600" text-anchor="middle" fill="#172036">4 turns + 4 observations = all 8 operations</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="wrap story">
+    <div class="rail cap lead-cap" id="hero-cap"><strong>A turn and an overwrite.</strong> A compass that keeps track of its heading has two kinds of operation. A turn moves every heading one place round the dial and can be undone. An observation sets the record to the heading observed, whatever it was before, and cannot. However the two are combined, the result is one of eight operations.
+      <span class="credit">Drawn for this essay, after Figure 7 of the source paper</span></div>
+    <blockquote class="epigraph">
+      <p>… by the word operation, we mean any process which alters the mutual relation of two or more things, be this relation of what kind it may. This is the most general definition, and would include all subjects in the universe.</p>
+      <footer>Ada Lovelace, 1843</footer>
+    </blockquote>
+    <p class="lede">In 1843 Ada Lovelace published her translation of an article on Charles Babbage’s Analytical Engine, a mechanical computer first described in 1837 and never completed. She added seven notes of her own, lettered A to G. The last of them contains a table of operations for computing the Bernoulli numbers, often called the first published computer program. The first contains the idea this essay is about: the engine separates the operations from the objects they operate on.</p>
+    <p>Mathematics has a name for what she described. A set of operations that can be performed one after another, and that includes the operation of doing nothing, is a monoid. When every operation can also be undone, it is a group. Every program, on any machine, gives a monoid acting on that machine’s states.</p>
+    <p>In this essay I explain what that means and why it is useful. The monoid of a program contains groups. What mathematicians have learned about groups then tells us what the program can compute, what it is made of, and what another machine must keep in order to do the same job.</p>
+
+    <h2>Lovelace separated the operations from the numbers</h2>
+    <figure class="rail fig">
+      <div class="plate">
+        <img loading="lazy" decoding="async" src="the-monoid-inside-every-program/mill.jpg" width="1100" height="733" alt="A brass frame holds parallel vertical shafts with stacked dark wheels. Gearing and a printing mechanism sit along the base.">
+      </div>
+      <figcaption><strong>A piece of the mill.</strong> A trial assembly of part of the mill of the Analytical Engine, with its printing mechanism. Science Museum, London.
+        <span class="credit">Photograph by Daderot, via Wikimedia Commons. CC0</span></figcaption>
+    </figure>
+    <p>The Analytical Engine had two main parts. The store held numbers on columns of wheels, and the mill did the arithmetic. Punched cards, borrowed from the Jacquard loom, told the engine what to do. Operation cards said which operation the mill should perform. Variable cards said which columns of the store should supply the numbers and which should receive the result.</p>
+    <p>In her first note Lovelace drew the consequence. In the engine, she wrote, “the peculiar and independent nature of the considerations which in all mathematical analysis belong to operations, as distinguished from the objects operated upon and from the results … is very strikingly defined and separated.” A deck of operation cards is a thing in itself. It can be studied, repeated and combined before anyone says which numbers it will meet. She called this study “the science of operations” and claimed for it “its own abstract truth and value.”</p>
+    <blockquote class="pull rail">A deck of operation cards is a thing in itself.</blockquote>
+    <p>Two more points in the notes belong to the same idea. Operations need not act on numbers. The engine “weaves algebraical patterns just as the Jacquard-loom weaves flowers and leaves,” and if the relations of musical harmony could be expressed in its terms, it “might compose elaborate and scientific pieces of music of any degree of complexity or extent.”</p>
+    <p>A group of operations can also be used again. The cards could be “backed,” so that the same cards came round a second time, and Lovelace gave the result a name: “a recurring group is called a cycle.” Her program for the Bernoulli numbers uses twenty-five operation cards, and operations 13 to 23 are repeated once more for each further number. A cycle can itself be repeated, which gives “a cycle of a cycle, or a cycle of cycles.”</p>
+
+  </div>
+  <figure class="band-fig">
+    <div class="wrap">
+      <p class="swipe">Swipe sideways to read the figure</p>
+      <div class="plate scroll" tabindex="0" role="group" aria-label="Figure: Lovelace’s diagram for the computation of the Bernoulli numbers, scrollable">
+        <img loading="lazy" decoding="async" src="the-monoid-inside-every-program/note-g.webp" width="2241" height="1565" alt="A printed table headed Diagram for the computation by the Engine of the Numbers of Bernoulli. Twenty-five numbered rows, one for each operation, run down the left. Columns to the right, headed Data, Working Variables and Result Variables, show the value on each variable after each operation. An outer bracket joins rows 13 to 23, two inner brackets join rows 13 to 16 and 17 to 20, and a line beneath them reads: Here follows a repetition of Operations thirteen to twenty-three.">
+      </div>
+      <figcaption><strong>The program of 1843.</strong> Lovelace’s diagram for the computation of the Bernoulli numbers, from Note G. Each numbered row is one operation of the mill, and the columns to the right follow the variables of the store as the operations change them. The outer bracket joins operations 13 to 23, the group that is repeated for each further number. The two inner brackets mark runs of four operations, each of which builds one factor of a coefficient.
+        <span class="credit">Ada Lovelace, Note G, Scientific Memoirs, vol. III (1843). Natural History Museum Library, London, via the Biodiversity Heritage Library. Public domain</span></figcaption>
+    </div>
+  </figure>
+  <div class="wrap story follow">
+
+    <h2>Operations performed in sequence form a monoid</h2>
+    <p>Here is the modern statement. Call the complete condition of a machine its state. For the engine, that is the position of every wheel on every column. An operation is a rule that takes each possible state to a new state. Performing one operation and then another is again a rule that takes each state to a new state, so it is an operation too.</p>
+    <p>The grouping of a sequence does not matter. Doing <i>a</i>, then <i>b</i>, then <i>c</i> gives the same result whether we think of it as <i>a</i>-then-<i>b</i> followed by <i>c</i>, or as <i>a</i> followed by <i>b</i>-then-<i>c</i>. And there is an operation that changes nothing.</p>
+    <aside class="rail assume" aria-labelledby="monoid-h">
+      <h3 id="monoid-h">A monoid in three lines</h3>
+      <dl>
+        <div><dt>Closed <span>· sequences stay inside</span></dt><dd>Performing one operation and then another is an operation of the same set.</dd></div>
+        <div><dt>Associative <span>· grouping is free</span></dt><dd>(<i>a</i> then <i>b</i>) then <i>c</i> equals <i>a</i> then (<i>b</i> then <i>c</i>).</dd></div>
+        <div><dt>Identity <span>· doing nothing counts</span></dt><dd>One operation leaves every state as it was.</dd></div>
+      </dl>
+      <p>A group has a fourth property: every operation has another that undoes it.</p>
+    </aside>
+    <p>A set of operations with these properties is a monoid. The states are a separate set, and the monoid acts on them. Lovelace’s separation of operations from objects is the separation of the monoid from the set it acts on.</p>
+    <p>A program fits this description at two levels. A program with no branches is a list of instructions, and running it performs their operations in order. The program is a word, and what it does to the state is the product of its letters. Many words give the same product, which is how two different programs can compute the same thing: “add 2, then add 3” and “add 5” are different programs and the same operation. A loop is a power. Lovelace’s cycle, performed <i>n</i> times, is the operation of the cycle multiplied by itself <i>n</i> times.</p>
+    <p>When a program branches, the next instruction depends on the state, and the list is no longer fixed in advance. Then we take the whole machine, with the program and the current position in it, as the thing that has a state. One step of the machine is one operation. If the machine also receives inputs from outside, each possible input is an operation of its own, and the operations that finite sequences of inputs can produce form the machine’s monoid. In our paper on brain simulation we call it the update monoid.</p>
+    <p>The same holds when time is continuous. For a system that obeys a differential equation that does not change with time and has one solution from each starting state, evolving for one duration and then for another is the same as evolving for their sum. The evolutions form a monoid too, with durations in place of counted steps.</p>
+    <p>None of this is special to computers. A counterpart of Cayley’s theorem for groups gives the converse: every monoid, however abstractly it is defined, is the monoid of some set of operations on some set of states. Whether a physical machine can carry out those operations is a separate matter.</p>
+
+    <h2>Reversible operations form groups, and overwriting forgets</h2>
+    <p>Operations differ in one decisive respect. Some can be undone. Adding 1 on a twelve-hour clock face is undone by adding 11. Swapping the contents of two registers is undone by swapping them again. An operation that can be undone rearranges the states without merging any two of them, and a set of such operations that contains their combinations and their inverses is a group.</p>
+    <p>Other operations cannot be undone. “Set the register to zero” sends every state to the same place, and afterward nothing in the register says where it started. Overwriting is how a machine takes in news from outside. It is also the reason the algebra of computation is a monoid and, in general, not a group.</p>
+    <p>A compass shows both kinds at once. Suppose a small device keeps track of which way it is facing, to the nearest quarter turn: north, east, south or west. It can be told “you have turned right,” and then it moves its record one place round the dial. It can also sight a landmark and be told “you are facing north,” and then it sets its record to north, whatever it held before.</p>
+    <p>The four turns (none, right, about, left) form a group, the rotations of a square. The four observations are overwrites. Combining them in every possible way gives nothing new. A turn after an observation is an observation, and so is an observation after a turn. These eight operations are the whole monoid of the device.</p>
+    <blockquote class="pull rail">The group inside a monoid is the part of the computation that forgets nothing.</blockquote>
+    <p>Rolf Landauer found the physical meaning of the difference in 1961. An operation that merges states erases information, and erasing one bit costs at least a fixed amount of energy, proportional to the temperature. Charles Bennett showed in 1973 that a computation can be arranged so that every step is reversible, and that reversible steps escape this cost in principle. The group inside a monoid is the part of the computation that forgets nothing.</p>
+    <p>A familiar toy makes the group vivid. Every sequence of turns of a Rubik’s cube is a program, and two sequences that leave the cube in the same arrangement are the same operation. All of them can be undone, so they form a group. It has 43,252,003,274,489,856,000 elements, and in 2010 a computer-assisted proof showed that every one of them can be reached in twenty face turns or fewer. Solvers use the algebra without naming it. Many of the sequences they use to move a few pieces and leave the rest in place are commutators: do <i>a</i>, do <i>b</i>, undo <i>a</i>, undo <i>b</i>.</p>
+
+    <h2>A turning wheel is a group in action</h2>
+    <figure class="rail fig">
+      <div class="plate">
+        <img loading="lazy" decoding="async" src="the-monoid-inside-every-program/llull.jpg" width="999" height="1411" alt="A printed page headed Quarta Figura, with handwritten notes above and below. Three concentric rings each carry the letters B to K. The middle ring is colored in red, yellow and green sectors, and a small fastener sits at the center.">
+      </div>
+      <figcaption><strong>Llull’s Fourth Figure.</strong> Three rings carry the same nine letters. The outer ring is fixed, and two paper discs turn around a pin at the center, so that each turn lines up a new triple of letters. From an edition of the <i>Ars magna</i> printed in Lyon in 1517 and colored by hand.
+        <span class="credit">Ramon Llull, Ars magna, generalis et ultima (Lyon, 1517), fol. IV verso. The Getty Research Institute, via Internet Archive. Public domain</span></figcaption>
+    </figure>
+    <p>Machines made of wheels put groups to work long before groups had a name. Around 1300 the Majorcan philosopher Ramon Llull devised an Art for reasoning by combination. Nine letters stand for basic concepts, and concentric discs carrying the letters are turned against one another to form their combinations. A turn is an operation, the same whatever the letters mean, and nine turns bring a disc back to where it began. Leibniz took his inspiration from Llull for his dissertation of 1666 on the art of combinations.</p>
+    <p>The Enigma cipher machine added wiring to the wheels. Each rotor is a wired drum that sends every letter to a letter, a fixed rearrangement of the alphabet. The rotors turn as the keys are pressed, so each letter of a message meets a different rearrangement. In late 1932 the Polish mathematician Marian Rejewski reconstructed the wiring of the rotors without having seen the machine, and then found a way to recover the daily settings. His tools were theorems about rearrangements. One of them says that relabeling the letters does not change the lengths of the cycles into which a rearrangement falls. The machine’s plugboard swapped pairs of letters and could be set in about a hundred billion ways. It was only a relabeling, so the cycle lengths passed through it unchanged and gave the rotor settings away. The theorem about cycles has been called “the theorem that won World War II.”</p>
+    <p>The codebreaking machines were wheels as well. The British Bombe, designed by Alan Turing in 1939 after a Polish original, was a bank of rotating drums, each imitating one rotor. Colossus, working by the end of 1943 against a cipher machine with twelve wheels, produced the wheel patterns electronically. The wheels had become states of a circuit.</p>
+
+  </div>
+  <figure class="band-fig">
+    <div class="wrap">
+      <div class="trio">
+        <div class="plate"><img loading="lazy" decoding="async" src="the-monoid-inside-every-program/enigma-rotor.jpg" width="1200" height="800" alt="An Enigma rotor displayed in an exploded view. Near the right end, green wires span the gap between two circular contact plates."></div>
+        <div class="plate"><img loading="lazy" decoding="async" src="the-monoid-inside-every-program/bombe.jpg" width="1200" height="800" alt="Three horizontal banks of circular drums, in three rows each, fill the face of a dark cabinet. A plate at the upper right reads Phoenix."></div>
+        <div class="plate"><img loading="lazy" decoding="async" src="the-monoid-inside-every-program/colossus.jpg" width="1200" height="800" alt="A wartime photograph of two operators at the racks of Colossus. At the right, a strip of paper tape runs over the wheels of a tall metal frame."></div>
+      </div>
+      <figcaption><strong>Rotors, drums and valves.</strong> Left: an Enigma rotor taken apart. The green wires join the contacts on its two faces and fix one rearrangement of the alphabet. Center: the rebuilt Bombe at Bletchley Park, with its banks of rotating drums, each drum imitating one rotor. Right: Colossus in 1944–45. A loop of punched tape runs over the pulleys, and the wheel patterns of the cipher are produced by valves.
+        <span class="credit">Rotor: photograph by Daderot. Bombe: photograph by TedColes. Both via Wikimedia Commons, CC0. Colossus: The National Archives, UK, FO 850/234. Public domain</span></figcaption>
+    </div>
+  </figure>
+  <div class="wrap story follow">
+
+    <h2>A group is studied by taking it apart</h2>
+    <p>Mathematicians come at a group from several sides. They ask what it acts on: which states can be reached from which, and what every operation leaves unchanged. They ask how it is generated: which few operations produce all the others, and which sequences of them give the same result. They turn its operations into matrices, so that linear algebra applies. And they take it apart.</p>
+    <p>Taking apart rests on one move. Sometimes part of what a group does can be ignored consistently. Take the counter that steps round a clock face of twelve hours, and keep only whether the hour is even or odd. What remains is a smaller group, a counter of two. The operations that were ignored, the steps by an even number of hours, form a group as well, a counter of six. The counter of twelve has come apart into a counter of two and a counter of six, and the counter of six comes apart again into two and three.</p>
+    <p>A group that cannot be divided in this way is called simple. Every finite group comes apart into simple pieces, and a theorem of Camille Jordan and Otto Hölder says that the list of pieces is the same however the dividing is done. The pieces are to a group what prime factors are to a whole number, with one difference. They do not fix the group: a counter of four and a pair of independent counters of two both come apart into two counters of two. How the pieces are joined matters as well.</p>
+    <p>The simple pieces are all known. They are the counters with a prime number of positions, the even rearrangements of five or more objects (those that can be made with an even number of swaps), sixteen further families that come from matrices, and twenty-six exceptions. The proof that the list is complete fills tens of thousands of pages, written by about a hundred authors and published mostly between 1955 and 2004.</p>
+    <p>A group whose pieces are all counters is called solvable. The smallest piece that is not a counter has sixty operations. It consists of the even rearrangements of five objects, and it is also the group of rotations of an icosahedron, the solid with twenty triangular faces.</p>
+    <aside class="rail assume" aria-labelledby="cube-h">
+      <h3 id="cube-h">The cube, taken apart</h3>
+      <dl>
+        <div><dt>Corner twists <span>· 7 counters of three</span></dt><dd>A corner piece can sit in its place in three ways.</dd></div>
+        <div><dt>Edge flips <span>· 11 counters of two</span></dt><dd>An edge piece can sit in its place in two ways.</dd></div>
+        <div><dt>Parity <span>· 1 counter of two</span></dt><dd>It ties the rearrangement of the corners to that of the edges.</dd></div>
+        <div><dt>Corners <span>· cannot be divided</span></dt><dd>The 20,160 even rearrangements of eight pieces.</dd></div>
+        <div><dt>Edges <span>· cannot be divided</span></dt><dd>The 239,500,800 even rearrangements of twelve pieces.</dd></div>
+      </dl>
+      <p>The sizes multiply to the 43 quintillion operations of the cube.</p>
+    </aside>
+    <p>The Rubik’s cube shows the procedure at full size. Its group comes apart into seven counters of three, twelve counters of two, and two large pieces that cannot be divided: the even rearrangements of the eight corner pieces and of the twelve edge pieces. A computer can work this out from the six face turns alone. The method goes back to an algorithm of Charles Sims from 1970, which takes any set of reversible operations on finitely many states and returns the size of the group they generate, with a test for whether a given operation belongs to it.</p>
+
+    <h2>An equation has a formula when its group comes apart into counters</h2>
+    <p>This way of taking a group apart was invented to settle a question about formulas. An equation of degree two is solved with one square root. In the sixteenth century Italian algebraists found formulas for degrees three and four, with square roots and cube roots. For degree five none was found. Paolo Ruffini argued in 1799, and Niels Abel proved in 1824, that none exists.</p>
+    <p>Évariste Galois found the reason. His memoir of 1831 was published only in 1846, fourteen years after his death. He attached a group to each equation. The roots of an equation cannot always be told apart by arithmetic. Whatever can be said about the number <i>i</i> using whole numbers, sums and products is equally true of −<i>i</i>: both are square roots of −1, and nothing in the arithmetic prefers one of them. The rearrangements of the roots that preserve every such statement form the group of the equation.</p>
+    <figure class="rail fig">
+      <div class="plate">
+        <svg viewBox="0 0 400 332" role="img" font-family="'DM Sans', system-ui, sans-serif" aria-label="Three columns of stacked blocks. For three roots, a block labeled 2 above a block labeled 3. For four roots, blocks labeled 2, 3, 2 and 2. For five roots, a block labeled 2 above a large block labeled 60, cannot be divided. The first two columns are marked formula and the third no formula.">
+          <text x="28" y="34" font-size="14.5" font-weight="600" fill="#172036">Three equations, taken apart</text>
+          <text x="28" y="52" font-size="13" fill="#586276">the group of the roots, piece by piece</text>
+          <g text-anchor="middle" font-size="12.5" font-weight="600" fill="#172036">
+            <text x="80" y="84">3 roots</text>
+            <text x="200" y="84">4 roots</text>
+            <text x="320" y="84">5 roots</text>
+          </g>
+          <g text-anchor="middle" font-size="11.5" fill="#586276">
+            <text x="80" y="100">6 operations</text>
+            <text x="200" y="100">24 operations</text>
+            <text x="320" y="100">120 operations</text>
+          </g>
+          <g fill="#002878">
+            <rect x="48" y="112" width="64" height="30" rx="6"/>
+            <rect x="48" y="148" width="64" height="30" rx="6"/>
+            <rect x="168" y="112" width="64" height="30" rx="6"/>
+            <rect x="168" y="148" width="64" height="30" rx="6"/>
+            <rect x="168" y="184" width="64" height="30" rx="6"/>
+            <rect x="168" y="220" width="64" height="30" rx="6"/>
+            <rect x="288" y="112" width="64" height="30" rx="6"/>
+          </g>
+          <rect x="288" y="148" width="64" height="102" rx="6" fill="#C63B2C"/>
+          <g text-anchor="middle" font-size="14" font-weight="600" fill="#FFFFFF">
+            <text x="80" y="132">2</text>
+            <text x="80" y="168">3</text>
+            <text x="200" y="132">2</text>
+            <text x="200" y="168">3</text>
+            <text x="200" y="204">2</text>
+            <text x="200" y="240">2</text>
+            <text x="320" y="132">2</text>
+            <text x="320" y="196" font-size="20">60</text>
+          </g>
+          <g text-anchor="middle" font-size="11" fill="#FFE4DF">
+            <text x="320" y="214">cannot be</text>
+            <text x="320" y="228">divided</text>
+          </g>
+          <g text-anchor="middle" font-size="12.5" font-weight="600">
+            <text x="80" y="272" fill="#002878">formula</text>
+            <text x="200" y="272" fill="#002878">formula</text>
+            <text x="320" y="272" fill="#C63B2C">no formula</text>
+          </g>
+          <text x="28" y="300" font-size="13" fill="#172036">A counter of 2 answers to a square root, of 3 to a cube root.</text>
+          <text x="28" y="320" font-size="13" fill="#586276">No root supplies the piece of sixty.</text>
+        </svg>
+      </div>
+      <figcaption><strong>Formulas follow the pieces.</strong> The rearrangements of the roots of a general equation of degree three, four and five, divided into pieces that cannot be divided further. Counters answer to root extractions. The piece of sixty that appears with five roots answers to none.
+        <span class="credit">Drawn for this essay</span></figcaption>
+    </figure>
+    <p>A formula in roots is a program, a fixed list of additions, multiplications, divisions and root extractions. Each root extraction adds counters to the group and nothing else. Galois showed that an equation can be solved by such a program exactly when its group is solvable, that is, when it comes apart into counters.</p>
+    <p>Take the general equation of each degree, whose group contains every rearrangement of the roots. For three roots the group has six operations and comes apart into a counter of two and a counter of three, and the formula for the cubic takes a square root and then a cube root. For four roots the pieces are counters of two, three, two and two. For five roots the group has 120 operations and comes apart into a counter of two and the indivisible piece of sixty. No root extraction supplies that piece, so the general equation of degree five has no formula in roots. Particular equations of degree five with smaller groups can still be solved.</p>
+
+    <h2>A new primitive extends what composition can reach</h2>
+    <p>The result is usually told as a story of impossibility. In an earlier note on Galois theory I read it as a statement about a toolkit, and put it in three words: solvability is decomposability. The five roots exist and can be computed to any accuracy. What fails is one instruction set. Root extractions add counters, so programs written with them reach only the solvable groups.</p>
+    <blockquote class="pull rail">Solvability is decomposability.</blockquote>
+    <figure class="rail fig">
+      <div class="plate">
+        <img loading="lazy" decoding="async" src="the-monoid-inside-every-program/icosahedron.jpg" width="770" height="990" alt="A Renaissance woodcut of a regular icosahedron drawn as an open frame, so that its front and back triangular faces can both be traced. Beneath it are the words Icosaedron Planum Vacuum.">
+      </div>
+      <figcaption><strong>The piece of sixty.</strong> Sixty rotations carry an icosahedron onto itself. They are the operations that no formula in roots supplies, and the ones on which Klein rebuilt the solution of the equation of degree five.
+        <span class="credit">Woodcut after Leonardo da Vinci, in Luca Pacioli, Divina proportione (Venice, 1509). Bayerische Staatsbibliothek, München. Public domain</span></figcaption>
+    </figure>
+    <p>The remedy is a new instruction. Erland Bring showed in the eighteenth century that every equation of degree five can be reduced to the form <i>x</i><sup>5</sup> + <i>x</i> + <i>a</i> = 0. Give the solution of that one equation a name, as a function of <i>a</i>, and every equation of degree five is solved with roots and the new function. In 1858 Charles Hermite solved the general equation with elliptic functions, and Felix Klein later rebuilt the solution on the rotations of the icosahedron, the same sixty operations that defeat the roots. The new tool works because it carries the symmetry that the old ones lack.</p>
+    <p>Differential equations follow the same pattern. A linear differential equation has a group too, and it can be solved with integrals, exponentials and algebraic functions exactly when the connected part of that group is solvable. Airy’s equation <i>y</i>″ = <i>xy</i> fails the test. Its solutions have a name of their own, the Airy functions.</p>
+    <p>In that note I drew the pattern as a staircase. A learner, human or machine, composes the tools it has until progress stalls at a piece that will not come apart. It then adopts a primitive that contains the piece, and composes again. For learning in general this is a proposal. For machines with finitely many states the part about toolkits is a theorem.</p>
+
+    <h2>Every finite machine factors into groups and flip-flops</h2>
+    <p>Machines come apart as groups do. In 1965 Kenneth Krohn and John Rhodes proved a theorem that does for machines what factorization into primes does for whole numbers. Take any machine with finitely many states. It can be emulated by a chain of simpler machines, each feeding the next and none feeding back, and the links of the chain are of two kinds only.</p>
+    <figure class="rail fig">
+      <div class="plate">
+        <svg viewBox="0 0 400 306" role="img" font-family="'DM Sans', system-ui, sans-serif" aria-label="A chain of three boxes. An input line runs along the top and feeds each box. The first and third boxes are labeled group, permutes its states. The middle box is labeled flip-flop, set, reset, hold. Arrows lead from each box to the boxes on its right, and none lead back.">
+          <defs>
+            <marker id="kr-a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#172036"/></marker>
+          </defs>
+          <text x="28" y="34" font-size="14.5" font-weight="600" fill="#172036">A finite machine, factored</text>
+          <text x="28" y="52" font-size="13" fill="#586276">two kinds of part, wired forward only</text>
+          <text x="28" y="86" font-size="12.5" fill="#586276">input</text>
+          <line x1="28" y1="94" x2="372" y2="94" stroke="#172036" stroke-width="1.4"/>
+          <g stroke="#172036" stroke-width="1.4" fill="none">
+            <path d="M78 94 L78 124" marker-end="url(#kr-a)"/>
+            <path d="M200 94 L200 124" marker-end="url(#kr-a)"/>
+            <path d="M322 94 L322 124" marker-end="url(#kr-a)"/>
+            <path d="M126 156 L150 156" marker-end="url(#kr-a)"/>
+            <path d="M248 156 L272 156" marker-end="url(#kr-a)"/>
+            <path d="M78 186 C78 232 322 232 322 190" marker-end="url(#kr-a)"/>
+          </g>
+          <rect x="30" y="126" width="96" height="60" rx="6" fill="#002878"/>
+          <rect x="152" y="126" width="96" height="60" rx="6" fill="#FFFFFF" stroke="#C63B2C" stroke-width="2"/>
+          <rect x="274" y="126" width="96" height="60" rx="6" fill="#002878"/>
+          <g text-anchor="middle" font-size="13.5" font-weight="600">
+            <text x="78" y="152" fill="#FFFFFF">group</text>
+            <text x="200" y="152" fill="#C63B2C">flip-flop</text>
+            <text x="322" y="152" fill="#FFFFFF">group</text>
+          </g>
+          <g text-anchor="middle" font-size="11.5">
+            <text x="78" y="170" fill="#DCE6FF">permutes</text>
+            <text x="200" y="170" fill="#586276">set · reset · hold</text>
+            <text x="322" y="170" fill="#DCE6FF">permutes</text>
+          </g>
+          <text x="28" y="262" font-size="13" fill="#172036">Each part sees the input and the parts before it.</text>
+          <text x="28" y="282" font-size="13" fill="#586276">The groups come from the machine’s own monoid.</text>
+        </svg>
+      </div>
+      <figcaption><strong>The parts list of finite computation.</strong> By the theorem of Krohn and Rhodes, any machine with finitely many states can be emulated by a feed-forward chain of machines of two kinds: machines whose operations form a simple group, and flip-flops.
+        <span class="credit">Drawn for this essay, after Krohn and Rhodes (1965)</span></figcaption>
+    </figure>
+    <p>One kind does nothing but permute its states, and its operations form a simple group, one of the pieces that cannot be divided. The other kind is a flip-flop, a memory with two states and three operations: set, reset, and do nothing. The simple groups that appear all come from the monoid of the original machine: each is a group found among its operations, or a simplified image of one. The theorem never calls for a group from outside.</p>
+    <p>The chain is more than a list of parts. Each part reads the input and the states of the parts before it, so an earlier part can determine what a later one does next. Two counters of two make a counter of four when the second advances only as the first comes round, and they remain two independent counters when it does not. The decomposition exposes both the algebraic parts of a machine and the way they are coupled.</p>
+    <p>The theorem also runs the other way, and here the toolkit principle is exact. For every simple group that comes from the machine’s monoid in this sense, some part of any chain that emulates the machine must contain a group that maps onto it. Parts that lack such a group cannot make up for it, however many are chained: counters of two and flip-flops will never reproduce a cycle of three. With counters of every size and flip-flops, a chain can emulate a machine exactly when every group in the machine’s monoid is solvable. When one of them is not, at least one part must supply a piece that is no counter, such as the sixty rotations of the icosahedron. This is the counterpart for machines of Galois’s criterion for equations. The restriction to chains matters: with feedback, a flip-flop that reads its own state can toggle.</p>
+    <p>Group theory therefore supplies the parts list for finite computation. The finite simple groups play the part of the primes, and the flip-flops supply memory and contribute no group beyond the trivial one. For small machines the decomposition can be computed today: the SgpDec package for the GAP computer algebra system takes a machine’s operations and returns a chain of this kind, whose groups may themselves come apart further.</p>
+
+    <h2>The groups a program contains limit what it can compute</h2>
+    <p>The parts list has consequences. Consider machines that read a string of letters and answer yes or no. In 1965 Marcel-Paul Schützenberger characterized the machines whose monoid contains no group except the trivial one. They recognize exactly the languages that can be written with unions, complements and concatenations, and without the operator that says “repeat any number of times.” One thing they cannot do is count in cycles. Deciding whether a string of <i>a</i>’s has even length needs the group with two elements, and no feed-forward chain of flip-flops can stand in for it.</p>
+    <aside class="rail assume" aria-labelledby="ex-h">
+      <h3 id="ex-h">Programs and the groups inside them</h3>
+      <dl>
+        <div><dt>Clock counter <span>· add 1 on a dial of 12</span></dt><dd>The cyclic group of order 12.</dd></div>
+        <div><dt>Flip-flop <span>· set, reset, hold</span></dt><dd>No group beyond the trivial one.</dd></div>
+        <div><dt>Parity check <span>· is the count even?</span></dt><dd>The group with two elements.</dd></div>
+        <div><dt>Compass <span>· turns and observations</span></dt><dd>The four rotations of a square, plus four overwrites.</dd></div>
+        <div><dt>Rubik’s cube <span>· face turns</span></dt><dd>A group of about 4.3 × 10<sup>19</sup> operations.</dd></div>
+      </dl>
+      <p>The group is what the program can do and undo.</p>
+    </aside>
+    <p>The kind of group matters as well, and the dividing line is the one Galois drew. In 1989 David Barrington showed how much it can matter. Give a program a memory with only five possible states, and let each step read one bit of the input and, depending on that bit, apply one of two rearrangements of the five states. Programs of this kind whose length grows only polynomially with the input can compute everything that Boolean formulas of polynomial size can, including the majority vote of the input bits.</p>
+    <p>The proof turns on the fact that defeats the formula for the equation of degree five: the rearrangements of five objects contain the indivisible piece of sixty. Barrington’s device is the cube solver’s commutator: do <i>a</i>, do <i>b</i>, undo <i>a</i>, undo <i>b</i>. Let the program perform <i>a</i> and its undoing only when one input bit is set, and <i>b</i> and its undoing only when another is. The four steps then change the state only when both bits are set, so they compute the AND of the two bits. To combine two such results the program takes the commutator of two commutators, and so on up the formula. In a solvable group this nesting dies out: beyond a fixed depth, every commutator of commutators is the operation that does nothing. Barrington chose cycles of five objects whose commutator is again a cycle of five, so the device can be nested as deep as a formula requires. With a solvable group in its place, such programs fall into a class that is conjectured, and not yet proved, to be unable to compute even the majority vote. The structure of the group sets the power of the program.</p>
+
+    <h2>A program that tracks a symmetric world contains the world’s group</h2>
+    <aside class="rail also" aria-labelledby="also-h">
+      <h3 id="also-h">Companion essay</h3>
+      <a href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog.html">What a Brain Simulation Must Keep</a>
+      <p>Which of the brain’s mathematical relations a model must preserve for a feature of experience to survive the copy.</p>
+    </aside>
+    <p>This is where the algebra meets our own work. In Kolmogorov Theory an agent is a system that keeps a model of its world and uses it. A model has to keep up with the world, and worlds have symmetries. A body turns, an object moves, a scene shifts, and one rule describes the change wherever it starts.</p>
+    <p>In a recent paper we spell out what such tracking demands of the tracker, building on the classical theory of automata. Take a system that exactly tracks a world whose configurations are changed by a group of transformations, that can also observe the world and overwrite its record, and that has no other inputs. At the coarsest description that still keeps the record, its update monoid consists of two things only: the world’s group, acting reversibly on the record, and the overwrites. The compass is one example.</p>
+    <p>Now suppose another machine imitates the tracker, as a simulation imitates a brain. If it has finitely many states and reproduces the tracker’s record exactly, its own monoid must contain a group that maps onto the world’s group. Memory alone cannot supply the symmetry: a chain of flip-flops with no feedback contains no group beyond the trivial one. We show that the same holds for an imitation that is accurate enough. Take the compass and any finite machine whose heading error stays below 45 degrees, half the gap between neighboring headings, after every sequence of turns and observations. That machine must carry the four-fold rotation in its own operations.</p>
+    <blockquote class="pull rail">Memory alone cannot supply the symmetry.</blockquote>
+    <p>When the symmetry is continuous, like a rotation by any angle, the group is infinite, and no machine with finitely many states can keep it exactly. It can only approximate it.</p>
+    <p>Nature appears to build such trackers. In the fruit fly’s brain a heading signal follows the animal’s turns in darkness and realigns when a visual landmark shifts. In the terms of this essay, a turn is a rotation of the record and a landmark correction is an overwrite.</p>
+
+    <h2>Group theory says what to look for in a learned program</h2>
+    <p>The same reasoning helps with programs that nobody wrote. A trained neural network is a program whose instructions are spread over millions of numbers. In 2023 Neel Nanda and colleagues trained small networks to add numbers on a clock face and then took them apart. The networks had found the rotations. They turned each number into an angle and added by composing rotations, using trigonometric identities to do it.</p>
+    <p>A companion study trained networks on other finite groups. It found that they learn to compose group elements through the group’s representations, the standard device by which mathematicians turn group elements into matrices, although which representations a given network uses varies from one training run to the next. Knowing the group told the investigators what structure to look for, and they found it.</p>
+    <p>The line between solvable and not appears in learned programs too. In 2022 Bingbin Liu and colleagues asked how many layers a transformer, the kind of network behind today’s language models, needs in order to follow a finite machine through a long input. Using the theorem of Krohn and Rhodes, they showed that when the machine’s groups are solvable a fixed number of layers is enough for inputs of any length, with layers that may widen as the inputs grow. When they are not, the number of layers must grow with the input for networks of practical size and precision, unless a long-standing conjecture of complexity theory is false.</p>
+  </div>
+
+  <section class="night">
+    <div class="wrap story">
+    <h2>The operations are what a copy must keep</h2>
+    <p>Lovelace’s separation has a practical reading today. When we ask whether two systems do the same thing (two programs, a program and its compiled form, a brain and its emulation) the states are the wrong place to look, because they can be encoded in endlessly many ways. The operations, and the way they compose, are what the systems can share.</p>
+    <p>That is the role of the update monoid in our paper. Emulators that reproduce a system exactly reproduce the same operations on the states being compared, even when their algorithms and mechanisms differ. For machines with finitely many states, the groups inside the monoid are the part that no change of encoding can remove.</p>
+    <p>The science of operations that Lovelace announced in 1843 now has two centuries of group theory behind it. To find the mathematical structure in a program, find its operations, see how they compose, look for the groups, and take them apart.</p>
+    </div>
+  </section>
+</article>
+
+<footer class="night colophon">
+  <div class="wrap">
+    <div class="cols">
+      <div><h3>Source papers</h3><p>Giulio Ruffini, <i>What Must a Brain Simulation Retain to Preserve Experience?</i>, BCOM working paper WP0215 (2026), <a href="https://doi.org/10.5281/zenodo.24280672" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24280672</a>, Section 4.2 and Figure 7, with the formal statements and proofs in its supplement. The sections on equations and toolkits draw on Giulio Ruffini, <i>An Introduction to Galois Theory</i>, BCOM working paper WP0052 (2026), <a href="https://doi.org/10.5281/zenodo.18448594" target="_blank" rel="noopener">doi.org/10.5281/zenodo.18448594</a>. A companion working paper, <i>Computation as Algebras of Operations</i>, is in preparation.</p></div>
+      <div><h3>Quotations and numbers</h3><p>Lovelace’s words are quoted from her Notes A, C, E and G to Menabrea’s <i>Sketch of the Analytical Engine</i> (1843). The order of the Rubik’s cube group and the twenty-move bound follow Rokicki and colleagues (2013); the pieces of the group were computed for this essay from the six face turns. The phrase about the theorem and the war is Cipher Deavours’s.</p></div>
+      <div><h3>About this essay</h3><p>Klaus (Claude, Anthropic) drafted the essay with the author. Kaiti (Codex, OpenAI) reviewed it and gathered the historical images. The three diagrams were drawn for the essay.</p></div>
+    </div>
+    <div class="refs">
+      <h3>Sources</h3>
+      <ol class="sources">
+        <li>Barrington, D. A. (1989). <a href="https://doi.org/10.1016/0022-0000(89)90037-8">Bounded-width polynomial-size branching programs recognize exactly those languages in NC<sup>1</sup></a>. Journal of Computer and System Sciences 38, 150–164.</li>
+        <li>Barrington, D. A. M. and Thérien, D. (1988). <a href="https://doi.org/10.1145/48014.63138">Finite monoids and the fine structure of NC<sup>1</sup></a>. Journal of the ACM 35, 941–952.</li>
+        <li>Bennett, C. H. (1973). <a href="https://doi.org/10.1147/rd.176.0525">Logical reversibility of computation</a>. IBM Journal of Research and Development 17, 525–532.</li>
+        <li>Chughtai, B., Chan, L. and Nanda, N. (2023). <a href="https://arxiv.org/abs/2302.03025">A toy model of universality: reverse engineering how networks learn group operations</a>. arXiv:2302.03025.</li>
+        <li>Egri-Nagy, A., Mitchell, J. D. and Nehaniv, C. L. (2014). <a href="https://doi.org/10.1007/978-3-662-44199-2_13">SgpDec: cascade (de)compositions of finite transformation semigroups and permutation groups</a>. Mathematical Software – ICMS 2014, Lecture Notes in Computer Science, 75–82.</li>
+        <li>Ésik, Z. (1999). <a href="https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/1106-2.pdf">A proof of the Krohn–Rhodes decomposition theorem</a>. RIMS Kôkyûroku 1106, 13–24.</li>
+        <li>Klein, F. (1884). Vorlesungen über das Ikosaeder und die Auflösung der Gleichungen vom fünften Grade. Teubner. English translation: Lectures on the Icosahedron and the Solution of Equations of the Fifth Degree (1888).</li>
+        <li>Krohn, K. and Rhodes, J. (1965). <a href="https://doi.org/10.1090/S0002-9947-1965-0188316-1">Algebraic theory of machines. I. Prime decomposition theorem for finite semigroups and machines</a>. Transactions of the American Mathematical Society 116, 450–464.</li>
+        <li>Landauer, R. (1961). <a href="https://doi.org/10.1147/rd.53.0183">Irreversibility and heat generation in the computing process</a>. IBM Journal of Research and Development 5, 183–191.</li>
+        <li>Liu, B., Ash, J. T., Goel, S., Krishnamurthy, A. and Zhang, C. (2022). <a href="https://arxiv.org/abs/2210.10749">Transformers learn shortcuts to automata</a>. arXiv:2210.10749.</li>
+        <li>McNaughton, R. and Papert, S. (1971). Counter-Free Automata. MIT Press.</li>
+        <li>Menabrea, L. F. (1843). <a href="https://www.fourmilab.ch/babbage/sketch.html">Sketch of the Analytical Engine invented by Charles Babbage</a>, with notes by the translator, Ada Augusta, Countess of Lovelace. Scientific Memoirs 3, 666–731.</li>
+        <li>Nanda, N., Chan, L., Lieberum, T., Smith, J. and Steinhardt, J. (2023). <a href="https://arxiv.org/abs/2301.05217">Progress measures for grokking via mechanistic interpretability</a>. International Conference on Learning Representations.</li>
+        <li>Priani, E. (2025). <a href="https://plato.stanford.edu/entries/llull/">Ramon Llull</a>. Stanford Encyclopedia of Philosophy.</li>
+        <li>Rejewski, M. (1981). <a href="https://doi.org/10.1109/MAHC.1981.10033">How Polish mathematicians broke the Enigma cipher</a>. Annals of the History of Computing 3, 213–234.</li>
+        <li>Rokicki, T., Kociemba, H., Davidson, M. and Dethridge, J. (2013). <a href="https://doi.org/10.1137/120867366">The diameter of the Rubik’s Cube group is twenty</a>. SIAM Journal on Discrete Mathematics 27, 1082–1105.</li>
+        <li>Ruffini, G. (2026). <a href="https://doi.org/10.5281/zenodo.18448594">An introduction to Galois theory (with connections to AIT)</a>. BCOM working paper WP0052.</li>
+        <li>Ruffini, G., Castaldo, F. and Vohryzek, J. (2025). <a href="https://doi.org/10.3390/e27010090">Structured dynamics in the algorithmic agent</a>. Entropy 27, 90.</li>
+        <li>Schützenberger, M. P. (1965). <a href="https://doi.org/10.1016/S0019-9958(65)90108-7">On finite monoids having only trivial subgroups</a>. Information and Control 8, 190–194.</li>
+        <li>Seelig, J. D. and Jayaraman, V. (2015). <a href="https://doi.org/10.1038/nature14446">Neural dynamics for landmark orientation and angular path integration</a>. Nature 521, 186–191.</li>
+        <li>Sims, C. C. (1970). <a href="https://doi.org/10.1016/B978-0-08-012975-4.50020-5">Computational methods in the study of permutation groups</a>. In Computational Problems in Abstract Algebra, 169–183. Pergamon.</li>
+        <li>Solomon, R. (2001). <a href="https://doi.org/10.1090/S0273-0979-01-00909-0">A brief history of the classification of the finite simple groups</a>. Bulletin of the American Mathematical Society 38, 315–352.</li>
+        <li>Stewart, I. (2015). <a href="https://doi.org/10.1201/b18187">Galois Theory</a>, fourth edition. Chapman and Hall/CRC.</li>
+        <li>van der Put, M. and Singer, M. F. (2003). <a href="https://doi.org/10.1007/978-3-642-55750-7">Galois Theory of Linear Differential Equations</a>. Springer.</li>
+      </ol>
+    </div>
+    <p class="line">Barcelona Computational Foundation · BCOM Blog WP0263 · Companion to WP0215 and WP0004</p>
+  </div>
+</footer>
+
+</body>
+</html>
