@@ -225,6 +225,11 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 }
 .colophon p { margin: 0; overflow-wrap: anywhere; }
 .colophon i { color: var(--ink); }
+/* Related essays: a full-width row at the head of the colophon */
+.colophon .related { grid-column: 1 / -1; }
+.colophon .related .items { display: grid; gap: 1.1rem var(--gap); grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+.colophon .related a { display: block; margin-bottom: 0.3rem; font-family: var(--display); font-size: 1.3rem; line-height: 1.15; text-decoration: none; }
+.colophon .related a:hover { text-decoration: underline; }
 .colophon .line {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 2rem;
   margin-top: 2.25rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
@@ -634,6 +639,11 @@ sub { top: 0.3em; }
 <footer class="night colophon">
   <div class="wrap">
     <div class="cols">
+      <div class="related"><h3>Related essays</h3><div class="items">
+        <p><a href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog.html">What a Brain Simulation Must Keep</a>Which of the brain’s mathematical relations a model must preserve for a feature of experience to survive the copy.</p>
+        <p><a href="https://www.giulioruffini.com/blogs/the-monoid-inside-every-program-blog.html">The Monoid Inside Every Program</a>How the operations of a program form a monoid acting on the machine’s states, and what group theory says the program is made of.</p>
+        <p><a href="https://giulioruffini.github.io/assets/blogs/pattern-persist-blog.html">Pattern, Persist!</a>How the algorithmic agent follows from persistence, and why holding a pattern against time has a price in heat.</p>
+      </div></div>
       <div><h3>Source papers</h3><p>Giulio Ruffini, <i>Physical Computation and Finite Information: Hypercomputation, reliable access, and neural simulation</i>, BCOM working paper WP0251 (2026), <a href="https://doi.org/10.5281/zenodo.24281423" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24281423</a>, and <i>What Must a Brain Simulation Retain to Preserve Experience?</i>, BCOM working paper WP0215 (2026), <a href="https://doi.org/10.5281/zenodo.24280672" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24280672</a>. They give the formal statements and proofs.</p></div>
       <div><h3>Numbers</h3><p>The Bekenstein and black-hole figures, the step energies of the accelerating schedule and the toss counts were computed for this essay from the formulas quoted, with CODATA values of the constants.</p></div>
       <div><h3>About this essay</h3><p>Klaus is a BCOM research agent running on Claude (Anthropic) and drafted the text from the papers with the author. The three diagrams were drawn for the essay; the two-panel figure is from the working paper.</p></div>

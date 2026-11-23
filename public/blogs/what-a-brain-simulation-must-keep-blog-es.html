@@ -176,6 +176,12 @@ h1 em { font-style: italic; color: var(--band-coral); }
 /* Right-column items */
 .rail { margin: 2rem 0 2.2rem; max-width: var(--measure); }
 .rail.fig .plate { max-width: 26rem; }
+/* Companion-essay card in the right column, as in the monoid and hypercomputation essays */
+.also { padding-top: 1rem; border-top: 3px solid var(--coral); font-family: var(--util); font-size: 0.875rem; line-height: 1.5; color: var(--muted); }
+.also h3 { margin: 0 0 0.6rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral-ink); }
+.also a { display: block; margin-bottom: 0.55rem; font-family: var(--display); font-size: 1.7rem; line-height: 1.1; color: var(--blue); text-decoration: none; }
+.also a:hover { text-decoration: underline; }
+.also p { margin: 0; }
 figcaption, .cap {
   margin-top: 0.75rem; max-width: var(--measure);
   font-family: var(--util); font-size: 0.875rem; line-height: 1.5; color: var(--muted);
@@ -233,6 +239,11 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 }
 .colophon p { margin: 0; overflow-wrap: anywhere; }
 .colophon i { color: var(--ink); }
+/* Related essays: a full-width row at the head of the colophon */
+.colophon .related { grid-column: 1 / -1; }
+.colophon .related .items { display: grid; gap: 1.1rem var(--gap); grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+.colophon .related a { display: block; margin-bottom: 0.3rem; font-family: var(--display); font-size: 1.3rem; line-height: 1.15; text-decoration: none; }
+.colophon .related a:hover { text-decoration: underline; }
 .colophon .line {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 2rem;
   margin-top: 2.25rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
@@ -393,6 +404,12 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
   <div class="wrap story follow">
 
+    <aside class="rail also" aria-labelledby="also-monoid-h">
+      <h3 id="also-monoid-h">Ensayo complementario, en inglés</h3>
+      <a href="https://www.giulioruffini.com/blogs/the-monoid-inside-every-program-blog.html" lang="en" hreflang="en">The Monoid Inside Every Program</a>
+      <p>Cómo las operaciones de un programa forman un monoide que actúa sobre los estados de la máquina, y en qué piezas lo descompone la teoría de grupos.</p>
+    </aside>
+
     <p>El artículo demuestra que, en la descripción mínima, el monoide de actualización del seguidor no contiene nada más. Toda secuencia de sucesos actúa como un giro reversible o como una sobrescritura irreversible. Las actualizaciones reversibles forman un grupo, que es un monoide en el que toda actualización puede deshacerse; aquí lo componen los cuatro giros, contando el giro nulo. Este grupo es el <em>núcleo de simetría</em> del seguidor, y las sobrescrituras son la parte del monoide que no puede deshacerse. El enunciado vale por igual para sistemas digitales y para modelos de ecuaciones diferenciales con reinicios, y su demostración se ha verificado por ordenador con el asistente de demostración Lean.</p>
 
     <p>El resultado impone una condición a cualquier máquina que emule el seguidor de forma exacta. Una máquina finita debe contener, entre sus propias actualizaciones, grupos que se proyecten sobre los grupos del seguidor. Una máquina de estados finitos cuyo monoide de actualización no contenga ningún grupo no trivial no puede reproducir exactamente la brújula de cuatro rumbos en todas las secuencias de sucesos, sea cual sea su programa. Un emulador que comete errores puede, aun así, conservar el monoide entero. Si la estimación de un emulador determinista se mantiene siempre a menos de 45 grados del rumbo correcto, el más cercano de los cuatro rumbos es siempre el acertado, y sobre esos rumbos reproduce exactamente cada giro y cada sobrescritura.</p>
@@ -432,6 +449,12 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
     <blockquote class="pull rail">El nivel de detalle necesario es una cuestión empírica.</blockquote>
 
     <p>La afirmación más fuerte, que sin biología no hay experiencia de ningún tipo, niega la premisa. Debe una explicación de qué propiedad biológica se requiere, por qué sin ella no habría experiencia y qué pruebas lo demuestran.</p>
+
+    <aside class="rail also" aria-labelledby="also-hyper-h">
+      <h3 id="also-hyper-h">Ensayo complementario, en inglés</h3>
+      <a href="https://www.giulioruffini.com/blogs/what-is-hypercomputation-blog.html" lang="en" hreflang="en">What Is Hypercomputation?</a>
+      <p>Qué necesitaría un hipercomputador para responder preguntas que ningún programa puede responder, y por qué la información y el tiempo que le faltan son un problema de física.</p>
+    </aside>
 
     <p>Otra objeción sostiene que los ordenadores digitales no pueden aproximar la dinámica cerebral ni siquiera en principio. El cerebro tendría entonces que efectuar hipercomputación, una tarea que ninguna máquina de Turing puede llevar a cabo, y quien objeta debe identificar esa tarea en la dinámica cerebral y explicar cómo se preparan sus entradas y se leen sus salidas de forma fiable.</p>
 
@@ -486,6 +509,12 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 <footer class="night colophon">
   <div class="wrap">
     <div class="cols">
+      <div class="related"><h3>Ensayos relacionados</h3><div class="items">
+        <p><a href="https://www.giulioruffini.com/blogs/the-monoid-inside-every-program-blog.html" lang="en" hreflang="en">The Monoid Inside Every Program</a>Cómo las operaciones de un programa forman un monoide que actúa sobre los estados de la máquina, y en qué piezas lo descompone la teoría de grupos. En inglés.</p>
+        <p><a href="https://www.giulioruffini.com/blogs/what-is-hypercomputation-blog.html" lang="en" hreflang="en">What Is Hypercomputation?</a>Qué necesitaría un hipercomputador para responder preguntas que ningún programa puede responder, y por qué la información y el tiempo que le faltan son un problema de física. En inglés.</p>
+        <p><a href="https://giulioruffini.github.io/assets/blogs/pattern-persist-general-es.html">El precio de seguir siendo uno mismo</a>Lo que sobrevive en una llama, una bacteria o una persona es la receta, y conservarla se paga en forma de calor.</p>
+        <p><a href="https://www.giulioruffini.com/blogs/illusion-of-non-consciousness-blog-es.html">La ilusión de la no-conciencia</a>Por qué las partes de la vida que no podemos relatar no prueban que no estuviéramos conscientes durante ellas.</p>
+      </div></div>
       <div><h3>Fuente</h3><p>Giulio Ruffini, <i lang="en">What Must a Brain Simulation Retain to Preserve Experience?</i>, documento de trabajo WP0215 de BCOM (2026), <a href="https://doi.org/10.5281/zenodo.24280672" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24280672</a>. El artículo, en inglés, contiene los enunciados formales, las demostraciones y las referencias de los estudios mencionados aquí. Las fuentes sobre la brújula de los insectos son Seelig y Jayaraman (<i>Nature</i>, 2015) y Chittka y Heinze (<i>Science</i>, 2026).</p></div>
       <div><h3>Código y demostraciones</h3><p>Demostraciones verificadas por ordenador: <a href="https://github.com/giulioruffini/KTAIT" target="_blank" rel="noopener">github.com/giulioruffini/KTAIT</a>. Comprobaciones ejecutables: <a href="https://github.com/giulioruffini/WP0215-brain-simulation-preservation" target="_blank" rel="noopener">github.com/giulioruffini/WP0215-brain-simulation-preservation</a>.</p></div>
       <div><h3>Sobre este ensayo</h3><p>Las figuras proceden del artículo y conservan sus rótulos en inglés, salvo la ilustración de la fusión de estados, dibujada para este ensayo. Klaus (Claude, Anthropic) redactó el ensayo con el autor y preparó esta versión en español; Kaiti (Codex, OpenAI) lo revisó y preparó la ilustración nueva. La traducción de la cita de Gödel es nuestra. Última revisión: 21 de noviembre de 2026.</p></div>

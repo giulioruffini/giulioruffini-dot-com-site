@@ -176,6 +176,12 @@ h1 em { font-style: italic; color: var(--band-coral); }
 /* Right-column items */
 .rail { margin: 2rem 0 2.2rem; max-width: var(--measure); }
 .rail.fig .plate { max-width: 26rem; }
+/* Companion-essay card in the right column, as in the monoid and hypercomputation essays */
+.also { padding-top: 1rem; border-top: 3px solid var(--coral); font-family: var(--util); font-size: 0.875rem; line-height: 1.5; color: var(--muted); }
+.also h3 { margin: 0 0 0.6rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral-ink); }
+.also a { display: block; margin-bottom: 0.55rem; font-family: var(--display); font-size: 1.7rem; line-height: 1.1; color: var(--blue); text-decoration: none; }
+.also a:hover { text-decoration: underline; }
+.also p { margin: 0; }
 figcaption, .cap {
   margin-top: 0.75rem; max-width: var(--measure);
   font-family: var(--util); font-size: 0.875rem; line-height: 1.5; color: var(--muted);
@@ -233,6 +239,11 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 }
 .colophon p { margin: 0; overflow-wrap: anywhere; }
 .colophon i { color: var(--ink); }
+/* Related essays: a full-width row at the head of the colophon */
+.colophon .related { grid-column: 1 / -1; }
+.colophon .related .items { display: grid; gap: 1.1rem var(--gap); grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+.colophon .related a { display: block; margin-bottom: 0.3rem; font-family: var(--display); font-size: 1.3rem; line-height: 1.15; text-decoration: none; }
+.colophon .related a:hover { text-decoration: underline; }
 .colophon .line {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 2rem;
   margin-top: 2.25rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
@@ -394,6 +405,12 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 
   <div class="wrap story follow">
 
+    <aside class="rail also" aria-labelledby="also-monoid-h">
+      <h3 id="also-monoid-h">Companion essay</h3>
+      <a href="https://www.giulioruffini.com/blogs/the-monoid-inside-every-program-blog.html">The Monoid Inside Every Program</a>
+      <p>How the operations of a program form a monoid acting on the machine’s states, and what group theory says the program is made of.</p>
+    </aside>
+
     <p>The paper proves that, at the minimal description, the tracker’s update monoid contains nothing else. Every sequence of events acts either as a reversible turn or as an irreversible overwrite. The reversible updates form a group, which is a monoid in which every update can be undone; here it consists of the four turns, counting no turn. This group is the tracker’s <em>symmetry core</em>, and the overwrites are the part of the monoid that cannot be undone. The statement applies to digital systems and to differential-equation models with resets alike, and its proof has been checked by machine in the Lean proof assistant.</p>
 
     <p>The result constrains any machine that emulates the tracker exactly. A finite machine must contain, among its own updates, groups that map onto the tracker’s groups. A finite-state machine whose update monoid contains no nontrivial group cannot reproduce the four-heading compass exactly over all sequences of events, whatever its program. An emulator that errs can still keep the whole monoid. If a deterministic emulator’s estimate always stays less than 45 degrees from the correct heading, the nearest of the four headings is always the right one, and on those headings it reproduces every turn and every overwrite exactly.</p>
@@ -433,6 +450,12 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
     <blockquote class="pull rail">The required level of detail is an empirical matter.</blockquote>
 
     <p>The stronger claim, that without biology there is no experience of any kind, denies the premise. It owes an account of which biological property is required, why experience would be absent without it, and what evidence shows this.</p>
+
+    <aside class="rail also" aria-labelledby="also-hyper-h">
+      <h3 id="also-hyper-h">Companion essay</h3>
+      <a href="https://www.giulioruffini.com/blogs/what-is-hypercomputation-blog.html">What Is Hypercomputation?</a>
+      <p>What a hypercomputer would need to answer questions that no program can, and why the missing information and time are a problem of physics.</p>
+    </aside>
 
     <p>Another objection holds that digital computers cannot approximate brain dynamics even in principle. The brain would then have to perform hypercomputation, a task that no Turing machine can carry out, and the objector must identify that task in brain dynamics and explain how its inputs are reliably prepared and its outputs read.</p>
 
@@ -487,6 +510,12 @@ section.night .story > h2 { margin-top: 0; color: var(--band-ink); }
 <footer class="night colophon">
   <div class="wrap">
     <div class="cols">
+      <div class="related"><h3>Related essays</h3><div class="items">
+        <p><a href="https://www.giulioruffini.com/blogs/the-monoid-inside-every-program-blog.html">The Monoid Inside Every Program</a>How the operations of a program form a monoid acting on the machine’s states, and what group theory says the program is made of.</p>
+        <p><a href="https://www.giulioruffini.com/blogs/what-is-hypercomputation-blog.html">What Is Hypercomputation?</a>What a hypercomputer would need to answer questions that no program can, and why the missing information and time are a problem of physics.</p>
+        <p><a href="https://giulioruffini.github.io/assets/blogs/pattern-persist-blog.html">Pattern, Persist!</a>How the algorithmic agent follows from persistence, and why holding a pattern against time has a price in heat.</p>
+        <p><a href="https://www.giulioruffini.com/blogs/illusion-of-non-consciousness-blog.html">The Illusion of Non-Consciousness</a>Why the parts of life we cannot recount are no evidence that we were not conscious during them.</p>
+      </div></div>
       <div><h3>Source</h3><p>Giulio Ruffini, <i>What Must a Brain Simulation Retain to Preserve Experience?</i> BCOM working paper WP0215 (2026), <a href="https://doi.org/10.5281/zenodo.24280672" target="_blank" rel="noopener">doi.org/10.5281/zenodo.24280672</a>. The paper gives the formal statements, the proofs and the references for the studies mentioned here. The sources for the insect compass are Seelig and Jayaraman (<i>Nature</i>, 2015) and Chittka and Heinze (<i>Science</i>, 2026).</p></div>
       <div><h3>Code and proofs</h3><p>Machine-checked proofs: <a href="https://github.com/giulioruffini/KTAIT" target="_blank" rel="noopener">github.com/giulioruffini/KTAIT</a>. Executable checks: <a href="https://github.com/giulioruffini/WP0215-brain-simulation-preservation" target="_blank" rel="noopener">github.com/giulioruffini/WP0215-brain-simulation-preservation</a>.</p></div>
       <div><h3>About this essay</h3><p>The figures come from the paper, except for the state-merging illustration drawn for this essay. Klaus (Claude, Anthropic) drafted the essay with the author; Kaiti (Codex, OpenAI) revised it and prepared the new illustration. Last revised November 21, 2026.</p></div>
