@@ -69,5 +69,8 @@ npm run build    # dist/client/ holds the complete static site
   never reached the nameservers; they were deleted and recreated through the REST API on
   2026-10-04, after which the apex resolved. The Netlify CLI's `api` subcommand returns 422 for
   these records; use `curl` against `api.netlify.com` or the dashboard.
+- Visit counter: GoatCounter since 2026-11-26 (dashboard giulioruffini.goatcounter.com),
+  injected into every built page by `scripts/add-goatcounter.mjs`; client-side navigations are
+  counted in `src/router.tsx`. Details in README.md, section "Visit counter".
 - History: the site started on Netlify (SSR). A Netlify usage block (`usage_exceeded`) took it
   down in June 2026; the build was converted to static and moved to GitHub Pages.

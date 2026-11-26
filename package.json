@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 5173",
-    "build": "vite build"
+    "build": "vite build && node scripts/add-goatcounter.mjs"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "1.3.3",
