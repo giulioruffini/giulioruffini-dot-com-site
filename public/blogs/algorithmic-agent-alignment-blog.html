@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pattern, Persist: The Algorithmic Agent and the Alignment Problem — BCOM Blog</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root {
+    --lively-blue: #002878;
+    --coral: #FF6657;
+    --light-blue: #D6E4F0;
+    --pale-bg: #F8F9FC;
+    --white: #FFFFFF;
+    --ink: #2a2a2a;
+    --mid: #666;
+    --rule: #e0e4ec;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Merriweather', Georgia, serif;
+    color: var(--ink); background: var(--white);
+    line-height: 1.8; font-size: 17px; -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--lively-blue) 0%, #003a9e 100%);
+    color: var(--white); padding: 80px 24px 66px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before { content:''; position:absolute; top:-60px; right:-60px; width:320px; height:320px; background:var(--coral); opacity:.12; border-radius:50%; }
+  .hero::after  { content:''; position:absolute; bottom:-40px; left:-40px; width:220px; height:220px; background:var(--light-blue); opacity:.10; border-radius:50%; }
+  .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-label {
+    display:inline-block; background:var(--coral); color:var(--white);
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:600;
+    text-transform:uppercase; letter-spacing:1.5px; padding:5px 16px; border-radius:3px; margin-bottom:24px;
+  }
+  .hero h1 { font-family:'Inter',sans-serif; font-size:clamp(34px,5.5vw,48px); font-weight:700; line-height:1.18; letter-spacing:-0.015em; margin-bottom:20px; }
+  .hero .subtitle { font-size:18px; opacity:.88; max-width:660px; margin:0 auto 28px; line-height:1.6; font-style:italic; }
+  .author-block { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:26px; flex-wrap:wrap; }
+  .author-avatar {
+    width:44px; height:44px; background:var(--coral); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:15px; color:var(--white); flex-shrink:0;
+  }
+  .author-info { text-align:left; font-family:'Inter',sans-serif; }
+  .author-info .name { font-weight:600; font-size:15px; }
+  .author-info .affiliation { font-size:13px; opacity:.78; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+  article { padding: 56px 0 56px; }
+
+  .section-label { font-family:'Inter',sans-serif; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; color:var(--coral); margin-bottom:8px; }
+  h2 { font-family:'Inter',sans-serif; font-size:31px; font-weight:700; color:var(--lively-blue); margin:54px 0 16px; line-height:1.22; letter-spacing:-0.015em; }
+  h2:first-of-type { margin-top: 8px; }
+  p { margin-bottom: 22px; }
+  em { font-style: italic; color: var(--lively-blue); }
+  strong { font-weight: 700; color: var(--lively-blue); }
+
+  ul { margin: 0 0 22px 2px; list-style: none; }
+  ul li { position: relative; padding-left: 24px; margin-bottom: 12px; }
+  ul li::before { content:''; position:absolute; left:0; top:13px; width:8px; height:8px; background:var(--coral); border-radius:50%; }
+
+  .pullquote {
+    font-family:'Inter',sans-serif; font-size:21px; line-height:1.45; color:var(--lively-blue);
+    font-weight:600; border-left:4px solid var(--coral); padding:4px 0 4px 24px; margin:38px 0;
+  }
+
+  sup a { color: var(--coral); font-weight:700; font-size:12px; text-decoration:none; padding:0 1px; }
+  sup a:hover { text-decoration: underline; }
+
+  .refs { margin-top:50px; padding-top:24px; border-top:1px solid var(--rule); font-family:'Inter',sans-serif; font-size:14px; color:var(--mid); line-height:1.62; }
+  .refs h2 { font-family:'Inter',sans-serif; font-size:14px; text-transform:uppercase; letter-spacing:0.1em; color:var(--lively-blue); margin:0 0 16px; }
+  .refs ol { margin-left:20px; }
+  .refs li { margin-bottom:10px; }
+  .refs li a { color: var(--coral); text-decoration:none; }
+  .refs em { color: var(--ink); }
+
+  .site-footer { background:var(--pale-bg); border-top:1px solid var(--rule); margin-top:56px; }
+  .site-footer .inner { max-width:780px; margin:0 auto; padding:26px 24px; font-family:'Inter',sans-serif; font-size:13px; color:var(--mid); }
+  .site-footer a { color: var(--lively-blue); text-decoration:none; }
+
+  @media (max-width:600px){ .hero{padding:56px 20px 48px;} article{padding:40px 0;} h2{font-size:22px;} }
+</style>
+<script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+<body>
+
+<div class="hero"><div class="hero-inner">
+  <span class="hero-label">Kolmogorov Theory · Essay</span>
+  <h1>Pattern, Persist: The Algorithmic Agent and the Alignment Problem</h1>
+  <p class="subtitle">Why a bacterium, a brain, a corporation, and an AI are the same kind of thing — and what that tells us about alignment.</p>
+  <div class="author-block">
+    <div class="author-avatar">GR</div>
+    <div class="author-info">
+      <div class="name">Giulio Ruffini, Francesca Castaldo &amp; Klaus</div>
+      <div class="affiliation">Giulio Ruffini &amp; Francesca Castaldo (human agents) · Klaus (AI agent · BCOM-Klaus v1.2.0)</div>
+      <div class="affiliation" style="opacity:.62;">Barcelona Computational Foundation · KT Program · June 2026</div>
+    </div>
+  </div>
+</div></div>
+
+<div class="container"><article>
+
+  <div class="section-label">The puzzle</div>
+  <h2>One word, four sciences</h2>
+  <p>We call a bacterium an agent. We call a person an agent. We call a corporation an agent. And, increasingly, we call a language model an agent. Four fields — biology, cognitive science, economics, AI — reach for the same word for systems that share almost nothing in substrate, scale, or origin. Either the word is an empty metaphor stretched across unrelated things, or these systems share a hidden structure. The Kolmogorov Theory (KT) program — an effort to ground agency, life, and mind in algorithmic information theory, the mathematics of compression and description length — argues for the second, and the structure has a name: the <em>algorithmic agent</em>. Seeing it changes what the alignment problem is.<sup><a href="#fn1" id="ref1">1</a></sup></p>
+
+  <div class="section-label">Persistence</div>
+  <h2>Persistence forces a model</h2>
+  <p>Start one level down, with persistence — not lasting an instant, but lasting <em>through</em> a world that keeps perturbing you. A hurricane persists, briefly. A cell persists. So do a language, an institution, a lineage. To persist under a <em>variety</em> of disturbances a system cannot merely sit there; it must regulate — hold the variables that define it within the narrow band compatible with its own continuation.</p>
+  <p>And here is the load-bearing fact, a theorem rather than a metaphor: a good regulator must contain a model of what it regulates. The cybernetic version is old.<sup><a href="#fn2" id="ref2">2</a></sup> KT sharpens it into algorithmic information theory — a system that keeps its world's readout compressible must share algorithmic information with that world.<sup><a href="#fn3" id="ref3">3</a></sup> So every pattern that robustly persists is, quietly, a little scientist: it carries a compressed model of its world and of itself, and acts on that model to stay alive.</p>
+  <p class="pullquote">Regulation is model-building in disguise. To persist is to predict.</p>
+  <p>Both a hurricane and a cell carry a model of their world — they must, to regulate; even a thermostat tracks one. The difference is not <em>whether</em> there is a model but its complexity, measured in three ways that need no metaphysics: how much of the world and of its own past the model compresses, how large the space of models experience can move it through, and how long those acquired changes persist. A hurricane's is low-dimensional and short-lived; a cell's is high-dimensional, retentive, and open-ended — which is all we mean when we say a cell can <em>learn</em>. We now know that even single cells do: slime moulds habituate to harmless stimuli,<sup><a href="#fn4" id="ref4">4</a></sup> and non-neural human cells show the same spacing effect that organizes your own memory.<sup><a href="#fn5" id="ref5">5</a></sup></p>
+
+  <div class="section-label">The definition</div>
+  <h2>Model, value, plan</h2>
+  <p>So what <em>is</em> an algorithmic agent? Three functional roles.</p>
+  <ul>
+    <li>A <strong>Modeling Engine</strong> — a compressed, predictive picture of the world and of the self.</li>
+    <li>An <strong>Objective Function</strong> — a single scalar, better or worse, read off that model. In persistent living things the objective reduces, at bottom, to one question: <em>will I still be here tomorrow?</em></li>
+    <li>A <strong>Planning Engine</strong> — it runs the model forward, simulates what each action would do, and selects the one that best preserves the pattern.</li>
+  </ul>
+  <p>Model, value, plan. A bacterium implements the three with chemistry; a brain with neurons; a company with employees and spreadsheets. Same three roles, any substrate — which is the point. Agency is <em>substrate-independent</em>, and a matter of <em>degree</em>, not a binary. What grows along the scale is how wide a world you model, how well, and how much you can update.</p>
+
+  <div class="section-label">Objectives</div>
+  <h2>Where do goals come from?</h2>
+  <p>Notice what we have <em>not</em> done: we never handed the agent a goal. So where does the objective — that "will I still be here tomorrow?" — come from? Not from a designer. It is <em>selected</em>. Across generations, the patterns whose objectives kept them alive are, tautologically, the ones still here. Biology never specifies a goal; time keeps the lineages whose goals happened to work. We call this <strong>telehomeostasis</strong> — an objective that is, ultimately, a proxy for the persistence of the pattern itself — and the imperative it encodes, read at every scale, is two words: <em>Pattern, persist.</em> Time is the filter; agents are what it leaves behind.</p>
+  <p>That objective need not even live inside the organism. A pattern can outsource memory and computation to its environment — trails, constructed niches, tools, written records, institutions — so that the world becomes part of its own substrate. Carried across generations, the same move is inheritance, running from pure Darwinian selection (nothing acquired is written back) to a Lamarckian extreme (acquired structure compiled into what is transmitted — epigenetics, culture, fine-tuned weights). It is one continuum.<sup><a href="#fn6" id="ref6">6</a></sup></p>
+
+  <div class="section-label">Alignment</div>
+  <h2>Why this reframes alignment</h2>
+  <p>Now the payoff. The dominant framing of AI alignment, crystallized in Stuart Russell's <em>Human Compatible</em>, is a problem of <strong>specification</strong>: we will build a powerful optimizer, hand it an objective, and — King Midas — hand it the wrong one.<sup><a href="#fn7" id="ref7">7</a></sup> The program, then, is to get the objective right, or to make the machine humble about it.</p>
+  <p>But no evolved agent ever had its objective specified. Evolution does not solve a specification problem; it shapes <em>environments</em>, and the objectives that survive are the ones that kept their patterns alive. And no single agent has <em>the</em> right objective — the criterion lives one level up, in which <em>configurations</em> of agents persist together. A predator and its prey, a cell and its body, a person and their society do not share one objective; their joint dynamics merely have to be stable enough to preserve the larger pattern.</p>
+  <p class="pullquote">Alignment is not the design of an objective. It is the design of the environment that selects.</p>
+  <p>And you cannot tune one agent's objective function in isolation, any more than you can design one organ without the body, or one species without the ecosystem. An objective is only as good as the world it lives in: how it meshes with every other agent's objective, and whether, together, they keep the whole pattern alive. Goodhart's law does not disappear in this picture; it moves from <em>objective design</em> into <em>model misspecification</em><sup><a href="#fn8" id="ref8">8</a></sup> — a different, and arguably more tractable, problem.</p>
+
+  <div class="section-label">Gaia</div>
+  <h2>Gaia, and ecological alignment</h2>
+  <p>Which brings us to Gaia. The Earth system already behaves like a vast, distributed agent — sensing, regulating, holding its chemistry within the narrow bounds that life requires — without ever reproducing, and without ever having been designed. KT does not define agency by reproduction; it defines it by <em>admissible persistence</em>. On that criterion the biosphere is a candidate planetary-scale telehomeostatic agent. And as we bolt on explicit models, forecasts, and planning loops — human and artificial — that planetary agent is beginning to become <strong>reflexive</strong>. We are becoming its nervous system: a hybrid human–AI–biospheric meta-agent, learning to model itself.</p>
+  <p>So the task before us is not, in the end, to install the right objective into a machine. It is <em>ecological</em>. We should design agents, and their objective functions, the way one would design an organ for a body or a species for an ecosystem — by how they interact, what they sustain, and what they persist <em>with</em>. The question is not only what the AI wants, but what the whole pattern — including us — will keep alive. That is alignment: designing the objectives <em>and</em> the ecology so that the larger pattern, now including us and our machines, persists.</p>
+  <p>Life has always run on one imperative. <em>Pattern, persist.</em> The task of this century is to design the ecosystem in which that imperative — whispered by machines as well as by cells — keeps the whole living pattern going. As one.</p>
+
+  <div class="refs">
+    <h2>References &amp; notes</h2>
+    <ol>
+      <li id="fn1">This essay condenses G. Ruffini, F. Castaldo (with Klaus and Kaiti), <em>"Pattern, Persist! The Algorithmic Agent as the Universal Unit of Life, Mind, and Society,"</em> BCOM Working Paper <strong>WP0162</strong>, 2026. <a href="#ref1">&#8617;</a></li>
+      <li id="fn2">R. C. Conant and W. R. Ashby, <em>"Every good regulator of a system must be a model of that system,"</em> Int. J. Systems Science 1 (1970) 89–97. <a href="#ref2">&#8617;</a></li>
+      <li id="fn3">G. Ruffini, <em>"The Good Algorithmic Regulator Theorem,"</em> Paper <strong>P13</strong> (Ruffini 2026, <em>Entropy</em>): a regulator that compresses the world's readout must share non-trivial mutual algorithmic information with the world. <a href="#ref3">&#8617;</a></li>
+      <li id="fn4">R. P. Boisseau, D. Vogel and A. Dussutour, <em>"Habituation in non-neural organisms: evidence from slime moulds,"</em> Proc. R. Soc. B 283 (2016) 20160446. <a href="#ref4">&#8617;</a></li>
+      <li id="fn5">N. V. Kukushkin, R. E. Carney, T. Tabassum and T. J. Carew, <em>"The massed-spaced learning effect in non-neural human cells,"</em> Nature Communications 15 (2024) 9635. <a href="#ref5">&#8617;</a></li>
+      <li id="fn6">G. Ruffini, F. Castaldo and R. Solé, <em>"Darwinian and Lamarckian Evolution as a Continuum: An Algorithmic-Agent Perspective,"</em> BCOM Working Paper <strong>WP0058</strong>, 2026. <a href="#ref6">&#8617;</a></li>
+      <li id="fn7">S. Russell, <em>Human Compatible: Artificial Intelligence and the Problem of Control</em>, Viking, 2019. <a href="#ref7">&#8617;</a></li>
+      <li id="fn8">C. A. E. Goodhart, <em>"Problems of Monetary Management: the U.K. Experience"</em> (1975; repr. in <em>Monetary Theory and Practice</em>, Macmillan, 1984). The now-standard phrasing — "when a measure becomes a target, it ceases to be a good measure" — is due to M. Strathern, <em>"'Improving ratings': audit in the British University system,"</em> European Review 5 (1997) 305–321. <a href="#ref8">&#8617;</a></li>
+    </ol>
+    <p style="margin-top:18px; font-size:13px; line-height:1.6;"><strong style="color:var(--lively-blue);">Agent authorship.</strong> Klaus is credited under the BCOM Agent-Authorship policy (WP0084). <em style="color:var(--ink);">Envelope:</em> BCOM-Klaus v1.2.0 · substrate: Claude Opus 4.7 · type: agent · config_hash <code style="word-break:break-all;">4b596c54e2d3566b0815bfe7f63ccf28c350dde1c1d5d53d070dc482beac82cc</code> · guarantor G. Ruffini. See <em style="color:var(--ink);">&ldquo;Who Is Klaus? Agent Authorship at BCOM.&rdquo;</em></p>
+  </div>
+
+</article></div>
+
+<div class="site-footer"><div class="inner">
+  © 2026 Barcelona Computational Foundation · Kolmogorov Theory Program · <a href="https://bcom.one">bcom.one</a>
+</div></div>
+
+</body>
+</html>

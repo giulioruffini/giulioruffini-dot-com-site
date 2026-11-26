@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Galton–Watson Process · Math Corner</title>
+<style>
+  :root {
+    --bg-0: #05070f;
+    --bg-1: #0c1124;
+    --panel: rgba(18, 24, 48, 0.72);
+    --panel-2: rgba(22, 30, 60, 0.5);
+    --border: rgba(120, 150, 255, 0.18);
+    --text: #e3ebff;
+    --muted: #8c98c0;
+    --cyan: #4cf3ff;
+    --magenta: #ff4fb0;
+    --lime: #c0ff4c;
+    --gold: #ffd24c;
+    --red: #ff5566;
+    --blue: #6fa8ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; }
+  body {
+    background:
+      radial-gradient(1100px 700px at 20% -10%, rgba(76, 243, 255, 0.10), transparent 60%),
+      radial-gradient(900px 600px at 90% 110%, rgba(255, 79, 176, 0.10), transparent 60%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-0));
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: 'Inter', -apple-system, 'SF Pro Display', system-ui, sans-serif;
+    padding: 22px 22px 80px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    max-width: 1500px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  h1 {
+    font-size: 1.55rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  header .sub { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+  header .actions { display: flex; gap: 8px; }
+
+  .help-toggle {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(76,243,255,0.18), rgba(255,79,176,0.16));
+    color: var(--text);
+    border: 1px solid rgba(76,243,255,0.45);
+    padding: 9px 14px;
+    border-radius: 22px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 4px 14px rgba(76,243,255,0.2);
+    transition: all 0.15s ease;
+    text-decoration: none;
+  }
+  .help-toggle:hover { box-shadow: 0 4px 18px rgba(76,243,255,0.45); transform: translateY(-1px); }
+  a.help-toggle { color: var(--text); }
+
+  .grid {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 320px 1fr 360px;
+    gap: 16px;
+  }
+  @media (max-width: 1200px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  .panel {
+    background: var(--panel);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 14px 36px rgba(0,0,0,0.35);
+  }
+  .panel h2 {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .slider-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 44px;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .slider-row .lab { color: var(--cyan); font-weight: 500; font-size: 0.85rem; }
+  .slider-row .val { color: var(--muted); font-size: 0.8rem; text-align: right; }
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, rgba(76, 243, 255, 0.5), rgba(255, 79, 176, 0.4));
+    border-radius: 4px;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    background: var(--text);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(76, 243, 255, 0.6);
+    cursor: pointer;
+    border: 2px solid var(--cyan);
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 14px; height: 14px;
+    background: var(--text);
+    border-radius: 50%;
+    border: 2px solid var(--cyan);
+    cursor: pointer;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(120, 150, 255, 0.1);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-row:last-child { border: none; }
+  .stat-row .k { color: var(--muted); font-size: 0.82rem; }
+  .stat-row .v { color: var(--text); font-size: 0.95rem; font-weight: 500; }
+  .stat-row .v.big { font-size: 1.2rem; color: var(--cyan); }
+  .stat-row .v.q  { color: var(--gold); }
+  .stat-row .v.mu { color: var(--lime); }
+  .btn-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  button.btn {
+    flex: 1 1 auto;
+    background: rgba(76, 243, 255, 0.08);
+    color: var(--text);
+    border: 1px solid rgba(76, 243, 255, 0.35);
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+    letter-spacing: 0.3px;
+  }
+  button.btn:hover { background: rgba(76, 243, 255, 0.18); box-shadow: 0 0 12px rgba(76, 243, 255, 0.3); }
+  button.btn.primary {
+    background: linear-gradient(90deg, rgba(76, 243, 255, 0.30), rgba(255, 79, 176, 0.25));
+    border-color: rgba(255, 79, 176, 0.5);
+    font-weight: 600;
+  }
+  button.btn.gold {
+    background: rgba(255, 210, 76, 0.10);
+    border-color: rgba(255, 210, 76, 0.45);
+    color: var(--gold);
+  }
+  button.btn.danger { border-color: rgba(255, 85, 102, 0.4); color: var(--red); }
+  button.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .viz { display: flex; flex-direction: column; gap: 12px; min-height: 620px; }
+  .canvas-wrap {
+    position: relative;
+    flex: 1;
+    min-height: 440px;
+    background: linear-gradient(180deg, rgba(8, 12, 30, 0.6), rgba(4, 6, 18, 0.85));
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  canvas { display: block; width: 100%; height: 100%; }
+  .canvas-overlay {
+    position: absolute;
+    top: 12px; left: 14px;
+    pointer-events: none;
+    font-size: 0.85rem;
+    color: var(--text);
+    background: rgba(8, 10, 24, 0.7);
+    padding: 7px 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(76,243,255,0.15);
+    font-variant-numeric: tabular-nums;
+  }
+  .canvas-overlay .gen-num { color: var(--cyan); font-weight: 600; }
+  .canvas-overlay .alive { color: var(--lime); font-weight: 600; }
+  .canvas-overlay .extinct { color: var(--red); font-weight: 600; }
+  .canvas-overlay .growing { color: var(--gold); font-weight: 600; }
+  .play-controls {
+    position: absolute;
+    bottom: 10px; right: 10px;
+    display: flex;
+    gap: 6px;
+    background: rgba(8, 10, 24, 0.7);
+    padding: 6px;
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(76,243,255,0.15);
+  }
+  .play-controls button {
+    background: rgba(76,243,255,0.08);
+    border: 1px solid rgba(76,243,255,0.3);
+    color: var(--text);
+    width: 36px; height: 32px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .play-controls button:hover { background: rgba(76,243,255,0.2); }
+  .play-controls button.primary {
+    background: linear-gradient(90deg, rgba(76,243,255,0.4), rgba(255,79,176,0.3));
+    border-color: rgba(255,79,176,0.6);
+    width: auto;
+    padding: 0 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .play-controls .speed-lab { color: var(--muted); font-size: 0.7rem; align-self: center; padding-left: 6px; }
+  .play-controls input[type="range"] { width: 80px; }
+  .pop-chart-wrap {
+    height: 150px;
+    background: linear-gradient(180deg, rgba(8, 12, 30, 0.6), rgba(4, 6, 18, 0.85));
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .pop-chart-wrap .label {
+    position: absolute;
+    top: 8px; left: 12px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .gen-canvas-wrap {
+    height: 240px;
+    background: linear-gradient(180deg, rgba(8, 12, 30, 0.6), rgba(4, 6, 18, 0.85));
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .game-box {
+    margin-top: 14px;
+    background: linear-gradient(135deg, rgba(255, 210, 76, 0.06), rgba(255, 79, 176, 0.04));
+    border: 1px solid rgba(255, 210, 76, 0.25);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .game-box h3 {
+    font-size: 0.82rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 6px;
+  }
+  .game-box .desc { color: var(--muted); font-size: 0.78rem; margin-bottom: 10px; line-height: 1.45; }
+  .guess-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 8px;
+  }
+  .guess-display .my-guess { color: var(--gold); font-weight: 600; font-size: 1.1rem; }
+  .guess-display .truth   { color: var(--cyan); font-weight: 600; font-size: 1.1rem; }
+  .score-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.78rem; color: var(--muted); margin-top: 8px;
+  }
+  .score-row .score-val { color: var(--lime); font-weight: 600; font-size: 0.95rem; }
+
+  /* ---------- TUTORIAL MODAL ---------- */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 4, 12, 0.78);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    width: min(640px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: rgba(12, 16, 36, 0.97);
+    border: 1px solid rgba(76,243,255,0.3);
+    border-radius: 18px;
+    padding: 30px 34px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04);
+    color: var(--text);
+  }
+  .modal h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+  }
+  .modal .step-pill {
+    display: inline-block;
+    background: rgba(255, 210, 76, 0.12);
+    border: 1px solid rgba(255, 210, 76, 0.3);
+    color: var(--gold);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .modal p {
+    line-height: 1.65;
+    margin-bottom: 12px;
+    font-size: 0.93rem;
+    color: var(--text);
+  }
+  .modal p .em { color: var(--magenta); font-weight: 500; }
+  .modal p .kbd {
+    color: var(--lime);
+    font-family: ui-monospace, monospace;
+    font-size: 0.9em;
+    background: rgba(192, 255, 76, 0.08);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(192, 255, 76, 0.18);
+  }
+  .modal .math {
+    font-family: 'Cambria Math', Georgia, serif;
+    font-style: italic;
+    color: var(--cyan);
+    font-size: 1.05em;
+  }
+  .modal .key-formula {
+    background: rgba(76, 243, 255, 0.08);
+    border-left: 3px solid var(--cyan);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 8px 8px 0;
+    font-family: 'Cambria Math', Georgia, serif;
+    font-style: italic;
+    color: var(--text);
+    font-size: 1rem;
+  }
+  .modal-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    gap: 12px;
+  }
+  .modal-nav .dots { display: flex; gap: 8px; }
+  .modal-nav .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(120,150,255,0.25);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .modal-nav .dot.active { background: var(--cyan); transform: scale(1.4); }
+  .modal-nav .buttons { display: flex; gap: 10px; }
+  .modal-nav button {
+    background: rgba(76, 243, 255, 0.1);
+    color: var(--text);
+    border: 1px solid rgba(76,243,255,0.4);
+    padding: 9px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.88rem;
+  }
+  .modal-nav button.primary {
+    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    color: var(--bg-0);
+    font-weight: 600;
+    border-color: transparent;
+  }
+  .modal-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .regime-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    margin-left: 6px;
+  }
+  .regime-sub { background: rgba(255, 85, 102, 0.18); color: var(--red); }
+  .regime-crit { background: rgba(255, 210, 76, 0.18); color: var(--gold); }
+  .regime-sup { background: rgba(192, 255, 76, 0.18); color: var(--lime); }
+  footer {
+    max-width: 1500px;
+    margin: 20px auto 0;
+    text-align: center;
+    font-size: 0.74rem;
+    color: var(--muted);
+  }
+  footer span { color: var(--cyan); }
+
+  /* pulse for "growing" indicator */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.5; }
+  }
+  .pulse { animation: pulse 1.1s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>The Galton–Watson Branching Process</h1>
+    <div class="sub">Pull on the offspring distribution. Watch a family tree decide whether it lives forever.</div>
+  </div>
+  <div class="actions">
+    <a class="help-toggle" href="galton_watson_note.pdf" target="_blank" rel="noopener" title="A short pedagogical note by Giulio &amp; Klaus">📄 Math note (PDF)</a>
+    <button class="help-toggle" id="helpToggle">📖 How does this work?</button>
+  </div>
+</header>
+
+<div class="grid">
+
+  <!-- LEFT: Distribution controls -->
+  <section class="panel">
+    <h2>① Offspring distribution p<sub>k</sub></h2>
+    <div id="sliders"></div>
+    <div style="margin-top:14px;">
+      <div class="stat-row">
+        <span class="k">Mean μ = E[X]</span>
+        <span class="v mu" id="meanVal">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="k">Variance σ²</span>
+        <span class="v" id="varVal">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="k">Regime</span>
+        <span class="v" id="regimeVal">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="k">Extinction prob q</span>
+        <span class="v q" id="qVal">—</span>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" id="presetPoisson">Poisson(μ=1)</button>
+      <button class="btn" id="presetGeo">Geometric</button>
+      <button class="btn" id="presetBoom">Boom</button>
+      <button class="btn" id="presetDoom">Doom</button>
+    </div>
+
+    <h2 style="margin-top: 18px;">③ Empirical results</h2>
+    <div class="stat-row">
+      <span class="k">Simulations run</span>
+      <span class="v" id="empRuns">0</span>
+    </div>
+    <div class="stat-row">
+      <span class="k">Went extinct</span>
+      <span class="v" id="empExt">0</span>
+    </div>
+    <div class="stat-row">
+      <span class="k">Empirical q̂</span>
+      <span class="v big" id="empQ">—</span>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="batchBtn">×100 batch</button>
+      <button class="btn danger" id="resetBtn">Reset stats</button>
+    </div>
+
+    <div class="game-box">
+      <h3>🎯 Predict q</h3>
+      <div class="desc">A mystery distribution appears. Guess the extinction probability before revealing the truth.</div>
+      <input type="range" id="guessSlider" min="0" max="1" step="0.005" value="0.5">
+      <div class="guess-display">
+        <span>your guess: <span class="my-guess" id="myGuess">0.500</span></span>
+        <span>truth: <span class="truth" id="trueQ">—</span></span>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="newRoundBtn">New round</button>
+        <button class="btn gold" id="revealBtn" disabled>Reveal</button>
+      </div>
+      <div class="score-row">
+        <span>round <span id="roundN">0</span> · avg <span class="score-val" id="avgScore">—</span></span>
+        <span>best <span class="score-val" id="bestScore">—</span> / 100</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CENTER: Tree + population chart -->
+  <section class="viz">
+    <div class="canvas-wrap">
+      <canvas id="treeCanvas"></canvas>
+      <div class="canvas-overlay" id="treeOverlay">
+        Generation <span class="gen-num">0</span> · <span class="alive">1 alive</span>
+      </div>
+      <div class="play-controls">
+        <button id="stepBtn" title="Step one generation">⏭</button>
+        <button id="playBtn" class="primary" title="Play / pause animation">▶ Play</button>
+        <button id="newSimBtn" title="Start a new simulation">🔄</button>
+      </div>
+    </div>
+    <div class="pop-chart-wrap">
+      <div class="label">Z<sub>n</sub> — population by generation (log scale)</div>
+      <canvas id="popChart"></canvas>
+    </div>
+  </section>
+
+  <!-- RIGHT: Generating function -->
+  <section class="panel">
+    <h2>② Generating function f(s) = Σp<sub>k</sub>s<sup>k</sup></h2>
+    <div class="gen-canvas-wrap">
+      <canvas id="genCanvas"></canvas>
+    </div>
+    <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.55;">
+      The extinction probability <span style="color:var(--gold);font-weight:600">q</span> is the
+      <em>smallest</em> fixed point of <span style="color:var(--magenta)">f(s)</span> in [0,1].<br>
+      When <span style="color:var(--lime)">μ ≤ 1</span>, the only fixed point is 1 — death is certain.<br>
+      When <span style="color:var(--lime)">μ &gt; 1</span>, a second fixed point q &lt; 1 appears — the lineage may live forever.
+    </div>
+    <div style="margin-top: 14px; padding: 10px 14px; background: rgba(255, 210, 76, 0.06); border-radius: 8px; border: 1px solid rgba(255, 210, 76, 0.15); font-size: 0.82rem; line-height: 1.55;">
+      <strong style="color: var(--gold)">Try this:</strong> push p₀ to zero — the gold dot snaps to 0. Now push p₀ above 0.5 — the dot crawls toward 1. You've just felt the <em>extinction theorem</em>.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Math Corner · <span>Galton–Watson</span> · single-file demo · all maths done in vanilla JS
+</footer>
+
+<!-- ---------- TUTORIAL MODAL ---------- -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <span class="step-pill" id="stepPill">Step 1 of 5</span>
+    <h2 id="stepTitle">Welcome to Galton–Watson</h2>
+    <div id="stepBody"></div>
+    <div class="modal-nav">
+      <div class="dots" id="dots"></div>
+      <div class="buttons">
+        <button id="prevBtn">Back</button>
+        <button id="nextBtn" class="primary">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   GALTON–WATSON BRANCHING PROCESS · interactive demo
+   ===================================================================== */
+
+const NPROB = 6;           // p_0 .. p_5
+const MAXGEN = 12;
+const MAX_NODES_PER_GEN = 2400;
+
+const state = {
+  probs: [0.30, 0.20, 0.25, 0.15, 0.07, 0.03],
+  tree: null,
+  drawnUntilGen: 0,            // float, animated
+  drawAnim: null,
+  playing: false,
+  speed: 1.8,                  // generations per second (slow enough to follow)
+  empirical: { runs: 0, extinct: 0 },
+  game: {
+    roundActive: false,
+    revealed: false,
+    trueQ: null,
+    guess: 0.5,
+    rounds: 0,
+    scores: [],
+    best: 0,
+  },
+};
+
+/* ---------- MATH ---------- */
+function normalize(arr) {
+  const s = arr.reduce((a,b)=>a+b, 0);
+  if (s <= 1e-12) return arr.map(()=>1/arr.length);
+  return arr.map(x => x/s);
+}
+const mean    = p => p.reduce((acc,pk,k)=>acc + k*pk, 0);
+const moment2 = p => p.reduce((acc,pk,k)=>acc + k*k*pk, 0);
+const variance = p => moment2(p) - mean(p)**2;
+const fEval = (p, s) => p.reduce((acc,pk,k)=>acc + pk*Math.pow(s, k), 0);
+
+function extinctionProb(p) {
+  const mu = mean(p);
+  if (p[0] === 0) return 0;
+  if (mu <= 1 + 1e-9) return 1;
+  let s = 0;
+  for (let i = 0; i < 5000; i++) {
+    const ns = fEval(p, s);
+    if (Math.abs(ns - s) < 1e-12) break;
+    s = ns;
+  }
+  return Math.min(s, 1);
+}
+function sample(p) {
+  const u = Math.random();
+  let c = 0;
+  for (let k = 0; k < p.length; k++) {
+    c += p[k];
+    if (u < c) return k;
+  }
+  return p.length - 1;
+}
+
+/* ---------- SIMULATION ---------- */
+function simulate(probs, maxGen) {
+  const root = { gen: 0, parent: null, children: [], x: 0.5 };
+  const gens = [[root]];
+  let extinct = false;
+  for (let g = 0; g < maxGen; g++) {
+    const cur = gens[g];
+    const nxt = [];
+    for (const node of cur) {
+      const k = sample(probs);
+      for (let i = 0; i < k; i++) {
+        const c = { gen: g+1, parent: node, children: [], x: 0 };
+        node.children.push(c);
+        nxt.push(c);
+        if (nxt.length >= MAX_NODES_PER_GEN) break;
+      }
+      if (nxt.length >= MAX_NODES_PER_GEN) break;
+    }
+    gens.push(nxt);
+    if (nxt.length === 0) { extinct = true; break; }
+  }
+  return { gens, extinct };
+}
+function layoutTree(tree) {
+  const gens = tree.gens;
+  for (let g = 0; g < gens.length; g++) {
+    const gen = gens[g];
+    if (g > 0) gen.sort((a, b) => a.parent.x - b.parent.x);
+    const n = gen.length;
+    if (n === 0) continue;
+    if (n === 1) gen[0].x = 0.5;
+    else gen.forEach((node, i) => { node.x = (i + 0.5) / n; });
+  }
+}
+
+/* ---------- CANVAS HELPERS ---------- */
+function fitCanvas(canvas) {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  const w = Math.max(2, Math.floor(rect.width  * dpr));
+  const h = Math.max(2, Math.floor(rect.height * dpr));
+  if (canvas.width !== w)  canvas.width  = w;
+  if (canvas.height !== h) canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { ctx, w: rect.width, h: rect.height };
+}
+
+function sub(n) {
+  const map = "₀₁₂₃₄₅₆₇₈₉";
+  return String(n).split("").map(d => map[+d] ?? d).join("");
+}
+
+/* ---------- TREE RENDER ---------- */
+const treeCanvas = document.getElementById("treeCanvas");
+const treeOverlay = document.getElementById("treeOverlay");
+
+function drawTree(progressGen) {
+  const { ctx, w, h } = fitCanvas(treeCanvas);
+  ctx.clearRect(0, 0, w, h);
+  if (!state.tree) return;
+  const gens = state.tree.gens;
+  const G = gens.length;
+  const margin = 38;
+  const inner = { x: margin, y: margin, w: w - margin*2, h: h - margin*2 };
+
+  // Layout uses the FULL final tree, so generations don't shift during animation.
+  const slotsShown = Math.max(G, 4);
+  const verticalStep = inner.h / slotsShown;
+
+  // alpha for generation g at time progressGen.
+  // gen 0 is fully visible at t=0; gen g fades in over [g-1, g].
+  const alphaFor = g => Math.max(0, Math.min(1, progressGen - g + 1));
+
+  // 1) edges (drawn when child generation is appearing)
+  ctx.lineWidth = 1.4;
+  for (let g = 1; g < G; g++) {
+    const t = alphaFor(g);
+    if (t <= 0) break;
+    const yChild  = inner.y + g       * verticalStep;
+    const yParent = inner.y + (g - 1) * verticalStep;
+    for (const node of gens[g]) {
+      const px = inner.x + node.parent.x * inner.w;
+      const cx = inner.x + node.x        * inner.w;
+      const grad = ctx.createLinearGradient(px, yParent, cx, yChild);
+      const tip  = state.tree.extinct ? "rgba(255,85,102,0.70)" : "rgba(76,243,255,0.75)";
+      const base = state.tree.extinct ? "rgba(255,85,102,0.15)" : "rgba(108,168,255,0.20)";
+      grad.addColorStop(0, base);
+      grad.addColorStop(1, tip);
+      ctx.strokeStyle = grad;
+      ctx.globalAlpha = t;
+      ctx.beginPath();
+      ctx.moveTo(px, yParent);
+      const my = (yParent + yChild) / 2;
+      ctx.bezierCurveTo(px, my, cx, my, cx, yChild);
+      ctx.stroke();
+    }
+  }
+  ctx.globalAlpha = 1;
+
+  // 2) nodes
+  for (let g = 0; g < G; g++) {
+    const tA = alphaFor(g);
+    if (tA <= 0) break;
+    const y = inner.y + g * verticalStep;
+    const n = gens[g].length;
+    if (n === 0) continue;
+    const r = Math.max(3, Math.min(11, inner.w / (n * 4 + 12)));
+    for (const node of gens[g]) {
+      const x = inner.x + node.x * inner.w;
+      const noKids = node.children.length === 0;
+      let color;
+      if (g === 0) color = "#ffd24c";
+      else if (noKids) color = state.tree.extinct ? "#ff5566" : (g === G-1 ? "#4cf3ff" : "#ff7e8e");
+      else color = "#4cf3ff";
+      ctx.globalAlpha = tA;
+      ctx.shadowColor = color;
+      ctx.shadowBlur = (g === 0) ? 18 : 9;
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(x, y, r * (g === 0 ? 1.35 : 1), 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+  ctx.globalAlpha = 1;
+
+  // 3) generation labels (left side)
+  ctx.fillStyle = "rgba(140,152,192,0.7)";
+  ctx.font = "11px ui-monospace, monospace";
+  for (let g = 0; g < G; g++) {
+    const tA = alphaFor(g);
+    if (tA <= 0) break;
+    const y = inner.y + g * verticalStep;
+    ctx.globalAlpha = tA;
+    ctx.fillText(`Z${sub(g)}=${gens[g].length}`, 4, y + 3);
+  }
+  ctx.globalAlpha = 1;
+
+  // overlay text
+  const currentGen = Math.max(0, Math.min(Math.floor(progressGen), G - 1));
+  const pop = gens[currentGen].length;
+  const stillAnimating = progressGen < G - 1 - 1e-3;
+  const status = state.tree.extinct
+    ? `<span class="extinct">EXTINCT at gen ${G-1}</span>`
+    : (G - 1 >= MAXGEN - 1
+        ? `<span class="alive">ALIVE at gen ${MAXGEN}</span>`
+        : `<span class="alive">${pop} alive</span>`);
+  const growing = stillAnimating && state.playing
+    ? ` · <span class="growing pulse">growing…</span>`
+    : "";
+  treeOverlay.innerHTML = `Generation <span class="gen-num">${currentGen}</span> · ${status}${growing}`;
+}
+
+/* ---------- POPULATION CHART ---------- */
+const popCanvas = document.getElementById("popChart");
+function drawPopulation(progress = Infinity) {
+  const { ctx, w, h } = fitCanvas(popCanvas);
+  ctx.clearRect(0, 0, w, h);
+  if (!state.tree) return;
+  const gens = state.tree.gens;
+  const G = gens.length;
+  const padL = 36, padR = 14, padT = 28, padB = 24;
+  const cw = w - padL - padR;
+  const ch = h - padT - padB;
+
+  const showG = Math.min(Math.floor(progress) + 1, G);
+  let maxP = 1;
+  for (let g = 0; g < showG; g++) maxP = Math.max(maxP, gens[g].length);
+  const logMax = Math.log10(maxP + 1);
+
+  // axes
+  ctx.strokeStyle = "rgba(120,150,255,0.18)";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(padL, padT); ctx.lineTo(padL, padT+ch); ctx.lineTo(padL+cw, padT+ch);
+  ctx.stroke();
+  ctx.fillStyle = "rgba(140,152,192,0.7)";
+  ctx.font = "10px ui-monospace, monospace";
+  ctx.fillText("0", padL-14, padT+ch+3);
+  ctx.fillText(String(maxP), padL - Math.min(28, String(maxP).length*7) - 4, padT+5);
+
+  if (showG < 2) return;
+  ctx.lineWidth = 2.4;
+  ctx.strokeStyle = state.tree.extinct ? "#ff5566" : "#4cf3ff";
+  ctx.shadowColor = ctx.strokeStyle;
+  ctx.shadowBlur = 8;
+  ctx.beginPath();
+  for (let g = 0; g < showG; g++) {
+    const x = padL + (G > 1 ? (g/(G-1))*cw : 0);
+    const v = gens[g].length;
+    const y = padT + ch - (logMax > 0 ? (Math.log10(v+1)/logMax) : 0) * ch;
+    if (g === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+  // dots
+  for (let g = 0; g < showG; g++) {
+    const x = padL + (G > 1 ? (g/(G-1))*cw : 0);
+    const v = gens[g].length;
+    const y = padT + ch - (logMax > 0 ? (Math.log10(v+1)/logMax) : 0) * ch;
+    ctx.fillStyle = state.tree.extinct ? "#ff5566" : "#4cf3ff";
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI*2);
+    ctx.fill();
+  }
+  // x labels
+  ctx.fillStyle = "rgba(140,152,192,0.7)";
+  for (let g = 0; g < G; g += Math.max(1, Math.floor(G / 7))) {
+    const x = padL + (G > 1 ? (g/(G-1))*cw : 0);
+    ctx.fillText(String(g), x - 3, padT+ch+14);
+  }
+}
+
+/* ---------- GENERATING FUNCTION ---------- */
+const genCanvas = document.getElementById("genCanvas");
+function drawGenFunction() {
+  const { ctx, w, h } = fitCanvas(genCanvas);
+  ctx.clearRect(0, 0, w, h);
+  const pad = 26;
+  const cw = w - pad*2, ch = h - pad*2;
+
+  // grid
+  ctx.strokeStyle = "rgba(120,150,255,0.10)";
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const x = pad + (i/4)*cw;
+    const y = pad + (i/4)*ch;
+    ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, pad+ch); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(pad+cw, y); ctx.stroke();
+  }
+  // axes
+  ctx.strokeStyle = "rgba(120,150,255,0.35)";
+  ctx.beginPath();
+  ctx.moveTo(pad, pad); ctx.lineTo(pad, pad+ch); ctx.lineTo(pad+cw, pad+ch);
+  ctx.stroke();
+
+  // diagonal y = s
+  ctx.strokeStyle = "rgba(192,255,76,0.65)";
+  ctx.setLineDash([5, 4]);
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(pad, pad+ch);
+  ctx.lineTo(pad+cw, pad);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // f(s) curve
+  ctx.strokeStyle = "#ff4fb0";
+  ctx.lineWidth = 2.4;
+  ctx.shadowColor = "rgba(255,79,176,0.65)";
+  ctx.shadowBlur = 8;
+  ctx.beginPath();
+  const N = 240;
+  for (let i = 0; i <= N; i++) {
+    const s = i / N;
+    const y = fEval(state.probs, s);
+    const px = pad + s * cw;
+    const py = pad + (1 - y) * ch;
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // mark q
+  const q = extinctionProb(state.probs);
+  const qx = pad + q * cw;
+  const qy = pad + (1 - q) * ch;
+  ctx.fillStyle = "#ffd24c";
+  ctx.shadowColor = "rgba(255,210,76,0.95)";
+  ctx.shadowBlur = 14;
+  ctx.beginPath();
+  ctx.arc(qx, qy, 5.5, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = "rgba(255,210,76,0.95)";
+  ctx.font = "11px ui-monospace, monospace";
+  const qLabel = `q ≈ ${q.toFixed(3)}`;
+  const tx = q < 0.85 ? qx + 10 : qx - ctx.measureText(qLabel).width - 10;
+  const ty = qy < 28 ? qy + 16 : qy - 8;
+  ctx.fillText(qLabel, tx, ty);
+
+  // axis labels
+  ctx.fillStyle = "rgba(140,152,192,0.75)";
+  ctx.font = "10px ui-monospace, monospace";
+  ctx.fillText("0", pad-4, pad+ch+12);
+  ctx.fillText("1", pad+cw-4, pad+ch+12);
+  ctx.fillText("s", pad+cw/2 - 3, pad+ch+13);
+  ctx.fillText("0", pad-12, pad+ch);
+  ctx.fillText("1", pad-12, pad+8);
+  ctx.fillText("f(s)", pad-20, pad+ch/2);
+
+  // legend
+  ctx.fillStyle = "rgba(192,255,76,0.85)";
+  ctx.fillRect(pad+cw-78, pad+4, 10, 2);
+  ctx.fillStyle = "rgba(140,152,192,0.85)";
+  ctx.fillText("y = s", pad+cw-64, pad+8);
+  ctx.fillStyle = "#ff4fb0";
+  ctx.fillRect(pad+cw-78, pad+18, 10, 2);
+  ctx.fillStyle = "rgba(140,152,192,0.85)";
+  ctx.fillText("f(s)", pad+cw-64, pad+22);
+}
+
+/* ---------- UI HOOKUP ---------- */
+function buildSliders() {
+  const host = document.getElementById("sliders");
+  host.innerHTML = "";
+  for (let k = 0; k < NPROB; k++) {
+    const row = document.createElement("div");
+    row.className = "slider-row";
+    row.innerHTML = `
+      <span class="lab">p${sub(k)}</span>
+      <input type="range" min="0" max="1" step="0.001" value="${state.probs[k]}" data-k="${k}">
+      <span class="val" id="pv${k}">${(state.probs[k]).toFixed(3)}</span>
+    `;
+    host.appendChild(row);
+  }
+  host.querySelectorAll("input[type=range]").forEach(inp => {
+    inp.addEventListener("input", () => {
+      const k = +inp.dataset.k;
+      state.probs[k] = +inp.value;
+      state.probs = normalize(state.probs);
+      syncSliders();
+      refreshStats();
+      drawGenFunction();
+      scheduleAutoSim();
+    });
+  });
+}
+
+let autoSimTimer = null;
+function scheduleAutoSim() {
+  clearTimeout(autoSimTimer);
+  autoSimTimer = setTimeout(() => newSimulation(), 220);
+}
+function syncSliders() {
+  document.querySelectorAll("#sliders input").forEach((inp, k) => {
+    inp.value = state.probs[k];
+    document.getElementById("pv"+k).textContent = state.probs[k].toFixed(3);
+  });
+}
+
+function refreshStats() {
+  const mu = mean(state.probs);
+  const v  = variance(state.probs);
+  const q  = extinctionProb(state.probs);
+  document.getElementById("meanVal").textContent = mu.toFixed(3);
+  document.getElementById("varVal").textContent  = v.toFixed(3);
+  document.getElementById("qVal").textContent    = q.toFixed(3);
+  const reg = document.getElementById("regimeVal");
+  if (mu < 1 - 1e-6) reg.innerHTML = `μ&lt;1 <span class="regime-tag regime-sub">subcritical</span>`;
+  else if (mu > 1 + 1e-6) reg.innerHTML = `μ&gt;1 <span class="regime-tag regime-sup">supercritical</span>`;
+  else reg.innerHTML = `μ=1 <span class="regime-tag regime-crit">critical</span>`;
+  refreshEmpirical();
+  if (state.game.roundActive && !state.game.revealed) {
+    document.getElementById("trueQ").textContent = "???";
+  }
+}
+
+function refreshEmpirical() {
+  const e = state.empirical;
+  document.getElementById("empRuns").textContent = e.runs;
+  document.getElementById("empExt").textContent  = e.extinct;
+  document.getElementById("empQ").textContent    = e.runs ? (e.extinct / e.runs).toFixed(3) : "—";
+}
+
+/* ---------- ANIMATION (PLAY / PAUSE / STEP) ---------- */
+function newSimulation() {
+  stopAnimation();
+  state.tree = simulate(state.probs, MAXGEN);
+  layoutTree(state.tree);
+  state.empirical.runs++;
+  if (state.tree.extinct) state.empirical.extinct++;
+  refreshEmpirical();
+  state.drawnUntilGen = 0;
+  drawTree(0);
+  drawPopulation(0);
+  playAnimation();
+}
+function stopAnimation() {
+  if (state.drawAnim) cancelAnimationFrame(state.drawAnim);
+  state.drawAnim = null;
+  state.playing = false;
+  updatePlayBtn();
+}
+function playAnimation() {
+  if (!state.tree) return;
+  const totalGens = state.tree.gens.length;
+  if (state.drawnUntilGen >= totalGens - 1 - 1e-3) {
+    // already finished -> restart
+    state.drawnUntilGen = 0;
+  }
+  state.playing = true;
+  updatePlayBtn();
+  let last = performance.now();
+  function tick(now) {
+    if (!state.playing) return;
+    const dt = (now - last) / 1000; // seconds
+    last = now;
+    state.drawnUntilGen += dt * state.speed;
+    if (state.drawnUntilGen >= totalGens - 1) {
+      state.drawnUntilGen = totalGens - 1;
+      drawTree(state.drawnUntilGen);
+      drawPopulation(state.drawnUntilGen);
+      stopAnimation();
+      return;
+    }
+    drawTree(state.drawnUntilGen);
+    drawPopulation(state.drawnUntilGen);
+    state.drawAnim = requestAnimationFrame(tick);
+  }
+  state.drawAnim = requestAnimationFrame(tick);
+}
+function stepAnimation() {
+  if (!state.tree) return;
+  stopAnimation();
+  const totalGens = state.tree.gens.length;
+  state.drawnUntilGen = Math.min(Math.floor(state.drawnUntilGen) + 1, totalGens - 1);
+  drawTree(state.drawnUntilGen);
+  drawPopulation(state.drawnUntilGen);
+}
+function updatePlayBtn() {
+  const btn = document.getElementById("playBtn");
+  btn.innerHTML = state.playing ? "⏸ Pause" : "▶ Play";
+}
+
+function batchRun(n) {
+  for (let i = 0; i < n; i++) {
+    const t = simulate(state.probs, MAXGEN);
+    state.empirical.runs++;
+    if (t.extinct) state.empirical.extinct++;
+  }
+  refreshEmpirical();
+}
+function resetEmpirical() {
+  state.empirical = { runs: 0, extinct: 0 };
+  refreshEmpirical();
+}
+
+/* ---------- GAME ---------- */
+function randomDistribution() {
+  const regime = Math.random();
+  const arr = new Array(NPROB).fill(0);
+  if (regime < 0.5) {
+    arr[0] = Math.random() * 0.4;
+    arr[1] = Math.random() * 0.4;
+    arr[2] = Math.random() * 0.6 + 0.2;
+    arr[3] = Math.random() * 0.5;
+    arr[4] = Math.random() * 0.3;
+    arr[5] = Math.random() * 0.2;
+  } else if (regime < 0.85) {
+    arr[0] = Math.random() * 0.7 + 0.2;
+    arr[1] = Math.random() * 0.5;
+    arr[2] = Math.random() * 0.2;
+  } else {
+    for (let k = 0; k < NPROB; k++) arr[k] = Math.random();
+  }
+  return normalize(arr);
+}
+function newRound() {
+  state.probs = randomDistribution();
+  state.game.roundActive = true;
+  state.game.revealed = false;
+  state.game.trueQ = extinctionProb(state.probs);
+  syncSliders();
+  refreshStats();
+  drawGenFunction();
+  document.getElementById("trueQ").textContent = "???";
+  document.getElementById("revealBtn").disabled = false;
+}
+function revealRound() {
+  if (!state.game.roundActive || state.game.revealed) return;
+  state.game.revealed = true;
+  state.game.rounds++;
+  const truth = state.game.trueQ;
+  const sc = Math.round(100 * (1 - Math.abs(truth - state.game.guess)));
+  state.game.scores.push(sc);
+  state.game.best = Math.max(state.game.best, sc);
+  document.getElementById("trueQ").textContent = truth.toFixed(3);
+  document.getElementById("roundN").textContent = state.game.rounds;
+  const avg = state.game.scores.reduce((a,b)=>a+b,0)/state.game.scores.length;
+  document.getElementById("avgScore").textContent = avg.toFixed(1);
+  document.getElementById("bestScore").textContent = state.game.best;
+  document.getElementById("revealBtn").disabled = true;
+  newSimulation();
+}
+
+/* ---------- PRESETS ---------- */
+function setProbs(arr) {
+  state.probs = normalize(arr.slice(0, NPROB));
+  while (state.probs.length < NPROB) state.probs.push(0);
+  state.probs = normalize(state.probs);
+  syncSliders();
+  refreshStats();
+  drawGenFunction();
+  newSimulation();
+}
+function presetPoisson(mu) {
+  const arr = [];
+  let fact = 1;
+  for (let k = 0; k < NPROB; k++) {
+    if (k > 0) fact *= k;
+    arr.push(Math.exp(-mu) * Math.pow(mu, k) / fact);
+  }
+  setProbs(arr);
+}
+function presetGeometric() {
+  const r = 0.55;
+  const arr = [];
+  for (let k = 0; k < NPROB; k++) arr.push((1-r)*Math.pow(r,k));
+  setProbs(arr);
+}
+function presetBoom() { setProbs([0.05, 0.10, 0.25, 0.30, 0.20, 0.10]); }
+function presetDoom() { setProbs([0.55, 0.30, 0.10, 0.04, 0.01, 0.00]); }
+
+/* ---------- TUTORIAL ---------- */
+const tourSteps = [
+  {
+    pill: "Step 1 of 5",
+    title: "Welcome to Galton–Watson",
+    body: `
+      <p>You're looking at a <span class="em">branching process</span>. A single ancestor sits at the top of the tree.
+      Every individual independently produces a random number of children drawn from the same distribution
+      <span class="math">p<sub>k</sub> = P(X = k)</span>.</p>
+      <p>The big question: <span class="em">will the lineage survive forever, or go extinct?</span></p>
+      <p>Originally posed by Francis Galton in 1873 to model the disappearance of British aristocratic surnames — solved by Henry Watson the same year.</p>
+    `
+  },
+  {
+    pill: "Step 2 of 5",
+    title: "① Shape the offspring distribution",
+    body: `
+      <p>On the left you'll see six sliders labelled <span class="math">p<sub>0</sub>, p<sub>1</sub>, …, p<sub>5</sub></span> — these are the probabilities of producing 0, 1, … 5 children. They auto-renormalize so they always sum to 1.</p>
+      <p>Below the sliders, three quantities update live:</p>
+      <div class="key-formula">μ = E[X] = Σ k·p<sub>k</sub> &nbsp; (mean offspring per parent)</div>
+      <p>The <span class="em">regime</span> is determined entirely by μ:<br>
+      • μ &lt; 1: <span style="color: var(--red)">subcritical</span> — extinction certain<br>
+      • μ = 1: <span style="color: var(--gold)">critical</span> — extinction still certain (slowly)<br>
+      • μ &gt; 1: <span style="color: var(--lime)">supercritical</span> — survival possible</p>
+    `
+  },
+  {
+    pill: "Step 3 of 5",
+    title: "② The generating function — where the magic lives",
+    body: `
+      <p>On the right, the pink curve is the probability generating function:</p>
+      <div class="key-formula">f(s) = Σ p<sub>k</sub> · s<sup>k</sup>,   s ∈ [0,1]</div>
+      <p>The astonishing fact: the extinction probability <span style="color: var(--gold)">q</span> is the <span class="em">smallest solution of f(s) = s</span> in [0,1]. That's where the pink curve crosses the lime diagonal.</p>
+      <p>The gold dot on the plot is q. Drag the sliders and watch the dot slide along the curve as the offspring distribution changes.</p>
+    `
+  },
+  {
+    pill: "Step 4 of 5",
+    title: "Grow a tree",
+    body: `
+      <p>In the centre canvas, hit <span class="kbd">▶ Play</span> to watch a fresh family tree grow generation by generation, sampled live from your distribution.</p>
+      <p>Use <span class="kbd">⏭</span> to step one generation at a time — useful for staring at the math. <span class="kbd">🔄</span> starts a brand new simulation.</p>
+      <p>The bottom chart shows <span class="math">Z<sub>n</sub></span>, the population size at each generation, on a log scale. With μ &gt; 1 you'll see exponential growth; with μ &lt; 1 you'll see swift collapse.</p>
+      <p>③ <span class="kbd">×100 batch</span> silently runs 100 simulations to estimate q empirically — watch it converge on the theoretical value.</p>
+    `
+  },
+  {
+    pill: "Step 5 of 5",
+    title: "🎯 Predict q · the game",
+    body: `
+      <p>The bottom-left game randomly samples a mystery distribution. The sliders move (so you can <span class="em">see</span> the distribution), but the true q is hidden behind <span style="color: var(--gold)">???</span>.</p>
+      <p>Drag the guess slider to where you think q sits, then hit <span class="kbd">Reveal</span>:</p>
+      <div class="key-formula">score = 100 · (1 − |truth − guess|)</div>
+      <p>After a dozen rounds you'll be a generating-function whisperer. Good luck — and don't trust your gut on heavy-tailed distributions.</p>
+      <p style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(120,150,255,0.2);">
+        Want the mathematics in writing? Open <a href="galton_watson_note.pdf" target="_blank" rel="noopener" style="color: var(--cyan); text-decoration: underline;">the companion PDF note</a> — a short pedagogical write-up by <em>Giulio &amp; Klaus</em> proving why q is the smallest fixed point of f in [0,1].
+      </p>
+    `
+  }
+];
+let tourIdx = 0;
+function renderTour() {
+  const s = tourSteps[tourIdx];
+  document.getElementById("stepPill").textContent  = s.pill;
+  document.getElementById("stepTitle").textContent = s.title;
+  document.getElementById("stepBody").innerHTML    = s.body;
+  const dots = document.getElementById("dots");
+  dots.innerHTML = "";
+  tourSteps.forEach((_, i) => {
+    const d = document.createElement("div");
+    d.className = "dot" + (i === tourIdx ? " active" : "");
+    d.addEventListener("click", () => { tourIdx = i; renderTour(); });
+    dots.appendChild(d);
+  });
+  document.getElementById("prevBtn").disabled = tourIdx === 0;
+  const next = document.getElementById("nextBtn");
+  next.textContent = tourIdx === tourSteps.length - 1 ? "Let me play! 🚀" : "Next →";
+}
+function openTour(reset = false) {
+  if (reset) tourIdx = 0;
+  renderTour();
+  document.getElementById("modal").classList.add("open");
+}
+function closeTour() {
+  document.getElementById("modal").classList.remove("open");
+}
+
+/* ---------- WIRE UP ---------- */
+function init() {
+  buildSliders();
+  refreshStats();
+  drawGenFunction();
+  // build first tree and draw it FULLY so the user immediately sees something behind the tutorial
+  state.tree = simulate(state.probs, MAXGEN);
+  layoutTree(state.tree);
+  state.empirical.runs++;
+  if (state.tree.extinct) state.empirical.extinct++;
+  refreshEmpirical();
+  state.drawnUntilGen = state.tree.gens.length - 1;
+  drawTree(state.drawnUntilGen);
+  drawPopulation(state.drawnUntilGen);
+
+  document.getElementById("playBtn").addEventListener("click", () => {
+    if (state.playing) stopAnimation();
+    else playAnimation();
+  });
+  document.getElementById("stepBtn").addEventListener("click", stepAnimation);
+  document.getElementById("newSimBtn").addEventListener("click", newSimulation);
+
+  document.getElementById("batchBtn").addEventListener("click", () => batchRun(100));
+  document.getElementById("resetBtn").addEventListener("click", resetEmpirical);
+
+  document.getElementById("presetPoisson").addEventListener("click", () => presetPoisson(1));
+  document.getElementById("presetGeo").addEventListener("click", presetGeometric);
+  document.getElementById("presetBoom").addEventListener("click", presetBoom);
+  document.getElementById("presetDoom").addEventListener("click", presetDoom);
+
+  const gs = document.getElementById("guessSlider");
+  const gv = document.getElementById("myGuess");
+  gs.addEventListener("input", () => {
+    state.game.guess = +gs.value;
+    gv.textContent = (+gs.value).toFixed(3);
+  });
+  document.getElementById("newRoundBtn").addEventListener("click", newRound);
+  document.getElementById("revealBtn").addEventListener("click", revealRound);
+
+  document.getElementById("helpToggle").addEventListener("click", () => openTour(true));
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    if (tourIdx > 0) { tourIdx--; renderTour(); }
+  });
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    if (tourIdx < tourSteps.length - 1) { tourIdx++; renderTour(); }
+    else {
+      closeTour();
+      // start a fresh animated simulation now that the tutorial is dismissed
+      newSimulation();
+    }
+  });
+  // click outside to close
+  document.getElementById("modal").addEventListener("click", (e) => {
+    if (e.target.id === "modal") closeTour();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeTour();
+    if (e.key === " " || e.key === "Spacebar") {
+      e.preventDefault();
+      if (state.playing) stopAnimation(); else playAnimation();
+    }
+    if (e.key === "ArrowRight") stepAnimation();
+    if (e.key === "n" || e.key === "N") newSimulation();
+  });
+
+  let to;
+  window.addEventListener("resize", () => {
+    clearTimeout(to);
+    to = setTimeout(() => {
+      drawGenFunction();
+      drawTree(state.drawnUntilGen);
+      drawPopulation(state.drawnUntilGen);
+    }, 60);
+  });
+
+  // show tour on load
+  openTour(true);
+}
+
+window.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>

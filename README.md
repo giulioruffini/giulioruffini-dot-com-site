@@ -21,13 +21,14 @@ npm run build    # static site in dist/client/, with the visit counter added
 
 | Path | Purpose |
 |------|---------|
-| `content/pages/{kt,neuroscience,stimulation}.md` | Reference pages, copied from `giulioruffini.github.io` (`kt.md`, `lanmm.md`, `tES.md`) with rewritten frontmatter |
-| `content/blog/` | Writing. Entries link to the canonical HTML on github.io, or to `public/blogs/` when self-hosted |
+| `content/pages/{kt,neuroscience,stimulation}.md` | Reference pages (originally `kt.md`, `lanmm.md`, `tES.md` of `giulioruffini.github.io`) |
+| `content/blog/` | Writing. Each entry links to its standalone HTML page in `public/blogs/` or to an external post |
+| `public/blogs/`, `public/math/` | The standalone essay pages and the Math Corner notes, served as they are |
 | `content/poems/` | Art section, curated through `poems-to-publish.csv` |
 | `content/jobs/`, `content/education/` | CV entries |
 | `src/routes/index.tsx` | Homepage, including the News list |
 
-The reference pages and the News list mirror the github.io source. An edit goes to both repositories.
+This repository is the only source of the public site. Until 2026-11-26 the essays, the Math Corner notes and the reference pages lived on `giulioruffini.github.io` and every edit was made in both repositories; that site now forwards each of those old addresses to the same page here and keeps only the collaboration pages, the paper and slide files, and the papers chat page.
 
 ## Deployment and domain
 
@@ -41,6 +42,6 @@ GoatCounter has counted page views since 2026-11-26; nothing recorded visits bef
 
 The counter is added at build time. `scripts/add-goatcounter.mjs` runs after `vite build` and inserts the loader into every HTML file in `dist/client/`, the prerendered routes and the essay pages from `public/blogs/` alike, so a new page is counted without further work. Page sources, `npm run dev`, and any copy of a source page deposited elsewhere carry no counter. Navigations inside the app change the URL without loading a page; `src/router.tsx` counts them, with the previous page as referrer. Paths are recorded without the trailing slash that GitHub Pages adds (`/kt/` counts as `/kt`), and only the hosts `giulioruffini.com` and `www.giulioruffini.com` send anything, so local previews are not counted.
 
-The essays hosted on `giulioruffini.github.io` carry the same counter and appear in the same dashboard with the host prefixed to the path, for example `giulioruffini.github.io/assets/blogs/pattern-persist-blog.html`.
+The pages that remain on `giulioruffini.github.io` (the papers chat page, and anything published there later through its Jekyll layout) report to the same dashboard with the host prefixed to the path, for example `giulioruffini.github.io/chat/`.
 
 To exclude your own visits, open `https://www.giulioruffini.com/#toggle-goatcounter` once in each browser you use (opening it again re-enables counting), and do the same at `https://giulioruffini.github.io/#toggle-goatcounter`; the setting is stored per site and per browser.

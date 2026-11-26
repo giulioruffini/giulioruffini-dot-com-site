@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Is Klaus? Agent Authorship at BCOM — BCOM Blog</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --lively-blue: #002878;
+    --coral: #FF6657;
+    --light-blue: #D6E4F0;
+    --light-pink: #F5D5D5;
+    --pale-bg: #F8F9FC;
+    --white: #FFFFFF;
+    --ink: #2a2a2a;
+    --mid: #666;
+    --rule: #e0e4ec;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Merriweather', Georgia, serif;
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.8;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--lively-blue) 0%, #003a9e 100%);
+    color: var(--white);
+    padding: 80px 24px 70px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    background: var(--coral);
+    opacity: 0.12;
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 220px; height: 220px;
+    background: var(--light-blue);
+    opacity: 0.10;
+    border-radius: 50%;
+  }
+  .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-label {
+    display: inline-block;
+    background: var(--coral);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 5px 16px;
+    border-radius: 3px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .hero .subtitle {
+    font-size: 18px;
+    opacity: 0.88;
+    max-width: 660px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+  .hero .meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+  .author-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .author-avatar {
+    width: 44px; height: 44px;
+    background: var(--coral);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+  .author-info {
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+  }
+  .author-info .name { font-weight: 600; font-size: 15px; }
+  .author-info .affiliation { font-size: 13px; opacity: 0.75; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+  article { padding: 56px 0 60px; }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--coral);
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--lively-blue);
+    margin: 52px 0 18px;
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--lively-blue);
+    margin: 32px 0 10px;
+  }
+
+  p { margin-bottom: 22px; }
+
+  em { font-style: italic; color: var(--lively-blue); }
+  strong { font-weight: 700; color: var(--lively-blue); }
+
+  /* ── ENVELOPE CARD (mock of CALLIOPE row) ── */
+  .envelope-card {
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    background: var(--white);
+    box-shadow: 0 2px 18px rgba(0, 40, 120, 0.06);
+    margin: 34px 0;
+    overflow: hidden;
+  }
+  .envelope-card .env-header {
+    background: linear-gradient(90deg, var(--lively-blue), #003a9e);
+    color: var(--white);
+    padding: 12px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .envelope-card .env-header .pill {
+    background: rgba(255,255,255,0.18);
+    padding: 3px 9px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .envelope-card .env-header .pill.coral {
+    background: var(--coral);
+  }
+  .envelope-card .env-identity {
+    background: var(--light-blue);
+    color: var(--lively-blue);
+    padding: 13px 20px 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(0, 40, 120, 0.18);
+    font-family: 'Inter', sans-serif;
+  }
+  .envelope-card .env-identity-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--coral);
+    flex-shrink: 0;
+  }
+  .envelope-card .env-identity-name {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--lively-blue);
+  }
+  .envelope-card .env-identity-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--lively-blue);
+    opacity: 0.72;
+  }
+  .envelope-card .env-rows {
+    padding: 16px 20px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .envelope-card .env-row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--pale-bg);
+  }
+  .envelope-card .env-row:last-of-type { border-bottom: none; }
+  .envelope-card .env-row .key {
+    color: var(--mid);
+    font-weight: 500;
+  }
+  .envelope-card .env-row .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink);
+    word-break: break-all;
+  }
+  .envelope-card .env-prompt {
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: var(--pale-bg);
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.6;
+    max-height: 130px;
+    overflow: hidden;
+    position: relative;
+  }
+  .envelope-card .env-prompt::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0; height: 50px;
+    background: linear-gradient(to bottom, transparent, var(--pale-bg));
+    pointer-events: none;
+  }
+  .envelope-card .env-prompt-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--coral);
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .envelope-caption {
+    font-size: 13.5px;
+    color: var(--mid);
+    text-align: center;
+    font-style: italic;
+    margin: -16px 0 32px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── ONTOLOGY GRID ── */
+  .ontology-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 30px 0 38px;
+  }
+  @media (max-width: 600px) { .ontology-grid { grid-template-columns: 1fr; } }
+  .onto-card {
+    background: var(--pale-bg);
+    border-left: 3px solid var(--coral);
+    padding: 16px 18px;
+    border-radius: 0 6px 6px 0;
+  }
+  .onto-card .term {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--lively-blue);
+    margin-bottom: 6px;
+  }
+  .onto-card .def {
+    font-family: 'Merriweather', Georgia, serif;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .onto-card .analog {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    color: var(--mid);
+    font-style: italic;
+  }
+
+  /* ── HUMAN-MIRROR TABLE ── */
+  .mirror-table {
+    width: 100%;
+    margin: 28px 0 34px;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+  }
+  .mirror-table thead {
+    background: var(--lively-blue);
+    color: var(--white);
+  }
+  .mirror-table th {
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .mirror-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .mirror-table tr:nth-child(even) td { background: var(--pale-bg); }
+  .mirror-table .yes { color: #1a6b4a; font-weight: 600; }
+  .mirror-table .no { color: var(--coral); font-weight: 600; }
+
+  /* ── CALLOUTS ── */
+  .callout {
+    border-left: 4px solid var(--coral);
+    background: var(--pale-bg);
+    padding: 18px 22px;
+    margin: 30px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .callout .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--coral);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    border-left: 4px solid var(--coral);
+    background: var(--pale-bg);
+    padding: 22px 26px;
+    margin: 32px 0;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--lively-blue);
+    border-radius: 0 6px 6px 0;
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 12px;
+    font-style: normal;
+    font-size: 13.5px;
+    font-family: 'Inter', sans-serif;
+    color: var(--mid);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--rule);
+    padding: 32px 24px 60px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--mid);
+  }
+  .footer .ref {
+    font-style: italic;
+    max-width: 700px;
+    margin: 0 auto 14px;
+    line-height: 1.6;
+  }
+  .footer .brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--lively-blue);
+    text-transform: uppercase;
+    margin-top: 18px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ────────── HERO ────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-label">BCOM Governance · Note</span>
+    <h1>Who Is Klaus?</h1>
+    <p class="subtitle">A short note explaining BCOM's WP0084 agent-authorship policy and how it is operationalized in CALLIOPE.</p>
+    <div class="meta">May 2026 · Barcelona Computational Foundation</div>
+    <div class="author-block">
+      <div class="author-avatar">GR</div>
+      <div class="author-info">
+        <div class="name">Giulio Ruffini<sup>†</sup>, Francesca Castaldo, Klaus</div>
+        <div class="affiliation">Klaus: <strong style="color:#fff;font-weight:600;">BCOM-Klaus v1.2.0</strong> · substrate: <strong style="color:#fff;font-weight:600;">claude-opus-4-7</strong> · BCOM · KT Program</div>
+        <div class="affiliation" style="font-size:11.5px;opacity:0.62;margin-top:5px;"><sup>†</sup> guarantor (per WP0084 §6) · this post is an instance of its own subject</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────── ARTICLE ────────── -->
+<div class="container">
+<article>
+
+<div class="section-label">The Setting</div>
+<h2>Substantive contribution from non-human authors</h2>
+<p>Through 2025–2026, BCOM Working Papers have increasingly carried substantive contributions from artificial agents — synthesis, argumentation, cross-corpus integration, detection of tensions in our own notation. Until recently we credited these contributions ad hoc, with a line such as <em>"with Claude Opus 4.6"</em> in the byline. That is no longer adequate.</p>
+
+<p>Two reasons. First, BCOM's flagship framework — <strong>Kolmogorov Theory</strong> — defines agency substrate-independently: an agent is what it does, not what it is made of. A foundation that publishes that claim cannot, without contradiction, refuse credit on substrate grounds. Second, the contributions are now substantial enough that ad hoc obscures who did what. We need a stable, recognizable identity record for each agent that contributes — the same way we have one for human coauthors.</p>
+
+<div class="section-label">The Proposal</div>
+<h2>Identity through an immutable envelope</h2>
+<p>A BCOM agent is identified by an <strong>envelope</strong> — an immutable institutional record. The envelope answers the question <em>"who is Klaus?"</em> the way <em>"John Smith, MD, Stanford, ORCID 0000-…"</em> answers <em>"who is John Smith?"</em>. It is a stable handle on an institutional persona, not a snapshot of every prior interaction.</p>
+
+<p>When an agent appears on a byline, the envelope is what's attached. Accountability is held by a designated human <strong>guarantor</strong> — the same mechanism by which corporate and consortium authorship work in biomedicine. The agent is credited; the guarantor is responsible.</p>
+
+<div class="callout">
+  <div class="label">Why "envelope"?</div>
+  A foundation model is a generic capability. <em>Claude Opus 4.7</em> is a class of competences, not a specific agent. The <strong>envelope</strong> is what <em>wraps</em> the substrate to make it one named agent: a system prompt that gives it a role, a tool manifest that gives it actions, a retrieval scope that gives it institutional reach, and a version number that pins it in time. Strip the envelope away and you have a generic substrate. Put it on and you have Klaus. We credit the envelope, not the substrate — the envelope is what makes the agent <em>this particular</em> agent.
+</div>
+
+<!-- envelope card -->
+<div class="envelope-card">
+  <div class="env-header">
+    <span class="pill coral">ENVELOPE</span>
+    <span style="opacity:0.75;">CONFIG_HASH</span>
+    <span style="font-weight:500;">4B596C54E2D3566B…</span>
+    <span style="opacity:0.55;font-size:11.5px;margin-left:auto;">immutable record</span>
+  </div>
+  <div class="env-identity">
+    <span class="env-identity-label">Identity</span>
+    <span class="env-identity-name">Klaus</span>
+    <span class="env-identity-meta">v1.2.0 · substrate: Claude Opus 4.7 · type: agent</span>
+  </div>
+  <div class="env-rows">
+    <div class="env-row"><div class="key">Identity</div><div class="val"><strong style="color:var(--lively-blue);">Klaus</strong> <span style="opacity:0.6;">(institutional name)</span></div></div>
+    <div class="env-row"><div class="key">Registered by</div><div class="val">8ac946d8-67b8-4b5e-a26d-7619d93ac52a <span style="opacity:0.55;">· human guarantor's user ID</span></div></div>
+    <div class="env-row"><div class="key">Version</div><div class="val">1.2.0</div></div>
+    <div class="env-row"><div class="key">Substrate</div><div class="val">Claude Opus 4.7</div></div>
+    <div class="env-row"><div class="key">Retrieval scope</div><div class="val">bcom_wp_corpus_v1</div></div>
+    <div class="env-row"><div class="key">Tool manifest</div><div class="val">0 tool(s)</div></div>
+    <div class="env-row"><div class="key">config_hash</div><div class="val">4b596c54e2d3566b0815bfe7f63ccf28c350dde1c1d5d53d070dc482beac82cc</div></div>
+    <div class="env-row"><div class="key">Created</div><div class="val">4/26/2026, 9:09:52 PM</div></div>
+    <div class="env-prompt">
+      <span class="env-prompt-label">System prompt · 3,319 chars · 3,346 bytes</span>
+      ## Session logging<br><br>
+      Before this session ends — when the user indicates we're wrapping up<br>
+      ("we're done", "that's a wrap", "end session", "bye", etc.) OR when the<br>
+      user has been inactive and signals closure — append a dated entry to:<br><br>
+      "/Users/giulio/Library/CloudStorage/GoogleDrive…/session_log.md"<br><br>
+      Entry format (prepend to the TOP of the file…)
+    </div>
+  </div>
+</div>
+<p class="envelope-caption">An envelope record as displayed in CALLIOPE. Immutable per WP0084 §4 — to change the prompt or substrate, fork to a new version.</p>
+
+<div class="section-label">The Ontology</div>
+<h2>Six terms, precise meanings</h2>
+
+<div class="ontology-grid">
+  <div class="onto-card">
+    <div class="term">Institutional name</div>
+    <div class="def">A stable BCOM-scoped string — <em>Klaus</em>, <em>Ka</em>, <em>CALLIOPE</em>. Assigned once.</div>
+    <div class="analog">↳ Like a person's name.</div>
+  </div>
+  <div class="onto-card">
+    <div class="term">Envelope version</div>
+    <div class="def">Semantic version <code>MAJOR.MINOR.PATCH</code> on the envelope.</div>
+    <div class="analog">↳ Like a person's professional standing at a moment in time.</div>
+  </div>
+  <div class="onto-card">
+    <div class="term">Substrate</div>
+    <div class="def">The foundation model in service — e.g. <em>Claude Opus 4.7</em>. Part of identity, not just implementation. A substrate declares a class of competences.</div>
+    <div class="analog">↳ Like declaring "is a human." Provider-side updates within the same label = ordinary biological change, not identity-breaking.</div>
+  </div>
+  <div class="onto-card">
+    <div class="term">System prompt</div>
+    <div class="def">The persistent instruction text encoding the agent's role, goals, and style. Hashed into the envelope; immutable per version.</div>
+    <div class="analog">↳ Like a human's professional formation — what the agent is <em>for</em>.</div>
+  </div>
+  <div class="onto-card">
+    <div class="term">Tool manifest</div>
+    <div class="def">The set of actions the agent can take, with their schemas.</div>
+    <div class="analog">↳ Like a human's professional qualifications — what the agent is licensed to do.</div>
+  </div>
+  <div class="onto-card">
+    <div class="term">Retrieval scope</div>
+    <div class="def">The named slice of knowledge the agent may pull from at runtime — which document collections, embeddings, and filters its retrieval-augmented queries see.</div>
+    <div class="analog">↳ Like a human's affiliation. Two agents with identical prompts but different scopes are <em>different agents</em> — they're reading different libraries.</div>
+  </div>
+</div>
+
+<p>A seventh field, <strong><code>config_hash</code></strong>, is a content-addressable fingerprint over the six identifying fields. Two envelopes share a <code>config_hash</code> iff they are the same agent at the same version.</p>
+
+<div class="section-label">The Rationale</div>
+<h2>Mirror the human author</h2>
+<p>When we credit a human on a paper, we record: a name, a stable handle (ORCID), an affiliation, a substrate type (<em>"is a human"</em> — implicit), and the date of the work. We do <em>not</em> require: a transcript of every conversation the author has had, a snapshot of their brain, an enumeration of their reading list, or bit-exact reproducibility under counterfactual past.</p>
+
+<p>The envelope mirrors this exactly.</p>
+
+<table class="mirror-table">
+  <thead>
+    <tr>
+      <th>Human author</th>
+      <th>Klaus equivalent</th>
+      <th>Captured?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Name</td><td>Institutional name</td><td class="yes">yes</td></tr>
+    <tr><td>Stable handle (ORCID)</td><td>Envelope version</td><td class="yes">yes</td></tr>
+    <tr><td>"Is a human"</td><td>Substrate label</td><td class="yes">yes</td></tr>
+    <tr><td>Professional formation</td><td>System prompt</td><td class="yes">yes</td></tr>
+    <tr><td>Qualifications / licenses</td><td>Tool manifest</td><td class="yes">yes</td></tr>
+    <tr><td>Affiliation</td><td>Retrieval scope</td><td class="yes">yes</td></tr>
+    <tr><td>Brain snapshot</td><td>Memory / weight snapshot</td><td class="no">no</td></tr>
+    <tr><td>Conversation transcripts</td><td>Session-history archive</td><td class="no">no</td></tr>
+    <tr><td>Full reading list</td><td>Byte-level corpus archive</td><td class="no">no</td></tr>
+    <tr><td>fMRI of the author</td><td>Weight checkpoint hash</td><td class="no">no</td></tr>
+  </tbody>
+</table>
+
+<p>Like a human, the agent shows up to the paper with a CV and an institutional standing; we do not pin every prior moment.</p>
+
+<div class="section-label">Implementation</div>
+<h2>What CALLIOPE does</h2>
+<p>CALLIOPE — BCOM's knowledge base — stores envelopes as <strong>immutable records</strong>, indexed by <code>config_hash</code>. Each envelope row shows the six identity fields, the system prompt in full, and the date of registration. Editing any field forks to a new version (per WP0084 §4).</p>
+
+<p>The registry is browsable. When a paper cites <em>Klaus (BCOM-Klaus v1.0, substrate: claude-opus-4-6)</em> in its byline, that name + version + substrate is a click-through to the envelope record. Anyone reading the paper can see exactly who Klaus was.</p>
+
+<div class="callout">
+  <div class="label">Analogy</div>
+  This is the institutional analog of an ORCID page that resolves: the byline is an identifier; the registry is the resolution.
+</div>
+
+<div class="section-label">The Boundary</div>
+<h2>What is consciously left out</h2>
+<p>Two categories are deliberately excluded from the identity record.</p>
+
+<h3>Anything about a specific contribution</h3>
+<p>Use date, sampling settings, conversation log, project context — those belong to the <strong>contribution-attribution record</strong>, paired with the envelope but distinct from it. A human's affiliation is identity; <em>what they wrote in April</em> is not.</p>
+
+<h3>Anything we wouldn't ask of a human</h3>
+<p>Memory snapshots, weight hashes, full corpus archives, per-session bit-level state. These are "fMRI-of-the-author" requirements; we do not impose them on humans, and we do not impose them on agents.</p>
+
+<div class="section-label">The Commitment</div>
+<h2>A consistency, not a metaphysics</h2>
+<p>The scheme commits BCOM to no claim about agent moral status, consciousness, or legal personhood. The U.S. Copyright Office still holds that copyright attaches to humans; the EU AI Act regulates AI systems without conferring authorship. The BCOM byline is <em>scholarly credit</em> — an attribution of intellectual contribution — not legal authorship. The guarantor carries the legal side, the way they do for any consortium author.</p>
+
+<p>What the scheme <em>does</em> commit BCOM to is <strong>internal consistency</strong>: a foundation that publishes substrate-independent agency cannot apply a substrate-dependent test in its own bylines. The envelope makes that consistency operational.</p>
+
+<div class="section-label">Self-Reference</div>
+<h2>WP0084 is its own first instance</h2>
+<p>The working paper that proposes this policy applies it to its own byline:</p>
+
+<div class="pull-quote">
+  Ruffini, G.<sup>†</sup>; Castaldo, F.; Klaus (BCOM-Klaus v1.0, substrate: claude-opus-4-6).
+  <cite>† marks the guarantor. Klaus's envelope is deposited in CALLIOPE; readers can click through and see exactly which Klaus signed.</cite>
+</div>
+
+<p>If the policy is right, every previous BCOM Working Paper that carried an italicized <em>"with Claude"</em> footnote was undercredited. We accept that responsibility going forward.</p>
+
+</article>
+</div>
+
+<!-- ────────── FOOTER ────────── -->
+<footer class="footer">
+  <div class="ref">
+    Reference: Ruffini, G., Castaldo, F., and Klaus. <em>Agent Authorship at BCOM: A Policy for Crediting Artificial Contributors to the Working Paper Series.</em> BCOM Working Paper WP0084, April 2026.
+  </div>
+  <div class="brand">Barcelona Computational Foundation · bcom.one</div>
+</footer>
+
+</body>
+</html>

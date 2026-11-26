@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Third- to First-Person Science | BCOM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #002878;
+            --blue-light: #1a3f8f;
+            --orange: #ff6657;
+            --orange-hover: #e85546;
+            --text: #191919;
+            --text-secondary: #555;
+            --bg: #ffffff;
+            --bg-alt: #fbfbfb;
+            --bg-box: #f4f6fa;
+            --border: #e0e4ec;
+            --border-light: #eef0f4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        /* ── Header bar ── */
+        .header-bar {
+            background: var(--blue);
+            padding: 16px 0;
+            font-size: 13px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .header-bar .wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-bar .logo {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+        }
+        .header-bar .logo span { color: var(--orange); }
+        .header-bar nav a {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            margin-left: 28px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+        .header-bar nav a:hover { color: #fff; }
+
+        /* ── Hero ── */
+        .hero {
+            background: var(--blue);
+            color: #fff;
+            padding: 72px 0 64px;
+        }
+        .hero .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        .hero .kicker {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,102,87,0.4);
+            padding: 4px 12px;
+            border-radius: 3px;
+        }
+        .hero h1 {
+            font-size: 2.6em;
+            font-weight: 900;
+            line-height: 1.12;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        .hero .subtitle {
+            font-size: 1.15em;
+            font-weight: 300;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.82);
+            margin-bottom: 28px;
+            max-width: 620px;
+        }
+        .hero .byline {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+        }
+        .hero .byline strong {
+            color: rgba(255,255,255,0.9);
+            font-weight: 700;
+        }
+
+        /* ── Article container ── */
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        article {
+            padding-top: 48px;
+            padding-bottom: 32px;
+        }
+
+        article p {
+            margin-bottom: 1.45em;
+        }
+
+        article h2 {
+            font-size: 1.45em;
+            font-weight: 900;
+            margin: 2.4em 0 0.65em;
+            color: var(--blue);
+            letter-spacing: -0.01em;
+        }
+
+        article a {
+            color: var(--orange);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,102,87,0.3);
+            transition: border-color 0.2s;
+        }
+        article a:hover {
+            border-bottom-color: var(--orange);
+        }
+
+        article em {
+            font-style: italic;
+        }
+
+        /* ── Pullquote ── */
+        .pullquote {
+            border-left: 4px solid var(--orange);
+            margin: 2.2em 0;
+            padding: 1.2em 1.8em;
+            background: var(--bg-box);
+            border-radius: 0 6px 6px 0;
+            font-size: 1.05em;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+        .pullquote p { margin-bottom: 0; }
+
+        /* ── Definition box ── */
+        .definition-box {
+            background: var(--bg-box);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--blue);
+            border-radius: 0 8px 8px 0;
+            padding: 1.6em 2em;
+            margin: 2em 0;
+        }
+        .definition-box .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--blue);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        .definition-box p {
+            margin-bottom: 0.6em;
+            font-size: 1em;
+        }
+        .definition-box p:last-child { margin-bottom: 0; }
+
+        /* ── References ── */
+        .references {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            border-top: 2px solid var(--border);
+            margin-top: 3em;
+            padding-top: 1.5em;
+        }
+        .references h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--blue);
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        .references p {
+            margin-bottom: 0.5em;
+            line-height: 1.6;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--blue);
+            color: rgba(255,255,255,0.5);
+            margin-top: 0;
+            padding: 28px 0;
+            font-size: 13px;
+            text-align: center;
+            font-weight: 400;
+        }
+        footer a { color: var(--orange); text-decoration: none; }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.85em; }
+            .hero { padding: 48px 0 40px; }
+            body { font-size: 16px; }
+            .definition-box { padding: 1.2em 1.4em; }
+            .header-bar nav a { margin-left: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header-bar">
+    <div class="wrap">
+        <a class="logo" href="https://bcom.one">BCOM<span>.ONE</span></a>
+        <nav>
+            <a href="https://bcom.one">Research</a>
+            <a href="https://neuroelectrics.com">Neuroelectrics</a>
+        </nav>
+    </div>
+</div>
+
+<!-- ── Hero ── -->
+<div class="hero">
+    <div class="wrap">
+        <div class="kicker">Philosophy &rarr; Brains</div>
+        <h1>From Third- to First-Person Science</h1>
+        <p class="subtitle">At BCOM we do third-person science about the brain. We hold a philosophical undercurrent about what that science is actually predicting. And we propose a methodology that closes the loop: First-Person Science.</p>
+        <div class="byline">
+            <strong>Giulio Ruffini, Francesca Castaldo, Klaus</strong> &middot; Barcelona Computational Foundation &middot; May 2026
+        </div>
+    </div>
+</div>
+
+<!-- ── Article ── -->
+<div class="container">
+    <article>
+
+        <h2>The third-person face</h2>
+
+        <p>
+            Most of what we do at BCOM is third-person science. We build computational models of agents&mdash;their world models, their valences, their plans&mdash;and we use those models to predict what brains and behaviors will do. The program has a name: <strong>computational neurophenomenology</strong>. It feeds directly into computational neuropsychiatry, neurotwins, and the clinical agenda.
+        </p>
+
+        <p>
+            The arc is the familiar one of science. Build a model. Predict the data. Compare. Iterate. The data we want to predict includes a subject's verbal report about their experience: their pain, their presence, their mood, the quality of a hallucination. If our model of the agent cannot predict the report, the model is incomplete as a model of mind.
+        </p>
+
+        <h2>The philosophical undercurrent</h2>
+
+        <p>
+            Underneath the third-person work, we hold a stronger claim. In the Kolmogorov Theory framework, a sufficient computational model of an agent does not merely predict what the agent will <em>say</em> about its experience. It predicts the experience itself.
+        </p>
+
+        <p>
+            The conceptual scaffolding for this claim is the <strong>Unicum</strong>.
+        </p>
+
+        <div class="definition-box">
+            <div class="label">Unicum &mdash; conceptual scaffolding</div>
+            <p>
+                The Unicum is not a single mathematical object. It is the pairing of two inseparable aspects of reality:
+            </p>
+            <p>
+                <strong>Experience</strong>&mdash;pure, primordial, the irreducible &ldquo;what-it-is-like,&rdquo; prior to any structural description.
+            </p>
+            <p>
+                <strong>Mathematics</strong>&mdash;the structural aspect, the relational organization that gives experience its form.
+            </p>
+            <p>
+                Experience without mathematics is ineffable; mathematics without experience is empty. Reality has both faces at once.
+            </p>
+        </div>
+
+        <p>
+            Under this view, computation is not a process layered on top of a dead substrate that somehow lights up into qualia. Where the experiential field is organized into agent-shaped structure&mdash;a modeling engine, an objective function, a planning engine&mdash;structured first-person experience is what that organization <em>is</em>, from the inside. A good computational model and the lived experience are two faces of one ground.
+        </p>
+
+        <p>
+            This is metaphysics, and we hold it as a working stance rather than a proven thesis. But it changes what we ask of our models. We do not only want them to predict reports. We want them to predict experience.
+        </p>
+
+        <h2>First-Person Science</h2>
+
+        <p>
+            That ambition forces a methodological move. If a model claims to predict your experience&mdash;not your behavior, not your verbal report, but what it is actually like for you&mdash;then <em>you</em> are the natural place to test it. Perturb the agent's computational state (with neuromodulation, pharmacology, contemplative practice, task demands), let the predicted experience play out, and check it from the inside.
+        </p>
+
+        <p>
+            We call this <strong>First-Person Science</strong>. The researcher becomes both the experimental subject and the experimental judge. Validation happens in the experiential substance of the scientist. Then the result is written up in the usual third-person way&mdash;methods, predictions, observations, comparisons&mdash;and submitted to peers, who run the same protocol on themselves and converge, refine, or diverge.
+        </p>
+
+        <p>
+            The intersubjective machinery of science is preserved. What changes is the locus of the measurement: from a verbal report <em>about</em> an experience, to the experience itself, witnessed by the only instrument that has direct access to it.
+        </p>
+
+        <div class="pullquote">
+            <p>
+                Third-person prediction and first-person observation become a single act. Science is then performed not only on the world, but in the experiential substance of the scientist.
+            </p>
+        </div>
+
+        <h2>The three together</h2>
+
+        <p>
+            The BCOM <strong>Philosophy &rarr; Brains</strong> pillar runs the three at once. We do third-person computational neurophenomenology and neuropsychiatry. We hold the Unicum as conceptual scaffolding, so that what our models predict can in principle be experience itself, not only its 3P shadow in a report. And we develop First-Person Science as the methodology that turns this from philosophy into practice.
+        </p>
+
+        <p>
+            It begins as third-person science. It ends as a new kind of science.
+        </p>
+
+        <div class="references">
+            <h3>Further reading</h3>
+            <p>Ruffini, G. (2017). &ldquo;An algorithmic information theory of consciousness.&rdquo; <em>Neuroscience of Consciousness</em>, 2017(1), nix019.</p>
+            <p>Ruffini, G., &amp; Lopez-Sola, E. (2022). &ldquo;AIT foundations of structured experience.&rdquo; (P5)</p>
+            <p>Ruffini, G. (2025). &ldquo;The Algorithmic Weltanschauung.&rdquo; Working Paper WP0080 &mdash; introduces the Unicum.</p>
+            <p>Ruffini, G. (2025). &ldquo;Algorithmic Experiential Structural Platonism (KT-ESP): The Philosophical Stance of Kolmogorov Theory.&rdquo; Working Paper WP0005.</p>
+            <p>Ruffini, G., Castaldo, F., &amp; Vohryzek, J. (2025). &ldquo;Algorithmic Structure of Experience and the Unfolding Argument.&rdquo; (P6a, on First-Person Science as methodology)</p>
+            <p>Ruffini, G., et&nbsp;al. (2026). &ldquo;Structured Experience Events (SEEN) and the agent's full state.&rdquo; Working Papers WP0099, WP0101.</p>
+        </div>
+
+    </article>
+</div>
+
+<footer>
+    &copy; 2026 <a href="https://bcom.one">Barcelona Computational Foundation</a> &middot; <a href="https://neuroelectrics.com">Neuroelectrics</a> &middot; Kolmogorov Theory Program
+</footer>
+
+</body>
+</html>

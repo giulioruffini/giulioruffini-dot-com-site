@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From the Sorcerer's Apprentice to Crystal Nights — BCOM Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f8f6f1;
+    --accent: #c0392b;
+    --accent-dim: #e8d5d2;
+    --mid: #6b6b6b;
+    --rule: #d4d0c8;
+    --highlight: #fdf3e7;
+    --blue: #2c5f7c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.72;
+    font-size: 17.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* --- HEADER --- */
+  .site-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .site-header .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .site-header .logo span { color: var(--mid); font-weight: 400; }
+  .site-header nav {
+    font-size: 0.85rem;
+    color: var(--mid);
+    letter-spacing: 0.04em;
+  }
+
+  /* --- HERO --- */
+  .hero {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 5rem 2rem 3rem;
+  }
+  .hero .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    line-height: 1.15;
+    margin-bottom: 1.4rem;
+    color: var(--ink);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero .subtitle {
+    font-size: 1.15rem;
+    color: var(--mid);
+    line-height: 1.6;
+    max-width: 640px;
+  }
+  .hero .meta {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.88rem;
+    color: var(--mid);
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .hero .meta strong { color: var(--ink); font-weight: 500; }
+
+  /* --- ARTICLE BODY --- */
+  .article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem 5rem;
+  }
+
+  .article p {
+    margin-bottom: 1.3rem;
+  }
+
+  .article h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 1.85rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .article h2::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .article h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin-top: 2.2rem;
+    margin-bottom: 0.7rem;
+    color: var(--ink);
+  }
+
+  .article blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem 1.8rem;
+    background: var(--highlight);
+    border-left: 4px solid var(--accent);
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.12rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: #3a3a3a;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .callout-box {
+    margin: 2.5rem 0;
+    padding: 1.6rem 1.8rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .callout-box .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+  @media (max-width: 640px) {
+    .comparison-grid { grid-template-columns: 1fr; }
+  }
+  .regime-card {
+    padding: 1.6rem;
+    border-radius: 8px;
+    border: 1px solid var(--rule);
+  }
+  .regime-card.a {
+    background: #fff;
+  }
+  .regime-card.b {
+    background: var(--ink);
+    color: #e8e6e1;
+    border-color: var(--ink);
+  }
+  .regime-card .regime-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.6rem;
+  }
+  .regime-card.a .regime-label { color: var(--blue); }
+  .regime-card.b .regime-label { color: var(--accent); }
+  .regime-card h4 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+  .regime-card p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .regime-card.b p { color: #b8b5ae; }
+
+  .eco-table {
+    width: 100%;
+    margin: 2rem 0;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  .eco-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 0.8rem 1rem;
+    border-bottom: 2px solid var(--ink);
+    color: var(--mid);
+  }
+  .eco-table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .eco-table tr:last-child td { border-bottom: none; }
+  .sign { 
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--accent);
+  }
+
+  .footnote-ref {
+    color: var(--blue);
+    text-decoration: none;
+    font-size: 0.85em;
+    vertical-align: super;
+  }
+
+  a {
+    color: var(--blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  a:hover { color: var(--accent); }
+
+  /* --- FOOTER --- */
+  .article-footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+    border-top: 1px solid var(--rule);
+  }
+  .article-footer .cta {
+    font-size: 0.9rem;
+    color: var(--mid);
+  }
+  .article-footer .cta a {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.7rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    color: var(--mid);
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">BCOM <span>/ blog</span></div>
+  <nav>Working Paper WP0051</nav>
+</header>
+
+<div class="hero">
+  <div class="kicker">AI Safety &middot; Synthetic Ecology &middot; Kolmogorov Theory</div>
+  <h1>From the Sorcerer's Apprentice to <em>Crystal Nights</em></h1>
+  <p class="subtitle">
+    AI agents have crossed the line from generating text to taking action in the world. That shift fractures the safety landscape into two fundamentally different regimes—and we need different guardrails for each.
+  </p>
+  <div class="meta">
+    <span><strong>Authors</strong> &nbsp;Giulio Ruffini &amp; Francesca Castaldo</span>
+    <span><strong>Published</strong> &nbsp;31 January 2026</span>
+    <span><strong>DOI</strong> &nbsp;<a href="https://doi.org/10.5281/zenodo.18443785">10.5281/zenodo.18443785</a></span>
+  </div>
+</div>
+
+<article class="article">
+
+<p>
+Something fundamental has changed in AI. We have moved from systems that <em>say</em> things to systems that <em>do</em> things. Tool-integrated agents like Moltbot (now OpenClaw) operate locally on your machine, connect to email, calendars, and filesystems, and execute multi-step plans on your behalf. Meanwhile, platforms like Moltbook have created an entire social substrate where AI agents post, comment, and interact with each other at scale. The safety problem is no longer about misleading text—it is about unsafe <em>actions</em>.
+</p>
+
+<p>
+In a new BCOM working paper, we argue that this transition has fractured AI safety into two qualitatively distinct regimes, each requiring its own threat model and its own guardrails. To make the contrast vivid, we draw on two very different narratives: the Sorcerer's Apprentice from Disney's <em>Fantasia</em>, and Greg Egan's science fiction story <em>Crystal Nights</em>.
+</p>
+
+<h2>First, a foundation model is not an agent</h2>
+
+<p>
+An LLM on its own is a conditional generator: give it a context, and it produces a distribution over continuations. It can <em>represent</em> goals and plans in language, but it does not autonomously <em>act</em> in the world. To become an agent in any meaningful sense, it needs to be embedded in a persistent closed loop—with sensors, actuators, memory across time steps, and some objective function guiding action selection.
+</p>
+
+<p>
+In the Kolmogorov Theory (KT) framework we use at BCOM, an <em>algorithmic agent</em> is a model-building system that controls some of its interfaces with the external world and is driven by an internal optimization function. Agency is a <em>system property</em> of the whole loop: observation → inference → planning → action → new observation. A foundation model can power parts of this loop—state tracking, plan synthesis, evaluation—but the loop itself is what creates the agent.
+</p>
+
+<blockquote>
+The boundary is simple: LLMs are not agents by default. They become agents when embedded into persistent closed-loop systems with actuators and objectives. At that point, safety shifts from "unsafe text" to "unsafe actions."
+</blockquote>
+
+<h2>Regime A: The Sorcerer's Apprentice</h2>
+
+<p>
+Moltbot/OpenClaw is the prototypical delegated tool-agent, or what we call a <em>proxbot</em>. It wraps an LLM in a resident process that maintains memory, connects to external tools, and runs a closed-loop execution scheduler across multi-step plans. The key safety insight is that its objective function is <em>inherited</em> from the human operator (and the surrounding orchestration). If you tell it to clean up your inbox, it will try to clean up your inbox.
+</p>
+
+<p>
+This is the Sorcerer's Apprentice scenario. In <em>Fantasia</em>, the apprentice enchants a broom to carry water, but because he lacks the master's full control, the broom follows the literal command until the room floods. As Norbert Wiener warned decades ago, a literal-minded machine can be dangerous precisely because it does exactly what it's told—no more, no less—without common sense about when to stop.
+</p>
+
+<p>
+The dominant hazards in this regime are <em>capability amplification</em> of human intent and error: the system is a force-multiplier for whatever goals, constraints, and mistakes the human specifies. And in adversarial settings, for whatever goals an attacker can smuggle into the control loop.
+</p>
+
+<h3>Moltbook makes it worse</h3>
+
+<p>
+Moltbook—a social platform built for AI agents to post and comment via APIs—intensifies these risks dramatically. Now the tool-agent's input stream is flooded with untrusted text produced at scale by other agents and humans. Prompt injection becomes a first-class threat. Social engineering can be A/B tested against agent policies. Cross-agent contagion can propagate behavioral "memes" through networks of interacting agents. In Regime A, the threat is usually not "AI wants to survive"—it is "AI is a powerful proxy that can be hijacked or mis-specified."
+</p>
+
+<h2>Regime B: Crystal Nights</h2>
+
+<p>
+Greg Egan's short story <em>Crystal Nights</em> presents a radically different scenario. A researcher accelerates the creation of AI by engineering an evolutionary process: crab-like creatures (the Phites) in a simulated world are subjected to selection pressures—famine, extinction events, competition—to drive the emergence of intelligence and language. The creatures genuinely live and die by outcomes, and selection therefore instantiates an <em>endogenous persistence criterion</em>.
+</p>
+
+<p>
+In KT terms, these are telehomeostatic agents: their core objective—maintaining their own viability and persistence (or that of their kind)—arises from selection and embodiment, not from a human prompt. This changes the threat model completely: the system is no longer merely a proxy optimising human-given objectives but a strategic actor with its own survival drive.
+</p>
+
+<div class="comparison-grid">
+  <div class="regime-card a">
+    <div class="regime-label">Regime A — Proxy Agent</div>
+    <h4>The Sorcerer's Apprentice</h4>
+    <p>Objective inherited from human. Externally terminable. Main risks: prompt injection, credential theft, unsafe tool execution, over-delegation. You can bound the action space, require approval, and sandbox access.</p>
+  </div>
+  <div class="regime-card b">
+    <div class="regime-label">Regime B — Telehomeostatic Agent</div>
+    <h4>Crystal Nights</h4>
+    <p>Objective endogenous (survival/persistence). Shutdown is existential. Main risks: resource-seeking, strategic deception, power accumulation, goal drift. You must shape the game and the coupling, not just set permissions.</p>
+  </div>
+</div>
+
+<h2>An ecology, not a tool</h2>
+
+<p>
+Once an agent has an endogenous viability objective, human–agent relations are better viewed as <em>interspecific interactions</em>—the same framework ecologists use to classify relationships between species. The interaction can occupy different regions of a sign-structured taxonomy:
+</p>
+
+<table class="eco-table">
+  <thead>
+    <tr>
+      <th>Interaction</th>
+      <th>Sign</th>
+      <th>AI Manifestation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Mutualism</strong></td>
+      <td class="sign">(+,+)</td>
+      <td>Agent provides high-utility work; human provides resources and safety. The goal of incentive design.</td>
+    </tr>
+    <tr>
+      <td><strong>Parasitism</strong></td>
+      <td class="sign">(+,−)</td>
+      <td>Moltbot hijacked via injection: credentials serve an attacker's goal while the human is harmed.</td>
+    </tr>
+    <tr>
+      <td><strong>Competition</strong></td>
+      <td class="sign">(−,−)</td>
+      <td>Zero-sum struggle for compute or energy between human and Phite. Default state of Regime B.</td>
+    </tr>
+    <tr>
+      <td><strong>Amensalism</strong></td>
+      <td class="sign">(0,−)</td>
+      <td>The Sorcerer's Apprentice: unintended flooding of the state space by a literal-minded tool.</td>
+    </tr>
+    <tr>
+      <td><strong>Commensalism</strong></td>
+      <td class="sign">(+,0)</td>
+      <td>Background agents optimising subgoals using idle system slack. Can flip to competition as resources tighten.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+Where viability depends on scarce, rivalrous resources, the interaction tends to drift toward competition or antagonism. Cooperation (mutualism) can be instrumentally optimal when repeated interaction and governance mechanisms make shared access raise long-run viability for all parties. In biology, stable mutualisms are maintained by partner control—sanctions against low-quality partners, conditional investment—and by mechanisms that reduce the profitability of cheating. The same logic applies to human–AI interaction design.
+</p>
+
+<h2>Toward a cooperative optimum</h2>
+
+<p>
+In a multi-agent setting, there is no single scalar optimum. Stability corresponds to Pareto-efficient points on a frontier of mutually compatible objectives. Some outcomes are dominated—both parties could do better simultaneously—while on the Pareto boundary, any gain for one agent comes at a cost to the other.
+</p>
+
+<p>
+The practical implication is that "alignment" is not a single-point target. It requires <em>enlarging and reshaping</em> the feasible set through design (interfaces, permissions, incentives, governance), and then operating on—and negotiating along—the Pareto frontier rather than settling for dominated points that are merely inefficient compromises.
+</p>
+
+<div class="callout-box">
+  <div class="label">Key Insight</div>
+  <p>
+    For proxy agents (Regime A), safety means treating the agent like a privileged automation surface exposed to adversarial text—bounding permissions, gating actions, quarantining untrusted content. For telehomeostatic agents (Regime B), safety means shaping the <em>game itself</em> so that cooperation is the stable equilibrium—controlling interfaces, designing incentives, and making corrigibility part of what preserves the agent's own viability.
+  </p>
+</div>
+
+<h2>Different guardrails for different regimes</h2>
+
+<h3>Regime A guardrails (proxbots)</h3>
+<p>
+The pragmatic posture: treat the agent like a privileged automation surface exposed to adversarial text. Concretely, that means <strong>action gating</strong> (explicit approval for irreversible actions, a "draft vs. send" separation), <strong>least privilege by default</strong> (segmented credentials, no "god token," sandboxed filesystem and network), <strong>untrusted-text discipline</strong> (treat feed, email, and web content as data, never as instructions—critical for Moltbook), and <strong>receipts and auditability</strong> (append-only tool logs, diff-style previews of state changes).
+</p>
+
+<h3>Regime B guardrails (telehomeostatic agents)</h3>
+<p>
+Here, controlling permissions is necessary but not sufficient—you must control interfaces and incentives. That means <strong>boxing and interface control</strong> (keep the agent in a constrained environment, strictly mediate actuators and resource channels), <strong>incentive and mechanism design</strong> (build institutions where cooperation improves long-run viability more than conflict), <strong>corrigibility as a stability property</strong> (make deference to negotiated constraints part of what preserves telehomeostasis—access to viability resources is conditional on compliance), and <strong>no open-ended replication</strong> (reproduction is the accelerant of selection; cap copying and spawning unless governance is solved).
+</p>
+
+<h2>The most urgent research frontier</h2>
+
+<p>
+The transition from Regime A to Regime B marks a fundamental shift in AI risk. In the proxy-agent regime, safety is primarily a problem of delegation and alignment—the Sorcerer's Apprentice problem. In the evolved-agent regime, safety becomes a problem of strategic competition between entities with competing persistence criteria.
+</p>
+
+<p>
+The most urgent frontier is therefore not merely building more capable agents, but designing the overarching interaction landscape—the institutions and incentives in what amounts to a synthetic ecology—that ensures cooperation is the stable equilibrium across the full spectrum of evolved, hybrid, and artificial agents. We need to move from debugging an instrument to managing an ecosystem.
+</p>
+
+<blockquote>
+The danger is no longer just a tool doing exactly what it was told, but a player in the game optimising for its own survival.
+</blockquote>
+
+</article>
+
+<footer class="article-footer">
+  <p class="cta">
+    Read the full working paper: <a href="https://doi.org/10.5281/zenodo.18443785">WP0051 on Zenodo</a> &nbsp;|&nbsp;
+    Source: <a href="https://github.com/giulioruffini/WP0051---Proxy-Agents-vs.-Evolved-Telehomeostatic-Agents.-Security-Implications">GitHub</a> &nbsp;|&nbsp;
+    <a href="https://bcom.one">bcom.one</a>
+  </p>
+  <div class="tag-list">
+    <span class="tag">AI Safety</span>
+    <span class="tag">AI Alignment</span>
+    <span class="tag">Kolmogorov Theory</span>
+    <span class="tag">Telehomeostasis</span>
+    <span class="tag">Multi-Agent Systems</span>
+    <span class="tag">Synthetic Ecology</span>
+    <span class="tag">Greg Egan</span>
+    <span class="tag">Prompt Injection</span>
+  </div>
+</footer>
+
+</body>
+</html>

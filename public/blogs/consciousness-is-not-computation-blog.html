@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"Consciousness Is Not Computation" — A Confusion of Terms | BCOM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #002878;
+            --blue-light: #1a3f8f;
+            --orange: #ff6657;
+            --orange-hover: #e85546;
+            --text: #191919;
+            --text-secondary: #555;
+            --bg: #ffffff;
+            --bg-alt: #fbfbfb;
+            --bg-box: #f4f6fa;
+            --border: #e0e4ec;
+            --border-light: #eef0f4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        /* ── Header bar ── */
+        .header-bar {
+            background: var(--blue);
+            padding: 16px 0;
+            font-size: 13px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .header-bar .wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-bar .logo {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+        }
+        .header-bar .logo span { color: var(--orange); }
+        .header-bar nav a {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            margin-left: 28px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+        .header-bar nav a:hover { color: #fff; }
+
+        /* ── Hero ── */
+        .hero {
+            background: var(--blue);
+            color: #fff;
+            padding: 72px 0 64px;
+        }
+        .hero .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        .hero .kicker {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,102,87,0.4);
+            padding: 4px 12px;
+            border-radius: 3px;
+        }
+        .hero h1 {
+            font-size: 2.6em;
+            font-weight: 900;
+            line-height: 1.12;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        .hero .subtitle {
+            font-size: 1.15em;
+            font-weight: 300;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.82);
+            margin-bottom: 28px;
+            max-width: 620px;
+        }
+        .hero .byline {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+        }
+        .hero .byline strong {
+            color: rgba(255,255,255,0.9);
+            font-weight: 700;
+        }
+
+        /* ── Article container ── */
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        article {
+            padding-top: 48px;
+            padding-bottom: 32px;
+        }
+
+        article p {
+            margin-bottom: 1.45em;
+        }
+
+        article h2 {
+            font-size: 1.45em;
+            font-weight: 900;
+            margin: 2.4em 0 0.65em;
+            color: var(--blue);
+            letter-spacing: -0.01em;
+        }
+
+        article a {
+            color: var(--orange);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,102,87,0.3);
+            transition: border-color 0.2s;
+        }
+        article a:hover {
+            border-bottom-color: var(--orange);
+        }
+
+        article em {
+            font-style: italic;
+        }
+
+        /* ── Pullquote ── */
+        .pullquote {
+            border-left: 4px solid var(--orange);
+            margin: 2.2em 0;
+            padding: 1.2em 1.8em;
+            background: var(--bg-box);
+            border-radius: 0 6px 6px 0;
+            font-size: 1.05em;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+        .pullquote p { margin-bottom: 0; }
+
+        /* ── Definition box ── */
+        .definition-box {
+            background: var(--bg-box);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--blue);
+            border-radius: 0 8px 8px 0;
+            padding: 1.6em 2em;
+            margin: 2em 0;
+        }
+        .definition-box .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--blue);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        .definition-box p {
+            margin-bottom: 0.6em;
+            font-size: 1em;
+        }
+        .definition-box p:last-child { margin-bottom: 0; }
+        .definition-box .math {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.92em;
+            background: rgba(0,40,120,0.06);
+            padding: 3px 8px;
+            border-radius: 3px;
+            color: var(--blue);
+            font-weight: 700;
+        }
+
+        /* ── Three meanings list ── */
+        .meaning {
+            margin-bottom: 1.2em;
+            padding-left: 0;
+        }
+        .meaning .num {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            background: var(--blue);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 900;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .meaning strong { color: var(--blue); }
+
+        /* ── Footnotes / references ── */
+        .references {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            border-top: 2px solid var(--border);
+            margin-top: 3em;
+            padding-top: 1.5em;
+        }
+        .references h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--blue);
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        .references p {
+            margin-bottom: 0.5em;
+            line-height: 1.6;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--blue);
+            color: rgba(255,255,255,0.5);
+            margin-top: 0;
+            padding: 28px 0;
+            font-size: 13px;
+            text-align: center;
+            font-weight: 400;
+        }
+        footer a { color: var(--orange); text-decoration: none; }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.85em; }
+            .hero { padding: 48px 0 40px; }
+            body { font-size: 16px; }
+            .definition-box { padding: 1.2em 1.4em; }
+            .header-bar nav a { margin-left: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header-bar">
+    <div class="wrap">
+        <a class="logo" href="https://bcom.one">BCOM<span>.ONE</span></a>
+        <nav>
+            <a href="https://bcom.one">Research</a>
+            <a href="https://neuroelectrics.com">Neuroelectrics</a>
+        </nav>
+    </div>
+</div>
+
+<!-- ── Hero ── -->
+<div class="hero">
+    <div class="wrap">
+        <div class="kicker">Computation &amp; Consciousness</div>
+        <h1>"Consciousness Is Not Computation"&mdash;A Confusion of Terms</h1>
+        <p class="subtitle">The claim sounds deep, and the intuition behind it is worth taking seriously. But it rests on an ambiguity in what "computation" means mathematically&mdash;and once you resolve that ambiguity, the debate changes completely.</p>
+        <div class="byline">
+            <strong>Giulio Ruffini</strong> &middot; Barcelona Computational Foundation &middot; April 2026
+        </div>
+    </div>
+</div>
+
+<!-- ── Article ── -->
+<div class="container">
+    <article>
+
+        <p>
+            Peter Godfrey-Smith, writing in the <a href="https://iai.tv/articles/studies-on-animal-minds-suggest-consciousness-is-not-computation-auid-3535" target="_blank">Institute of Art and Ideas</a>, argues that studies on animal minds suggest consciousness is not computation. His core claim: "the physical make-up of a system" matters to consciousness, so duplicating the abstract computational organization of a brain in silicon wouldn't be enough. Consciousness depends on biology, not on mere computation.
+        </p>
+
+        <p>
+            He is not alone. Anil Seth, in a recent target article in <em>Behavioral and Brain Sciences</em> (<a href="https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/conscious-artificial-intelligence-and-biological-naturalism/C9912A5BE9D806012E3C8B3AF612E39A" target="_blank">Seth 2025</a>), develops a sophisticated form of "epistemic biological naturalism," arguing that human conscious experience can only be understood in light of our nature as living, self-sustaining organisms, and that current AI trajectories are unlikely to produce consciousness.
+        </p>
+
+        <p>
+            Both arguments are motivated by genuine and important insights. Anyone who has watched an octopus navigate a maze or a bee communicate a flower's location feels the pull: there is something going on in these biological systems that seems to resist being captured in a flow chart. But both arguments share a hidden assumption that, once surfaced, reframes the entire debate. They assume we know what "computation" means&mdash;and they assume it means something narrow.
+        </p>
+
+        <h2>What does "computation" actually mean?</h2>
+
+        <p>
+            In popular discourse, "computation" conjures images of silicon chips shuffling symbols&mdash;an abstract, substrate-independent process that has nothing to do with the wet, warm, physical world. This is the picture Godfrey-Smith is arguing against, and if this were all computation meant, he might have a point.
+        </p>
+
+        <p>
+            But mathematically, computation is something much broader and more fundamental. In recent work (<em>Coarse-Grained Computation Between Dynamical Systems</em>, Ruffini 2025), building on the dynamical-systems framework of Wolpert &amp; Korbel (2025), I proposed a precise definition:
+        </p>
+
+        <div class="definition-box">
+            <div class="label">Definition&mdash;Coarse-Grained Computation</div>
+            <p>
+                A dynamical system <em>A</em> is said to <strong>compute</strong> another dynamical system <em>B</em> if there exist coarse-grainings of both systems such that their induced (simplified) dynamics are isomorphic&mdash;that is, mathematically identical as dynamical systems:
+            </p>
+            <p style="text-align:center; margin: 0.8em 0;">
+                <span class="math">C(A) &cong; C(B)</span>
+            </p>
+            <p>
+                Informally: a coarse version of <em>A</em> mimics a coarse version of <em>B</em>.
+            </p>
+        </div>
+
+        <p>
+            That's it. No silicon required. No symbols. No programming language. Computation is a <em>relation between dynamical systems at a given scale</em>. When a computer simulates the ocean by solving discretized Navier&ndash;Stokes equations, it <em>computes</em> the ocean in exactly this sense: the coarse-grained dynamics of the machine's registers are isomorphic to the coarse-grained dynamics of the ocean's temperature, salinity, and velocity fields.
+        </p>
+
+        <p>
+            And here is the key insight: this definition is <em>symmetric</em>. If the computer computes the ocean, the ocean equally computes the computer (at the relevant coarse scale). Computation is not something that only silicon does. It is something that all dynamical systems participate in, whenever their coarse-grained behaviors match.
+        </p>
+
+        <h2>The deeper layer: dynamics <em>is</em> computation</h2>
+
+        <p>
+            The equivalence between dynamics and computation goes even deeper than the coarse-graining definition above. The Church&ndash;Turing thesis&mdash;the foundational conjecture at the heart of computer science&mdash;asserts that any effective procedure can be carried out by a Turing machine. Its physical extension, due to Gandy and Deutsch, elevates this from a statement about algorithms to an empirical claim about nature: any physically realizable process can, in principle, be simulated to arbitrary accuracy by a universal (quantum) computer. No known physical process has ever produced a counterexample. Digital physics (Zuse, Fredkin, Wolfram) takes the next step, proposing that the universe is itself fundamentally a finite-information, effectively computable system.
+        </p>
+
+        <p>
+            If this is correct&mdash;and the Kolmogorov Theory (KT) program explicitly adopts this as its ontological backdrop&mdash;then the relationship between computation and dynamics is not merely an analogy. It is an <em>identity</em>. Every physical dynamical system, from a neuron to a galaxy, evolves according to laws that a Turing machine can simulate. Conversely, every Turing machine computation unfolds as the physical dynamics of whatever hardware runs it. To say "consciousness is not computation" in this context is to say "consciousness is not physical dynamics"&mdash;a statement that no scientist studying brains would endorse.
+        </p>
+
+        <h2>Neural oscillations are computation</h2>
+
+        <p>
+            There is a pervasive intuition that "real" computation requires something digital&mdash;discrete symbols being manipulated according to explicit rules&mdash;and that the analog, oscillatory activity of the brain is somehow a different kind of thing. Godfrey-Smith gestures in this direction when he emphasizes "electrical oscillations moving rhythmically across cell membranes," and Seth's emphasis on recurrent processing and predictive dynamics can also be read as pointing away from computation&mdash;even though, as we shall see, these are paradigmatic examples of it.
+        </p>
+
+        <p>
+            But this gets the relationship exactly backwards. Neural oscillations <em>are</em> computation&mdash;computation implemented in the dynamics of coupled oscillatory systems. Alpha rhythms, gamma bursts, theta-phase coding: these are the coarse-grained macrostates of billions of synchronized spikes, and their dynamics carry compressive, predictive information about the world. In fact, from a KT perspective, oscillatory dynamics may be the <em>right level of coarse-graining</em> at which to study the brain's computational structure, precisely because they compress the astronomical complexity of individual synaptic events into tractable, information-rich macroscopic patterns.
+        </p>
+
+        <p>
+            This is not a theoretical speculation. In recent work with our Laminar Neural Mass Model (<a href="https://www.biorxiv.org/content/10.1101/2025.03.19.644090v3" target="_blank">Ruffini, Lopez-Sola, Palma, Vohryzek, Castaldo &amp; Friston, 2025</a>), we showed concretely how the core computational operation of predictive coding&mdash;prediction error evaluation&mdash;is implemented through cross-frequency coupling in oscillatory dynamics. Slow rhythms encode predictions; fast oscillations carry sensory data in their envelopes; and the interaction between the two computes the precision-weighted difference, i.e., the prediction error. Signal-envelope coupling (SEC) generates fast error signals, while envelope-envelope coupling (EEC) implements slower gating for precision-weighting and context. This is computation in the fullest mathematical sense&mdash;compressive, predictive, counterfactual-supporting&mdash;realized entirely in the language of oscillations.
+        </p>
+
+        <p>
+            And note the irony: the discrete/continuous distinction that makes people think oscillations aren't "really" computation dissolves on inspection. Neural oscillations arise from synchronized spiking&mdash;which is about as discrete as biology gets. Individual neurons fire or don't fire. Action potentials are all-or-nothing events. The smooth-looking oscillation is already an emergent coarse-graining of discrete underlying events. So even if one insisted (wrongly) that computation must be discrete, neural oscillations would qualify.
+        </p>
+
+        <h2>The continuous world is probably a mirage</h2>
+
+        <p>
+            But let's push further. Even the apparent continuity of the physical world&mdash;the smooth fields of electrodynamics, the continuous manifold of spacetime&mdash;is almost certainly an approximation. As I argued in <em>The Algorithmic Weltanschauung</em> (Ruffini 2025), KT adopts the digital physics hypothesis: reality is, at bottom, a finite-information, effectively computable structure. The continuum we perceive is a model&mdash;an extraordinarily useful one, but a model nonetheless, built by our brains to compress sensory data into manageable form. As KT puts it: "reality is nothing more than the outcome of an agent's continual compression and coarse-graining of raw sensory data into compact algorithmic models."
+        </p>
+
+        <p>
+            The real numbers of classical physics are not discovered features of the world; they are <em>constructed</em> features of our mathematical models. And those models are chosen because they compress data well, not because the world is "made of" continua. Under the physical Church&ndash;Turing thesis, together with the quantum Church&ndash;Turing&ndash;Deutsch principle, there is no "hyper-computational" physical process&mdash;no process that escapes the reach of a universal Turing machine. The continuous-looking dynamics of the brain is computable dynamics. It is computation all the way down.
+        </p>
+
+        <h2>Even mathematics is a computational construct</h2>
+
+        <p>
+            One might object: "But the real numbers exist as mathematical objects, independent of physics. Isn't continuous mathematics non-computational by nature?" This objection reverses the actual relationship between mathematics and computation.
+        </p>
+
+        <p>
+            Mathematics itself is a computational enterprise. Every mathematical object is defined through a chain of formal operations: axioms, definitions, inference rules, and proofs. The real numbers don't float free in some Platonic heaven&mdash;they are <em>constructed</em> within formal systems. In ZFC set theory, you build the naturals from the empty set, construct the integers and rationals, define Cauchy sequences or Dedekind cuts, and out come the reals. Every step in this construction is an effective procedure&mdash;a computation. The Curry&ndash;Howard correspondence makes this explicit: propositions are types, proofs are programs. A theorem is a program that type-checks. Mathematics <em>is</em> computation, viewed through a different lens.
+        </p>
+
+        <p>
+            This is not a peripheral observation. It has teeth. The computable reals&mdash;those that can be generated digit by digit by a Turing machine&mdash;include every real number that any physical measurement could ever produce or that any mathematical proof could ever single out by name. The "non-computable" reals (which form an uncountable set) are precisely those that no finite description can pick out. They exist as formal objects within set theory, but no physical process and no finite agent can ever encounter one. For all practical and scientific purposes, the reals we use are computable, and the mathematics we do is computation.
+        </p>
+
+        <p>
+            So the hierarchy of objections collapses at every level. Neural oscillations are computation (coarse-grained spiking dynamics). Continuous-looking physics is computation (under the physical Church&ndash;Turing thesis). Even pure mathematics is computation (under the Curry&ndash;Howard correspondence). There is simply no level of description at which "not computation" is a coherent position.
+        </p>
+
+        <h2>The false dichotomy</h2>
+
+        <p>
+            Once you see this, the claim "consciousness is not computation" collapses into "consciousness is not dynamics"&mdash;which no neuroscientist believes. Every brain is a physical dynamical system. Its neurons fire, its ion channels open and close, its oscillatory rhythms modulate one another across nested timescales. All of this <em>is</em> computation, in the precise mathematical sense: coarse-grained dynamical isomorphism with other systems that model those same processes.
+        </p>
+
+        <p>
+            The biology-versus-computation framing is a false dichotomy. Biology <em>is</em> a form of computation. The question was never "is consciousness computational?"&mdash;trivially, yes, because everything that evolves in time computes something. The question is: <strong>what kind of computation?</strong>
+        </p>
+
+        <div class="pullquote">
+            <p>
+                Saying "consciousness is not computation" is a bit like saying "the weather is not dynamics." The sentence is grammatically well-formed, but it trades on an ambiguity in the key term rather than revealing a deep truth about nature.
+            </p>
+        </div>
+
+        <h2>The real question: what kind of computation?</h2>
+
+        <p>
+            In the Kolmogorov Theory (KT) program, we replace the sterile "is it computation?" debate with a precise, graded question. An <em>algorithmic agent</em>&mdash;a system that we might meaningfully associate with experience&mdash;is a dynamical system that does three specific things:
+        </p>
+
+        <p>
+            First, it runs a <strong>compressive, informative world model</strong>: an internal process that shares non-trivial mutual algorithmic information with the world. Not a lookup table, not a passive recording&mdash;a model that captures the generating structure of its environment, so that it can generalize to new situations. Second, it evaluates states through a <strong>non-trivial objective function</strong>: it cares about some states more than others. Third, it selects actions via <strong>counterfactual planning</strong>: it doesn't just react, it simulates what <em>would</em> happen under alternative actions and chooses accordingly.
+        </p>
+
+        <p>
+            This is what separates a thermostat from a rock, an <em>E. coli</em> from a raindrop, and a bee from a weathervane. Not "computation versus biology," but the <em>type</em> of computation: compressive modeling, evaluation, and planning.
+        </p>
+
+        <p>
+            A bee navigating a flower patch runs compressive models of spatial geometry. A cuttlefish camouflaging itself runs compressive models of its visual environment. An octopus unscrewing a jar runs a planning engine. These are not metaphors. They are precise claims about the coarse-grained dynamical structure of these systems, claims that are in principle empirically testable through what we call the <em>compressibility gap</em>: the difference in algorithmic complexity of a system's output with and without the agent coupled to it.
+        </p>
+
+        <h2>Where the biological naturalists are right</h2>
+
+        <p>
+            There is something important and correct in the intuition that biology matters. Both Godfrey-Smith and Seth are pointing at real features of conscious systems that a naive computational functionalism would miss.
+        </p>
+
+        <p>
+            Seth's position is particularly instructive. His "epistemic biological naturalism" does not claim that consciousness is <em>impossible</em> in non-biological systems. Rather, he argues that understanding consciousness requires understanding the specific causal architecture of biological brains&mdash;recurrent processing, information integration, predictive dynamics&mdash;and that current AI, which relies on statistical pattern-matching in feed-forward or attention-based architectures, lacks these features. In the KT framework, we would say: Seth is right that the <em>type</em> of computation matters. Where we differ is in recognizing that all the mechanisms he identifies&mdash;recurrent processing, integration, prediction&mdash;<em>are</em> computations. They are specific, biologically implemented computations, and understanding them requires understanding the particular coarse-grained dynamics of neural tissue. But they are not alternatives to computation.
+        </p>
+
+        <p>
+            In the KT framework, the <em>substrate</em> constrains which computations are physically realizable, how fast they run, and how they couple to the environment. A brain implemented in carbon chemistry has different noise profiles, different energy constraints, and different evolutionary affordances than one implemented in silicon. These physical details shape the <em>character</em> of the agent's models, objectives, and plans&mdash;and therefore the character of any structured experience that may arise.
+        </p>
+
+        <p>
+            And studying brain oscillations is exactly the right approach&mdash;not because oscillations are "not computation," but because they are the <em>natural coarse-graining</em> at which the brain's computational structure becomes visible. Cross-frequency coupling, phase-amplitude modulation, the nested hierarchy of oscillatory timescales: these are the macroscopic signatures of the brain's compressive modeling and prediction machinery. Understanding them <em>is</em> understanding the brain's computation.
+        </p>
+
+        <p>
+            So the disagreement with biological naturalism is less about substance than about framing. The biological naturalists are doing excellent work identifying which <em>specific computations</em> matter for consciousness. The KT perspective simply insists on calling these computations what they are, rather than treating "computation" and "biological mechanism" as opposing categories.
+        </p>
+
+        <h2>The source of the confusion</h2>
+
+        <p>
+            The confusion is, at root, linguistic. The word "computation" has at least three common meanings in circulation:
+        </p>
+
+        <div class="meaning">
+            <span class="num">1</span>
+            <strong>The folk meaning:</strong> what digital computers do&mdash;symbol shuffling, algorithm execution, software. This is what Godfrey-Smith is rejecting.
+        </div>
+
+        <div class="meaning">
+            <span class="num">2</span>
+            <strong>The Turing meaning:</strong> what Turing machines do&mdash;a formal, mathematical notion of effective procedure. Broader than (1), but still anchored to a specific abstract machine model. Under the Church&ndash;Turing thesis, this captures <em>all</em> effectively computable functions.
+        </div>
+
+        <div class="meaning">
+            <span class="num">3</span>
+            <strong>The dynamical meaning:</strong> coarse-grained isomorphism between dynamical systems. This is the mathematically natural definition, and it subsumes both (1) and (2) as special cases. Under digital physics and the physical Church&ndash;Turing thesis, (2) and (3) coincide completely: every physical dynamics is Turing-computable, and every Turing computation is a physical dynamics.
+        </div>
+
+        <p>
+            When a philosopher or neuroscientist says "consciousness is not computation," they usually mean (1)&mdash;and they are right that consciousness is not <em>merely</em> symbol shuffling. When a mathematician hears "computation," they mean (2) or (3). The resulting debate generates more heat than light, because both sides have valid intuitions but are talking past each other about a mathematical term.
+        </p>
+
+        <p>
+            The fix is simple: define your terms. Once you do, the debate reframes itself productively. The question is not <em>whether</em> brains compute&mdash;they do, because they are dynamical systems whose dynamics are computable. The question, which researchers like Godfrey-Smith and Seth are already pursuing with great skill, is <em>what</em> they compute, <em>how</em> compressively, and <em>to what end</em>.
+        </p>
+
+        <p>
+            Those are the questions worth asking. And once we agree on the terminology, I suspect we will find that the biological naturalists and the computational theorists are much closer to each other than the current framing suggests.
+        </p>
+
+        <div class="references">
+            <h3>References</h3>
+            <p>Godfrey-Smith, P. (2026). "Studies on animal minds suggest consciousness is not computation." <em>Institute of Art and Ideas</em>.</p>
+            <p>Seth, A.K. (2025). "Conscious artificial intelligence and biological naturalism." <em>Behavioral and Brain Sciences</em>.</p>
+            <p>Ruffini, G. (2007). <em>Information, complexity, brains and reality (Kolmogorov Manifesto)</em>. arXiv:0704.1147.</p>
+            <p>Ruffini, G. (2017). "An algorithmic information theory of consciousness." <em>Neuroscience of Consciousness</em>, 2017(1), nix019.</p>
+            <p>Ruffini, G. (2025). "Coarse-Grained Computation Between Dynamical Systems." Working Paper WP0049, Barcelona Computational Foundation.</p>
+            <p>Ruffini, G. (2025). "The Algorithmic Weltanschauung: Kolmogorov Manifesto (2025 update)." Working Paper WP0008, Barcelona Computational Foundation.</p>
+            <p>Ruffini, G. (2025). "Mathematical Foundations of the Algorithmic Agent." Working Paper WP0018, Barcelona Computational Foundation.</p>
+            <p>Ruffini, G. (2026). "The Algorithmic Regulator." P13, Barcelona Computational Foundation.</p>
+            <p>Ruffini, G., Lopez-Sola, E., Palma, R., Vohryzek, J., Castaldo, F. &amp; Friston, K. (2025). "Cross-Frequency Coupling as a Neural Substrate for Prediction Error Evaluation: A Laminar Neural Mass Modeling Approach." <em>bioRxiv</em>, 2025.03.19.644090. (Accepted for publication.)</p>
+            <p>Wolpert, D. &amp; Korbel, J. (2025). Dynamical-systems framework for physical computation.</p>
+            <p>Gandy, R. (1980). "Church's thesis and principles for mechanisms." <em>The Kleene Symposium</em>, 123&ndash;148.</p>
+            <p>Deutsch, D. (1985). "Quantum theory, the Church&ndash;Turing principle and the universal quantum computer." <em>Proc. R. Soc. A</em> 400, 97&ndash;117.</p>
+        </div>
+
+    </article>
+</div>
+
+<footer>
+    &copy; 2026 <a href="https://bcom.one">Barcelona Computational Foundation</a> &middot; <a href="https://neuroelectrics.com">Neuroelectrics</a> &middot; Kolmogorov Theory Program
+</footer>
+
+</body>
+</html>

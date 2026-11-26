@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Truth Without Proof? Gödel, Turing, and Algorithmic Information</title>
+<style>
+:root{
+  --blue:#002878; --coral:#FF6657; --light:#D6E4F0; --pink:#F5D5D5;
+  --pale:#F8F9FC; --ink:#17182a; --white:#fff; --muted:#5b6170;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,"Times New Roman",serif;color:var(--ink);background:#fff;line-height:1.78;font-size:1.06rem}
+.hero{background:var(--blue);color:#fff;padding:4.7rem 1.5rem 3.6rem}
+.hero-inner,main{max-width:780px;margin:0 auto}
+.kicker{font-family:Helvetica,Arial,sans-serif;text-transform:uppercase;letter-spacing:.17em;font-weight:700;font-size:.78rem;color:var(--coral);margin-bottom:1.1rem}
+h1{font-size:2.7rem;line-height:1.1;margin-bottom:1.15rem}
+.standfirst{font-size:1.2rem;color:var(--light);font-style:italic;line-height:1.58}
+.byline{font-family:Helvetica,Arial,sans-serif;font-size:.85rem;color:var(--light);margin-top:1.8rem;border-top:1px solid rgba(255,255,255,.25);padding-top:1rem}
+.byline strong{color:#fff}
+main{padding:3.1rem 1.5rem 4.5rem}
+p{margin-bottom:1.35rem}
+h2{font-family:Helvetica,Arial,sans-serif;color:var(--blue);font-size:1.43rem;line-height:1.28;margin:2.9rem 0 1.05rem}
+h2:before{content:"";display:block;width:3rem;height:4px;background:var(--coral);margin-bottom:.7rem}
+.math{font-style:italic;white-space:nowrap}
+.display{background:var(--light);border-left:5px solid var(--blue);padding:1.05rem 1.35rem;margin:1.6rem 0;text-align:center;border-radius:0 6px 6px 0;overflow-x:auto}
+.callout{background:var(--pale);border-left:5px solid var(--coral);padding:1.15rem 1.4rem;margin:1.7rem 0;border-radius:0 6px 6px 0}
+.callout strong{color:var(--blue)}
+.pull{font-size:1.2rem;line-height:1.55;color:var(--blue);font-style:italic;border-top:1px solid #d8dce6;border-bottom:1px solid #d8dce6;padding:1.15rem 0;margin:2.1rem 0}
+.small{font-size:.93rem;color:var(--muted)}
+.refs{background:var(--pale);padding:1.25rem 1.45rem;border-radius:7px;margin-top:2.6rem}
+.refs p{font-size:.93rem;margin-bottom:.75rem}
+a{color:var(--blue);text-decoration-color:var(--coral);text-decoration-thickness:2px}
+.footer{background:var(--blue);color:var(--light);font-family:Helvetica,Arial,sans-serif;text-align:center;font-size:.8rem;padding:1.6rem}
+@media(max-width:600px){h1{font-size:2rem}.hero{padding:3.1rem 1.2rem 2.5rem}main{padding-top:2.3rem}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="kicker">BCOM Blog · Kolmogorov Theory</div>
+    <h1>Truth Without Proof? Gödel, Turing, and Algorithmic Information</h1>
+    <p class="standfirst">Gödel and Turing are often said to have discovered truths that mathematics can never reach. That is too simple. Their theorems separate truth, proof, computation, and observer access — and algorithmic information theory shows how much science can do without ever possessing a final certificate of truth.</p>
+    <div class="byline"><strong>Giulio Ruffini</strong> · Barcelona Computational Foundation · 2026</div>
+  </div>
+</div>
+
+<main>
+
+<p>A machine can spend forever refusing to tell you whether it will run forever.</p>
+
+<p>Imagine a physical Turing machine: a tape, a head, a finite controller, simple deterministic rules. Ask one yes-or-no question: <em>will it ever halt?</em> If it halts, the answer eventually arrives as an event. If it does not halt, waiting gives you something very different. At every finite time the machine has merely failed to halt <em>so far</em>. There is no final instant called “infinity” at which the machine flashes a light saying: it will never halt.</p>
+
+<p>What, then, does it mean to say that the answer was already “no” all along?</p>
+
+<p>Classical mathematics normally answers without hesitation: the machine either halts or it does not. Our ignorance changes nothing. But the apparently harmless phrase “there is a fact of the matter” contains a philosophy. Gödel and Turing did not prove that philosophy. They proved precise limitations on formal derivation and effective procedure. Whether every unresolved proposition nevertheless possesses an observer-independent truth value is a further question.</p>
+
+<div class="pull">Truth, proof, computation, and finite access are not the same thing.</div>
+
+<h2>Four questions hiding inside one word</h2>
+
+<p>It is useful to separate four notions that everyday mathematical language constantly slides together.</p>
+
+<p><strong>Truth</strong> is semantic. A sentence is true <em>in a mathematical structure or model</em>. <strong>Proof</strong> is syntactic: a sentence follows from specified axioms by specified rules. <strong>Computability</strong> asks whether a finite algorithm can return the correct answer for every admissible input. And <strong>observer access</strong> asks whether a finite agent can actually obtain or certify the answer using finite time, memory, measurements, and formal resources.</p>
+
+<div class="display">
+<span class="math">truth in a model</span> &nbsp;≠&nbsp;
+<span class="math">proof in a theory</span> &nbsp;≠&nbsp;
+<span class="math">algorithmic decision</span> &nbsp;≠&nbsp;
+<span class="math">finite observer access</span>
+</div>
+
+<p>These distinctions are not philosophical decoration. They are exactly where the popular interpretation of Gödel goes wrong.</p>
+
+<h2>What Gödel actually showed</h2>
+
+<p>Take a consistent, effectively axiomatized formal theory <span class="math">F</span> strong enough to express elementary arithmetic. In the Gödel–Rosser form of the first incompleteness theorem, there is a sentence of the language of <span class="math">F</span> that is neither provable nor refutable <em>in F</em>. The crucial words are “in F.” Gödelian incompleteness is first of all a theorem about derivability relative to a specified formal system.</p>
+
+<p>That is weaker — and more precise — than the slogan “Gödel proved that there are truths that can never be proved.” A stronger theory may settle a sentence that was independent of <span class="math">F</span>; the stronger theory will then have independent sentences of its own. There is no final effective formal theory that closes the process. But the theorem does not place a metaphysical stamp reading <em>forever unknowable</em> on one particular sentence.</p>
+
+<p>The familiar phrase “true but unprovable” introduces an extra semantic step. One evaluates the sentence in an intended mathematical structure — for arithmetic, usually the standard natural numbers — and then contrasts that semantic judgment with what <span class="math">F</span> can derive. The incompleteness theorem itself is syntactic; the attribution of truth is model-relative semantics layered on top.</p>
+
+<p>Model theory makes the point vivid. If a sentence is independent of a first-order theory <span class="math">F</span>, then, under the usual consistency assumptions, there are models of <span class="math">F</span> in which the sentence holds and models in which its negation holds. Incompleteness therefore does not force us to imagine one sentence floating in a unique mathematical universe, secretly colored “true” but inaccessible to proof. It also permits a very different picture: several legitimate mathematical structures in which different answers hold.</p>
+
+<h2>You can be a Platonist without believing in one mathematical universe</h2>
+
+<p>This is the point that often gets lost. Mathematical Platonism is usually introduced as belief in a mind-independent realm of mathematical objects. But realism about mathematical structures does <em>not</em> force realism about one uniquely privileged mathematical universe.</p>
+
+<p>There are explicitly pluralist forms of Platonism. Mark Balaguer’s “full-blooded” or plenitudinous Platonism allows a multiplicity of mathematical universes rather than one privileged totality. In set theory, Joel David Hamkins has argued for a multiverse view: many distinct concepts of set, each instantiated in a corresponding universe. Hamkins is not trying to make mathematics less real. Quite the contrary: on the multiverse picture, the alternative universes are themselves genuine mathematical worlds. The Stanford Encyclopedia of Philosophy explicitly notes that Platonism need not entail that every set-theoretic proposition has one determinate truth value, and describes plenitudinous Platonism as postulating multiple mathematical universes corresponding to consistent theories.</p>
+
+<p>This gives us a third position between simple classical absolutism and anti-realism:</p>
+
+<div class="callout"><strong>Pluralist Platonism:</strong> mathematical structures are real, but there need not be one uniquely privileged structure in which every mathematical sentence receives its one final answer.</div>
+
+<p>Truth then becomes indexed to structure. The continuum hypothesis is true in some set-theoretic universes and false in others. That does not mean “anything goes.” A theorem proved from axioms <span class="math">T</span> is, by the soundness theorem, true in <em>every</em> model of <span class="math">T</span>. If <span class="math">T</span> is consistent, first-order completeness connects that syntactic consistency to the existence of models. Proof does not manufacture truth; it identifies what is invariant across the models satisfying the assumptions.</p>
+
+<p>So I would sharpen the tempting phrase “a proposition is true in some model if a formal system proves it.” The correct relation is stronger and cleaner: if <span class="math">T ⊢ P</span>, then <span class="math">P</span> holds in every model of <span class="math">T</span>. If <span class="math">P</span> is independent of <span class="math">T</span>, then the theory does not select between models on opposite sides. A pluralist Platonist may take both structures seriously rather than insisting that one of them must be the uniquely intended universe.</p>
+
+<p>There are nuances. One may be pluralist about set theory while retaining a privileged conception of ordinary arithmetic; multiverse views need not erase every form of mathematical absoluteness. Solomon Feferman, from a different philosophical direction, argued that the continuum hypothesis may not even be a “definite mathematical problem,” while treating many ordinary mathematical questions much more robustly. The important point is simply that rejecting a single global truth assignment is not equivalent to rejecting mathematical reality.</p>
+
+<h2>Turing turns the issue into an experiment</h2>
+
+<p>Gödel’s theorem concerns proof systems. Turing’s halting theorem concerns algorithms. There is no total procedure that, given an arbitrary program and input, always halts and correctly says whether the program itself eventually halts.</p>
+
+<p>The asymmetry is operational. If the computation halts, there is a finite witness: wait and eventually observe the halt. If it does not halt, direct simulation never reaches a stage that certifies non-halting. Particular non-halting programs can of course be settled by additional reasoning. What does not exist is one terminating method that settles every program.</p>
+
+<div class="display">
+<span class="math">halts</span> &rArr; finite event can witness “yes”<br>
+<span class="math">does not halt</span> &rArr; waiting alone never produces the final “no”
+</div>
+
+<p>A classical realist says that every individual halting proposition nevertheless has a Boolean truth value. A constructive interpretation need not treat an unresolved proposition as a hidden bit already waiting behind the curtain. A pluralist realist can take yet another route: truth is fully objective inside specified mathematical structures, while refusing to posit one unqualified universe in which all such semantic questions are globally settled.</p>
+
+<p>Gödel and Turing force none of these philosophies on us. Their results survive under all of them because their operational content is about what fixed systems of proof and computation can guarantee.</p>
+
+<h2>The physical version makes the problem sharper</h2>
+
+<p>Build the Turing machine physically. Now the question “will it ever halt?” is also a question about a physical system. Does an observer-independent physical fact exist even when no finite observation can establish it?</p>
+
+<p>A scientific realist may answer yes. An operationalist may ask what empirical operation gives content to the distinction. And in idealized infinite-system physics the issue becomes even harder: the mathematical model may assign an exact property that no physical observer could measure with arbitrary precision or establish in finite time.</p>
+
+<p>Results such as the undecidable Ising observables of Gu and collaborators or the undecidable spectral gap exploit an unbounded computational resource in the physical family, often through an infinite or thermodynamic-limit construction. They make a macroscopic property depend on the behavior of an embedded universal computation. A crucial contrast is that fixed finite versions return to computability in principle: a finite-tape machine has finitely many configurations, and a fixed finite quantum system is represented by finite-dimensional data. The undecidability enters when the family supplies the unbounded resource.</p>
+
+<p>This is different from the algorithmic-construction barriers we have been studying in Kolmogorov Theory. There the physical experiment and observed record can remain finite. The unboundedness sits instead in the <em>space of possible descriptions</em> and in their possible running times. The physical world need not contain an infinite tape; the observer’s universal search over candidate programs effectively does.</p>
+
+<h2>Kolmogorov complexity hides the same philosophical choice</h2>
+
+<p>Algorithmic information theory makes the issue unusually transparent. Standard AIT defines the Kolmogorov complexity of a finite string <span class="math">x</span> by</p>
+
+<div class="display"><span class="math">K(x) = min {|p| : U(p)=x}.</span></div>
+
+<p>Textbooks then speak as though <span class="math">K(x)</span> were simply a number attached to <span class="math">x</span>. Classically, that is natural. A literal-printing program ensures that at least one description exists; one takes the least length among all descriptions.</p>
+
+<p>But constructively, this packaging is not innocent. To know that a given length is minimal means ruling out all shorter programs — including programs whose computations may never halt. Recent constructive formalizations make this explicit. Forster, Kunze, and Lauermann develop Kolmogorov complexity in Coq without simply postulating a total numerical <span class="math">K</span>-function. They work with functional relations, and they point out that the general principle giving least elements of arbitrary inhabited predicates is equivalent, in their setting, to the law of excluded middle. They also note that classical formalizations such as the HOL4 work of Catt and Norrish use a least-element operator together with classical logic and choice.</p>
+
+<p>This is philosophically revealing. The operational content of compression begins one level below the number <span class="math">K(x)</span>.</p>
+
+<div class="display">
+<span class="math">Short(x,b)</span> &nbsp;⇔&nbsp;
+<span class="math">there exists p with |p| &lt; b and U(p)=x.</span>
+</div>
+
+<p>That statement asks for a finite witness. If a short program exists and halts, we can eventually exhibit it. We do not need to first possess the metaphysical object “the exact complexity of <span class="math">x</span>.”</p>
+
+<h2>AIT can work relationally</h2>
+
+<p>This observation is more than philosophical housekeeping. A surprising amount of the machinery can be reformulated in terms of relations among finite descriptions.</p>
+
+<p>Instead of saying</p>
+
+<div class="display"><span class="math">K(x) &lt; b,</span></div>
+
+<p>say directly:</p>
+
+<div class="display"><span class="math">there exists p such that |p| &lt; b and U(p)=x.</span></div>
+
+<p>Instead of treating optimality as access to a hidden number <span class="math">K(x)</span>, compare two explicit programs. If a new program is shorter and prints the same data, it is a finite witness that the old description was not optimal.</p>
+
+<p>This relational view is especially natural for the three barriers in our work on algorithmic emergence.</p>
+
+<p>The first barrier can be read as a counting statement: for most records in the witness family, <em>no conditional program shorter than a specified threshold exists</em>. The second says that even when a shorter program exists, no total constructor is guaranteed to find one in every case. The third can be stated without mentioning the exact value of <span class="math">K</span> at all: for every total valid constructor and every proposed margin, there are compressible records for which an explicit competing program beats the constructor’s returned program by more than that margin.</p>
+
+<div class="callout"><strong>The key shift:</strong> “the true complexity is an inaccessible number” can be replaced, for much of the operational theory, by statements about which finite descriptions exist and which explicit description beats which.</div>
+
+<p>Standard numerical <span class="math">K</span> remains enormously convenient. Mutual algorithmic information, structure functions, normalized information distances, and many compact AIT identities are most naturally written with numerical complexities. The claim is not that all of AIT survives unchanged if we throw away <span class="math">K</span>. The more modest and, I think, more important claim is that <strong>the operational core of compression and model improvement need not take exact numerical <span class="math">K</span> as primitive.</strong></p>
+
+<h2>Reverse mathematics tells the same story from another side</h2>
+
+<p>Reverse mathematics asks how much formal strength is needed to prove familiar mathematical claims. Work by André Nies and Paul Shafer shows that substantial parts of algorithmic randomness and Kolmogorov-complexity reasoning can be carried out in the weak base theory <span class="math">RCA₀</span>. This literature forces a distinction that ordinary textbook notation tends to hide: expressing and manipulating complexity comparisons is not the same thing as assuming the existence of a global noncomputable function as a set-like mathematical object.</p>
+
+<p>That distinction fits the observer viewpoint beautifully. A finite scientist may possess particular programs, proofs, inequalities, and improvements without possessing an oracle that returns <span class="math">K(x)</span> for arbitrary data. The useful mathematics concerns what can be certified locally and relationally.</p>
+
+<h2>Chaitin: proof has a horizon too</h2>
+
+<p>Chaitin’s incompleteness results bring Gödel back into AIT. Fix a sound, effectively axiomatized formal theory <span class="math">F</span> and a reference universal machine <span class="math">U</span>. There is a theory- and machine-dependent ceiling beyond which <span class="math">F</span> cannot prove arbitrarily strong specific lower bounds of the form “<span class="math">K(x)</span> is greater than <span class="math">n</span>.”</p>
+
+<p>Again the relativity matters. Change the theory, and the ceiling changes. A stronger formal system may settle a particular case that the weaker one could not. Chaitin does not show that a specific finite string is absolutely beyond every possible mathematical route to knowledge. The result says that no one fixed effective formal theory certifies arbitrarily far into the landscape of algorithmic incompressibility.</p>
+
+<div class="pull">What is missing is not every proof. It is a final proof system that certifies everything.</div>
+
+<h2>Truth may be plural without becoming subjective</h2>
+
+<p>This is where the pluralist-Platonist view becomes useful. There is a false dichotomy between “one absolute mathematical universe with one hidden truth value for every sentence” and “mathematics is merely a human invention.”</p>
+
+<p>A realist can instead say: mathematical structures exist independently of us; statements have objective truth values <em>within those structures</em>; proofs reveal consequences of specified axioms; and there may be many equally legitimate structures rather than one all-encompassing intended universe.</p>
+
+<p>On this picture, truth is not subjective. Whether a theorem holds in a given structure is not a matter of taste. But some unqualified questions — “is CH simply true?” — may be incomplete until one says which universe or conception of set is intended. Hamkins’s set-theoretic multiverse makes precisely this move, and Balaguer’s plenitudinous Platonism provides a broader metaphysical version of it. The Stanford Encyclopedia notes explicitly that Platonism need not commit one to determinate truth values for every independent set-theoretic proposition.</p>
+
+<p>This also helps disentangle Gödel from mysticism. If <span class="math">G</span> is independent of <span class="math">F</span>, the formal fact is that <span class="math">F</span> does not choose between <span class="math">G</span> and its negation. A universist may insist that one of the resulting models captures the intended mathematical reality. A multiversist may take both worlds seriously. A constructivist may question whether either disjunct should be asserted without the relevant construction. The incompleteness theorem itself remains untouched.</p>
+
+<h2>What does this mean for physics?</h2>
+
+<p>Physics makes the stakes higher because mathematical models are supposed to describe a world we inhabit. A model may assign a quantity a value while no finite observer can derive, calculate, or measure it. Is that value nevertheless physically real?</p>
+
+<p>There is no theorem that answers this question for us. Scientific realism, operationalism, structural realism, and related positions disagree about how model-assigned quantities connect to physical ontology. The cautious position for Kolmogorov Theory is therefore not to deny observer-independent reality, but to refuse to identify three different things:</p>
+
+<div class="display">
+<span class="math">value assigned by a mathematical model</span><br>
+<span class="math">value certifiable by a finite procedure</span><br>
+<span class="math">observer-independent property of the physical world</span>
+</div>
+
+<p>Our formal results concern the middle line. They bound what finite procedures can construct or certify. That makes them compatible with a realist, constructivist, operationalist, or pluralist metaphysics.</p>
+
+<h2>Science does not need a certificate of final truth</h2>
+
+<p>There is a broader lesson here. Science rarely possesses globally optimal descriptions. It possesses models that beat previous models, explain more with less, transfer to new data, and survive attempts to replace them.</p>
+
+<p>That is enough for progress.</p>
+
+<p>If someone hands us a shorter program that reproduces the relevant data, we have learned something finite and objective: the old description was not optimal. If a new macroscopic model compresses and predicts across held-out realizations, we have acquired a better representation. Neither achievement requires access to the exact value of <span class="math">K(x)</span>, nor a proof that no future theory will ever do better.</p>
+
+<div class="callout"><strong>Science can certify improvement without certifying finality.</strong></div>
+
+<p>This may be the most useful way to read Gödel, Turing, and AIT together. Gödel says no fixed effective formal system exhausts arithmetic consequence. Turing says no single terminating algorithm decides every computation. Chaitin says no fixed effective theory certifies arbitrarily deep algorithmic incompressibility. AIT then adds a constructive consolation: local finite witnesses still matter. A better program can be exhibited. A better theory can be tested. A shorter explanation can prove that the previous explanation was too long.</p>
+
+<h2>Truth without proof?</h2>
+
+<p>So does truth exist without proof?</p>
+
+<p>There is no single answer forced on us by logic.</p>
+
+<p>A classical realist can say yes: truth outruns every finite formal system. A constructivist can tie legitimate mathematical assertion more closely to proof or construction. A pluralist Platonist can affirm a mind-independent mathematical reality while denying that there is one uniquely privileged mathematical universe that assigns every sentence its absolute truth value.</p>
+
+<p>What Gödel and Turing establish is narrower and more durable than any of these philosophies. No fixed effective procedure captures everything we can ask.</p>
+
+<p>Algorithmic information theory inherits that limitation, but it also shows how to work productively inside it. We need not know the final value of <span class="math">K(x)</span> to know that one description is shorter than another. We need not certify that our current model is globally optimal to establish that it improves on what came before. We need not settle the metaphysics of inaccessible truth in order to build a science of finite descriptions, finite witnesses, and finite observers.</p>
+
+<p class="pull">For a finite observer, progress does not require possession of truth in full. It requires reliable ways of recognizing better descriptions when they appear.</p>
+
+<div class="refs">
+  <p><strong>Further reading.</strong> Joel David Hamkins, “The Set-Theoretic Multiverse,” <em>Review of Symbolic Logic</em> 5 (2012), 416–449, DOI 10.1017/S1755020311000359.</p>
+  <p>Mark Balaguer, <em>Platonism and Anti-Platonism in Mathematics</em>, Oxford University Press, 1998.</p>
+  <p>Yannick Forster, Fabian Kunze, and Nils Lauermann, “Synthetic Kolmogorov Complexity in Coq,” <em>ITP 2022</em>, LIPIcs 237, 12:1–12:19, DOI 10.4230/LIPIcs.ITP.2022.12.</p>
+  <p>André Nies and Paul Shafer, “Randomness Notions and Reverse Mathematics,” <em>Journal of Symbolic Logic</em> 85 (2020), 271–299, DOI 10.1017/jsl.2019.50.</p>
+  <p>Elliot Catt and Michael Norrish, “On the Formalisation of Kolmogorov Complexity,” <em>CPP 2021</em>, 291–299, DOI 10.1145/3437992.3439921.</p>
+  <p>For accessible background on incompleteness, mathematical pluralism, and Platonism, see the corresponding entries in the Stanford Encyclopedia of Philosophy.</p>
+</div>
+
+</main>
+<div class="footer">Barcelona Computational Foundation · bcom.one · Kolmogorov Theory</div>
+
+</body>
+</html>

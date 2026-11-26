@@ -1,0 +1,283 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage[colorlinks=true, linkcolor=blue!50!black, urlcolor=blue!50!black]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{ex}{Example}
+\newtheorem*{rem}{Remark}
+
+\title{From Groups to Modules\\[2pt]
+\large A pedagogical tour of five algebraic structures}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Roadmap}
+
+We will build five structures, in this order:
+\[
+\text{group} \;\longrightarrow\; \text{ring} \;\longrightarrow\; \text{field}
+\;\longrightarrow\; \text{vector space} \;\longrightarrow\; \text{module}.
+\]
+Each arrow adds either an operation, an axiom, or a notion of ``scalar multiplication.''
+The last arrow is the only \emph{generalization} in the chain: a module is what you
+get when you take a vector space and allow the scalars to come from a ring instead
+of a field. That step trips most people up the first time, so we will spend extra
+care on it.
+
+\section{Group}
+
+\paragraph{The idea.}
+A group captures the bare minimum needed for an operation that can be \emph{undone}.
+Think: integers under addition (you can subtract), or the symmetries of a square
+(you can rotate back).
+
+\begin{defn}
+A \emph{group} $(G,\cdot)$ is a set $G$ with a binary operation
+$\cdot : G \times G \to G$ satisfying:
+\begin{enumerate}[label=(G\arabic*), leftmargin=3em]
+  \item \emph{Associativity:} $(a\cdot b)\cdot c = a\cdot(b\cdot c)$ for all $a,b,c\in G$.
+  \item \emph{Identity:} there is an element $e\in G$ with $e\cdot a = a\cdot e = a$ for all $a$.
+  \item \emph{Inverses:} for each $a\in G$ there is some $a^{-1}\in G$ with $a\cdot a^{-1} = a^{-1}\cdot a = e$.
+\end{enumerate}
+If, in addition, $a\cdot b = b\cdot a$ always holds, the group is called \emph{abelian}.
+\end{defn}
+
+\begin{ex}
+$(\mathbb{Z},+)$ is an abelian group: identity $0$, inverse of $n$ is $-n$.
+\end{ex}
+
+\begin{ex}
+The six symmetries of an equilateral triangle (three rotations and three reflections)
+form a non-abelian group, traditionally written $S_3$.
+\end{ex}
+
+\section{Ring}
+
+\paragraph{The idea.}
+A group has \emph{one} operation. But integers, polynomials, and matrices have
+\emph{two} — addition and multiplication — and the two interact through
+distributivity. A ring axiomatizes this two-operation world.
+
+\begin{defn}
+A \emph{ring} $(R,+,\cdot)$ is a set with two binary operations such that:
+\begin{enumerate}[label=(R\arabic*), leftmargin=3em]
+  \item $(R,+)$ is an abelian group (its identity is written $0$).
+  \item $\cdot$ is associative.
+  \item \emph{Distributivity:} $a\cdot(b+c) = a\cdot b + a\cdot c$ and $(a+b)\cdot c = a\cdot c + b\cdot c$.
+\end{enumerate}
+We will assume rings have a multiplicative identity $1$ (such rings are called \emph{unital}).
+\end{defn}
+
+\begin{ex}
+$\mathbb{Z}$ with the usual $+$ and $\times$ is the prototypical ring.
+\end{ex}
+
+\begin{ex}
+Polynomials $\mathbb{R}[x]$ form a ring. So do $n\times n$ matrices over $\mathbb{R}$
+(non-commutative when $n\geq 2$).
+\end{ex}
+
+\paragraph{What's missing?}
+In a ring you can add, subtract, and multiply — but you cannot generally
+\emph{divide}. There is no element $\tfrac{1}{2}$ in $\mathbb{Z}$. The next step fixes this.
+
+\section{Field}
+
+\paragraph{The idea.}
+A field is a ring in which division by anything nonzero is allowed.
+$\mathbb{Q}$, $\mathbb{R}$, and $\mathbb{C}$ are the canonical examples.
+
+\begin{defn}
+A \emph{field} $(F,+,\cdot)$ is a commutative unital ring in which every nonzero
+$a\in F$ has a multiplicative inverse $a^{-1}\in F$ (so $a\cdot a^{-1} = 1$).
+\end{defn}
+
+\noindent Equivalently: $(F,+)$ \emph{and} $(F\setminus\{0\},\cdot)$ are both abelian
+groups, glued by distributivity.
+
+\begin{ex}
+$\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$ are fields.
+\end{ex}
+
+\begin{ex}
+For each prime $p$, the integers modulo $p$, written $\mathbb{F}_p$, form a finite
+field with $p$ elements.
+\end{ex}
+
+\begin{rem}
+Why \emph{prime}? In $\mathbb{Z}/6\mathbb{Z}$ the element $2$ has no inverse: there is
+no $x$ with $2x \equiv 1 \pmod 6$. Primality is what guarantees every nonzero element
+is invertible. So $\mathbb{Z}/6\mathbb{Z}$ is a ring but not a field — keep this
+example in mind, it will return.
+\end{rem}
+
+\section{Vector space}
+
+\paragraph{The idea.}
+The setting of linear algebra: things you can add together and \emph{scale by
+numbers}. The numbers (``scalars'') come from a field.
+
+\begin{defn}
+Let $F$ be a field. A \emph{vector space over $F$} is an abelian group $(V,+)$
+together with an operation
+\[
+F \times V \to V, \qquad (\alpha, v) \mapsto \alpha v,
+\]
+called \emph{scalar multiplication}, satisfying for all $\alpha,\beta\in F$ and $u,v\in V$:
+\begin{enumerate}[label=(V\arabic*), leftmargin=3em]
+  \item $\alpha(u+v) = \alpha u + \alpha v$
+  \item $(\alpha+\beta) v = \alpha v + \beta v$
+  \item $(\alpha\beta) v = \alpha(\beta v)$
+  \item $1\cdot v = v$
+\end{enumerate}
+\end{defn}
+
+\begin{ex}
+$\mathbb{R}^n$ with componentwise addition and scaling is the standard vector space
+over $\mathbb{R}$.
+\end{ex}
+
+\begin{ex}
+Continuous functions $C([0,1],\mathbb{R})$ form an (infinite-dimensional) vector
+space over $\mathbb{R}$.
+\end{ex}
+
+\paragraph{The payoff.}
+Because the scalars form a field, every vector space has a \emph{basis}, and any
+two bases have the same size (the \emph{dimension}). This is what makes linear
+algebra so clean.
+
+\section{Module --- the generalization}
+
+\paragraph{The natural question.}
+Look back at the vector space definition. Where did we use the fact that $F$ was a
+\emph{field}, and not merely a ring? Answer: nowhere in the four axioms.
+We only used ``field-ness'' afterwards, when we wanted bases to exist.
+
+So: what if we keep the four axioms but let the scalars come from a mere ring $R$?
+That object is called a \emph{module}.
+
+\begin{defn}
+Let $R$ be a unital ring. A \emph{module over $R$} (or an \emph{$R$-module})
+is an abelian group $(M,+)$ together with an operation
+\[
+R \times M \to M, \qquad (r, m) \mapsto rm,
+\]
+satisfying for all $r,s\in R$ and $m,n\in M$:
+\begin{enumerate}[label=(M\arabic*), leftmargin=3em]
+  \item $r(m+n) = rm + rn$
+  \item $(r+s)m = rm + sm$
+  \item $(rs)m = r(sm)$
+  \item $1\cdot m = m$
+\end{enumerate}
+\end{defn}
+
+\noindent This is literally the vector space definition with the letter $F$ replaced
+by the letter $R$. Nothing else changes.
+
+\subsection*{Reading the phrase ``module over $R$''}
+
+The phrase ``$M$ is a module over the ring $R$'' just names which ring is supplying
+the scalars. The letter $R$ is a placeholder — substitute any specific ring you like.
+
+\begin{center}
+\begin{tabular}{ll}
+\emph{vector space over $\mathbb{R}$} & scalars are real numbers \\
+\emph{$\mathbb{Z}$-module} & scalars are integers \\
+\emph{module over $R$} & scalars come from some unspecified ring $R$
+\end{tabular}
+\end{center}
+
+So a ``$\mathbb{Z}$-module'' is not a different beast from ``a module over a
+ring $R$.'' It is the special case where $R = \mathbb{Z}$.
+
+\subsection*{Worked example: every abelian group is a $\mathbb{Z}$-module}
+
+This is the example that makes ``scalars from a ring'' click.
+
+Take \emph{any} abelian group $(A,+)$. We will multiply elements of $A$ by integers
+in the only way that makes sense, and check that this turns $A$ into a
+$\mathbb{Z}$-module --- automatically, for free, with no extra structure required.
+
+For $n\in\mathbb{Z}$ and $a\in A$, define
+\[
+n\cdot a \;=\;
+\begin{cases}
+\underbrace{a + a + \cdots + a}_{n \text{ copies}} & n > 0, \\[4pt]
+0 & n = 0, \\[4pt]
+\underbrace{(-a) + (-a) + \cdots + (-a)}_{|n| \text{ copies}} & n < 0.
+\end{cases}
+\]
+This is just \emph{repeated addition}. The four module axioms (M1)--(M4) are now
+forced — they follow from associativity and commutativity of $+$ in $A$. So
+\emph{every abelian group becomes a $\mathbb{Z}$-module, in exactly one natural way}.
+
+\begin{ex}[Concrete walkthrough]
+Let $A = \mathbb{Z}/6\mathbb{Z} = \{[0],[1],[2],[3],[4],[5]\}$, an abelian group
+under addition modulo $6$. Treat it as a $\mathbb{Z}$-module. Then:
+\begin{align*}
+3 \cdot [2] &= [2] + [2] + [2] = [6] = [0], \\
+(-1) \cdot [2] &= [-2] = [4], \\
+7 \cdot [3] &= [21] = [3].
+\end{align*}
+Here $3$, $-1$, $7$ are the \emph{scalars} (elements of $\mathbb{Z}$); $[2], [3]$
+are the \emph{module elements} (elements of $\mathbb{Z}/6\mathbb{Z}$). The integer
+$3$ acts on $[2]$ by ``add $[2]$ to itself three times.''
+\end{ex}
+
+\begin{rem}[The moral]
+``Abelian group'' and ``$\mathbb{Z}$-module'' are the same concept in two languages.
+The module language just makes the implicit ``repeated addition'' structure visible
+as an explicit scalar action.
+\end{rem}
+
+\subsection*{What is lost without a field?}
+
+In $\mathbb{Z}/6\mathbb{Z}$ as a $\mathbb{Z}$-module, we saw $3\cdot [2] = [0]$.
+There is no way to ``divide by $3$'' and recover $[2]$, because $3\in\mathbb{Z}$
+has no multiplicative inverse in $\mathbb{Z}$.
+
+In a vector space (scalars in a field) this can never happen: if $\alpha v = 0$
+with $\alpha \neq 0$, multiply by $\alpha^{-1}$ to conclude $v = 0$.
+
+The consequence: modules need not have bases. The $\mathbb{Z}$-module
+$\mathbb{Z}/6\mathbb{Z}$ has no basis at all — every element is killed by $6$.
+When a module \emph{does} have a basis, it is called \emph{free}.
+
+\section*{Summary}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lll}
+\hline
+\textbf{Structure} & \textbf{What it has} & \textbf{Key new feature} \\
+\hline
+Group        & one operation                  & inverses (can undo) \\
+Ring         & two operations $(+,\cdot)$     & distributivity \\
+Field        & two operations $(+,\cdot)$     & every nonzero scalar invertible \\
+Vector space & $+$ and scaling by a field     & bases exist; dimension defined \\
+Module       & $+$ and scaling by a ring      & generalizes vector space; basis may not exist \\
+\hline
+\end{tabular}
+\end{center}
+
+\bigskip
+
+The hierarchy is one of progressively richer \emph{scalars}:
+\[
+\text{abelian group} \;=\; \mathbb{Z}\text{-module}
+\;\;\subset\;\; R\text{-module} \;\;\supset\;\; F\text{-vector space}.
+\]
+The last $\supset$ is the punchline: vector spaces are the special,
+well-behaved case of modules — the case where the scalars happen to form
+a field.
+
+\end{document}

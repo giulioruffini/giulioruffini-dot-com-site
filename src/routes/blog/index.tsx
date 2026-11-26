@@ -147,10 +147,10 @@ const elsewhere = [
   },
   {
     source: 'Math Corner',
-    url: 'https://giulioruffini.github.io/assets/collab/mathematics/',
+    url: '/math/index.html',
     items: [
-      { title: 'From Groups to Modules — a tour of five algebraic structures', date: '', url: 'https://giulioruffini.github.io/assets/collab/mathematics/algebraic_structures.html' },
-      { title: 'The Galton–Watson Branching Process', date: '', url: 'https://giulioruffini.github.io/assets/collab/mathematics/galton_watson.html' },
+      { title: 'From Groups to Modules — a tour of five algebraic structures', date: '', url: '/math/algebraic_structures.html' },
+      { title: 'The Galton–Watson Branching Process', date: '', url: '/math/galton_watson.html' },
     ],
   },
 ]

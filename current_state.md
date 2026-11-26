@@ -35,11 +35,9 @@ scaffold into a static, content-driven site with the "K&AI" color theme.
 
 ## Content
 
-- **Source of truth:** `github.com/giulioruffini/giulioruffini.github.io` (branch `recovery`).
-  Reference pages are copied from its `kt.md`, `lanmm.md`, `tES.md`; the News list mirrors
-  its `index.md`. Edits go to both repositories.
-- **Blog:** entries are content-collection records. Most link to the canonical HTML on
-  github.io (`externalUrl`); four are self-hosted under `public/blogs/`.
+- **Source of truth:** this repository (since 2026-11-26). The essays (`public/blogs/`), the Math Corner notes (`public/math/`) and the reference pages moved here from `giulioruffini.github.io`, whose old addresses now forward to the same pages.
+- **Blog:** entries are content-collection records whose `externalUrl` points at the standalone
+  page in `public/blogs/` or at an external post (BCOM, Neuroelectrics, Substack).
 - **Poems:** 37 published, curated through `poems-to-publish.csv`.
 - **Social preview:** `public/og.jpg` (1200×630) with Open Graph and Twitter meta in `__root.tsx`.
 

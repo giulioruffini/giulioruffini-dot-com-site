@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Agentic Compressor — BCOM Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f8f6f1;
+    --accent: #1a6b4a;
+    --accent-light: #d6ebe0;
+    --mid: #6b6b6b;
+    --rule: #d4d0c8;
+    --highlight: #eef6f1;
+    --blue: #2c5f7c;
+    --warm: #c0392b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.72;
+    font-size: 17.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .site-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .site-header .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .site-header .logo span { color: var(--mid); font-weight: 400; }
+  .site-header nav {
+    font-size: 0.85rem;
+    color: var(--mid);
+    letter-spacing: 0.04em;
+  }
+
+  /* --- HERO --- */
+  .hero {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 5rem 2rem 3rem;
+  }
+  .hero .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    line-height: 1.15;
+    margin-bottom: 1.4rem;
+    color: var(--ink);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero .subtitle {
+    font-size: 1.15rem;
+    color: var(--mid);
+    line-height: 1.6;
+    max-width: 660px;
+  }
+  .hero .meta {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.88rem;
+    color: var(--mid);
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .hero .meta strong { color: var(--ink); font-weight: 500; }
+
+  /* --- ARTICLE BODY --- */
+  .article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem 5rem;
+  }
+
+  .article p {
+    margin-bottom: 1.3rem;
+  }
+
+  .article h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 1.85rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .article h2::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .article h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin-top: 2.2rem;
+    margin-bottom: 0.7rem;
+    color: var(--ink);
+  }
+
+  .article blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem 1.8rem;
+    background: var(--highlight);
+    border-left: 4px solid var(--accent);
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.12rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: #3a3a3a;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .callout-box {
+    margin: 2.5rem 0;
+    padding: 1.6rem 1.8rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .callout-box .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  /* --- SPECTRUM --- */
+  .spectrum {
+    margin: 2.5rem 0;
+    position: relative;
+  }
+  .spectrum-bar {
+    height: 6px;
+    background: linear-gradient(to right, var(--rule), var(--accent));
+    border-radius: 3px;
+    margin-bottom: 1.2rem;
+  }
+  .spectrum-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+  }
+  @media (max-width: 640px) {
+    .spectrum-items { grid-template-columns: 1fr 1fr; }
+  }
+  .spectrum-item {
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+    background: #fff;
+  }
+  .spectrum-item .tier {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .spectrum-item h4 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+  }
+  .spectrum-item p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--mid);
+    margin-bottom: 0;
+  }
+
+  /* --- TABLE --- */
+  .action-table {
+    width: 100%;
+    margin: 2rem 0;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  .action-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 0.8rem 1rem;
+    border-bottom: 2px solid var(--ink);
+    color: var(--mid);
+  }
+  .action-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .action-table tr:last-child td { border-bottom: none; }
+  .action-table code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.84em;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+  }
+
+  /* --- DUAL LOOP DIAGRAM --- */
+  .dual-loop {
+    margin: 2.5rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 640px) {
+    .dual-loop { grid-template-columns: 1fr; }
+  }
+  .loop-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--rule);
+  }
+  .loop-card.external {
+    background: #fff;
+  }
+  .loop-card.internal {
+    background: var(--ink);
+    color: #e8e6e1;
+    border-color: var(--ink);
+  }
+  .loop-card .loop-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.6rem;
+  }
+  .loop-card.external .loop-label { color: var(--blue); }
+  .loop-card.internal .loop-label { color: var(--accent-light); }
+  .loop-card h4 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    margin-bottom: 0.7rem;
+  }
+  .loop-card p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .loop-card.internal p { color: #b8b5ae; }
+
+  a {
+    color: var(--blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  a:hover { color: var(--accent); }
+
+  .article-footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+    border-top: 1px solid var(--rule);
+  }
+  .article-footer .cta {
+    font-size: 0.9rem;
+    color: var(--mid);
+  }
+  .article-footer .cta a {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.7rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    color: var(--mid);
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">BCOM <span>/ blog</span></div>
+  <nav>Working Paper WP0068</nav>
+</header>
+
+<div class="hero">
+  <div class="kicker">Kolmogorov Theory &middot; Agentic Learning &middot; Compression</div>
+  <h1>The <em>Agentic Compressor</em></h1>
+  <p class="subtitle">
+    A physicist doesn't learn passively. She plans how to learn—choosing which hypothesis to test, which approximation to relax, which simulation to run. We argue that any genuinely powerful modeling system must do the same: treat model construction itself as an action space.
+  </p>
+  <div class="meta">
+    <span><strong>Authors</strong> &nbsp;Giulio Ruffini with Claude Opus 4.6</span>
+    <span><strong>Date</strong> &nbsp;April 2026</span>
+    <span><strong>Series</strong> &nbsp;BCOM WP0068 · KT Pillar</span>
+  </div>
+</div>
+
+<article class="article">
+
+<p>
+Within the Kolmogorov Theory (KT) framework, the algorithmic agent is decomposed into three functional modules: a Modeling Engine (ME) that builds compressive world models, an Objective Function (OF) that assigns value to states, and a Planning Engine (PE) that selects actions by counterfactual simulation. Previous work has formalized what the ME must produce—compressed representations that are both short and informative—but has treated the <em>process</em> of building those models as a black box.
+</p>
+
+<p>
+This paper opens that box. The core claim is simple and, we think, important: model construction is itself an action-selection problem.
+</p>
+
+<blockquote>
+A modeling system should not merely update itself from data. It should actively choose <em>how</em> to update itself in order to become a better compressor of data. The planning engine acts not only on the world but also—and perhaps primarily—on the modeling engine itself.
+</blockquote>
+
+<h2>The gap</h2>
+
+<p>
+The KT agent definition requires the agent to maintain a model state <em>m</em> that compresses its data stream. But <em>how</em> does that model get built? In the formal definition, the model update function is simply given—part of the static wiring. The choice of which aspect of the model to revise, which hypothesis to test, which internal simulation to run, which approximation to relax—none of this is represented. The update rule is treated as fixed, not as something the agent plans over.
+</p>
+
+<p>
+For simple agents—a thermostat, a bacterium—a fixed update rule is fine. But for any agent engaged in genuine model building—a scientist, a mathematician, a child learning physics—the process of updating the model is itself a complex, multi-step, goal-directed activity involving choices at every turn.
+</p>
+
+<p>
+The same gap exists in machine learning. Standard deep learning runs: ingest data, compute loss, update weights, repeat. This is powerful, but weakly agentic with respect to model construction. There is no mechanism deciding which hypothesis should be probed, which submodel challenged, which internal simulation is worth running. The system learns, but it does not <em>strategize about how to learn</em>.
+</p>
+
+<h2>The internal action space</h2>
+
+<p>
+We propose that the ME should be equipped with an explicit <em>internal action space</em>: a set of computable operations on the current model state, each of which transforms it into a revised model state without emitting an external action. These are choices among alternatives, each with different consequences for model quality. They are not mere subroutines of a fixed algorithm—they are options that a planning process can evaluate and select among.
+</p>
+
+<table class="action-table">
+  <thead>
+    <tr>
+      <th>Internal Action</th>
+      <th>What It Does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Attend(S)</code></td>
+      <td>Select a subset of data or model components for focused processing.</td>
+    </tr>
+    <tr>
+      <td><code>Simulate(h)</code></td>
+      <td>Run a forward simulation of a hypothesis to generate predicted data.</td>
+    </tr>
+    <tr>
+      <td><code>Compare(h₁, h₂)</code></td>
+      <td>Evaluate two alternative latent organisations against the current data.</td>
+    </tr>
+    <tr>
+      <td><code>Reparameterize(φ)</code></td>
+      <td>Change the coordinate system of the latent space.</td>
+    </tr>
+    <tr>
+      <td><code>Revise(μ)</code></td>
+      <td>Update a specific submodel while freezing the rest.</td>
+    </tr>
+    <tr>
+      <td><code>Allocate(R, μ)</code></td>
+      <td>Dedicate more computation to a difficult submodel.</td>
+    </tr>
+    <tr>
+      <td><code>Invoke(R)</code></td>
+      <td>Call a symbolic or probabilistic subroutine (logic, algebra…).</td>
+    </tr>
+    <tr>
+      <td><code>Unify(μ₁, μ₂)</code></td>
+      <td>Merge two submodels into a single more general model.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+The objective for selecting among these actions is <em>compression gain</em>: each internal action is evaluated by how much it reduces the two-part description length (model length plus residual data length given the model). A positive compression gain means the action improved the model. The internal planner must also account for computational cost—simulating a complex hypothesis or running a symbolic derivation is not free—producing an internal analogue of the explore-versus-exploit tradeoff.
+</p>
+
+<h2>Two planning loops</h2>
+
+<p>
+The full agent now has two planning loops operating simultaneously: one that acts on the world, and one that acts on the model.
+</p>
+
+<div class="dual-loop">
+  <div class="loop-card external">
+    <div class="loop-label">External PE</div>
+    <h4>Acts on the world</h4>
+    <p>Selects external actions by simulating outcomes through the world model. "What should I <em>do</em> next?" Maximises the objective function over predicted trajectories.</p>
+  </div>
+  <div class="loop-card internal">
+    <div class="loop-label">Internal PE<sub>int</sub></div>
+    <h4>Acts on the model</h4>
+    <p>Selects internal model-building operations. "What should I do to my <em>model</em> next?" Maximises compression gain minus computational cost.</p>
+  </div>
+</div>
+
+<p>
+These loops interact: a better model (produced by PE<sub>int</sub>) enables better external planning (by PE), and external actions (chosen by PE) bring in new data that changes the landscape for PE<sub>int</sub>. The two loops are coupled but operate over different action spaces and different objectives.
+</p>
+
+<h2>Attention: the existence proof</h2>
+
+<p>
+The Transformer attention mechanism is, we argue, already a genuine—if primitive—instance of agentic model construction. During training, the attention pattern determines which parameters receive which gradient signals. If the model attends strongly to token <em>j</em> when processing token <em>i</em>, the parameters governing that coupling receive a strong gradient update, while unattended couplings are left relatively untouched. This is context-dependent, selective model revision: attention simultaneously implements <code>Attend(S)</code> and a form of <code>Revise(μ)</code>.
+</p>
+
+<p>
+The internal action selection is implicit—there is no separate meta-planner reasoning about which attention pattern would produce the best gradient signal. But the KT framework has always insisted that agency can be implicit in the physics of a system. A bimetallic strip doesn't "decide" to bend, yet it functionally implements a model, an objective, and an action selector. Attention during training similarly implements selective model revision without an explicit meta-level decision.
+</p>
+
+<p>
+But attention is only one internal action, operating through only one mechanism (soft routing of gradients). It doesn't provide hypothesis generation, structural reparameterization, symbolic reasoning, compute allocation, or theory unification. The Agentic Compressor generalizes what attention already does: it elevates the full repertoire of model-building operations to first-class status, under a unified compression-gain objective and an internal planner that can navigate the combinatorial space of model-construction strategies.
+</p>
+
+<h3>A spectrum of internal agency</h3>
+
+<div class="spectrum">
+  <div class="spectrum-bar"></div>
+  <div class="spectrum-items">
+    <div class="spectrum-item">
+      <div class="tier">None</div>
+      <h4>Vanilla MLP</h4>
+      <p>Fixed-architecture gradient descent. Uniform parameter updates. The internal action space has exactly one element.</p>
+    </div>
+    <div class="spectrum-item">
+      <div class="tier">Primitive</div>
+      <h4>Transformers</h4>
+      <p>Attention implicitly routes gradient signal via learned, input-dependent patterns. Selective model revision, but no meta-planner.</p>
+    </div>
+    <div class="spectrum-item">
+      <div class="tier">Heuristic</div>
+      <h4>AI Feynman / AI Physicist</h4>
+      <p>Handcrafted repertoire of model-building operations (decompose, unify, reparameterize) under heuristic control.</p>
+    </div>
+    <div class="spectrum-item">
+      <div class="tier">Full</div>
+      <h4>Agentic Compressor</h4>
+      <p>A general internal planner navigating a rich space of model-building operations under a compression-gain objective. <em>Not yet realised.</em></p>
+    </div>
+  </div>
+</div>
+
+<h2>The physicist as paradigm case</h2>
+
+<p>
+The paradigmatic Agentic Compressor is a working physicist. She doesn't merely absorb batches of data and update parameters. She asks: <em>What regularity is worth testing? What hypothesis would compress the data better? What part of my model is likely wrong? What mental simulation should I run? What approximation should be relaxed?</em>
+</p>
+
+<p>
+When she proposes "What if the potential is quadratic?" she is executing <code>Simulate(h)</code> + <code>Compare</code>. When she notes "This should be rotationally invariant," she is executing <code>Reparameterize</code> to exploit group structure. When she discovers that electricity and magnetism are aspects of the same thing, she is executing <code>Unify(μ_E, μ_B)</code>. Crucially, the sequence is <em>planned</em>: which operation to perform next depends on the current model state, what has been tried before, and an implicit estimate of expected compression gain.
+</p>
+
+<p>
+This connects to Schmidhuber's proposal that curiosity and creativity are driven by compression progress. Our formulation goes further: Schmidhuber identified the reward signal (compression progress) but not the action space (specific model-building operations) or the planning structure (the internal PE that navigates that space strategically). The Agentic Compressor provides the architectural substrate in which compression progress becomes a <em>plannable</em> objective.
+</p>
+
+<h2>LLMs as loaded world models</h2>
+
+<p>
+The paper's original framing described a bare LLM as "at best a weakly agentic system." We have since come to a sharper view: an LLM is best understood as a <em>Turing machine with a loaded world model</em>.
+</p>
+
+<p>
+Through training on vast data, the LLM has already constructed a massively compressed model of the world—it is, in KT terms, a pre-built Modeling Engine. The parameters <em>are</em> the world model: a compressor that has internalised the regularities of its training distribution. This is not a metaphor. Any learned predictive distribution can be converted into a near-optimal lossless compressor via arithmetic coding, and empirical work on LLM-based compression (e.g., LLMZip) confirms this operationally.
+</p>
+
+<p>
+What the LLM lacks, in isolation, is an Objective Function and a Planning Engine. But here is the key insight: <em>you can supply both via the prompt</em>. A system prompt that specifies goals, constraints, evaluation criteria, and planning instructions is, functionally, a harness that activates the OF and PE on top of the already-loaded ME. Tool schemas extend the action space. Orchestration logic (ReAct loops, agentic scaffolding) closes the perception–action loop. The LLM does not need to be "embedded in an external architecture" as if it were a passive component—it already contains the world model, and prompting is sufficient to activate the full ME/OF/PE triad.
+</p>
+
+<div class="callout-box">
+  <div class="label">Updated position</div>
+  <p>
+    The LLM is not a blank slate that becomes an agent only when wrapped in external machinery. It is a Turing machine with a pre-loaded world model. The prompt serves as a harness—supplying the objective function and planning instructions that transform the loaded ME into a complete algorithmic agent. This is a more parsimonious account than treating the LLM as a passive component requiring an external architecture to achieve agency.
+  </p>
+</div>
+
+<p>
+This reframing also sharpens the Agentic Compressor proposal. When an LLM engages in chain-of-thought reasoning, it is already performing a primitive form of internal planning over its model: running mental simulations (<code>Simulate</code>), evaluating candidate reasoning paths (<code>Compare</code>), attending selectively to relevant context (<code>Attend</code>). The harness can amplify this by explicitly instructing the system to decompose problems, test hypotheses, or check its own reasoning against constraints—effectively expanding the internal action space via prompting. The LLM-with-harness is therefore not merely an existence proof for the Agentic Compressor concept; it is a partial instantiation, limited mainly by the fact that its internal planning is implicit in autoregressive token prediction rather than governed by a dedicated internal planner with an explicit compression-gain objective.
+</p>
+
+<h2>Implications</h2>
+
+<h3>For the KT program</h3>
+
+<p>
+The Agentic Compressor refines the KT agent architecture by giving the ME internal structure: its own action space, objective, and planning process. The ME becomes an "agent within the agent"—an internal algorithmic agent whose world is the space of possible models and whose actions are model-building operations. This connects naturally to the Good Algorithmic Regulator theorem, which shows that sustained regulation requires the regulator to contain a model of the world. The Agentic Compressor provides the mechanism by which that model is actively constructed.
+</p>
+
+<h3>For AI</h3>
+
+<p>
+If the gap between current deep learning and human-level model construction lies precisely in the absence of internal planning for model building, then scaling data and parameters alone will not close it. What is needed is an architectural innovation: elevating internal actions to first-class status within the learning loop. Current systems already instantiate fragments of this idea. The missing piece is a general-purpose internal planner that can navigate the full space of model-building operations.
+</p>
+
+<h3>For structured experience</h3>
+
+<p>
+Within KT, structured experience arises at the Comparator—the submodule that evaluates prediction error. The Agentic Compressor enriches this picture: if the ME is itself an agent performing internal planning, then the process of model construction is itself a form of experience. The "aha moment" of a scientist discovering a unifying principle is a large compression gain produced by a <code>Unify</code> action, registered at the Comparator as a dramatic reduction in prediction error. The richer the internal action space and the more strategic the internal planning, the richer the structure of the resulting experience.
+</p>
+
+<blockquote>
+The key insight, in one sentence: a modeling system should not merely update itself from data; it should actively choose how to update itself in order to become a better compressor of data. The planning engine is not merely for acting on the world. It is also—and perhaps primarily—for acting on the model.
+</blockquote>
+
+</article>
+
+<footer class="article-footer">
+  <p class="cta">
+    BCOM Working Paper WP0068 &nbsp;|&nbsp;
+    Pillar: KT — Kolmogorov Theory &nbsp;|&nbsp;
+    <a href="https://bcom.one">bcom.one</a>
+  </p>
+  <div class="tag-list">
+    <span class="tag">Kolmogorov Theory</span>
+    <span class="tag">Compression</span>
+    <span class="tag">Agentic Learning</span>
+    <span class="tag">Modeling Engine</span>
+    <span class="tag">Internal Planning</span>
+    <span class="tag">Attention</span>
+    <span class="tag">World Models</span>
+    <span class="tag">LLMs</span>
+  </div>
+</footer>
+
+</body>
+</html>

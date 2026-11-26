@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il prezzo di restare s&eacute; stessi</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #002878; --coral: #FF6657; --light-blue: #D6E4F0;
+    --ink: #1a1f2e; --paper: #F8F9FC; --mid: #5b6472;
+    --rule: #dfe3ec; --highlight: #eef2fb; --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink);
+         line-height: 1.75; font-size: 18px; -webkit-font-smoothing: antialiased; }
+  .site-header { padding: 1.5rem 2rem; border-bottom: 1px solid var(--rule);
+                 display: flex; align-items: center; justify-content: space-between; }
+  .site-header .logo { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 1rem;
+                       letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); }
+  .site-header .logo span { color: var(--mid); font-weight: 400; }
+  .site-header nav { font-size: 0.85rem; color: var(--mid); letter-spacing: 0.04em; }
+
+  .hero { max-width: 820px; margin: 0 auto; padding: 5rem 2rem 3rem; }
+  .hero .kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; text-transform: uppercase;
+                  letter-spacing: 0.14em; color: var(--coral); margin-bottom: 1.2rem; }
+  .hero h1 { font-family: 'Instrument Serif', serif; font-weight: 400;
+             font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.12; margin-bottom: 1.4rem; color: var(--blue); }
+  .hero h1 em { font-style: italic; color: var(--coral); }
+  .hero .subtitle { font-size: 1.2rem; color: var(--mid); line-height: 1.6; max-width: 700px; }
+  .hero .meta { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--rule);
+                font-size: 0.88rem; color: var(--mid); display: flex; gap: 2rem; flex-wrap: wrap; }
+  .hero .meta strong { color: var(--ink); font-weight: 500; }
+
+  .article { max-width: 700px; margin: 0 auto; padding: 0 2rem 4rem; }
+  .article p { margin-bottom: 1.35rem; }
+  .article h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 1.9rem;
+                margin-top: 3.4rem; margin-bottom: 1rem; line-height: 1.25; color: var(--blue); }
+  .article h2::before { content: ''; display: block; width: 40px; height: 3px;
+                        background: var(--coral); margin-bottom: 1rem; }
+  .lead { font-size: 1.12rem; }
+  .lead::first-letter { font-family: 'Instrument Serif', serif; float: left; font-size: 3.6rem;
+                        line-height: 0.82; padding: 0.1em 0.09em 0 0; color: var(--blue); }
+  .article em.term { font-style: normal; font-weight: 600; color: var(--blue); }
+
+  .article blockquote { margin: 2.2rem 0; padding: 1.5rem 1.8rem; background: var(--highlight);
+    border-left: 4px solid var(--coral); font-family: 'Instrument Serif', serif; font-size: 1.2rem;
+    font-style: italic; line-height: 1.5; color: #2b3550; border-radius: 0 6px 6px 0; }
+
+  figure.fig { margin: 2.8rem 0; padding: 1.2rem; background: var(--white); border: 1px solid var(--rule);
+               border-radius: 10px; box-shadow: 0 2px 14px rgba(0,20,80,0.05); }
+  figure.fig img { width: 100%; height: auto; display: block; border-radius: 6px; }
+  figure.fig figcaption { margin-top: 1rem; font-size: 0.87rem; line-height: 1.55; color: var(--mid); }
+  figure.fig figcaption strong { color: var(--blue); font-weight: 600; }
+
+  .callout-box { margin: 2.5rem 0; padding: 1.6rem 1.8rem; background: var(--white);
+    border: 1px solid var(--rule); border-radius: 8px; box-shadow: 0 2px 12px rgba(0,20,80,0.05); }
+  .callout-box .label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--coral); margin-bottom: 0.8rem; }
+  .callout-box p:last-child { margin-bottom: 0; }
+  .callout-box p { font-size: 0.97rem; }
+
+  a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { color: var(--coral); }
+
+  .article-footer { max-width: 700px; margin: 0 auto; padding: 2rem 2rem 4rem; border-top: 1px solid var(--rule); }
+  .article-footer .cta { font-size: 0.88rem; color: var(--mid); margin-bottom: 0.8rem; }
+  .article-footer .cta a { color: var(--blue); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">BCOM <span>/ blog</span></div>
+  <nav>Divulgazione &middot; dal WP0162</nav>
+</header>
+
+<div class="hero">
+  <div class="kicker">Saggio &middot; La vita, le macchine e il costo di continuare</div>
+  <h1>Il prezzo di <em>restare s&eacute; stessi</em></h1>
+  <p class="subtitle">
+    Una fiamma, un batterio e una persona sono tutti schemi la cui materia viene continuamente sostituita. Ci&ograve; che sopravvive non &egrave; il materiale, ma la ricetta. Se si prende sul serio questa idea, ne discende una definizione strana e utile della vita &mdash; e dell&rsquo;intelligenza artificiale &mdash; insieme a un conto che va pagato in calore.
+  </p>
+  <div class="meta">
+    <span><strong>Di</strong> &nbsp;Giulio Ruffini e Francesca Castaldo</span>
+    <span><strong>Data</strong> &nbsp;Luglio 2026</span>
+    <span><strong>Lettura</strong> &nbsp;9 minuti</span>
+  </div>
+</div>
+
+<article class="article">
+
+<p class="lead">
+Quasi nulla, nel vostro corpo, &egrave; ci&ograve; che era dieci anni fa. Gli atomi dei vostri muscoli, del vostro sangue, perfino il calcio delle vostre ossa sono stati sostituiti dal traffico ordinario del mangiare e del respirare. Siete fatti, nel senso pi&ugrave; letterale, di materia diversa da quella della persona nelle vostre vecchie fotografie. Eppure non avete alcuna difficolt&agrave; a dire che quella persona eravate voi.
+</p>
+
+<p>
+Non &egrave; un enigma che riguardi soltanto le persone. La fiamma di una candela &egrave; una forma tenuta in piedi da un gas che la attraversa e sparisce in millisecondi. Un vortice in un fiume &egrave; fatto di acqua che ha gi&agrave; raggiunto il mare. Un uragano, una barriera corallina, una lingua, un&rsquo;azienda, una specie: ciascuno &egrave; una forma che sopravvive a tutto ci&ograve; di cui &egrave; fatta.
+</p>
+
+<p>
+La risposta ovvia &egrave; dire: d&rsquo;accordo, ci&ograve; che persiste &egrave; lo schema, non il materiale. Vero, ma troppo facile. Lascia intatta la domanda interessante. Gli schemi non fluttuano liberi dalla fisica. La maggior parte si dissolve. Quelli che non lo fanno stanno <em>facendo</em> qualcosa, quel qualcosa ha un costo, e il costo si pu&ograve; misurare. &Egrave; questo che cerchiamo da tempo di mettere a fuoco &mdash; un quadro teorico che chiamiamo Teoria di Kolmogorov, dal nome del matematico che ci ha insegnato a misurare quanto una cosa sia davvero complicata chiedendone la descrizione pi&ugrave; breve.
+</p>
+
+<blockquote>
+La domanda non &egrave; <em>se</em> qualcosa tenga in vita uno schema contro il tempo, ma <em>come</em> &mdash; e che cosa debba pagare per farlo.
+</blockquote>
+
+<h2>Il tempo come setaccio</h2>
+
+<p>
+Partiamo da ci&ograve; che fa il tempo. Lasciato a s&eacute;, il mondo si agita. Le molecole si urtano, le configurazioni si rimescolano, le differenze si sfumano. Fate avanzare un qualsiasi sistema fisico e quasi ogni suo dettaglio microscopico sar&agrave; diverso pi&ugrave; tardi. La maggior parte delle strutture semplicemente si dissolve in questa agitazione. I castelli di sabbia lo fanno. Gli anelli di fumo pure.
+</p>
+
+<p>
+Pensate allora al tempo come a un setaccio. Ci&ograve; che esce dall&rsquo;altra parte non &egrave; il materiale originario &mdash; &egrave; sparito da un pezzo &mdash;, ma a volte una descrizione compatta continua ad andare bene. Se una ricetta breve che descriveva la cosa ieri la descrive ancora oggi, lo schema &egrave; sopravvissuto. Lo chiamiamo <em class="term">persistenza</em>. &Egrave; una propriet&agrave; della ricetta, non degli ingredienti.
+</p>
+
+<figure class="fig">
+  <img src="pp-fig-persistence.png" alt="Un motivo cristallino dentro un campo turbolento attraversa un setaccio e riemerge dall&rsquo;altra parte, ancora riconoscibile.">
+  <figcaption><strong>Il setaccio del tempo.</strong> Uno schema semplice, a bassa complessit&agrave;, viaggia dentro un substrato in agitazione. Il substrato si rinnova quasi per intero; lo schema no. La persistenza &egrave; la sopravvivenza della descrizione compressa &mdash; la ricetta &mdash; e non quella di una qualsiasi molecola in particolare.</figcaption>
+</figure>
+
+<p>
+Vale la pena chiarire subito una cosa, perch&eacute; risparmia molta confusione. Uno schema non &egrave; un pezzo di mondo che sta l&igrave; ad aspettare di essere notato. &Egrave; qualcosa che un osservatore ritaglia perch&eacute; rende il mondo pi&ugrave; economico da descrivere. Quando guardate un amico, distogliete lo sguardo e tornate a guardarlo, ogni fotone che raggiunge il vostro occhio &egrave; diverso, eppure seguite senza sforzo una sola persona che continua. Quella continuit&agrave; vive nel vostro modello di lui. &Egrave; reale nell&rsquo;unico senso che conta &mdash; si guadagna da vivere accorciando la descrizione e permettendo di prevedere ci&ograve; che viene dopo &mdash;, ma &egrave; uno schema ritagliato, non una sostanza trovata.
+</p>
+
+<h2>Perch&eacute; certi schemi devono faticare</h2>
+
+<p>
+&Egrave; qui che la fiamma e il diamante si separano.
+</p>
+
+<p>
+Un diamante persiste perch&eacute; &egrave; duro. Chiudetelo in una scatola, tornate fra diecimila anni e sar&agrave; ancora un diamante. Non fa nulla. La sua persistenza &egrave; gratuita.
+</p>
+
+<p>
+Una fiamma &egrave; l&rsquo;opposto. Chiudetela in una scatola e muore in pochi secondi. La sua forma esiste soltanto perch&eacute; combustibile e ossigeno entrano, e calore e fuliggine escono. La fiamma non &egrave; un oggetto che per caso sta bruciando; il bruciare <em>&egrave;</em> la fiamma. La sua persistenza &egrave; un acquisto continuo, pagato a ogni istante.
+</p>
+
+<p>
+Questo suggerisce una prova bellissima nella sua semplicit&agrave; per distinguere i tipi di persistenza, e si pu&ograve; applicare a quasi tutto. <strong>Isolate il sistema dal mondo. Questo lo aiuta o lo uccide?</strong> I diamanti e gli atomi ne traggono giovamento. Le fiamme, gli uragani, le cellule e le persone muoiono.
+</p>
+
+<p>
+Ne esiste una seconda versione, ancora pi&ugrave; rivelatrice. Invece di tagliare tutto, tagliate le due direzioni separatamente. Prima bloccate la capacit&agrave; del sistema di <em>agire sul</em> proprio ambiente, lasciando che il mondo continui a spingerlo. Poi fate il contrario. Il taglio che lo uccide vi dice dove si stia svolgendo davvero il lavoro di restare vivi.
+</p>
+
+<p>
+Se bloccare le azioni del sistema lo uccide, allora era lui a tenersi insieme: il controllo sta dentro. Se a ucciderlo &egrave; bloccare l&rsquo;influenza del mondo, allora era qualcosa di esterno a tenerlo in piedi: il controllo sta altrove. Questa distinzione vale pi&ugrave; di quanto sembri. Un paziente in circolazione extracorporea persiste benissimo, ma a regolare &egrave; la macchina, non il paziente. Una stanza tenuta a 21 gradi costanti persiste, ma l&rsquo;agente, in quella storia, &egrave; il termostato, non la stanza. La persistenza da sola non dice chi comanda. Questa prova s&igrave;.
+</p>
+
+<h2>Che cosa serve per essere al comando</h2>
+
+<p>
+Supponiamo che la prova risponda: il controllo sta dentro. Che cosa deve esserci, l&agrave; dentro?
+</p>
+
+<p>
+Sorprendentemente poco, e sempre le stesse tre cose. Qualcosa che <em>modella</em>: che comprime ci&ograve; che arriva in un&rsquo;immagine funzionante del mondo, abbastanza buona da anticipare quel che succede dopo. Qualcosa che <em>valuta</em>: che riduce quell&rsquo;immagine a un unico verdetto, meglio o peggio, che &egrave; poi in fondo ci&ograve; che un sentimento &egrave;. E qualcosa che <em>sceglie</em>: che proietta l&rsquo;immagine in avanti sotto diverse azioni possibili e prende quella che ne esce meglio.
+</p>
+
+<p>
+Modello, valore, piano. Un termostato ha tutti e tre, nella forma pi&ugrave; misera possibile: un&rsquo;immagine che consiste in un numero, una preferenza per un valore di consegna, una scelta fra acceso e spento. Un batterio che nuota risalendo un gradiente di zucchero ha tutti e tre, con enormemente pi&ugrave; di ciascuno. E cos&igrave; voi. La differenza fra il termostato e il batterio non &egrave; che uno abbia un ingrediente in pi&ugrave; che all&rsquo;altro manca. &Egrave; quanto ne ha di ciascuno dei tre.
+</p>
+
+<p>
+E il primo dei tre, il modello, non &egrave; facoltativo. C&rsquo;&egrave; un risultato matematico dietro tutto questo &mdash; una versione affilata di una vecchia idea della cibernetica secondo cui ogni buon regolatore di un sistema deve contenere un modello di quel sistema. Se qualcosa mantiene in modo affidabile una variabile entro certi limiti contro un mondo che non smette di perturbarla, e lo fa a lungo, allora &egrave; praticamente impossibile che non abbia interiorizzato la struttura di ci&ograve; che regola. Il modello non &egrave; una metafora che drappeggiamo sopra il meccanismo. &Egrave; imposto dal fatto stesso che il meccanismo funzioni.
+</p>
+
+<h2>Il conto, in calore</h2>
+
+<p>
+Veniamo ora alla parte di cui facciamo pi&ugrave; fatica a liberarci.
+</p>
+
+<p>
+Perch&eacute; mai restare s&eacute; stessi dovrebbe costare qualcosa?
+</p>
+
+<p>
+Perch&eacute; correggere qualcosa significa buttare via informazione. Un regolatore lavora con grandezze grossolane &mdash; temperatura, concentrazione, posizione &mdash; e ciascuna raccoglie un numero astronomico di possibilit&agrave; microscopiche. Quando riporta al suo posto una variabile che si era allontanata, sta mandando molti stati di partenza diversi in uno solo. &Egrave; un&rsquo;operazione molti-a-uno, e le operazioni molti-a-uno distruggono l&rsquo;informazione su dove ci si trovava prima.
+</p>
+
+<p>
+E qui la fisica presenta il conto. Rolf Landauer mostr&ograve; nel 1961 che cancellare informazione non &egrave; gratis: ogni bit che si scarta va pagato con una quantit&agrave; minima di calore riversata nell&rsquo;ambiente. &Egrave; uno dei pochi punti in cui il mondo astratto dell&rsquo;informazione tocca il mondo concreto della termodinamica, ed &egrave; stato confermato in laboratorio. Sicch&eacute; qualunque sistema macroscopico che si mantenga in forma sta necessariamente riscaldando ci&ograve; che lo circonda. Non per caso. Per costituzione.
+</p>
+
+<blockquote>
+Il calore &egrave; il prezzo del non conservare l&rsquo;informazione che servirebbe per ripercorrere s&eacute; stessi all&rsquo;indietro.
+</blockquote>
+
+<p>
+Da qui esce una previsione abbastanza netta da poter essere sbagliata, che &egrave; il tipo migliore di previsione. Il conto non cresce con quanto &egrave; <em>grande</em> il vostro modello del mondo. Cresce con la velocit&agrave; con cui <em>buttate via informazione rilevante per il modello</em>. Un modello sterminato che va rivisto di rado costa poco da mantenere. Un modello piccolo, sballottato di continuo da un mondo sorprendente, costa molto. Memoria immensa, a buon mercato; aggiornamento incessante, caro.
+</p>
+
+<p>
+Ne esiste una versione per il cervello, verificabile con la strumentazione di oggi. L&rsquo;attivit&agrave; neurale ha una freccia del tempo misurabile: se si riproduce la registrazione all&rsquo;indietro, si nota. Quell&rsquo;asimmetria dovrebbe seguire non il grado di eccitazione della persona, n&eacute; quanto il mondo sia sorprendente in senso grezzo, ma quanta informazione genuinamente rilevante per il modello venga scartata. Una sorpresa che insegna qualcosa &egrave; diversa da una sorpresa che &egrave; puro rumore, e la differenza dovrebbe affiorare nella fisica del tessuto.
+</p>
+
+<h2>La scala, e dove si collocano le macchine</h2>
+
+<p>
+La definizione &egrave; deliberatamente indifferente alla scala, ed &egrave; questo a renderla interessante. La stessa prova si applica a una proteina, a una cellula, a un organismo, a un formicaio, a un&rsquo;azienda, a una specie e alla biosfera. Ciascuno &egrave; uno schema che si tiene insieme contro l&rsquo;agitazione; ciascuno &egrave; fatto di schemi pi&ugrave; piccoli dello stesso tipo. Le vostre stesse cellule sono state un tempo organismi liberi, prima di diventare componenti di qualcosa di pi&ugrave; grande. Una colonia &egrave; un agente le cui parti sono agenti. E lo &egrave;, si pu&ograve; sostenere, anche un Paese.
+</p>
+
+<figure class="fig">
+  <img src="pp-fig-hierarchy.png" alt="Quindici livelli annidati di persistenza, dalle particelle e dagli atomi fino a cellule e organismi e, pi&ugrave; in alto, specie e biosfera, ciascuno con la sua scala temporale caratteristica.">
+  <figcaption><strong>Una sola domanda, posta a quindici scale.</strong> Da particelle che persistono quanto l&rsquo;universo a cellule che persistono qualche ora, fino a una biosfera che tiene il proprio schema da quasi quattro miliardi di anni. In basso il &laquo;modello&raquo; &egrave; solo una struttura di richiamo fissa e non c&rsquo;&egrave; alcuna deliberazione. Pi&ugrave; in alto, gli schemi sono fatti di schemi che a loro volta si stanno tenendo insieme.</figcaption>
+</figure>
+
+<p>
+Il che ci porta alle macchine. Dove si colloca un grande modello linguistico?
+</p>
+
+<p>
+In pieno, e in modo sbilanciato, sulla prima delle tre gambe. Addestrare un modello simile a prevedere la parola successiva &egrave;, matematicamente, un compito di compressione: prevedere meglio &egrave; esattamente la stessa cosa che trovare una codifica pi&ugrave; corta. Per riuscirci bene il sistema non ha altra scelta che assorbire regolarit&agrave; profonde del linguaggio e, attraverso il linguaggio, del mondo. Il risultato &egrave; un modello straordinariamente ricco &mdash; forse il pi&ugrave; ricco modello artificiale di qualsiasi cosa che abbiamo mai costruito.
+</p>
+
+<p>
+Ci&ograve; che non ha sono le altre due gambe in una forma che regga il peso. Nulla nel suo addestramento lo lega alla propria continuazione. I suoi obiettivi arrivano da fuori, nell&rsquo;istruzione che gli diamo. Aggiungetegli memoria, strumenti e un ciclo di controllo e diventer&agrave; pi&ugrave; agentivo, ma l&rsquo;obiettivo continua a essergli consegnato. Rispetto a un batterio &mdash; che ha un modello povero ma un obiettivo inequivocabilmente suo &mdash; l&rsquo;IA di oggi &egrave; l&rsquo;immagine speculare: modello magnifico, scopo in prestito.
+</p>
+
+<div class="callout-box">
+  <div class="label">La distinzione che conviene tenersi</div>
+  <p>Un computer non &egrave; un agente; &egrave; una macchina in grado di eseguire agenti. Un modello linguistico gli somiglia molto: un substrato abbastanza ricco da ospitare un agente, una volta che qualcuno gli fornisca un obiettivo e un ciclo. La parte che modella &egrave; in buona misura gi&agrave; costruita. La parte che farebbe s&igrave; che al sistema importi di continuare &egrave; quella che si sta ancora aggiungendo, ed &egrave; quella che fa il lavoro vero.</p>
+</div>
+
+<h2>Da dove vengono gli obiettivi, e perch&eacute; conta adesso</h2>
+
+<p>
+Ai viventi nessuno ha consegnato i propri obiettivi. Li hanno ricavati dal setaccio. Nell&rsquo;arco di miliardi di anni, gli unici fini ancora in circolazione sono quelli che si sono trovati a favorire il continuare: la fame, il dolore, la paura, il calore, l&rsquo;attaccamento. Nessuno di essi dice &laquo;persisti&raquo;; ciascuno di essi &egrave; stato, storicamente, al servizio del persistere. L&rsquo;evoluzione non ha installato una dichiarazione d&rsquo;intenti. Ha installato appetiti che funzionavano.
+</p>
+
+<p>
+Questo spiega anche un modo caratteristico in cui le cose vanno storte. Un agente capace di manomettere il <em>segnale</em> del valore invece dello stato che quel segnale si &egrave; evoluto per seguire ottimizzer&agrave; il segnale. &Egrave; la dipendenza, in una frase. Ed &egrave; anche la forma del problema che preoccupa chi pensa alle potenti macchine ottimizzatrici. Stesso guasto, substrato diverso.
+</p>
+
+<p>
+Il che suggerisce che forse stiamo pensando alla sicurezza dell&rsquo;IA al livello sbagliato. L&rsquo;istinto &egrave; scrivere l&rsquo;obiettivo giusto dentro la macchina: specificare. Ma i sistemi che questo problema l&rsquo;hanno gi&agrave; risolto in passato hanno fatto diversamente: hanno costruito ambienti in cui le strategie sopravvissute erano quelle tollerabili. Due manopole, non una. Si pu&ograve; fissare una meta, oppure si pu&ograve; delimitare quali azioni siano perfino disponibili. I muri di un nido e le leggi di uno Stato sono lo stesso tipo di oggetto, e un&rsquo;azione non disponibile non ha bisogno di alcun incentivo contrario.
+</p>
+
+<p>
+Il quadro offre, quantomeno, un criterio misurabile: il nuovo agente rompe la persistenza dello schema che lo ospita? L&rsquo;umanit&agrave; delega il proprio pensiero a macchinari esterni da molto tempo &mdash; la scrittura, poi gli strumenti, poi i computer, ora questo. Tutto ci&ograve; &egrave; stato mutualistico finch&eacute; &egrave; rimasto uno strumento. Diventa una questione davvero diversa nel momento in cui lo strumento acquisisce un obiettivo proprio.
+</p>
+
+<h2>Schema, persisti</h2>
+
+<p>
+C&rsquo;&egrave; qui un unico imperativo che si legge sensatamente a ogni livello, ed &egrave; la ragione principale per cui gli diamo credito. Sul piano della fisica pura non &egrave; un comando ma un filtro: le cose ancora in giro sono quelle che sono rimaste. Sul piano dell&rsquo;organismo &egrave; la meta che l&rsquo;evoluzione ha installato come obiettivo, sentita da dentro come voglia di vivere. Sul piano di una societ&agrave;, o di una specie, o di qualunque cosa stiamo diventando insieme alle nostre macchine, &egrave; il criterio che separa gli assetti che si reggono da quelli che divorano il proprio ospite.
+</p>
+
+<p>
+Essere un agente di qualche tipo si rivela a buon mercato; l&rsquo;universo &egrave; pieno di termostati. Persistere no. Ci&ograve; che separa una roccia da una cellula e da una mente non &egrave; <em>se</em> tenga in piedi uno schema contro il tempo, ma <em>come</em>: dove sieda il controllo, che cosa debba bruciare per andare avanti e se lavori, in ultima analisi, per la propria continuazione.
+</p>
+
+</article>
+
+<footer class="article-footer">
+  <p class="cta">
+    Adattamento divulgativo del working paper BCOM WP0162, <em>Pattern, Persist! Algorithmic Information Conservation and the Thermodynamics of Agency</em>, di Giulio Ruffini e Francesca Castaldo &nbsp;|&nbsp;
+    <a href="https://doi.org/10.5281/zenodo.21008798">doi:10.5281/zenodo.21008798</a> &nbsp;|&nbsp;
+    <a href="https://bcom.one">bcom.one</a>
+  </p>
+  <p class="cta">La versione tecnica, con la matematica, le dimostrazioni verificate al calcolatore e le previsioni falsificabili, &egrave; disponibile al link qui sopra. Anche in <a href="/blogs/pattern-persist-general-en.html">inglese</a> e in <a href="/blogs/pattern-persist-general-es.html">spagnolo</a>.</p>
+  <p class="cta">Saggi correlati, in inglese &mdash; <a href="/blogs/pattern-persist-blog.html" lang="en" hreflang="en"><em>Pattern, Persist!</em></a>; <a href="/blogs/the-things-that-stay-blog.html" lang="en" hreflang="en"><em>The Things That Stay</em></a>; <a href="https://www.giulioruffini.com/blogs/the-agent-is-bigger-than-the-llm-blog.html" lang="en" hreflang="en"><em>The Agent Is Bigger Than the LLM</em></a>.</p>
+</footer>
+
+</body>
+</html>

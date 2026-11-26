@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swapping Algebraic Twins Without Breaking Math — An Introduction to Galois Theory</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e1117;
+    --bg-surface: #161b22;
+    --bg-raised: #1c2230;
+    --text: #c9d1d9;
+    --text-bright: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #64b5f6;
+    --accent-warm: #f0a862;
+    --accent-rose: #e8839a;
+    --accent-green: #7ec8a0;
+    --border: #30363d;
+    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 18px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* --- Hero --- */
+  .hero {
+    position: relative;
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(100,181,246,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 80% 70%, rgba(240,168,98,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-kicker {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--text-bright);
+    line-height: 1.2;
+    max-width: 820px;
+    margin: 0 auto 0.6rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent-warm);
+  }
+  .hero-subtitle {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-style: italic;
+  }
+  .hero-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--sans);
+  }
+  .hero-meta a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(100,181,246,0.3);
+  }
+  .hero-meta a:hover { border-bottom-color: var(--accent); }
+
+  /* --- Layout --- */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  article { padding: 3rem 0 5rem; }
+
+  /* --- Typography --- */
+  h2 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.9rem;
+    color: var(--text-bright);
+    margin: 3.5rem 0 1rem;
+    line-height: 1.25;
+    position: relative;
+  }
+  h2 .section-num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--accent-warm);
+    margin: 2.2rem 0 0.6rem;
+  }
+  p { margin-bottom: 1.2rem; }
+
+  strong { color: var(--text-bright); font-weight: 600; }
+
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(100,181,246,0.25); }
+  a:hover { border-bottom-color: var(--accent); }
+
+  /* --- Blockquotes --- */
+  blockquote {
+    border-left: 3px solid var(--accent-warm);
+    padding: 1rem 1.4rem;
+    margin: 1.8rem 0;
+    background: rgba(240,168,98,0.04);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-bright);
+    line-height: 1.7;
+  }
+  blockquote p:last-child { margin-bottom: 0; }
+
+  /* --- Insight boxes --- */
+  .insight {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 1.4rem 1.6rem;
+    margin: 2rem 0;
+  }
+  .insight-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .insight p:last-child { margin-bottom: 0; }
+
+  /* --- Math displays --- */
+  .math-display {
+    overflow-x: auto;
+    margin: 1.6rem 0;
+    padding: 1rem 0;
+    text-align: center;
+  }
+
+  /* --- Table --- */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.8rem 0;
+    font-size: 0.88rem;
+  }
+  .comparison-table th {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: left;
+    padding: 0.7rem 1rem;
+    border-bottom: 2px solid var(--border);
+    background: var(--bg-surface);
+  }
+  .comparison-table td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .comparison-table tr:last-child td { border-bottom: none; }
+  .comparison-table td:first-child { font-weight: 600; color: var(--text-bright); white-space: nowrap; }
+
+  /* --- Checkmark --- */
+  .check { color: var(--accent-green); }
+
+  /* --- Divider --- */
+  .divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 3rem 0;
+  }
+
+  /* --- Cycle diagram --- */
+  .cycle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 1.5rem 0;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+  .cycle-step {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.35rem 0.8rem;
+    color: var(--text-bright);
+    font-weight: 500;
+  }
+  .cycle-arrow { color: var(--accent-warm); font-size: 1rem; }
+
+  /* --- Footer --- */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .footer a { color: var(--accent); }
+
+  /* --- Reading list --- */
+  .reading-list {
+    list-style: none;
+    padding: 0;
+  }
+  .reading-list li {
+    padding: 0.5rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    font-size: 0.9rem;
+  }
+  .reading-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-warm);
+  }
+
+  /* --- Lead paragraph --- */
+  .lead {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--text-bright);
+    line-height: 1.75;
+    font-weight: 400;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 640px) {
+    html { font-size: 16px; }
+    .hero { padding: 4rem 1.2rem 3rem; }
+    h2 { font-size: 1.6rem; }
+    .comparison-table { font-size: 0.8rem; }
+    .comparison-table td, .comparison-table th { padding: 0.5rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero">
+  <div class="hero-kicker">BCOM Working Paper WP0052</div>
+  <h1>Swapping <em>Algebraic Twins</em> Without Breaking Math</h1>
+  <p class="hero-subtitle">An Introduction to Galois Theory &mdash; with connections to compositionality, AIT, and learning</p>
+  <p class="hero-meta">
+    <strong>Giulio Ruffini</strong> &middot; Neuroelectrics / BCOM &middot; February 2026<br>
+    Based on <a href="https://zenodo.org/records/18448595" target="_blank">BCOM WP0052 on Zenodo</a> (CC BY 4.0)
+  </p>
+</header>
+
+<!-- ==================== ARTICLE ==================== -->
+<div class="container">
+<article>
+
+<p class="lead">In elementary algebra you learn to <em>solve</em> equations&mdash;find the numbers that make them true. Galois theory asks a stranger, deeper question: <strong>can you swap the solutions around without anyone noticing?</strong></p>
+
+<p>That question&mdash;which sounds almost like a prank&mdash;turns out to be one of the most powerful ideas in all of mathematics. It explains why we have a quadratic formula but no quintic formula, connects polynomial roots to the geometry of the icosahedron, and even sheds light on why deep neural networks work. This post walks through the main ideas, starting from the simplest possible example.</p>
+
+<hr class="divider">
+
+<!-- ============ §1 ============ -->
+<h2><span class="section-num">01</span>The "Hello World" Example: $\mathbb{Q}(i)$</h2>
+
+<p>Consider the equation $x^2 + 1 = 0$. Over the rationals $\mathbb{Q}$, this has no solutions. So we <em>expand the universe</em>: adjoin a root, call it $i$, and build the <strong>extension field</strong></p>
+
+<div class="math-display">$$\mathbb{Q}(i) = \{ a + bi \mid a, b \in \mathbb{Q} \}.$$</div>
+
+<p>This is our stage. The rationals $\mathbb{Q}$ sit inside it as the <strong>base field</strong>&mdash;the part of the world we already understand. The new element $i$ is defined entirely by the constraint $i^2 = -1$.</p>
+
+<p>Now here's the key observation. There are <em>two</em> numbers in $\mathbb{Q}(i)$ that square to $-1$: the element $i$, and the element $-i$. From the viewpoint of $\mathbb{Q}$ alone, these two are <strong>algebraically identical</strong>&mdash;no polynomial test with rational coefficients can tell them apart. They are <em>algebraic twins</em>.</p>
+
+<h3>What Is an Automorphism?</h3>
+
+<p>An <strong>automorphism</strong> of $\mathbb{Q}(i)$ over $\mathbb{Q}$ is a bijection $\sigma\colon \mathbb{Q}(i) \to \mathbb{Q}(i)$ that:</p>
+
+<p><strong>1. Preserves structure:</strong> $\;\sigma(\alpha + \beta) = \sigma(\alpha) + \sigma(\beta)$ and $\sigma(\alpha \cdot \beta) = \sigma(\alpha) \cdot \sigma(\beta)$.</p>
+<p><strong>2. Fixes the base field:</strong> $\;\sigma(q) = q$ for all $q \in \mathbb{Q}$.</p>
+
+<p>Since every element in $\mathbb{Q}(i)$ looks like $a + bi$ and $\sigma$ must fix $a$ and $b$ (they're rational), the entire map is pinned down by a single choice: <em>where does $i$ go?</em></p>
+
+<p>Applying $\sigma$ to the defining relation $i^2 = -1$ gives $\sigma(i)^2 = -1$, so $\sigma(i)$ must itself be a square root of $-1$. The only candidates are $i$ and $-i$. That gives us exactly two automorphisms:</p>
+
+<p><strong>Identity:</strong> $\sigma(i) = i$. Everything stays put.<br>
+<strong>Conjugation:</strong> $\sigma(i) = -i$. This sends $a + bi \mapsto a - bi$&mdash;a reflection across the real axis.</p>
+
+<p>The set of these two maps forms the <strong>Galois group</strong> $\operatorname{Gal}(\mathbb{Q}(i)/\mathbb{Q}) \cong C_2$.</p>
+
+<h3>Why the Swap Works</h3>
+
+<p>It's worth checking that conjugation doesn't break anything. The defining relation says $i \cdot i = -1$. Replace $i$ with $-i$:</p>
+
+<div class="math-display">$$(-i)(-i) = (-1)(-1)(i \cdot i) = 1 \cdot (-1) = -1. \quad \checkmark$$</div>
+
+<p>The swap is legal precisely because the algebraic twin obeys the same rules. This isn't a coincidence&mdash;it's the entire point.</p>
+
+<hr class="divider">
+
+<!-- ============ §2 ============ -->
+<h2><span class="section-num">02</span>The Cascade Effect</h2>
+
+<p>At first glance, defining a map on an infinite field sounds daunting. But there's a beautiful shortcut.</p>
+
+<div class="insight">
+  <div class="insight-label">Theorem — Determination by Generators</div>
+  <p>If $K = \mathbb{Q}(\alpha_1, \ldots, \alpha_n)$, then any automorphism $\sigma$ fixing $\mathbb{Q}$ is completely determined by the values $\sigma(\alpha_1), \ldots, \sigma(\alpha_n)$.</p>
+</div>
+
+<p>The idea is simple: every element of $K$ is a polynomial expression in the generators with rational coefficients. Structure preservation and base-fixing together force $\sigma$ to propagate through the polynomial like falling dominoes:</p>
+
+<div class="math-display">$$\sigma\!\left(\sum_k c_k\, \alpha_1^{p_1}\!\cdots\alpha_n^{p_n}\right) = \sum_k c_k\, \sigma(\alpha_1)^{p_1}\!\cdots\sigma(\alpha_n)^{p_n}.$$</div>
+
+<p>Once you decide where the generators go, the fate of the entire infinite field is sealed.</p>
+
+<h3>Indistinguishability</h3>
+
+<p>This cascade has a striking consequence. If $P(x)$ is any polynomial with rational coefficients and $P(i) = 0$, then applying $\sigma$ to both sides immediately gives $P(-i) = 0$.</p>
+
+<blockquote>No algebraic test using rational coefficients can distinguish $i$ from $-i$.</blockquote>
+
+<p>A quick sanity check: the polynomial $P(x) = x^3 + i$ has $i$ as a root but <em>not</em> $-i$. Contradiction? No&mdash;the coefficient $i$ is not in $\mathbb{Q}$. The theorem only applies to base-field polynomials. Applying conjugation to $x^3 + i = 0$ transforms the <em>equation itself</em> into $x^3 - i = 0$.</p>
+
+<hr class="divider">
+
+<!-- ============ §3 ============ -->
+<h2><span class="section-num">03</span>Why the Reals Are Rigid</h2>
+
+<p>Can we play the same game with $\mathbb{R}$?</p>
+
+<p><strong>Attempt 1&mdash;Flip signs:</strong> Try $\sigma(x) = -x$. This preserves addition, but $\sigma(1 \cdot 1) = -1$ while $\sigma(1)\cdot\sigma(1) = 1$. Multiplication breaks.</p>
+
+<p><strong>Attempt 2&mdash;Scale:</strong> Try $\sigma(x) = \alpha x$. Then $\sigma(xy) = \alpha xy$ but $\sigma(x)\sigma(y) = \alpha^2 xy$, forcing $\alpha = 1$ or $\alpha = 0$.</p>
+
+<p>More deeply: positive reals have square roots in $\mathbb{R}$ while negative reals don't. Any automorphism must send squares to squares, which locks the ordering in place. The upshot: <strong>$\mathbb{R}$ has no non-trivial automorphisms</strong>&mdash;it's <em>rigid</em>. Galois theory is the study of fields that are "floppy" enough to admit non-trivial swaps.</p>
+
+<hr class="divider">
+
+<!-- ============ §4 ============ -->
+<h2><span class="section-num">04</span>The Galois Group Is Not Just Permutations</h2>
+
+<p>A polynomial of degree $n$ has $n$ roots, so the Galois group always lives inside the symmetric group $S_n$. But it is often <em>much</em> smaller, because roots can be locked together by algebraic relations.</p>
+
+<h3>The Cyclotomic Example</h3>
+
+<p>Take the 5th cyclotomic polynomial $x^4 + x^3 + x^2 + x + 1 = 0$, whose roots are $\zeta, \zeta^2, \zeta^3, \zeta^4$ with $\zeta = e^{2\pi i/5}$. Four roots, so naively up to $4! = 24$ symmetries. But the Galois group has only <strong>4 elements</strong>.</p>
+
+<p>Why? The roots are <em>powers</em> of each other. If $\tau$ sends $\zeta \mapsto \zeta^2$, then it's <em>forced</em> to send $\zeta^2 = \zeta \cdot \zeta \mapsto \zeta^2 \cdot \zeta^2 = \zeta^4$. Try swapping $\zeta$ and $\zeta^2$ while leaving $\zeta^3$ alone: checking the multiplication rule gives $\zeta \neq \zeta^4$&mdash;a contradiction.</p>
+
+<div class="insight">
+  <div class="insight-label">Key Principle</div>
+  <p>The roots move as a <strong>rigid constellation</strong>, not a loose bag of marbles. Hidden algebraic relations drastically cut down the number of valid rearrangements. The Galois group equals the full symmetric group $S_n$ <em>only</em> when no algebraic relations exist among the roots beyond the polynomial itself.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ============ §5 ============ -->
+<h2><span class="section-num">05</span>Structure, Constraint, and Symmetry</h2>
+
+<p>A philosophical principle runs through all of this:</p>
+
+<blockquote><strong>Structure = Constraint → Consistency → Symmetry.</strong></blockquote>
+
+<p>When we build a field extension, we impose strict rules: addition and multiplication must still work, the base field must be respected. These constraints are not limitations&mdash;they're what make the whole enterprise <em>stable</em>. They guarantee that two different computation paths always arrive at the same answer (path independence).</p>
+
+<p>It is precisely this rigidity that makes symmetry meaningful. In a chaotic set with no structure, "symmetry" is vacuous&mdash;there's no shape to preserve. Symmetry only becomes interesting when there <em>are</em> rules that a transformation might break but doesn't. The automorphisms of a field extension thread this needle: they rearrange elements while leaving every algebraic relationship intact.</p>
+
+<hr class="divider">
+
+<!-- ============ §6 ============ -->
+<h2><span class="section-num">06</span>The AIT Connection: Symmetry as Leftover Ambiguity</h2>
+
+<p>Here the paper makes an elegant connection to <strong>Algorithmic Information Theory</strong> (AIT). The field $\mathbb{Q}(i)$ can be specified by a very short "program":</p>
+
+<blockquote>Start with $\mathbb{Q}$. Adjoin an element $x$ subject to $x^2 + 1 = 0$.</blockquote>
+
+<p>Formally, this is the quotient construction $\mathbb{Q}(i) \cong \mathbb{Q}[x]/(x^2+1)$. In Kolmogorov complexity terms, this is a <em>highly compressed</em> description&mdash;a short program generating an infinite structure.</p>
+
+<p>But notice what the program <em>doesn't</em> specify: which root gets the name "$i$." The constraint $x^2 + 1 = 0$ pins down a <em>relation</em> ($x^2 = -1$), not a <em>unique identity</em>. The leftover ambiguity&mdash;the freedom to choose the $+$ root or the $-$ root&mdash;is exactly the Galois group:</p>
+
+<div class="math-display">$$\log_2 |\operatorname{Gal}(\mathbb{Q}(i)/\mathbb{Q})| = \log_2 2 = 1 \text{ bit.}$$</div>
+
+<p>One bit of unresolved choice. In this reading, <strong>Galois symmetry measures the degrees of freedom that remain after the structural constraints have fixed everything they can.</strong></p>
+
+<hr class="divider">
+
+<!-- ============ §7 ============ -->
+<h2><span class="section-num">07</span>Solvability: When Symmetry Can Be Unwound</h2>
+
+<p>Now we reach the historical punchline. <em>Why</em> does the Galois group matter?</p>
+
+<p>Galois's great insight was that an equation is <strong>solvable by radicals</strong>&mdash;its roots expressible using $+, -, \times, \div$ and $n$-th roots&mdash;if and only if its Galois group is a <strong>solvable group</strong>: one admitting a subnormal series with abelian factors.</p>
+
+<div class="math-display">$$\{e\} = G_0 \;\trianglelefteq\; G_1 \;\trianglelefteq\; \cdots \;\trianglelefteq\; G_n = G, \qquad \text{each } G_{i+1}/G_i \text{ abelian.}$$</div>
+
+<p>Each abelian layer corresponds to extracting a single $n$-th root. The quadratic, cubic, and quartic formulas all exist because $S_2$, $S_3$, and $S_4$ are solvable&mdash;their symmetry can be peeled off one commutative layer at a time.</p>
+
+<p>But $S_5$ contains the alternating group $A_5$, which is <strong>simple</strong> (no non-trivial normal subgroups). It's a monolithic block of symmetry that cannot be factored. This is why there is no general quintic formula: the symmetry group refuses to be unwound into sequential radical extractions.</p>
+
+<h3>Solvability = Compositionality</h3>
+
+<p>This is perhaps the paper's deepest reframing. A formula like the quadratic formula is a <em>sequential program</em>: compute the discriminant, take a square root, do some arithmetic. This step-by-step procedure works because the symmetry group decomposes into layers.</p>
+
+<p><strong>Solvable groups</strong> are <em>compositional</em>: they have internal hierarchy that can be exploited one piece at a time. <strong>Non-solvable groups</strong> are <em>monolithic</em>: $A_5$ is an indivisible block. There's no way to peel it apart, so there is no sequence of radicals that can reconstruct the roots.</p>
+
+<hr class="divider">
+
+<!-- ============ §8 ============ -->
+<h2><span class="section-num">08</span>The "Nuclear Option": Inventing New Primitives</h2>
+
+<p>The Abel&ndash;Ruffini theorem says the quintic can't be solved <em>with radicals</em>. But it doesn't say the roots don't exist&mdash;only that our standard toolbox is too weak.</p>
+
+<p><strong>The Bring Radical.</strong> Any quintic can be reduced to $x^5 + x + a = 0$. The <strong>Bring radical</strong> $BR(a)$ is defined as the real root of this equation. Adjoin it to the toolbox and all quintics become expressible.</p>
+
+<p><strong>Elliptic Modular Functions.</strong> A deeper approach: the symmetry of the quintic is governed by $A_5$, isomorphic to the rotation group of the icosahedron. Standard radicals correspond to <em>circular</em> (cyclic) geometry. To match icosahedral symmetry, Hermite and Kronecker showed that <strong>elliptic modular functions</strong>&mdash;which naturally carry this richer symmetry&mdash;can solve the quintic.</p>
+
+<div class="insight">
+  <div class="insight-label">Symmetry Matching</div>
+  <p><strong>Match the symmetry of the tool to the symmetry of the problem.</strong> Radicals have abelian symmetry; they fail on non-abelian problems. Upgrade the tool to one with the right internal symmetry, and the "unsolvable" becomes solvable.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ============ §9 ============ -->
+<h2><span class="section-num">09</span>The Continuous Frontier: From Lie to Learning</h2>
+
+<p>The story extends beyond polynomials. Sophus Lie asked: <em>can we build a Galois theory for differential equations?</em> The answer is yes, and the same structural dichotomy appears:</p>
+
+<p>If the symmetry group of a differential equation (now a <strong>Lie group</strong>) is solvable, the equation can be solved by stacking integrals&mdash;a "reduction of order" procedure. If the Lie group is simple (like $SL_2(\mathbb{C})$ for the Airy equation), the solution defines an irreducible new function that can't be decomposed into elementary steps.</p>
+
+<h3>The Deep Learning Connection</h3>
+
+<p>Tomaso Poggio and collaborators have shown that deep neural networks succeed precisely when the target function is <strong>compositional</strong>&mdash;decomposable into a hierarchy of simpler functions: $F(x) = f_L(f_{L-1}(\ldots f_1(x)\ldots))$. Generic high-dimensional functions require exponentially many samples (the curse of dimensionality), but compositional functions can be approximated with polynomial sample complexity.</p>
+
+<p>The parallel to Galois theory is exact:</p>
+
+<table class="comparison-table">
+  <thead>
+    <tr>
+      <th>Domain</th>
+      <th>"Solvable" means&hellip;</th>
+      <th>"Unsolvable" means&hellip;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Algebra</td>
+      <td>Group decomposes into abelian layers → formula by radicals</td>
+      <td>$A_5$ is monolithic → no radical formula</td>
+    </tr>
+    <tr>
+      <td>Calculus</td>
+      <td>Lie group is solvable → solution by quadratures</td>
+      <td>Simple Lie group → irreducible special function</td>
+    </tr>
+    <tr>
+      <td>Learning</td>
+      <td>Target is compositional → efficient approximation</td>
+      <td>Monolithic structure → curse of dimensionality</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In every case, <strong>solvability is decomposability</strong>.</p>
+
+<hr class="divider">
+
+<!-- ============ §10 ============ -->
+<h2><span class="section-num">10</span>The Staircase of Understanding</h2>
+
+<p>The paper's final synthesis uses the <strong>Kolmogorov Structure Function</strong> to visualize the progress of an intelligent agent. Plotting remaining error against model complexity, the curve doesn't descend smoothly&mdash;it forms a <strong>staircase</strong>, revealing two alternating modes:</p>
+
+<p><strong>Phase 1&mdash;Composition (the slope).</strong> The agent rearranges existing primitives to minimize error. This is like solving equations within a fixed radical toolkit. Eventually it hits a plateau&mdash;a "monolithic barrier" where the current language isn't expressive enough.</p>
+
+<p><strong>Phase 2&mdash;Discovery (the drop).</strong> The agent identifies a recurrent irreducible pattern and <em>compiles</em> it into a new primitive&mdash;a new cognitive core. Mathematically, this is like defining the Bring radical or the Airy function. A small increase in descriptive complexity yields a massive drop in error.</p>
+
+<p><strong>Phase 3&mdash;Re-composition (the new slope).</strong> With the expanded toolkit, the agent re-enters compositional search, combining old and new primitives. The cycle repeats.</p>
+
+<div class="cycle">
+  <span class="cycle-step">Compose</span>
+  <span class="cycle-arrow">→</span>
+  <span class="cycle-step" style="border-color: var(--accent-rose); color: var(--accent-rose);">Stall</span>
+  <span class="cycle-arrow">→</span>
+  <span class="cycle-step" style="border-color: var(--accent-warm); color: var(--accent-warm);">Discover Primitive</span>
+  <span class="cycle-arrow">→</span>
+  <span class="cycle-step" style="border-color: var(--accent-green); color: var(--accent-green);">Expand Toolkit</span>
+  <span class="cycle-arrow">→</span>
+  <span class="cycle-step">Re-Compose</span>
+  <span class="cycle-arrow">→</span>
+  <span style="color: var(--text-muted);">⟳</span>
+</div>
+
+<blockquote><strong>Intelligence is not finding one formula. It is a cycle of inventing new primitives and composing them.</strong><br><br>
+Galois theory teaches us that the composition phase is the "easy" part. The history of mathematics&mdash;and of AI&mdash;is defined by the hard part: the moments when someone (or something) discovers the new atomic operations that make the previously unsolvable, solvable again.</blockquote>
+
+<hr class="divider">
+
+<!-- ============ Further Reading ============ -->
+<h2><span class="section-num">∞</span>Further Reading</h2>
+
+<ul class="reading-list">
+  <li><strong>The full paper:</strong> <a href="https://zenodo.org/records/18448595" target="_blank">BCOM WP0052 on Zenodo</a> (CC BY 4.0)</li>
+  <li>J. S. Milne, <em>Fields and Galois Theory</em>&mdash;<a href="https://www.jmilne.org/math/CourseNotes/FT.pdf" target="_blank">free course notes</a></li>
+  <li>E. Artin, <em>Galois Theory</em> (Notre Dame lectures, 1971)</li>
+  <li>T. Poggio &amp; H. Mhaskar, "Why and when can deep&mdash;but not shallow&mdash;networks avoid the curse of dimensionality" (2017)</li>
+  <li>G. Ruffini, "Structured Dynamics in the Algorithmic Agent" (2024)</li>
+  <li>T. Poggio, <em>Thirty Brief Lectures on Foundations of Deep Learning</em> (Draft, 2026)</li>
+</ul>
+
+</article>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <p>
+      <strong>Giulio Ruffini</strong> · <a href="https://bcom.one" target="_blank">BCOM</a> / <a href="https://neuroelectrics.com" target="_blank">Neuroelectrics</a><br>
+      Published February 2026 · Barcelona
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

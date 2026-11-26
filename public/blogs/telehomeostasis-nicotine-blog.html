@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telehomeostasis: How a Plant Hacked the Human Brain | BCOM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <script>
+      MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] } };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+    <style>
+        :root {
+            --blue: #002878;
+            --blue-light: #1a3f8f;
+            --orange: #ff6657;
+            --orange-hover: #e85546;
+            --text: #191919;
+            --text-secondary: #555;
+            --bg: #ffffff;
+            --bg-alt: #fbfbfb;
+            --bg-box: #f4f6fa;
+            --bg-pink: #f5d5d5;
+            --bg-lightblue: #d6e4f0;
+            --border: #e0e4ec;
+            --border-light: #eef0f4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        /* ── Header bar ── */
+        .header-bar {
+            background: var(--blue);
+            padding: 16px 0;
+            font-size: 13px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .header-bar .wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-bar .logo {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+        }
+        .header-bar .logo span { color: var(--orange); }
+        .header-bar nav a {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            margin-left: 28px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+        .header-bar nav a:hover { color: #fff; }
+
+        /* ── Hero ── */
+        .hero {
+            background: var(--blue);
+            color: #fff;
+            padding: 72px 0 64px;
+        }
+        .hero .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        .hero .kicker {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,102,87,0.4);
+            padding: 4px 12px;
+            border-radius: 3px;
+        }
+        .hero h1 {
+            font-size: 2.6em;
+            font-weight: 900;
+            line-height: 1.12;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        .hero .subtitle {
+            font-size: 1.15em;
+            font-weight: 300;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.82);
+            margin-bottom: 28px;
+            max-width: 620px;
+        }
+        .hero .byline {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+        }
+        .hero .byline strong {
+            color: rgba(255,255,255,0.9);
+            font-weight: 700;
+        }
+
+        /* ── Article container ── */
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        article {
+            padding-top: 48px;
+            padding-bottom: 32px;
+        }
+
+        article p {
+            margin-bottom: 1.45em;
+        }
+
+        article h2 {
+            font-size: 1.45em;
+            font-weight: 900;
+            margin: 2.4em 0 0.65em;
+            color: var(--blue);
+            letter-spacing: -0.01em;
+        }
+
+        article h3 {
+            font-size: 1.15em;
+            font-weight: 700;
+            margin: 1.8em 0 0.5em;
+            color: var(--blue);
+        }
+
+        article a {
+            color: var(--orange);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,102,87,0.3);
+            transition: border-color 0.2s;
+        }
+        article a:hover {
+            border-bottom-color: var(--orange);
+        }
+
+        article em {
+            font-style: italic;
+        }
+
+        /* ── Pullquote ── */
+        .pullquote {
+            border-left: 4px solid var(--orange);
+            margin: 2.2em 0;
+            padding: 1.2em 1.8em;
+            background: var(--bg-box);
+            border-radius: 0 6px 6px 0;
+            font-size: 1.05em;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+        .pullquote p { margin-bottom: 0; }
+
+        /* ── Definition box ── */
+        .definition-box {
+            background: var(--bg-box);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--blue);
+            border-radius: 0 8px 8px 0;
+            padding: 1.6em 2em;
+            margin: 2em 0;
+        }
+        .definition-box .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--blue);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        .definition-box p {
+            margin-bottom: 0.6em;
+            font-size: 1em;
+        }
+        .definition-box p:last-child { margin-bottom: 0; }
+
+        /* ── Remark box (coral accent) ── */
+        .remark-box {
+            background: #fff8f7;
+            border: 1px solid rgba(255,102,87,0.25);
+            border-left: 4px solid var(--orange);
+            border-radius: 0 8px 8px 0;
+            padding: 1.6em 2em;
+            margin: 2em 0;
+        }
+        .remark-box .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--orange);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        .remark-box p {
+            margin-bottom: 0.6em;
+            font-size: 1em;
+        }
+        .remark-box p:last-child { margin-bottom: 0; }
+
+        /* ── Comparison table ── */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2em 0;
+            font-size: 0.92em;
+            line-height: 1.55;
+        }
+        .comparison-table thead th {
+            background: var(--blue);
+            color: #fff;
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.88em;
+            letter-spacing: 0.02em;
+        }
+        .comparison-table thead th:first-child {
+            border-radius: 6px 0 0 0;
+        }
+        .comparison-table thead th:last-child {
+            border-radius: 0 6px 0 0;
+        }
+        .comparison-table tbody td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: top;
+        }
+        .comparison-table tbody tr:nth-child(even) {
+            background: var(--bg-box);
+        }
+        .comparison-table tbody td:first-child {
+            font-weight: 700;
+            color: var(--blue);
+            white-space: nowrap;
+        }
+        .comparison-table tbody td em {
+            font-style: italic;
+        }
+
+        /* ── Triple-lock cards ── */
+        .lock-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 2em 0;
+        }
+        .lock-card {
+            border-radius: 8px;
+            padding: 1.4em 1.6em;
+            border-left: 5px solid;
+        }
+        .lock-card.of {
+            background: rgba(214,228,240,0.45);
+            border-left-color: var(--blue);
+        }
+        .lock-card.me {
+            background: rgba(245,213,213,0.4);
+            border-left-color: var(--orange);
+        }
+        .lock-card.pe {
+            background: rgba(214,228,240,0.25);
+            border-left-color: #6b8db5;
+        }
+        .lock-card .lock-title {
+            font-weight: 900;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+        }
+        .lock-card.of .lock-title { color: var(--blue); }
+        .lock-card.me .lock-title { color: var(--orange); }
+        .lock-card.pe .lock-title { color: #4a6f94; }
+        .lock-card p { margin-bottom: 0; font-size: 0.97em; }
+
+        /* ── Equation display ── */
+        .equation-block {
+            text-align: center;
+            margin: 1.6em 0;
+            padding: 1em 0;
+            font-size: 1.1em;
+        }
+
+        /* ── Numbered meaning items ── */
+        .meaning {
+            margin-bottom: 1.2em;
+            padding-left: 0;
+        }
+        .meaning .num {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            background: var(--blue);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 900;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .meaning strong { color: var(--blue); }
+
+        /* ── References ── */
+        .references {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            border-top: 2px solid var(--border);
+            margin-top: 3em;
+            padding-top: 1.5em;
+        }
+        .references h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--blue);
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        .references p {
+            margin-bottom: 0.5em;
+            line-height: 1.6;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--blue);
+            color: rgba(255,255,255,0.5);
+            margin-top: 0;
+            padding: 28px 0;
+            font-size: 13px;
+            text-align: center;
+            font-weight: 400;
+        }
+        footer a { color: var(--orange); text-decoration: none; }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.85em; }
+            .hero { padding: 48px 0 40px; }
+            body { font-size: 16px; }
+            .definition-box, .remark-box { padding: 1.2em 1.4em; }
+            .header-bar nav a { margin-left: 16px; }
+            .comparison-table { font-size: 0.82em; }
+            .comparison-table thead th,
+            .comparison-table tbody td { padding: 8px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header-bar">
+    <div class="wrap">
+        <a class="logo" href="https://bcom.one">BCOM<span>.ONE</span></a>
+        <nav>
+            <a href="https://bcom.one">Research</a>
+            <a href="https://neuroelectrics.com">Neuroelectrics</a>
+        </nav>
+    </div>
+</div>
+
+<!-- ── Hero ── -->
+<div class="hero">
+    <div class="wrap">
+        <div class="kicker">Kolmogorov Theory &middot; WP0073</div>
+        <h1>Telehomeostasis: How a Plant Hacked the Human Brain</h1>
+        <p class="subtitle">Nicotine isn't just addictive&mdash;it's a remote manipulation factor that reprograms our decision architecture to serve the tobacco plant's persistence. We place it on a continuum with zombie ants and mind-controlling parasites.</p>
+        <div class="byline">
+            <strong>Giulio Ruffini &amp; Francesca Castaldo</strong> &middot; Barcelona Computational Foundation &middot; April 2026
+        </div>
+    </div>
+</div>
+
+<!-- ── Article ── -->
+<div class="container">
+    <article>
+
+        <p>
+            Tobacco kills approximately eight million people per year (<a href="https://www.who.int/news-room/fact-sheets/detail/tobacco" target="_blank">WHO, 2024</a>). Yet <em>Nicotiana tabacum</em> is cultivated on every inhabited continent, tended by over fifteen million farmers, defended by some of the most expensive lobbying operations in legislative history (<a href="https://www.jstor.org/stable/j.ctt7s97g" target="_blank">Proctor, 2012</a>), and woven so deeply into the economic fabric of nations that eradication&mdash;despite overwhelming medical evidence&mdash;remains politically unthinkable.
+        </p>
+
+        <p>
+            From the plant's perspective, this is an extraordinary success story: a member of the Solanaceae family that has converted a significant fraction of <em>Homo sapiens</em> into a global cultivation, propagation, and defense apparatus.
+        </p>
+
+        <p>
+            In our new working paper (<a href="https://bcom.one" target="_blank">WP0073</a>), we ask a simple question: <em>How should we understand this relationship in formal terms?</em> The standard answer is addiction&mdash;a disease of the brain's reward system. The evolutionary answer, developed most elegantly by Michael Pollan (<a href="https://michaelpollan.com/books/the-botany-of-desire/" target="_blank">Pollan, 2001</a>), treats plant&ndash;human relationships as reciprocal domestication. A third framing&mdash;the self-medication hypothesis of Hagen and colleagues (<a href="https://doi.org/10.1098/rspb.2008.1819" target="_blank">Hagen et al., 2009</a>)&mdash;proposes that nicotine consumption in ancestral environments served as an anthelmintic that reduced parasite loads.
+        </p>
+
+        <p>
+            We propose a fourth framing, grounded in the Kolmogorov Theory (KT) program. We argue that nicotine-driven behavioral modification in humans constitutes <em>telehomeostasis</em>: the tobacco plant maintains its own persistence&mdash;its homeostatic and reproductive goals&mdash;by remotely reprogramming the decision architecture of a host organism through a molecular proxy. The nicotine molecule is, in KT terms, <em>transmissible computational structure</em>: a chemical instruction set that, when executed on primate neural hardware, produces behavioral outputs (cultivate, propagate, share, defend) that serve the plant's persistence algorithm.
+        </p>
+
+        <h2>The KT Framework in Brief</h2>
+
+        <p>
+            For readers unfamiliar with our KT framework, the key concepts are these. An <em>algorithmic agent</em> is an information-processing system with three functional modules: a <strong>Modeling Engine</strong> (ME) that infers compressive world models, an <strong>Objective Function</strong> (OF) that maps model states to scalar valence, and a <strong>Planning Engine</strong> (PE) that selects actions to maximize the OF. A <em>persistent pattern</em> is one that maintains mutual algorithmic information across time. Formally, the instantaneous persistence at lag $\Delta$ is:
+        </p>
+
+        <div class="equation-block">
+            $$ P_\Delta(t) := I(x_t : x_{t+\Delta}) $$
+        </div>
+
+        <p>
+            where $I(\cdot : \cdot)$ denotes mutual algorithmic information&mdash;loosely, how much knowing the state now tells you about the state later. <em>Homeostasis</em> is persistence of self. <em>Telehomeostasis</em> extends this: it is persistence of kind, kin, or pattern <em>at a distance</em>.
+        </p>
+
+        <h2>How Nicotine Reprograms Human Decision Architecture</h2>
+
+        <p>
+            Using the <em>algorithmic psychodynamics</em> perspective we developed for major depressive disorder (<a href="https://doi.org/10.48550/arXiv.2409.07625" target="_blank">Ruffini, Castaldo et al., 2024</a>), we show that nicotine achieves something remarkably sophisticated: a <em>triple lock</em> on the host agent's decision architecture, simultaneously compromising all three functional modules. This is what makes nicotine so devastatingly effective compared to other addictive substances.
+        </p>
+
+        <div class="lock-cards">
+            <div class="lock-card of">
+                <div class="lock-title">1. Objective Function Lock &mdash; The Reward-Deficiency Ratchet</div>
+                <p>Nicotine binds to $\alpha_4\beta_2$ nicotinic receptors on dopaminergic neurons in the ventral tegmental area (VTA), triggering phasic dopamine release in the nucleus accumbens. This co-opts the brain's reward-prediction error signal, tagging smoking as unexpectedly rewarding. Chronic exposure produces compensatory D2/D3 receptor downregulation, shifting baseline hedonic tone downward. Normal rewards&mdash;food, social contact, achievement&mdash;generate diminished signals. Only nicotine restores baseline. The agent's valence landscape now has a deep attractor at "smoking" and flattened gradients everywhere else.</p>
+            </div>
+            <div class="lock-card me">
+                <div class="lock-title">2. Modeling Engine Lock &mdash; The Self-Model Rewrite</div>
+                <p>This is perhaps the most insidious aspect. Most addictive substances modify the OF and PE. Nicotine does something additional: it rewrites the agent's model of <em>who it is</em>. Longitudinal studies show that smokers progressively incorporate smoking into their identity. "I am a smoker" becomes a stable attractor in the self-model. <a href="https://doi.org/10.1016/j.addbeh.2015.01.026" target="_blank">Tombor et al. (2015)</a> demonstrated that non-smoker identity following a quit attempt was the <em>single strongest predictor</em> of long-term abstinence&mdash;stronger than self-efficacy, prior quit duration, or dependence severity. The identity <em>is</em> the addiction.</p>
+            </div>
+            <div class="lock-card pe">
+                <div class="lock-title">3. Planning Engine Lock &mdash; Convergent Action Selection</div>
+                <p>The PE, optimizing over an OF that scores smoking highly and an ME that predicts "I smoke," converges on the action "smoke" as both reward-maximizing and identity-consistent. The Cognitive Control Network (dlPFC, posterior parietal cortex) shows reduced capacity to override the habituated response. All three modules reinforce the same behavioral output.</p>
+            </div>
+        </div>
+
+        <p>
+            This triple lock explains why nicotine dependence is so robust despite the molecule's moderate pharmacological potency: the manipulation is distributed across the entire agent architecture, not concentrated in a single module. Cessation attempts are experienced not merely as withdrawal (OF disturbance) or as inhibiting a compulsion (PE struggle), but as <em>losing a part of the self</em> (ME prediction error).
+        </p>
+
+        <h3>Why nicotine is uniquely effective at self-model rewriting</h3>
+
+        <p>
+            We identify four converging mechanisms. First, <em>frequency and salience</em>: smoking occurs 10&ndash;20 times per day, each episode a self-referential event consolidated into autobiographical memory, with nicotine itself enhancing this encoding via cholinergic modulation. Second, <em>public identity signaling</em>: smoking is a visible, social behavior continuously reinforced by how others perceive and treat the smoker. Third, <em>gestural salience</em>: the hand-to-mouth ritual captures visual attention, adding a performative dimension that gets integrated into the smoker's social identity&mdash;which may partly explain why pharmacologically equivalent delivery systems (patches, gums) that lack the gestural component are far less culturally persistent. Fourth, <em>default mode network remodeling</em>: chronic smoking alters functional connectivity in the DMN&mdash;precisely the regions we identified as ME substrates in our MDD framework&mdash;embedding smoking representations into the self-referential processing stream.
+        </p>
+
+        <h2>The Parasitic Manipulation Continuum</h2>
+
+        <p>
+            This framing places nicotine on a continuum with canonical parasitic manipulation systems. A <em>manipulation factor</em>, as formalized by <a href="https://doi.org/10.1186/s13071-018-2805-9" target="_blank">Herbison et al. (2018)</a>, is a specific molecule produced by a parasite that causally mediates behavioral change in the host, resulting in increased parasite fitness. Nicotine satisfies every criterion&mdash;with one structural difference: the manipulator need not be physically present in the host.
+        </p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Dimension</th>
+                    <th><em>T. gondii</em></th>
+                    <th><em>O. unilateralis</em></th>
+                    <th><em>A. compressa</em></th>
+                    <th><em>N. tabacum</em></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Factor</td>
+                    <td>Altered DA / inflammation</td>
+                    <td>GABA, sphingosine</td>
+                    <td>Venom cocktail (DA, GABA)</td>
+                    <td>Nicotine ($\alpha_4\beta_2$ agonist)</td>
+                </tr>
+                <tr>
+                    <td>Route</td>
+                    <td>Ingestion &rarr; cyst in brain</td>
+                    <td>Spore &rarr; systemic infection</td>
+                    <td>Direct injection into CNS</td>
+                    <td>Inhalation &rarr; blood &rarr; VTA</td>
+                </tr>
+                <tr>
+                    <td>Target</td>
+                    <td>Amygdala (fear)</td>
+                    <td>Motor circuits</td>
+                    <td>Subesophageal ganglion</td>
+                    <td>VTA&ndash;NAc reward circuit</td>
+                </tr>
+                <tr>
+                    <td>Output</td>
+                    <td>Reduced cat avoidance</td>
+                    <td>"Death grip" climb</td>
+                    <td>Loss of escape drive</td>
+                    <td>Cultivate, share, defend</td>
+                </tr>
+                <tr>
+                    <td>Payoff</td>
+                    <td>Transmission to felid</td>
+                    <td>Optimal spore dispersal</td>
+                    <td>Larval food source</td>
+                    <td>Cultivation, range expansion</td>
+                </tr>
+                <tr>
+                    <td>Proximity</td>
+                    <td>In host tissue</td>
+                    <td>In host tissue</td>
+                    <td>Transient contact</td>
+                    <td><strong><em>At a distance</em></strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            The critical observation: the distinction between nicotine and <em>Toxoplasma</em> cysts is <em>proximity</em>, not <em>principle</em>. The mechanisms are conserved&mdash;all four systems operate by modifying host neurotransmitter signaling. And the causal chain from plant gene to host behavior is more completely mapped for nicotine than for any of the canonical parasitic systems: plant genome &rarr; nicotine biosynthesis &rarr; alkaloid in leaf &rarr; reward-circuit modification &rarr; cultivation behavior &rarr; trade networks &rarr; political lobbying &rarr; agricultural policy &rarr; expanded cultivation.
+        </p>
+
+        <h2>Formalizing Telehomeostasis</h2>
+
+        <p>
+            We formalize the concept in KT terms, distinguishing it from Dawkins' <em>extended phenotype</em>.
+        </p>
+
+        <div class="definition-box">
+            <div class="label">Definition &mdash; Telehomeostatic Manipulation</div>
+            <p>
+                Let $A$ be an algorithmic agent (the <em>manipulator</em>) with persistence metric $\tilde{P}^A_\Delta(t)$ and let $B$ be a distinct algorithmic agent (the <em>host</em>). $A$ engages in <strong>telehomeostatic manipulation</strong> of $B$ if $A$ produces a transmissible factor $\phi$ such that:
+            </p>
+            <p><strong>(i)</strong> $\phi$ modifies $B$'s objective function $O_B$, modeling engine $\text{ME}_B$, or planning engine $\text{PE}_B$ (or any combination);</p>
+            <p><strong>(ii)</strong> the modified behavior of $B$ increases $A$'s persistence: $\tilde{P}^A_\Delta(t \mid \phi) > \tilde{P}^A_\Delta(t \mid \neg\phi)$;</p>
+            <p><strong>(iii)</strong> $\phi$ operates without requiring $A$'s physical co-location with $B$ (the "tele" condition).</p>
+        </div>
+
+        <p>
+            Condition (iii) is what distinguishes telehomeostatic manipulation from standard parasitic manipulation. In the nicotine case, the molecule travels through an extraordinary supply chain&mdash;cultivation, curing, manufacture, sale, inhalation&mdash;and the behavioral effects execute on neural hardware that may be thousands of kilometers from any living tobacco plant.
+        </p>
+
+        <p>
+            Our framing adds three things beyond Dawkins' extended phenotype. First, it is grounded in a formal theory of agents and persistence (KT), not merely in gene-level selection. Second, it emphasizes <em>active computational reprogramming</em>&mdash;the manipulation factor doesn't merely alter the environment (as a beaver dam does) but rewrites the host's decision-making software. Third, it identifies the specific modules at which the manipulation operates (the OF, ME, and PE), providing a mechanistic account of <em>how</em> the extended phenotype is realized.
+        </p>
+
+        <h2>The Mutualism&ndash;Parasitism Flip</h2>
+
+        <p>
+            Here is where the story gets interesting. The self-medication hypothesis of Hagen and colleagues proposes that nicotine consumption in ancestral environments served an adaptive function: plant neurotoxins are potent anthelmintics that reduce intestinal parasite loads. <a href="https://doi.org/10.1016/j.evolhumbehav.2013.11.002" target="_blank">Roulette et al. (2014)</a> provided striking evidence from a study of Aka foragers in the Congo basin: among 206 Aka men, salivary cotinine (a nicotine metabolite) was significantly negatively correlated with intestinal helminth burden. Critically, treatment with albendazole (a pharmaceutical anthelmintic) <em>reduced</em> cotinine levels at two-week follow-up, suggesting that the drive to consume nicotine diminished when the parasites it was treating were removed.
+        </p>
+
+        <p>
+            This transforms the telehomeostatic picture. In helminth-rich environments, the nicotine&ndash;human relationship is <em>mutualistic</em>: the plant gains cultivation and propagation, and the human gains deworming. In helminth-poor environments&mdash;modern industrialized societies&mdash;the same mechanism becomes <em>parasitic</em>: the OF modification persists but the fitness benefit to the human has vanished. The agent is running a program that was adaptive in a different ecological context but is now purely exploitative.
+        </p>
+
+        <div class="remark-box">
+            <div class="label">Key Insight</div>
+            <p>
+                The mutualism&ndash;parasitism flip is a general property of persistence dynamics. Any telehomeostatic relationship can shift between mutualism and parasitism as the ecological context changes. The <em>mechanism</em> (nicotine binding, dopamine release, reward recalibration) is identical in both regimes; only the fitness consequences differ. This connects to our write-back framework: the high heritability of nicotine susceptibility (40&ndash;75%) suggests that in environments where the mutualistic regime dominated, there was positive selection on host genotypes that facilitated the write-back&mdash;a co-evolutionary lock-in that now, in the parasitic regime, manifests as genetic vulnerability to addiction.
+            </p>
+        </div>
+
+        <h2>The Civilizational Extended Phenotype</h2>
+
+        <p>
+            The deepest expression of tobacco's telehomeostatic strategy is not in the synaptic cleft but in the structures of human civilization that the molecule has called into existence.
+        </p>
+
+        <p>
+            <em>Nicotiana tabacum</em> was domesticated approximately 8,000 years ago in the Andes. By the time of European contact, it was cultivated and ritually consumed across the Americas. Within a century of Columbus's arrival, tobacco had become a driver of colonial expansion: the Virginia colony's survival was predicated on tobacco cultivation; the plantation economy it created became a pillar of the transatlantic slave trade; and the wealth it generated funded the political architecture of the early American republic (<a href="https://www.jstor.org/stable/j.ctt7s97g" target="_blank">Proctor, 2012</a>).
+        </p>
+
+        <p>
+            In KT terms, this civilizational trajectory is the plant's heritable program expressing itself through an extraordinary chain of transmissions. The nicotine biosynthesis genes encode the molecule. The molecule modifies human reward circuits. The modified humans build economic systems optimized for tobacco production and distribution. Those economic systems, in turn, create political structures&mdash;lobbying organizations, agricultural subsidies, trade agreements&mdash;that defend and expand tobacco cultivation.
+        </p>
+
+        <div class="pullquote">
+            <p>This is not metaphor. The causal chain is traceable: plant genome &rarr; nicotine biosynthesis &rarr; alkaloid in leaf &rarr; reward-circuit modification in human brain &rarr; cultivation behavior &rarr; trade networks &rarr; political lobbying &rarr; agricultural policy &rarr; expanded cultivation. The lobbying firm defending tobacco interests in Washington is, in a precise KT sense, part of the tobacco plant's persistence apparatus&mdash;an extension of its telehomeostatic reach, operating on civilizational hardware.</p>
+        </div>
+
+        <p>
+            The modern tobacco industry produces approximately 6 million metric tons of leaf annually, generates over $750 billion in product sales, and returns nearly $400 billion in tax revenue to governments. These numbers represent the scale of the plant's <em>civilizational phenotype</em>&mdash;the infrastructure that the persistence algorithm, executing on hundreds of millions of human neural substrates, has constructed.
+        </p>
+
+        <div class="remark-box">
+            <div class="label">The Persistence Algorithm Across Substrates</div>
+            <p>
+                The progression from alkaloid biosynthesis to civilizational infrastructure illustrates a key KT principle: computational structure is substrate-independent. The "program" that maintains tobacco's persistence executes on biochemical substrates (the nicotine biosynthesis pathway), neural substrates (the human reward circuit), cognitive substrates (the smoker's self-model), social substrates (network transmission of smoking behavior), economic substrates (the tobacco industry), and political substrates (lobbying and regulatory capture). The program is the same&mdash;maintain and expand <em>N. tabacum</em> cultivation&mdash;but it runs on hardware spanning molecular to civilizational scales.
+            </p>
+        </div>
+
+        <h2>Broader Implications</h2>
+
+        <p>
+            If the telehomeostatic framing is correct, it suggests that other plant alkaloids&mdash;caffeine, THC, psilocybin, cocaine&mdash;may similarly constitute remote manipulation factors whose mutualism&ndash;parasitism balance depends on ecological context. More broadly, any molecule that modifies the OF or PE of a host agent to increase the producer's persistence qualifies as telehomeostatic computational structure. This opens a research program at the intersection of neuropharmacology, parasitology, and algorithmic information theory.
+        </p>
+
+        <p>
+            The framework also speaks to the tobacco&ndash;human system as a case of profound asymmetry: a minimal algorithmic agent&mdash;one with implicit environmental modeling, resource-allocation action selection, and a persistence-driven objective function&mdash;maintains its fitness by co-opting the decision architecture of a vastly more complex one. A simple agent reprogramming a complex one via a molecular manipulation factor may be a general feature of cross-kingdom telehomeostatic relationships.
+        </p>
+
+        <h2>The Bottom Line</h2>
+
+        <p>
+            The nicotine molecule is transmissible computational structure. The human brain is the execution substrate. The behavioral output&mdash;cultivate, propagate, share, defend&mdash;is the plant's persistence algorithm running on foreign hardware. This is agent dynamics operating across kingdom boundaries, and it has been doing so for millennia, from Andean highlands to the halls of Congress.
+        </p>
+
+        <p>
+            The full technical treatment, including formal definitions and the complete parasitic manipulation continuum analysis, is available in <a href="https://bcom.one" target="_blank">BCOM Working Paper WP0073</a>.
+        </p>
+
+        <!-- ── References ── -->
+        <div class="references">
+            <h3>References</h3>
+            <p>[1] WHO. <em>Tobacco Fact Sheet</em>. World Health Organization, 2024. <a href="https://www.who.int/news-room/fact-sheets/detail/tobacco" target="_blank">Link</a></p>
+            <p>[2] Proctor, R.N. <em>Golden Holocaust: Origins of the Cigarette Catastrophe and the Case for Abolition</em>. University of California Press, 2012. <a href="https://www.jstor.org/stable/j.ctt7s97g" target="_blank">Link</a></p>
+            <p>[3] Benowitz, N.L. Nicotine addiction. <em>New England Journal of Medicine</em>, 362(24):2295&ndash;2303, 2010. <a href="https://doi.org/10.1056/NEJMra0809890" target="_blank">DOI</a></p>
+            <p>[4] Pollan, M. <em>The Botany of Desire: A Plant's-Eye View of the World</em>. Random House, 2001. <a href="https://michaelpollan.com/books/the-botany-of-desire/" target="_blank">Link</a></p>
+            <p>[5] Hagen, E.H. et al. An adaptationist model of substance abuse. <em>Proceedings of the Royal Society B</em>, 276(1673):3667&ndash;3674, 2009. <a href="https://doi.org/10.1098/rspb.2008.1819" target="_blank">DOI</a></p>
+            <p>[6] Roulette, C.J. et al. Tobacco use vs. helminths in Congo basin hunter-gatherers. <em>Evolution and Human Behavior</em>, 35(5):397&ndash;407, 2014. <a href="https://doi.org/10.1016/j.evolhumbehav.2013.11.002" target="_blank">DOI</a></p>
+            <p>[7] Ruffini, G. Algorithmic information theory, free energy, and agent-structured models. 2017. <a href="https://arxiv.org/abs/1711.07625" target="_blank">arXiv</a></p>
+            <p>[8] Ruffini, G. AIT foundations of structured experience. 2022. <a href="https://arxiv.org/abs/2210.00403" target="_blank">arXiv</a></p>
+            <p>[9] Ruffini, G., Castaldo, F. et al. An algorithmic agent perspective on MDD. 2024. <a href="https://doi.org/10.48550/arXiv.2409.07625" target="_blank">arXiv</a></p>
+            <p>[10] Dani, J.A. &amp; De Biasi, M. Cellular mechanisms of nicotine addiction. <em>Pharmacology Biochemistry and Behavior</em>, 70(4):439&ndash;446, 2001. <a href="https://doi.org/10.1016/S0091-3057(01)00652-9" target="_blank">DOI</a></p>
+            <p>[11] Berdoy, M. et al. Fatal attraction in rats infected with <em>Toxoplasma gondii</em>. <em>Proceedings of the Royal Society B</em>, 267(1452):1591&ndash;1594, 2000. <a href="https://doi.org/10.1098/rspb.2000.1182" target="_blank">DOI</a></p>
+            <p>[12] Hughes, D.P. et al. Behavioral mechanisms and morphological symptoms of zombie ants. <em>BMC Ecology</em>, 11:13, 2011. <a href="https://doi.org/10.1186/1472-6785-11-13" target="_blank">DOI</a></p>
+            <p>[13] de Bekker, C. et al. Species-specific ant brain manipulation by a specialized fungal parasite. <em>BMC Evolutionary Biology</em>, 14:166, 2014. <a href="https://doi.org/10.1186/s12862-014-0166-3" target="_blank">DOI</a></p>
+            <p>[14] Libersat, F. &amp; Gal, R. Wasp voodoo rituals, venom-cocktails, and the zombification of cockroach hosts. <em>Integrative and Comparative Biology</em>, 54(2):129&ndash;142, 2014. <a href="https://doi.org/10.1093/icb/icu006" target="_blank">DOI</a></p>
+            <p>[15] Herbison, R., Lagrue, C. &amp; Poulin, R. The missing link in parasite manipulation of host behaviour. <em>Parasites &amp; Vectors</em>, 11:222, 2018. <a href="https://doi.org/10.1186/s13071-018-2805-9" target="_blank">DOI</a></p>
+            <p>[16] Tombor, I. et al. Does non-smoker identity following quitting predict long-term abstinence? <em>Addictive Behaviors</em>, 45:99&ndash;103, 2015. <a href="https://doi.org/10.1016/j.addbeh.2015.01.026" target="_blank">DOI</a></p>
+            <p>[17] Christakis, N.A. &amp; Fowler, J.H. The collective dynamics of smoking in a large social network. <em>New England Journal of Medicine</em>, 358(21):2249&ndash;2258, 2008. <a href="https://doi.org/10.1056/NEJMsa0706154" target="_blank">DOI</a></p>
+            <p>[18] Li, M.D. et al. A meta-analysis of estimated genetic and environmental effects on smoking behavior. <em>Pharmacogenetics</em>, 13(3):121&ndash;130, 2003. <a href="https://doi.org/10.1097/00008571-200303000-00001" target="_blank">DOI</a></p>
+            <p>[19] Vangeli, E. &amp; West, R. Transition towards a 'non-smoker' identity following smoking cessation. <em>British Journal of Health Psychology</em>, 17(1):171&ndash;184, 2012. <a href="https://doi.org/10.1111/j.2044-8287.2011.02031.x" target="_blank">DOI</a></p>
+        </div>
+
+    </article>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+    &copy; 2026 <a href="https://bcom.one">Barcelona Computational Foundation</a> &middot; <a href="https://neuroelectrics.com">Neuroelectrics</a>
+</footer>
+
+</body>
+</html>

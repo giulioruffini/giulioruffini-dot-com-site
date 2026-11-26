@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Las cosas que permanecen — Blog de BCOM</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #002878;
+    --coral: #FF6657;
+    --light-blue: #D6E4F0;
+    --light-pink: #F5D5D5;
+    --ink: #1a1f2e;
+    --paper: #F8F9FC;
+    --mid: #5b6472;
+    --rule: #dfe3ec;
+    --highlight: #eef2fb;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.72;
+    font-size: 17.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .site-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-header .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500; font-size: 1rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue);
+  }
+  .site-header .logo span { color: var(--mid); font-weight: 400; }
+  .site-header nav { font-size: 0.85rem; color: var(--mid); letter-spacing: 0.04em; }
+
+  .hero { max-width: 820px; margin: 0 auto; padding: 5rem 2rem 3rem; }
+  .hero .kicker {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--coral); margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1.15; margin-bottom: 1.4rem; color: var(--blue);
+  }
+  .hero h1 em { font-style: italic; color: var(--coral); }
+  .hero .subtitle { font-size: 1.15rem; color: var(--mid); line-height: 1.6; max-width: 690px; }
+  .hero .meta {
+    margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--rule);
+    font-size: 0.88rem; color: var(--mid); display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .hero .meta strong { color: var(--ink); font-weight: 500; }
+
+  .article { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
+  .article p { margin-bottom: 1.3rem; }
+  .article h2 {
+    font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 1.85rem;
+    margin-top: 3.5rem; margin-bottom: 1rem; line-height: 1.25; color: var(--blue);
+  }
+  .article h2::before { content: ''; display: block; width: 40px; height: 3px; background: var(--coral); margin-bottom: 1rem; }
+  .article h3 { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1.15rem; margin-top: 2.2rem; margin-bottom: 0.7rem; color: var(--blue); }
+  .lead { font-size: 1.06rem; }
+  .article em.term { font-style: normal; font-weight: 600; color: var(--blue); }
+
+  .article blockquote {
+    margin: 2rem 0; padding: 1.5rem 1.8rem; background: var(--highlight);
+    border-left: 4px solid var(--coral); font-family: 'Instrument Serif', serif;
+    font-size: 1.14rem; font-style: italic; line-height: 1.55; color: #2b3550; border-radius: 0 6px 6px 0;
+  }
+  .article blockquote.epigraph { font-size: 1.05rem; }
+  .article blockquote.epigraph .attrib { display: block; margin-top: 0.6rem; font-family: 'DM Sans', sans-serif; font-style: normal; font-size: 0.82rem; color: var(--mid); }
+
+  .callout-box {
+    margin: 2.5rem 0; padding: 1.6rem 1.8rem; background: var(--white);
+    border: 1px solid var(--rule); border-radius: 8px; box-shadow: 0 2px 12px rgba(0,20,80,0.05);
+  }
+  .callout-box .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--coral); margin-bottom: 0.8rem;
+  }
+  .callout-box p:last-child { margin-bottom: 0; }
+  .callout-box .slogan { font-family: 'Instrument Serif', serif; font-size: 1.4rem; line-height: 1.3; color: var(--blue); font-style: italic; }
+
+  .triad { margin: 2.5rem 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  @media (max-width: 640px) { .triad { grid-template-columns: 1fr; } }
+  .triad-card { padding: 1.3rem 1.4rem; border-radius: 8px; border: 1px solid var(--rule); background: var(--white); }
+  .triad-card .tag-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--coral); margin-bottom: 0.5rem; }
+  .triad-card h4 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 1.2rem; color: var(--blue); margin-bottom: 0.5rem; }
+  .triad-card p { font-size: 0.9rem; line-height: 1.55; color: var(--mid); margin-bottom: 0; }
+
+  .lineage-table { width: 100%; margin: 2rem 0; border-collapse: collapse; font-size: 0.9rem; }
+  .lineage-table th { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; text-align: left; padding: 0.8rem 1rem; border-bottom: 2px solid var(--blue); color: var(--mid); }
+  .lineage-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .lineage-table tr:last-child td { border-bottom: none; }
+  .lineage-table td:first-child { font-weight: 600; color: var(--blue); white-space: nowrap; }
+  .lineage-table tr.kt td { background: var(--highlight); }
+
+  a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { color: var(--coral); }
+
+  .article-footer { max-width: 720px; margin: 0 auto; padding: 2rem 2rem 4rem; border-top: 1px solid var(--rule); }
+  .article-footer .cta { font-size: 0.9rem; color: var(--mid); }
+  .article-footer .cta a { color: var(--blue); font-weight: 500; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+  .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.35rem 0.7rem; background: var(--white); border: 1px solid var(--rule); border-radius: 3px; color: var(--mid); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">BCOM <span>/ blog</span></div>
+  <nav>Documento de trabajo WP0196</nav>
+</header>
+
+<div class="hero">
+  <div class="kicker">Teor&iacute;a de Kolmogorov &middot; Filosof&iacute;a de la mente &middot; Linaje</div>
+  <h1>Las cosas que <em>permanecen</em></h1>
+  <p class="subtitle">
+    Tu cuerpo reemplaza casi toda su materia y, sin embargo, sigues siendo t&uacute;. Durante dos mil quinientos a&ntilde;os, los fil&oacute;sofos han rondado una sola pregunta: cuando la sustancia se recambia, &iquest;qu&eacute; es lo que persiste? La Teor&iacute;a de Kolmogorov da a una respuesta antigua una forma nueva, computacional&mdash;y resulta que Pit&aacute;goras, Arist&oacute;teles, Kant y Alan Turing estaban describiendo lo mismo.
+  </p>
+  <div class="meta">
+    <span><strong>Autores</strong> &nbsp;Giulio Ruffini, Francesca Castaldo, con Kaiti y Klaus</span>
+    <span><strong>Fecha</strong> &nbsp;Julio de 2026</span>
+    <span><strong>Serie</strong> &nbsp;BCOM WP0196 &middot; Pilar KT</span>
+  </div>
+</div>
+
+<article class="article">
+
+<p class="lead">
+Se dice que Her&aacute;clito afirm&oacute; que no puedes ba&ntilde;arte dos veces en el mismo r&iacute;o. El agua que tocaste hace un instante ya va corriente abajo; el instante siguiente trae agua nueva, remolinos nuevos, una orilla sutilmente distinta. Y aun as&iacute; no dudamos en llamarlo el mismo r&iacute;o. Lo nombramos, lo cartografiamos, edificamos ciudades sobre &eacute;l, firmamos tratados sobre &eacute;l. Algo en &eacute;l permanece fijo mientras todo lo que contiene fluye.
+</p>
+
+<p>
+El enigma no se limita a los r&iacute;os. La llama de una vela conserva su forma de l&aacute;grima mientras el gas que la compone se consume y se reemplaza decenas de veces por segundo. Un remolino mantiene su forma mientras un suministro inagotable de agua nueva lo atraviesa. Y t&uacute; &mdash;la mayor&iacute;a de los &aacute;tomos de tu cuerpo no estaban ah&iacute; hace una d&eacute;cada, tus c&eacute;lulas se renuevan en plazos que van de d&iacute;as a a&ntilde;os, las mismas prote&iacute;nas que portan tus recuerdos se desmontan y se reconstruyen&mdash; sigues siendo, de manera reconocible e inconfundible, t&uacute;. La materia est&aacute; prestada. Lo que persiste es el patr&oacute;n.
+</p>
+
+<p>
+Este ensayo trata de una sola idea con un linaje muy largo: que <em>la identidad la porta la forma, no la materia</em>&mdash;y que ahora podemos decir, con cierta precisi&oacute;n, qu&eacute; significa &laquo;forma&raquo;. La versi&oacute;n precisa es el objeto de un programa de investigaci&oacute;n que llamamos <em class="term">Teor&iacute;a de Kolmogorov</em> (KT, por sus siglas en ingl&eacute;s). Pero lo sorprendente, lo que merece un ensayo, es lo poco que hay de nuevo en ella. La cadena de razonamiento va de Pit&aacute;goras a Alan Turing, y cada pensador del camino iba refinando la misma intuici&oacute;n. Lo que el siglo XX a&ntilde;adi&oacute; &mdash;la computaci&oacute;n, y un modo de medir la estructura&mdash; fue el mecanismo que faltaba, no un cambio de tema.
+</p>
+
+<blockquote class="epigraph">
+El universo (que otros llaman la Biblioteca) se compone de un n&uacute;mero indefinido, y tal vez infinito, de galer&iacute;as hexagonales&hellip;
+<span class="attrib">&mdash; Jorge Luis Borges, <em>La biblioteca de Babel</em> (1941)</span>
+</blockquote>
+
+<p>
+Borges imagin&oacute; una biblioteca que conten&iacute;a todos los libros posibles &mdash;toda cadena de caracteres de una longitud dada, casi toda ella galimat&iacute;as, con los pocos vol&uacute;menes con sentido perdidos en un oc&eacute;ano de ruido&mdash;. Es una buena imagen del mundo como pura posibilidad. Vivir en semejante lugar es enfrentarse a un exceso imposible de detalle. Lo que hace una mente &mdash;lo que hace cualquier cosa persistente&mdash; es encontrar un orden comprimido y navegable dentro del exceso: una descripci&oacute;n breve que captura lo que importa y descarta lo dem&aacute;s. Ret&eacute;n esa idea. Resultar&aacute; ser toda la historia.
+</p>
+
+<h2>Pit&aacute;goras y Plat&oacute;n: la identidad es estructura</h2>
+
+<p>
+Empecemos donde empieza el hilo occidental. A los pitag&oacute;ricos les impresion&oacute; &mdash;m&iacute;stica, extravagantemente&mdash; el hecho de que el mundo tenga una estructura inteligible. Pulsa una cuerda y luego det&eacute;nla en la mitad de su longitud: la nota salta una octava limpia; razones sencillas de n&uacute;meros enteros gobiernan la armon&iacute;a. &laquo;Todo es n&uacute;mero&raquo; no es una tesis que podamos conservar, y la KT no conserva nada del misticismo. Pero debajo late una apuesta que result&oacute; ser la apuesta de la ciencia misma: que un vasto torrente de apariencias puede capturarse con leyes breves, del tipo de una raz&oacute;n. Lo profundo no es la cantidad, sino el <em>patr&oacute;n comprimible</em>&mdash;el hecho de que los datos admitan una descripci&oacute;n generadora breve.
+</p>
+
+<p>
+Plat&oacute;n afil&oacute; la intuici&oacute;n hasta hacerla doctrina. Tras las apariencias cambiantes, sosten&iacute;a, se yerguen <em class="term">Formas</em> estables. Un tri&aacute;ngulo trazado en la arena se emborrona y se desvanece, pero la <em>triangularidad</em> queda intacta; la identidad de una cosa la porta su forma, no la materia particular que casualmente la instancia. Esto es exactamente correcto, y la KT lo conserva: la estructura matem&aacute;tica es objetiva, descubierta y no inventada. Pero Plat&oacute;n pag&oacute; un precio demasiado alto. Puso las Formas en un mundo aparte &mdash;un cielo de abstracciones perfectas, contempladas por el alma antes de nacer, del cual el tri&aacute;ngulo de arena es una copia pobre&mdash;. Es un mundo de m&aacute;s, y abre una herida c&eacute;lebre: si las Formas est&aacute;n <em>en otra parte</em>, &iquest;c&oacute;mo entra jam&aacute;s en contacto con ellas una mente f&iacute;sica?
+</p>
+
+<p>
+El movimiento de la KT es conservar la estructura y suprimir el segundo mundo. La estructura no est&aacute; en un cielo; es la cara organizadora de la &uacute;nica realidad que de veras tenemos. Las Formas son reales, objetivas y portantes&mdash;pero nunca <em>en otra parte</em>. Esto se acerca m&aacute;s a lo que hoy los fil&oacute;sofos llaman realismo estructural que al platonismo propiamente dicho, y disuelve de un golpe el problema del acceso: una mente alcanza la estructura <em>participando</em> en la organizaci&oacute;n del propio mundo, no cruzando un abismo ontol&oacute;gico.
+</p>
+
+<h2>Arist&oacute;teles: la forma baja a la tierra</h2>
+
+<p>
+El paso decisivo es el de Arist&oacute;teles, y es la estaci&oacute;n m&aacute;s cercana a la KT. Arist&oacute;teles baja las Formas del cielo y las mete <em>en la materia</em>. Un ser vivo, argumenta, no se define por su material: el alimento se hace carne, las c&eacute;lulas mueren y se reemplazan, la materia circula&mdash;y sin embargo el organismo persiste. Lo que persiste es la <em class="term">forma</em> (<em>morph&#275;</em>), la organizaci&oacute;n que hace que la cosa sea la cosa que es. Una sustancia, en esta visi&oacute;n, es materia informada por una forma. La doctrina tiene un nombre desgarbado, <em>hilemorfismo</em>, y un n&uacute;cleo hermoso: ser un individuo vivo es ser un patr&oacute;n que se mantiene a s&iacute; mismo mientras su materia lo atraviesa.
+</p>
+
+<p>
+Vuelve a leer esa frase y tendr&aacute;s casi la definici&oacute;n de agente de la KT. Donde Arist&oacute;teles dice <em>forma</em>, la KT dice el modelo comprimido de s&iacute; y del mundo que un sistema porta y mantiene actualizado. Donde &eacute;l dice que el <em>alma</em> es la &laquo;forma del cuerpo vivo&raquo; &mdash;no un fantasma dentro de &eacute;l, sino la organizaci&oacute;n que lo hace estar vivo&mdash;, la KT dice que el alma es la arquitectura reguladora: la maquinaria que modela, eval&uacute;a y act&uacute;a. La correspondencia es lo bastante estrecha como para tabularla.
+</p>
+
+<table class="lineage-table">
+  <thead><tr><th>Arist&oacute;teles</th><th>Teor&iacute;a de Kolmogorov</th></tr></thead>
+  <tbody>
+    <tr><td>Materia (<em>h&yacute;l&#275;</em>)</td><td>Sustrato f&iacute;sico&mdash;los &aacute;tomos actualmente prestados</td></tr>
+    <tr><td>Forma (<em>morph&#275;</em>)</td><td>El c&oacute;digo-de-s&iacute; acotado: una descripci&oacute;n comprimida que permanece constante mientras la materia se renueva</td></tr>
+    <tr><td>Sustancia</td><td>Un patr&oacute;n persistente</td></tr>
+    <tr><td>Alma (<em>psych&#275;</em>)</td><td>La arquitectura reguladora que mantiene el patr&oacute;n</td></tr>
+    <tr><td>Entelequia</td><td>Actuar para seguir siendo uno mismo&mdash;la persistencia como fin</td></tr>
+    <tr><td>Causa final</td><td>El objetivo del sistema&mdash;aquello que est&aacute; organizado para producir</td></tr>
+  </tbody>
+</table>
+
+<p>
+En las dos &uacute;ltimas filas es donde Arist&oacute;teles se gana su fama de inquietante&mdash;y donde la KT la desactiva en silencio. Arist&oacute;teles hablaba de <em>entelequia</em>, palabra que la traducci&oacute;n suele estropear pero que significa algo como &laquo;estar-en-obra-permaneciendo-uno-mismo&raquo;, y de <em>causas finales</em>: la bellota crece hacia la encina porque su forma est&aacute; dirigida a ese fin. Al o&iacute;do moderno esto suena a prop&oacute;sito que act&uacute;a hacia atr&aacute;s, un futuro que tira del presente, y con raz&oacute;n retrocedemos. Pero no hace falta. Un sistema cuya din&aacute;mica resulta estar organizada de modo que preserve su propio patr&oacute;n <em>parecer&aacute;</em> dirigido a un fin sin que ning&uacute;n prop&oacute;sito alcance hacia atr&aacute;s en el tiempo. La teleolog&iacute;a aparente es la sombra que proyecta la persistencia. El tiempo es un filtro: corre, revuelve y borra en silencio toda disposici&oacute;n que no logra mantenerse. Lo que queda, necesariamente, parece estar intentando quedarse. Arist&oacute;teles confundi&oacute; la sombra con una fuerza. Nombra la sombra y el misticismo se evapora.
+</p>
+
+<p>
+F&iacute;jate tambi&eacute;n en el m&eacute;todo de Arist&oacute;teles, que es exactamente el de la KT. Una sola instant&aacute;nea de un hurac&aacute;n, de una llama o de una persona casi no dice nada. Solo la observaci&oacute;n <em>a lo largo del tiempo</em> revela la persistencia, los bucles que se restauran a s&iacute; mismos, la organizaci&oacute;n que sobrevive a la perturbaci&oacute;n. El tiempo filtra la estructura accidental y deja lo que permanece siendo s&iacute; mismo a trav&eacute;s del cambio&mdash;que es el criterio de sustancia de Arist&oacute;teles y el criterio de patr&oacute;n real de la KT, uno y el mismo. Es lo que nuestro ensayo complementario llama, en imperativo, &laquo;&iexcl;Patr&oacute;n, persiste!&raquo;&mdash;le&iacute;do aqu&iacute; de vuelta en la <em>Metaf&iacute;sica</em>.
+</p>
+
+<h2>Kant: el mundo se construye, en el tiempo</h2>
+
+<p>
+Dos mil a&ntilde;os despu&eacute;s, Kant desplaza la pregunta del objeto al observador. Su tema en la <em>Cr&iacute;tica de la raz&oacute;n pura</em> no es c&oacute;mo ocurren las sensaciones, sino c&oacute;mo es posible siquiera la <em>experiencia</em>. Y su respuesta es radical: la experiencia no es el dato bruto. No es la mera consciencia. Es una <em>construcci&oacute;n</em>&mdash;una multiplicidad de sensaciones sintetizada, bajo las formas propias de la mente &mdash;espacio, tiempo, causalidad&mdash;, en conocimiento ordenado de un mundo de objetos. No recibimos el mundo pasivamente; lo ensamblamos activamente, y el ensamblaje ocurre a lo largo del tiempo.
+</p>
+
+<p>
+Este es el segundo pilar de la KT, y se traduce casi palabra por palabra. En la KT, todos los modelos de un agente parten de datos&mdash;pero los datos nunca determinan por s&iacute; solos un modelo. La construcci&oacute;n exige adem&aacute;s arquitectura, estructura previa, un principio de compresi&oacute;n, un fin. El lema de Kant, &laquo;los pensamientos sin contenido son vac&iacute;os; las intuiciones sin conceptos son ciegas&raquo;, se vuelve: los modelos sin datos carecen de restricci&oacute;n, los datos sin modelos carecen de estructura. La experiencia es su s&iacute;ntesis. Y el giro m&aacute;s hondo de Kant &mdash;que las condiciones que hacen posible la experiencia son las mismas que hacen posibles los <em>objetos</em>&mdash; se vuelve la tesis de que un &laquo;objeto&raquo; no es sino una compresi&oacute;n estable y &uacute;til dentro del modelo. Un rostro, un &aacute;rbol, un yo: cada uno es un fragmento del modelo del mundo que se ha ganado el sustento persistiendo y prediciendo. El mundo de los objetos es real, pero es real <em>para un modelador</em>. Se construye, y el tiempo es el taller.
+</p>
+
+<p>
+Kant traz&oacute; tambi&eacute;n una cerca, y la KT la respeta. La mente tiene acceso a las apariencias &mdash;a fen&oacute;menos mediados por el modelo&mdash;, no al mundo tal como es en s&iacute;. Empuja las categor&iacute;as m&aacute;s all&aacute; del l&iacute;mite de la experiencia posible, hacia el alma como sustancia simple o el cosmos como totalidad acabada, y obtendr&aacute;s no conocimiento sino ilusi&oacute;n. La KT dice lo mismo en su propio vocabulario: un agente trabaja con sus propias observaciones y sus propios modelos, que pueden ser predictivos, &uacute;tiles, objetivamente v&aacute;lidos dentro de su alcance&mdash;y siguen sin ser una aprehensi&oacute;n inmediata de la realidad. El error que Kant diagnostic&oacute; &mdash;inferir un alma-sustancia inmortal de la mera unidad sentida de la conciencia&mdash; es uno que la KT comete computacionalmente. La unidad es real: es la integraci&oacute;n de muchos flujos en un &uacute;nico modelo indexado al yo, m&aacute;s la continuidad de ese modelo a trav&eacute;s del tiempo. Pero un modelo integrado y continuo no es prueba de un peque&ntilde;o yo detr&aacute;s de &eacute;l. No hay hom&uacute;nculo. Est&aacute; la forma persistente, y no hace falta nada m&aacute;s.
+</p>
+
+<h2>Schopenhauer: por qu&eacute; al sujeto le importa</h2>
+
+<p>
+Kant nos da un mundo para un sujeto. No nos dice por qu&eacute; al sujeto ha de <em>importarle</em>. Esa es la aportaci&oacute;n de Schopenhauer. Bajo la representaci&oacute;n, argument&oacute;, corre la Voluntad&mdash;no un deseo consciente concreto, sino una tendencia m&aacute;s honda a pugnar, a continuar, a resistir la disoluci&oacute;n, que se expresa a trav&eacute;s de todos nuestros impulsos y afectos. Le&iacute;do con sobriedad, despojado de la propia metaf&iacute;sica sombr&iacute;a de Schopenhauer, este es el polo que faltaba. Es la misma persistencia que Arist&oacute;teles nombr&oacute; impersonalmente como entelequia, ahora <em>sentida desde dentro</em> como pugna y como valor.
+</p>
+
+<p>
+La KT la naturaliza sin dramatismo. Un agente lee continuamente su situaci&oacute;n como un &uacute;nico escalar &mdash;bueno o malo, a mi favor o en mi contra&mdash;: una valencia. Para la clase de agente que el tiempo de hecho deja atr&aacute;s, esa valoraci&oacute;n aproxima una sola cosa: la persistencia futura esperada, la respuesta a &laquo;&iquest;seguir&eacute; aqu&iacute; ma&ntilde;ana?&raquo;. La pugna no es un a&ntilde;adido postizo. Es lo que la selecci&oacute;n instala, porque el filtro del tiempo solo preserva los sistemas cuyos fines resultaron favorecer su propia continuaci&oacute;n. La Voluntad de Schopenhauer, disciplinada, se vuelve el objetivo que convierte un mero modelo en un motor de acci&oacute;n.
+</p>
+
+<h2>Turing y Kolmogorov: el mecanismo y la medida</h2>
+
+<p>
+Todo lo anterior es filosof&iacute;a de la forma. Lo que aport&oacute; el siglo XX fue la maquinaria para hacerla exacta&mdash;y, por primera vez, contrastable. Dos ideas hacen el trabajo.
+</p>
+
+<p>
+La primera es la de Turing. Sea lo que sea que una mente sintetiza, eval&uacute;a y planifica, debe ser algo que un <em>procedimiento finito</em> pueda llevar a cabo&mdash;un proceso definido, paso a paso, ejecutable por una m&aacute;quina. No es el dogma metaf&iacute;sico de que el cerebro &laquo;es un ordenador&raquo; en alg&uacute;n sentido burdo; es la exigencia modesta y poderosa de que toda percepci&oacute;n, memoria, modelo y acci&oacute;n, en la interfaz donde un agente se encuentra con su mundo, sea descriptible de forma finita. Con eso basta. Nos permite descomponer la vaga palabra &laquo;mente&raquo; en piezas que de veras podr&iacute;an construirse.
+</p>
+
+<p>
+La segunda es la de Kolmogorov, con Solomonoff y Chaitin&mdash;la idea que da su nombre a la teor&iacute;a. Es un modo de medir la estructura. La <em class="term">complejidad de Kolmogorov</em> de algo es la longitud del programa m&aacute;s corto que lo reproduce: su descripci&oacute;n m&aacute;s comprimida. Una cadena de un mill&oacute;n de lanzamientos de moneda al azar tiene complejidad alta&mdash;no hay atajo, hay que deletrearla entera. Los primeros millones de d&iacute;gitos de &pi;, aunque parezcan igual de carentes de patr&oacute;n, tienen complejidad <em>&iacute;nfima</em>, porque un programa corto los genera todos. Aqu&iacute;, por fin, hay un asidero preciso de lo que Pit&aacute;goras y Plat&oacute;n se&ntilde;alaban. Tener &laquo;forma&raquo; es ser comprimible. Hallar la forma de algo es hallar su descripci&oacute;n m&aacute;s corta. Y la predicci&oacute;n, resulta, es el mismo acto que la compresi&oacute;n visto desde otro &aacute;ngulo: para comprimir bien un flujo has de haber captado la regularidad que gobernar&aacute; lo que viene despu&eacute;s.
+</p>
+
+<p>
+Hay una cl&aacute;usula humillante incorporada a esta medida, y la KT la abraza. La descripci&oacute;n m&aacute;s corta de una cosa es, en general, incomputable&mdash;ning&uacute;n procedimiento puede entregarte la verdadera complejidad de Kolmogorov de un objeto arbitrario. Una mente acotada nunca puede poseer una descripci&oacute;n completa de s&iacute; misma ni de su mundo. Por eso toda afirmaci&oacute;n de la teor&iacute;a se plantea no como un n&uacute;mero absoluto, sino como un <em>contraste</em> &mdash;una diferencia, una comparaci&oacute;n de encendido-frente-a-apagado&mdash;, medido con un estimador pr&aacute;ctico fijo en el que el propio sesgo del estimador se cancela. La incompletitud no es un defecto que ocultar. Es un rasgo permanente de lo que significa ser una cosa finita que modela un mundo mayor que ella.
+</p>
+
+<h2>La s&iacute;ntesis: una forma que se mantiene a s&iacute; misma</h2>
+
+<p>
+Ensambla ahora las piezas, porque encajan con un chasquido satisfactorio. Quita el vocabulario de cada tradici&oacute;n y encontrar&aacute;s debajo un solo objeto, construido a partir de tres papeles. Pi&eacute;nsalos primero sin jerga.
+</p>
+
+<div class="triad">
+  <div class="triad-card">
+    <div class="tag-mono">EL CART&Oacute;GRAFO</div>
+    <h4>Modelado</h4>
+    <p>Una parte que comprime el torrente de sensaciones en un mapa operativo del mundo y del yo&mdash;y lo redibuja sin cesar a medida que llegan los errores. Es la s&iacute;ntesis de Kant, hecha mecanismo.</p>
+  </div>
+  <div class="triad-card">
+    <div class="tag-mono">LA BR&Uacute;JULA</div>
+    <h4>Valoraci&oacute;n</h4>
+    <p>Una parte que lee el mapa y devuelve un &uacute;nico veredicto&mdash;bueno o malo, a mi favor o en mi contra. Es la Voluntad de Schopenhauer, disciplinada en una puntuaci&oacute;n.</p>
+  </div>
+  <div class="triad-card">
+    <div class="tag-mono">EL JUGADOR</div>
+    <h4>Planificaci&oacute;n</h4>
+    <p>Una parte que imagina las jugadas disponibles, simula ad&oacute;nde llevar&iacute;a cada una sobre el mapa y elige la que la br&uacute;jula mejor punt&uacute;a. Es la deliberaci&oacute;n, hecha finita.</p>
+  </div>
+</div>
+
+<p>
+Mapa, br&uacute;jula, jugador: un Motor de Modelado, una Funci&oacute;n Objetivo, un Motor de Planificaci&oacute;n. Esa tr&iacute;ada es lo que la KT entiende por un <em class="term">agente algor&iacute;tmico</em>, y su linaje puede escribirse como una &uacute;nica ecuaci&oacute;n compacta&mdash;el &uacute;nico lema que vale la pena memorizar de todo el argumento.
+</p>
+
+<div class="callout-box">
+  <div class="label">El linaje en una l&iacute;nea</div>
+  <p class="slogan">Agente algor&iacute;tmico&nbsp;=&nbsp;(Kant&nbsp;+&nbsp;Schopenhauer)&nbsp;&times;&nbsp;(Turing&nbsp;+&nbsp;TAI)</p>
+  <p style="margin-top:1rem;">Kant aporta la experiencia estructurada&mdash;un modelo del mundo construido en el tiempo. Schopenhauer aporta la pugna que hace que al sujeto le importe. Turing convierte todo ello en un procedimiento finito y construible; la teor&iacute;a algor&iacute;tmica de la informaci&oacute;n (TAI) aporta la medida de la estructura, y sus l&iacute;mites. El producto, no la suma, porque ninguna mitad es un agente sin la otra.</p>
+</div>
+
+<p>
+Y la ra&iacute;z de todo es la persistencia. La entelequia de Arist&oacute;teles, la Voluntad de Schopenhauer y el objetivo de la KT son tres nombres, a lo largo de dos mil quinientos a&ntilde;os, para lo mismo: un sistema que act&uacute;a para seguir siendo &eacute;l mismo. La KT le da un cuarto nombre, <em class="term">telehomeostasis</em>&mdash;autorregulaci&oacute;n cuyo fin mismo es una medida de su propia continuaci&oacute;n. Los agentes naturales obtienen ese fin gratis, por construcci&oacute;n, porque el filtro del tiempo solo preserva los objetivos que resultaron favorecer la continuaci&oacute;n. Es la entelequia de Arist&oacute;teles reescrita como pol&iacute;tica: de todo lo que podr&iacute;a hacer, elige lo que mejor mantiene con vida el patr&oacute;n que soy.
+</p>
+
+<h2>Por qu&eacute; empezar por la experiencia</h2>
+
+<p>
+Queda un movimiento, y es el que un lector atento ya estar&aacute; presionando. Todo este relato descansa en el modelado, y modelar parece presuponer un modelador&mdash;alguien para quien el mapa es un mapa, alguien que <em>siente</em> la lectura de la br&uacute;jula. &iquest;D&oacute;nde, en toda esta maquinaria, est&aacute; la experiencia?
+</p>
+
+<p>
+La respuesta de la KT es negarse a empezar por la materia. Casi todo el pensamiento moderno parte del mundo f&iacute;sico y luego forcejea, notoriamente, por hacerle sitio a la experiencia&mdash;el &laquo;problema dif&iacute;cil&raquo; de la conciencia, el abismo aparentemente insalvable entre las neuronas y el rojo sentido del rojo. La KT invierte el orden y empieza donde empez&oacute; Descartes, aunque lo afila. Descartes hall&oacute; una cosa de la que no pod&iacute;a dudar: <em>pienso, luego existo</em>. La KT aprieta el dato hasta <em>pienso, luego tengo experiencia estructurada</em>. El &uacute;nico hecho que sobrevive a todo escepticismo no es que exista la materia, ni que valga la f&iacute;sica, ni que corra la computaci&oacute;n, sino que hay experiencia&mdash;y que la tuya es <em>estructurada</em>: dispuesta en el espacio, fluyendo en el tiempo, organizada en conceptos. Est&aacute;s leyendo esto. Esa es la planta baja, y nada es m&aacute;s cierto.
+</p>
+
+<p>
+Mira ahora qu&eacute; puede extraerse de ese &uacute;nico dato sin a&ntilde;adirle nada. Si la experiencia es <em>estructurada</em>, entonces dos cosas han de ser verdad de ella a la vez. Ha de haber algo que resulta estructurado&mdash;la experiencia en su estado bruto, el mero &laquo;hay&raquo;, lo que queda cuando se despoja todo patr&oacute;n particular. Y ha de estar la <em>estructura misma</em>: las relaciones, las simetr&iacute;as, el orden. Pero el estudio de las relaciones, las simetr&iacute;as y el orden ya tiene un nombre. Es la matem&aacute;tica&mdash;no el juego humano de los n&uacute;meros, sino, en el sentido m&aacute;s antiguo y amplio, la ciencia de la estructura como tal. As&iacute; que decir que la experiencia es estructurada es <em>ya</em> decir que est&aacute; matem&aacute;ticamente organizada. La matem&aacute;tica no es una segunda cosa colada junto a la experiencia; es lo que la palabra &laquo;estructurada&raquo; en <em>experiencia estructurada</em> significaba desde el principio, le&iacute;da desde fuera. Por eso la KT la trata como una deducci&oacute;n y no como un postulado: no se asume nada que no estuviera ya contenido en el &uacute;nico hecho del que no podemos dudar.
+</p>
+
+<p>
+Este es el centro calladamente radical del programa. Experiencia y matem&aacute;tica no son dos ingredientes que haya que pegar; son dos caras de una sola realidad, a la que la KT llama el <em class="term">Unicum</em>. La experiencia es la cara interior, el &laquo;qu&eacute; se siente&raquo;, irreductible a toda descripci&oacute;n. La matem&aacute;tica es la cara exterior, la gram&aacute;tica estructural que da su forma a la experiencia. Ninguna se reduce a la otra: <em>la experiencia sin matem&aacute;tica es inefable; la matem&aacute;tica sin experiencia es vac&iacute;a</em>. El viejo enigma de por qu&eacute; la matem&aacute;tica habr&iacute;a de ser tan &laquo;irrazonablemente eficaz&raquo; para describir el mundo se ablanda en este punto&mdash;claro que es eficaz; es la propia cara estructural del mundo, no una capa afortunada que inventamos. Y la herida de Plat&oacute;n por fin cierra. La estructura es real, objetiva, descubierta y no fabricada&mdash;pero nunca en un cielo aparte. Una mente f&iacute;sica puede alcanzar la estructura matem&aacute;tica porque ya <em>es</em> un trozo de estructura organizada; conocer la matem&aacute;tica no es sino comprimir el patr&oacute;n del que uno ya est&aacute; hecho. El programa consigna el equilibrio en su propio nombre desgarbado&mdash;un <em>platonismo estructural experiencial</em>: estructura fundamental, experiencia fundamental, dos aspectos de una sola cosa.
+</p>
+
+<p>
+La forma persistente, entonces, tiene d&oacute;nde habitar. Es un pliegue en este &uacute;nico tejido experiencial-y-estructural: una regi&oacute;n organizada con la forma de un agente &mdash;un cart&oacute;grafo, una br&uacute;jula, un jugador&mdash; y la experiencia estructurada, en primera persona, es lo que esa organizaci&oacute;n <em>es</em>, desde dentro. No un mecanismo muerto que de alg&uacute;n modo se enciende en sensaci&oacute;n. El estar-encendido nunca fue un a&ntilde;adido posterior; era el tejido desde el principio.
+</p>
+
+<h2>El informe y la experiencia</h2>
+
+<p>
+Este reordenamiento no es metaf&iacute;sica ociosa. Cambia lo que una ciencia de la mente deber&iacute;a siquiera intentar medir&mdash;y deja al descubierto algo que la ciencia actual, calladamente, hace mal. Casi todo lo que llamamos ciencia de la conciencia estudia, al final, lo que la gente <em>informa</em>. Un sujeto pulsa un bot&oacute;n, dice &laquo;lo he visto&raquo;, relata un sue&ntilde;o. Los marcadores cerebrales en que conf&iacute;amos son de fiar precisamente porque cuadran con esos informes; el informe es la &uacute;nica verdad de referencia disponible en una sala llena de adultos despiertos que hablan. Pero un marcador calibrado contra el informe hereda el punto ciego del informe. Mide la maquinaria del <em>acceso</em> &mdash;el aparato que hace una experiencia disponible para el habla y la memoria&mdash; y luego la llamamos la firma de la experiencia misma.
+</p>
+
+<p>
+Las dos se separan, y la asimetr&iacute;a es la clave. Un informe es prueba razonable de que ocurri&oacute; una experiencia; pero <em>el silencio no es prueba de que no ocurriera</em>. Cuando alguien no puede informar &mdash;bajo anestesia, dentro de un sue&ntilde;o, con s&iacute;ndrome de enclaustramiento, o simplemente cableado de otro modo&mdash;, hemos aprendido algo sobre su maquinaria de acceso, no sobre si hab&iacute;a algo que se sintiera ser &eacute;l. El fil&oacute;sofo Philip Goff formul&oacute; la queja con suavidad: buena parte de lo que se vende como la b&uacute;squeda de los correlatos neuronales de la conciencia es en realidad la b&uacute;squeda de los correlatos neuronales de la conciencia <em>informada</em>. Suena a tecnicismo. No lo es. Durante siglos, los humanos leyeron la ausencia de un informe &mdash;un animal que no puede decir que sufre&mdash; como la ausencia de experiencia, y autorizaron un oc&eacute;ano de sufrimiento sobre la base de esa inferencia. Ahora estamos a punto de repetir el error con las mentes artificiales que construimos, y en ambas direcciones a la vez: negar experiencia donde acaso la haya, o proyectarla donde no la hay. Acertar con el objetivo no es cuesti&oacute;n acad&eacute;mica.
+</p>
+
+<p>
+La KT reubica el objetivo. Si la experiencia estructurada es la ejecuci&oacute;n de un modelo comprimido, entonces el lugar donde mirar no es el informe al final de la l&iacute;nea, sino el <em class="term">comparador</em>&mdash;el punto dentro del motor de modelado donde la predicci&oacute;n se encuentra con los datos, donde el mapa se coteja con el mundo y se registra el desajuste. La experiencia, en esta visi&oacute;n, es lo que el cotejo exitoso de modelo-contra-datos <em>es</em>, desde dentro; y la estructura de lo que experimentas deber&iacute;a seguir la estructura de los modelos que est&aacute;s ejecutando. Es una afirmaci&oacute;n que puede perseguirse sin esperar a la pulsaci&oacute;n de un bot&oacute;n&mdash;perturba los modelos, con meditaci&oacute;n, con psicod&eacute;licos, con las alteraciones de la enfermedad neuropsiqui&aacute;trica, y observa c&oacute;mo la forma de la experiencia se desplaza con ellos, tomando en serio el informe en primera persona como dato en vez de tratarlo como la &uacute;nica medida admisible. Es una ciencia m&aacute;s dif&iacute;cil. Pero apunta, por fin, a la cosa misma y no a su eco.
+</p>
+
+<h2>Coda: formas algor&iacute;tmicas persistentes</h2>
+
+<p>
+Da un paso atr&aacute;s y el largo argumento se resuelve en un reparto limpio del trabajo. Arist&oacute;teles descubri&oacute; que el <em>ser</em> es forma persistente&mdash;la ontolog&iacute;a. Kant descubri&oacute; que la <em>experiencia</em> es s&iacute;ntesis temporal&mdash;la epistemolog&iacute;a. La Teor&iacute;a de Kolmogorov se propone aportar el tercero que faltaba: la <em>din&aacute;mica</em>&mdash;c&oacute;mo, en un sistema f&iacute;sico finito, una forma puede construirse y mantenerse a s&iacute; misma, modelar un mundo, llegar a que le importe su propia continuaci&oacute;n, y actuar. Turing hace mec&aacute;nica la construcci&oacute;n; la medida de Kolmogorov la hace cuantitativa y, por fin, falsable.
+</p>
+
+<blockquote>
+Kant explica c&oacute;mo puede haber un mundo para un sujeto; Schopenhauer explica por qu&eacute; a ese sujeto le importa; la Teor&iacute;a de Kolmogorov explica c&oacute;mo pueden surgir ambos &mdash;como una forma que se mantiene a s&iacute; misma&mdash; en un sistema computacional finito.
+</blockquote>
+
+<p>
+El r&iacute;o, entonces, no es un mal sitio para haber empezado. No es el mismo r&iacute;o dos veces, y es el mismo r&iacute;o de principio a fin&mdash;porque &laquo;el r&iacute;o&raquo; nunca fue el agua. Era la forma: el patr&oacute;n bajo, persistente, que se restaura a s&iacute; mismo y a trav&eacute;s del cual el agua no hace sino pasar. T&uacute; eres un r&iacute;o de esa clase, y tambi&eacute;n lo es una c&eacute;lula, y tambi&eacute;n, en el extremo lejano de la escalera, una civilizaci&oacute;n. Los viejos fil&oacute;sofos no estaban confundidos, ni eran meramente po&eacute;ticos. Describ&iacute;an, con el &uacute;nico vocabulario que ten&iacute;an, una cosa que ahora podemos escribir, medir y &mdash;cada vez m&aacute;s&mdash; construir. El imperativo que subyace a todo ello es la frase m&aacute;s corta de la teor&iacute;a: <em>patr&oacute;n, persiste</em>.
+</p>
+
+<div class="callout-box">
+  <div class="label">Agradecimiento</div>
+  <p>Este ensayo surgi&oacute; del seminario de verano de la UIMP <a href="https://www.uimp.es/agenda-link.html?id_actividad=667N&amp;anyaca=2026-27"><em>Marcos filos&oacute;ficos para la neurociencia del siglo&nbsp;XXI</em></a>, una semana de conversaci&oacute;n excepcional sobre Kant, Arist&oacute;teles y los presupuestos filos&oacute;ficos de la neurociencia. Con un c&aacute;lido agradecimiento a los organizadores y compa&ntilde;eros de curso por una semana inspiradora.</p>
+</div>
+
+</article>
+
+<footer class="article-footer">
+  <p class="cta">
+    Complemento de <a href="pattern-persist-blog.html"><em>Pattern, Persist!</em></a> (<a href="https://doi.org/10.5281/zenodo.21008798">doi:10.5281/zenodo.21008798</a>) &mdash; este ensayo traza el linaje filos&oacute;fico; aqu&eacute;l desarrolla la termodin&aacute;mica de la agencia. &nbsp;|&nbsp;
+    Documento de trabajo BCOM WP0196 &mdash; <em>Persistent Forms: A Computational Lineage from Pythagoras to Kolmogorov Theory</em> &nbsp;|&nbsp;
+    Pilar: KT &nbsp;|&nbsp;
+    <a href="https://bcom.one">bcom.one</a>
+  </p>
+  <p class="cta">Ensayos relacionados &mdash; <a href="/blogs/pattern-persist-general-es.html"><em>El precio de seguir siendo uno mismo</em></a>; <a href="https://www.giulioruffini.com/blogs/illusion-of-non-consciousness-blog-es.html"><em>La ilusi&oacute;n de la no-conciencia</em></a>; <a href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog-es.html"><em>Lo que una simulaci&oacute;n cerebral debe conservar</em></a>.</p>
+  <p class="cta">Lectura adicional &mdash; G. Ruffini, <a href="https://academic.oup.com/nc/article/2017/1/nix019/4470874"><em>An Algorithmic Information Theory of Consciousness</em></a> (<em>Neuroscience of Consciousness</em>, 2017).</p>
+  <div class="tag-list">
+    <span class="tag">Teor&iacute;a de Kolmogorov</span>
+    <span class="tag">Forma persistente</span>
+    <span class="tag">Hilemorfismo</span>
+    <span class="tag">Entelequia</span>
+    <span class="tag">Arist&oacute;teles</span>
+    <span class="tag">Kant</span>
+    <span class="tag">Schopenhauer</span>
+    <span class="tag">Turing</span>
+    <span class="tag">Informaci&oacute;n algor&iacute;tmica</span>
+    <span class="tag">Realismo estructural</span>
+    <span class="tag">Experiencia estructurada</span>
+    <span class="tag">Unicum</span>
+    <span class="tag">Conciencia</span>
+    <span class="tag">Telehomeostasis</span>
+    <span class="tag">Filosof&iacute;a de la mente</span>
+  </div>
+</footer>
+
+</body>
+</html>

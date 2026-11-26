@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Laws Don't Write the Textbook</title>
+<style>
+  :root {
+    --lively-blue: #002878;
+    --coral: #FF6657;
+    --light-blue: #D6E4F0;
+    --light-pink: #F5D5D5;
+    --pale-bg: #F8F9FC;
+    --white: #FFFFFF;
+    --ink: #1a1a2e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.75;
+    font-size: 1.06rem;
+  }
+  .hero {
+    background: var(--lively-blue);
+    color: var(--white);
+    padding: 4.5rem 1.5rem 3.5rem;
+  }
+  .hero-inner { max-width: 760px; margin: 0 auto; }
+  .kicker {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--coral);
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+  }
+  h1 {
+    font-size: 2.65rem;
+    line-height: 1.12;
+    font-weight: 700;
+    margin-bottom: 1.15rem;
+  }
+  .standfirst {
+    font-size: 1.18rem;
+    font-style: italic;
+    color: var(--light-blue);
+    line-height: 1.6;
+    max-width: 720px;
+  }
+  .byline {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--light-blue);
+    margin-top: 1.8rem;
+    border-top: 1px solid rgba(255,255,255,0.25);
+    padding-top: 1rem;
+  }
+  .byline strong { color: var(--white); }
+  main { max-width: 760px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+  main p { margin-bottom: 1.35rem; }
+  h2 {
+    font-family: Helvetica, Arial, sans-serif;
+    color: var(--lively-blue);
+    font-size: 1.38rem;
+    margin: 2.8rem 0 1.1rem;
+    line-height: 1.3;
+  }
+  h2::before {
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 4px;
+    background: var(--coral);
+    margin-bottom: 0.7rem;
+  }
+  .math { font-style: italic; white-space: nowrap; }
+  .display-math {
+    background: var(--light-blue);
+    border-left: 5px solid var(--lively-blue);
+    padding: 1.05rem 1.35rem;
+    margin: 1.55rem 0;
+    font-size: 1.13rem;
+    text-align: center;
+    border-radius: 0 6px 6px 0;
+    overflow-x: auto;
+  }
+  .callout {
+    background: var(--pale-bg);
+    border-left: 5px solid var(--coral);
+    padding: 1.15rem 1.4rem;
+    margin: 1.7rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .callout strong { color: var(--lively-blue); }
+  .taxonomy {
+    background: var(--pale-bg);
+    border: 1px solid #dbe1ea;
+    padding: 1.25rem 1.45rem;
+    margin: 1.8rem 0;
+    border-radius: 7px;
+  }
+  .taxonomy ol { margin: 0.6rem 0 0 1.25rem; }
+  .taxonomy li { margin: 0.45rem 0; }
+  .pullquote {
+    font-size: 1.22rem;
+    line-height: 1.55;
+    font-style: italic;
+    color: var(--lively-blue);
+    border-top: 1px solid #d8dce6;
+    border-bottom: 1px solid #d8dce6;
+    margin: 2.2rem 0;
+    padding: 1.2rem 0;
+  }
+  .endnote {
+    background: var(--light-pink);
+    padding: 1.3rem 1.5rem;
+    margin-top: 3rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+  a { color: var(--lively-blue); text-decoration-color: var(--coral); text-decoration-thickness: 2px; }
+  .footer {
+    background: var(--lively-blue);
+    color: var(--light-blue);
+    text-align: center;
+    padding: 1.6rem;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+  }
+  sup, sub { line-height: 0; }
+  @media (max-width: 600px) {
+    h1 { font-size: 1.95rem; }
+    .hero { padding: 3rem 1.2rem 2.5rem; }
+    main { padding-top: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="kicker">BCOM Blog &middot; Kolmogorov Theory</div>
+    <h1>The Laws Don&rsquo;t Write the Textbook</h1>
+    <p class="standfirst">Knowing the microscopic laws may tell us how to generate a world. It does not tell us how to discover the variables and equations that make the world understandable. A new BCOM paper turns that gap into three precise barriers &mdash; and explains why science succeeds anyway.</p>
+    <div class="byline"><strong>Giulio Ruffini</strong>, with Kaiti (BCOM-Kaiti v1.2.0) and Klaus (BCOM-Klaus v1.3.0) &middot; August 2026 &middot; Barcelona Computational Foundation</div>
+  </div>
+</div>
+
+<main>
+
+<p>In 1972, the condensed-matter physicist Philip W. Anderson published a four-page essay in <em>Science</em> with a title that became a slogan: &ldquo;More Is Different.&rdquo; His target was a seductive idea. If the laws of particle physics are fundamental, then perhaps every higher-level science is, in principle, just those laws worked out in sufficient detail.</p>
+
+<p>Anderson accepted reduction but rejected that constructive leap. Knowing the lower-level rules, he argued, does not mean that we can simply reconstruct chemistry, materials, biology, or psychology from them. Half a century later the slogan is famous, but the missing step in the argument has remained surprisingly hard to state.</p>
+
+<p>Our new BCOM working paper, <em>From &ldquo;More Is Different&rdquo; to Algorithmic Emergence: Why Compression Is Already Hard</em>, tries to isolate it. The tool is algorithmic information theory. The result is not that higher levels violate microscopic laws. It is almost the opposite: <strong>even when the microscopic evolution is completely lawful and easy to generate, discovering a compact higher-level description is a different computational problem.</strong></p>
+
+<h2>Running the world is not the same as understanding it</h2>
+
+<p>Suppose someone hands you a microscopic update rule, the information selecting a particular realization, and the observation procedure. For a finite experiment you can, in principle, simulate forward and print the resulting record. Call that <em>generation</em>.</p>
+
+<p>Science usually wants something else. Fluid mechanics does not carry the position of every molecule. It keeps fields such as density, velocity, and temperature. Hodgkin and Huxley did not track every ion in a membrane; they found a small set of variables whose equations reproduce the electrical behavior that matters. A useful theory decides what distinctions to keep, what detail can be ignored, and how the retained variables fit together in a reusable model.</p>
+
+<div class="pullquote">The microscopic laws may generate the data. They do not automatically supply the representation in which the data become simple.</div>
+
+<p>This is the paper&rsquo;s basic separation: <em>determination is not construction</em>. A lower-level description may determine what happens once the realization is fixed. It need not tell a finite observer which variables are worth retaining, whether those variables admit a compact theory, or how to find that theory.</p>
+
+<h2>Compression &mdash; but compression of what matters</h2>
+
+<p>Algorithmic information theory gives an ideal language for the problem. In standard notation, the Kolmogorov complexity <span class="math">K(x)</span> of a finite record <span class="math">x</span> is the length of the shortest halting program that prints it. A million digits of &pi; can look statistically messy while still having a short generating program. Algorithmic complexity asks not how irregular data look, but how short their best description can be.</p>
+
+<p>There is an important scientific twist. A useful theory is not normally a lossless compressor of every microscopic fact. It is a <em>meaningful reusable lossy compression</em>. The observer first chooses a representation <span class="math">&rho;</span> that keeps distinctions relevant to the task and discards others; a model <span class="math">M</span> then organizes what remains into variables that can be reused across realizations and tested on new data.</p>
+
+<div class="callout"><strong>&ldquo;Coarse-graining&rdquo; is broader here than averaging.</strong> It means an observer-level decision about which distinctions matter. Averaging nearby spins is one example. Magnetization is another. So is a binary variable such as &ldquo;this physical computer has halted.&rdquo; A coarse variable need not be spatially coarse; it is coarse because many lower-level states are treated as equivalent for the question at hand.</div>
+
+<p>This also prevents a trivial answer. The map that sends every state to zero compresses perfectly and explains nothing. Relevance has to be fixed independently of the compression itself.</p>
+
+<h2>Barrier one: a simple law need not make the record simple</h2>
+
+<p>Consider a ring of <span class="math">n</span> binary cells. At every tick the whole pattern rotates one place. The rule fits in a sentence. Now observe only the leading cell. After <span class="math">n</span> ticks you have seen every bit of the initial ring, in order.</p>
+
+<p>The instantaneous observation is maximally coarse &mdash; one bit out of <span class="math">n</span> &mdash; but the <em>history</em> need not be compressed at all. Information hidden at one moment can flow into later observations.</p>
+
+<div class="callout">There are 2<sup>n</sup> strings of length <span class="math">n</span>, but fewer than 2<sup>n&minus;d</sup> programs shorter than <span class="math">n&minus;d</span> bits. So, under the uniform counting measure, all but a fraction 2<sup>&minus;d</sup> of those strings need at least <span class="math">n&minus;d</span> bits of description. For <span class="math">d=10</span>, more than 99.9% are within ten bits of the raw length.</div>
+
+<p>The lesson is simple. A short law does not imply a short realized record. The information may reside in the initial condition, boundary conditions, or whatever selects one realized history from all the possibilities allowed by the law. Before asking whether a theory can be <em>found</em>, we must first ask whether useful compression exists at all.</p>
+
+<h2>Barrier two: if compression exists, there is no universal finder</h2>
+
+<p>Now suppose we are on the favorable branch: a shorter description really does exist. Can an algorithm that always terminates be guaranteed to find one?</p>
+
+<p>No. If such a procedure existed, we could feed it arbitrary finite strings and use its answer to decide whether a shorter halting program exists. That would solve an undecidable problem related to halting.</p>
+
+<p>There is, however, a positive asymmetry. We can run candidate programs in parallel. If a short one eventually halts and prints the data, we have a finite witness of success. What we do not have is a universal stopping bell telling us when all still-running shorter candidates can safely be abandoned.</p>
+
+<div class="display-math">
+  <span class="math">shorter program found &rArr; improvement certified</span><br>
+  <span class="math">no shorter program seen yet &nRightarrow; none exists</span>
+</div>
+
+<h2>Barrier three: even near-optimality has no universal guarantee</h2>
+
+<p>Perhaps we should ask for less. Forget finding the very shortest description; can some guaranteed-to-halt method at least stay within a fixed number of bits of the best one?</p>
+
+<p>Again, no. For every total procedure that always returns a valid description, and for every proposed tolerance <span class="math">c</span>, there are compressible records on which an explicit competing program beats the returned description by more than <span class="math">c</span> bits. In the usual classical notation, this says that the procedure&rsquo;s excess length above <span class="math">K(x)</span> is unbounded.</p>
+
+<p>The relational formulation matters. The theorem need not be read as requiring an observer to possess an exact numerical value of <span class="math">K(x)</span>. Its operational content is simply that a shorter competitor can exist &mdash; indeed, can be explicitly exhibited in the proof &mdash; while no total constructor enjoys a universal bound on how much worse its answer can be.</p>
+
+<div class="callout"><strong>A foundational subtlety.</strong> Standard classical algorithmic information theory packages the shortest-description relation into the number <span class="math">K(x)</span>. Constructively, one can instead work directly with statements such as &ldquo;there exists a halting program shorter than <span class="math">b</span> that prints <span class="math">x</span>.&rdquo; The barriers above can be read at that relational level. What matters operationally is the existence of finite description witnesses and the limits of procedures for finding or ruling them out &mdash; not an observer&rsquo;s access to an exact value of <span class="math">K</span>.</div>
+
+<h2>Where the infinity went</h2>
+
+<p>This is also where the result differs from famous examples of undecidability in physics. A finite-tape Turing machine has only finitely many configurations. Run it long enough and it either halts or repeats a configuration, after which its future is periodic. Halting is therefore decidable for the fixed finite machine &mdash; perhaps painfully expensive, but decidable.</p>
+
+<p>Physical undecidability results such as the Ising constructions of Gu and collaborators or the spectral-gap theorem of Cubitt, P&eacute;rez-Garc&iacute;a, and Wolf obtain their unbounded computation from an infinite or thermodynamic-limit family. A macroscopic observable, phase, or spectral property is arranged to depend on whether an embedded computation halts. At any fixed finite size, the corresponding mathematical problem becomes computable in principle.</p>
+
+<p>Our construction barriers need no infinite physical system. Every experiment, state space, horizon, and data record in the theorem is finite. The unbounded resource has moved elsewhere: into the <em>space and running time of possible descriptions</em>. Candidate programs are finite strings, but there is no computable bound on how long a short candidate may run before halting.</p>
+
+<div class="taxonomy">
+  <strong>Four different ways the micro-to-macro program can fail</strong>
+  <ol>
+    <li><strong>No useful compression:</strong> the retained record simply contains too much realization-specific information.</li>
+    <li><strong>No universal model builder:</strong> useful compression exists, but no total procedure is guaranteed to find it or stay uniformly near the best description.</li>
+    <li><strong>No computable macro map:</strong> a higher-level variable is specified in advance, but its value cannot be computed uniformly from the microscopic description.</li>
+    <li><strong>No computable long-run answer inside a known model:</strong> the macroscopic update rule itself may be known and computable step by step while an asymptotic question about it remains undecidable.</li>
+  </ol>
+</div>
+
+<p>These are not the same theorem. But they share a theme: microscopic specification does not automatically provide every higher-level object or answer an observer may want.</p>
+
+<h2>Emergence moves to the observer</h2>
+
+<p>The paper therefore treats algorithmic emergence not as a magical property stamped onto certain pieces of matter, but as an event in the life of a finite observer: the acquisition of a useful pair <span class="math">(&rho;,M)</span>.</p>
+
+<p>The map <span class="math">&rho;</span> decides which distinctions to retain. The model <span class="math">M</span> gives those retained variables a compact, meaningful parameterization that can be reused on new data. The same organization may be a discovery for one observer and already part of another observer&rsquo;s background knowledge. Nothing in the substrate arrives with its preferred macrovariables highlighted.</p>
+
+<p>One might hope that requiring genuine scientific structure &mdash; relevance, reuse, and transfer to held-out data &mdash; avoids the computational barriers. The paper constructs a hard family showing that it does not: both the discovery obstruction and the unbounded-regret obstruction survive even when the target is a reusable scientific model rather than a one-off code.</p>
+
+<h2>Why science works anyway</h2>
+
+<p>Worst-case impossibility is not a theory of scientific failure. Real science succeeds because it almost never searches the space of all possible programs.</p>
+
+<p>Take the Curie&ndash;Weiss magnet. Its permutation symmetry makes the energy depend only on the average magnetization</p>
+
+<div class="display-math"><span class="math">m = (1/N)&Sigma;<sub>i</sub>&sigma;<sub>i</sub>.</span></div>
+
+<p>That symmetry points directly toward a useful representation. In other systems, conservation laws, locality, scale separation, analytic structure, or empirical closure play the same role. They restrict the candidate representations and models enough that search becomes manageable. Renormalization works because symmetry and scale organize which variables and couplings can matter. Hodgkin and Huxley combined inherited electrical structure with carefully measured constitutive relations. Science advances by accumulating such restrictions.</p>
+
+<p>The important word is not merely <em>restricted</em> but <em>searchable</em>. A narrower class is useful only when there is an effective way to explore it and know when the relevant search is complete. Within such classes we can sometimes prove optimality. What the theorems rule out is a universal guarantee over unrestricted descriptions.</p>
+
+<h2>No universal certificate of arrival</h2>
+
+<p>This leaves a striking asymmetry. Improvement is often finitely witnessable: exhibit a better theory and the old one is shown to be suboptimal. Global optimality is another matter. A fixed sound, effectively axiomatized formal theory cannot certify arbitrarily large specific lower bounds on Kolmogorov complexity; Chaitin&rsquo;s result is a limit on one formal system&rsquo;s reach, not a claim that every difficult instance lies forever beyond every stronger theory.</p>
+
+<p>And there is a philosophical distinction worth keeping separate. The paper studies what finite procedures can construct or certify. It does not need to decide whether an uncertifiable mathematical or physical proposition nevertheless has an observer-independent truth value. Standard classical <span class="math">K</span>-notation is a convenient mathematical benchmark; the operational barriers can be stated directly in terms of finite programs and the existence of shorter descriptions.</p>
+
+<p class="pullquote">Science can certify many of its wins. What it lacks is a universal certificate that the search is over.</p>
+
+<p>Anderson wrote that &ldquo;the ability to reduce everything to simple fundamental laws does not imply the ability to start from those laws and reconstruct the universe.&rdquo; The point can now be sharpened. The laws may tell us how to generate a realization. They do not write the textbook: they do not automatically choose the variables, discover the useful compression, or certify that no better description remains.</p>
+
+<p>That is not a failure of reduction. It is a limit on construction &mdash; and a clue to why successful science is necessarily cumulative, selective, and open-ended.</p>
+
+<div class="endnote">
+The working paper (G. Ruffini and F. Castaldo, with agent collaborators Kaiti and Klaus) is available on Zenodo (DOI <a href="https://doi.org/10.5281/zenodo.22141835">10.5281/zenodo.22141835</a>). The core results are machine-checked in Lean&nbsp;4 in the open <a href="https://github.com/giulioruffini/KTAIT">KTAIT repository</a>. The argument builds on P.&nbsp;W.&nbsp;Anderson, &ldquo;More Is Different,&rdquo; <em>Science</em> 177, 393&ndash;396 (1972), and discusses related work on physical undecidability, constructive formulations of Kolmogorov complexity, and algorithmic statistics in the paper itself.
+</div>
+
+</main>
+
+<div class="footer">Barcelona Computational Foundation &middot; bcom.one &middot; Kolmogorov Theory Program &middot; WP0223</div>
+
+</body>
+</html>

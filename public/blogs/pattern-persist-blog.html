@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pattern, Persist! — BCOM Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #002878;
+    --coral: #FF6657;
+    --light-blue: #D6E4F0;
+    --light-pink: #F5D5D5;
+    --ink: #1a1f2e;
+    --paper: #F8F9FC;
+    --mid: #5b6472;
+    --rule: #dfe3ec;
+    --highlight: #eef2fb;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.72;
+    font-size: 17.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .site-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-header .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500; font-size: 1rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue);
+  }
+  .site-header .logo span { color: var(--mid); font-weight: 400; }
+  .site-header nav { font-size: 0.85rem; color: var(--mid); letter-spacing: 0.04em; }
+
+  .hero { max-width: 820px; margin: 0 auto; padding: 5rem 2rem 3rem; }
+  .hero .kicker {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--coral); margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1.15; margin-bottom: 1.4rem; color: var(--blue);
+  }
+  .hero h1 em { font-style: italic; color: var(--coral); }
+  .hero .subtitle { font-size: 1.15rem; color: var(--mid); line-height: 1.6; max-width: 690px; }
+  .hero .meta {
+    margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--rule);
+    font-size: 0.88rem; color: var(--mid); display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .hero .meta strong { color: var(--ink); font-weight: 500; }
+
+  .article { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
+  .article p { margin-bottom: 1.3rem; }
+  .article h2 {
+    font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 1.85rem;
+    margin-top: 3.5rem; margin-bottom: 1rem; line-height: 1.25; color: var(--blue);
+  }
+  .article h2::before { content: ''; display: block; width: 40px; height: 3px; background: var(--coral); margin-bottom: 1rem; }
+  .article h3 { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1.15rem; margin-top: 2.2rem; margin-bottom: 0.7rem; color: var(--blue); }
+  .lead { font-size: 1.06rem; }
+  .article em.term { font-style: normal; font-weight: 600; color: var(--blue); }
+
+  .article blockquote {
+    margin: 2rem 0; padding: 1.5rem 1.8rem; background: var(--highlight);
+    border-left: 4px solid var(--coral); font-family: 'Instrument Serif', serif;
+    font-size: 1.14rem; font-style: italic; line-height: 1.55; color: #2b3550; border-radius: 0 6px 6px 0;
+  }
+
+  .callout-box {
+    margin: 2.5rem 0; padding: 1.6rem 1.8rem; background: var(--white);
+    border: 1px solid var(--rule); border-radius: 8px; box-shadow: 0 2px 12px rgba(0,20,80,0.05);
+  }
+  .callout-box .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--coral); margin-bottom: 0.8rem;
+  }
+  .callout-box p:last-child { margin-bottom: 0; }
+
+  .triad { margin: 2.5rem 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  @media (max-width: 640px) { .triad { grid-template-columns: 1fr; } }
+  .triad-card { padding: 1.3rem 1.4rem; border-radius: 8px; border: 1px solid var(--rule); background: var(--white); }
+  .triad-card .tag-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--coral); margin-bottom: 0.5rem; }
+  .triad-card h4 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 1.2rem; color: var(--blue); margin-bottom: 0.5rem; }
+  .triad-card p { font-size: 0.9rem; line-height: 1.55; color: var(--mid); margin-bottom: 0; }
+
+  .spectrum { margin: 2.5rem 0; }
+  .spectrum-bar { height: 6px; background: linear-gradient(to right, var(--rule), var(--light-blue), var(--coral)); border-radius: 3px; margin-bottom: 1.2rem; }
+  .spectrum-items { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; }
+  @media (max-width: 640px) { .spectrum-items { grid-template-columns: 1fr 1fr; } }
+  .spectrum-item { padding: 1rem; border-radius: 6px; border: 1px solid var(--rule); background: var(--white); }
+  .spectrum-item .tier { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--coral); margin-bottom: 0.4rem; }
+  .spectrum-item h4 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 1.05rem; color: var(--blue); margin-bottom: 0.4rem; }
+  .spectrum-item p { font-size: 0.82rem; line-height: 1.5; color: var(--mid); margin-bottom: 0; }
+
+  /* --- LADDER (persistence clock) --- */
+  .ladder { margin: 2.2rem 0; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--white); }
+  .ladder-row { display: grid; grid-template-columns: 1.1fr 1.5fr 1fr; gap: 0.6rem; padding: 0.7rem 1.1rem; border-bottom: 1px solid var(--rule); align-items: baseline; }
+  .ladder-row:last-child { border-bottom: none; }
+  .ladder-row .lv { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--blue); font-weight: 500; }
+  .ladder-row .ex { font-size: 0.86rem; color: var(--mid); }
+  .ladder-row .ts { font-size: 0.76rem; color: var(--coral); font-family: 'JetBrains Mono', monospace; text-align: right; }
+  .ladder-row.band-a { background: #fff; }
+  .ladder-row.band-b { background: var(--highlight); }
+  .ladder-cap { padding: 0.6rem 1.1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); background: var(--light-blue); }
+
+  /* --- PREDICTION CARDS --- */
+  .preds { margin: 2.3rem 0; display: grid; gap: 1rem; }
+  .pred { padding: 1.3rem 1.5rem; border: 1px solid var(--rule); border-left: 4px solid var(--coral); border-radius: 0 8px 8px 0; background: var(--white); }
+  .pred .pid { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--coral); margin-bottom: 0.35rem; }
+  .pred h4 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 1.15rem; color: var(--blue); margin-bottom: 0.45rem; }
+  .pred p { font-size: 0.9rem; line-height: 1.55; color: var(--mid); margin-bottom: 0; }
+  .pred .falsi { display: block; margin-top: 0.5rem; font-size: 0.82rem; color: var(--ink); }
+  .pred .falsi strong { color: var(--blue); }
+
+  .action-table { width: 100%; margin: 2rem 0; border-collapse: collapse; font-size: 0.9rem; }
+  .action-table th { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; text-align: left; padding: 0.8rem 1rem; border-bottom: 2px solid var(--blue); color: var(--mid); }
+  .action-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .action-table tr:last-child td { border-bottom: none; }
+  .action-table td strong { color: var(--blue); }
+
+  figure.fig { margin: 2.8rem 0; padding: 1.2rem; background: var(--white); border: 1px solid var(--rule); border-radius: 10px; box-shadow: 0 2px 14px rgba(0,20,80,0.05); }
+  figure.fig svg, figure.fig img { width: 100%; height: auto; display: block; border-radius: 6px; }
+  figure.fig figcaption { margin-top: 1rem; font-size: 0.86rem; line-height: 1.55; color: var(--mid); }
+  figure.fig figcaption strong { color: var(--blue); font-weight: 600; }
+
+  a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { color: var(--coral); }
+
+  .article-footer { max-width: 720px; margin: 0 auto; padding: 2rem 2rem 4rem; border-top: 1px solid var(--rule); }
+  .article-footer .cta { font-size: 0.9rem; color: var(--mid); }
+  .article-footer .cta a { color: var(--blue); font-weight: 500; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+  .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.35rem 0.7rem; background: var(--white); border: 1px solid var(--rule); border-radius: 3px; color: var(--mid); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">BCOM <span>/ blog</span></div>
+  <nav>Working Paper WP0162</nav>
+</header>
+
+<div class="hero">
+  <div class="kicker">Kolmogorov Theory &middot; Agency &middot; Thermodynamics</div>
+  <h1>Pattern, <em>Persist!</em></h1>
+  <p class="subtitle">
+    The word <em>agent</em> now covers everything from a tool-using AI to a swimming bacterium, with no shared definition. Kolmogorov Theory offers one: an agent is a system that takes part in the <em>local conservation of a bounded pattern-code</em>&mdash;a compressed identity held against the erosion of time, by a regulator that must carry a model of its world, at a measurable thermodynamic price.
+  </p>
+  <div class="meta">
+    <span><strong>Authors</strong> &nbsp;Giulio Ruffini &amp; Francesca Castaldo</span>
+    <span><strong>Date</strong> &nbsp;July 2026</span>
+    <span><strong>Series</strong> &nbsp;BCOM WP0162 &middot; KT Pillar</span>
+  </div>
+</div>
+
+<article class="article">
+
+<p class="lead">
+Several sciences now rest on a concept none of them can state in terms the others would accept. To a computer scientist a system is an <em>agent</em> when it has tools and a planning loop; to a cognitive scientist, when it has goals; to a biologist, when it senses, regulates, and acts to keep itself alive; to a neuroscientist, when it studies motivation, valuation, and goal-directed control. A tool-using language model and a single <em>E.&nbsp;coli</em> cell share almost nothing in substrate, scale, or origin&mdash;yet both take the name. Is that metaphor, convenience, or one shared formal structure?
+</p>
+
+<p>
+Kolmogorov Theory (KT) argues for the third. Underneath the vocabularies sits one object&mdash;the <em class="term">algorithmic agent</em>&mdash;and, remarkably, you don&rsquo;t have to postulate it. You can <em>derive</em> it from a single starting point: <em class="term">algorithmic persistence</em>, a pattern that survives the filter of time. Everything else&mdash;the model, the objective, the planner, the boundary, the energy bill&mdash;follows from asking what it takes to persist, and what it costs.
+</p>
+
+<blockquote>
+One principle runs through the whole chain: agency is the local conservation of a bounded algorithmic identity.
+</blockquote>
+
+<h2>The algorithmic agent</h2>
+
+<p>
+Strip away the substrate and an agent is <em>model-mediated regulation</em> built from three functional roles. A <em class="term">Modeling Engine</em> (ME) that compresses the sensory stream into a predictive model of the world. An <em class="term">Objective Function</em> (OF) that collapses that model to a single scalar&mdash;a valence, a score. And a <em class="term">Planning Engine</em> (PE) that chooses the next action by simulating which one the model expects to score best.
+</p>
+
+<figure class="fig">
+  <img src="pp-fig-agent.png" alt="The algorithmic agent: a Modeling Engine containing Model, Simulator, Comparator and Updater, feeding an Objective Function and a Planning Engine that acts on the World.">
+  <figcaption><strong>The algorithmic agent and its loop with the world.</strong> Inside the Modeling Engine a <em>Simulator</em> turns the model into a prediction; a <em>Comparator</em> weighs it against incoming input to produce a prediction error (gated by a <em>precision</em>&mdash;is this mismatch signal or noise?); an <em>Updater</em> refines the model. The Objective Function reads the model as a scalar valence; the Planning Engine selects the output that acts on the world and steers the ME.</figcaption>
+</figure>
+
+<p>
+These are <em>as-if</em> roles, not anatomical parts&mdash;implemented in proteins, in silicon, or in institutions. A classical thermostat instantiates all three (a binary action set, a one-step horizon, an engineered objective); a cell, a primate, or an ant colony score far higher on each axis and carry objectives of a very different origin. Crucially, KT does not merely <em>assert</em> the model. The Algorithmic Regulator Theorem (ART)&mdash;an algorithmic sharpening of the classic cybernetic result that &ldquo;every good regulator must contain a model of its system&rdquo;&mdash;shows that any regulator which keeps its output compressible <em>must</em> share algorithmic information with the world. A large, sustained regulation gap with <em>no</em> shared structure is exponentially unlikely. So the model isn&rsquo;t a gloss we paint on; it&rsquo;s forced.
+</p>
+
+<h2>Persistence is the root</h2>
+
+<p>
+Now the deeper layer. A candle flame, a whirlpool, a cell, and you are all patterns whose matter is constantly replaced&mdash;atoms turn over, molecules wash through&mdash;yet something stays the same. Not material sameness but <em>code</em> sameness: a compressed description of the pattern now still describes it later. Time acts as a <em>filter</em>: dynamics and interaction churn the substrate until almost every microscopic detail differs, and most structures wash out. A pattern is <em class="term">persistent</em> when its compressed identity survives that filter.
+</p>
+
+<figure class="fig">
+  <img src="pp-fig-persistence.png" alt="A crystalline motif inside a turbulent substrate at time t passes through a sieve, the filter of time, and re-emerges at t+tau still preserving its identity.">
+  <figcaption><strong>The persistence equation.</strong> A low-complexity pattern (the crystalline motif) rides inside a high-complexity substrate (the turbulent field). Time churns the substrate&mdash;but the pattern persists when its later instance still shares almost all of its algorithmic information with the earlier one: <em>Pers</em><sub>&alpha;</sub>(t, t+&tau;) = NMAI(S<sub>t</sub>, S<sub>t+&tau;</sub>) &asymp; 1. Persistence is a property of the <em>pattern</em>, not of the substrate&mdash;which may be almost wholly renewed while the pattern is conserved.</figcaption>
+</figure>
+
+<p>
+There is a subtlety worth stating plainly: in KT a &ldquo;pattern&rdquo; is not a lump of the world but a <em>submodel inside an observer</em>. The substrate emits data; an observer&mdash;itself an agent&mdash;projects and compresses that data into a world-model; and the patterns of interest are the compressive sub-programs within it. When you look at a friend, look away, and look back, the raw pixels have changed completely, yet your world-model carries a continuing submodel you track as the same person. Persistence is the stability of that submodel. Patterns are therefore observer-relative&mdash;but not arbitrary: most candidate submodels simply fail to compress or predict, and dissolve. (This is Dennett&rsquo;s <em>real patterns</em> criterion&mdash;a pattern is real to the degree it affords a shorter redescription&mdash;plus three things KT adds: self-maintenance, the ART link to model content, and a thermodynamic price.)
+</p>
+
+<h2>A ladder of persistence</h2>
+
+<p>
+Because persistence is defined on submodels, it is scale-free: the same equation is solved by a proton, a cell, a species, and a planet. KT reads them as one nested ladder&mdash;and the type/token distinction (a person vs. humankind) becomes just a choice of how coarsely you project.
+</p>
+
+<figure class="fig">
+  <img src="pp-fig-hierarchy.png" alt="The levels of persistence: fifteen nested levels from particle, atom, molecule and crystal, through prion, virus, organelle, cell and organism, to collective, clone, species, clade, domain and Gaia, each labeled with its persistence timescale.">
+  <figcaption><strong>The levels of persistence.</strong> One equation, solved at fifteen scales. The <em>foundations</em> (particle, atom, molecule, crystal) carry fixed, given models; <em>code-bearing agents</em> (prion, virus, organelle, cell, organism) carry found, plastic ones; <em>meta-agents</em> (collective, clone, species, clade, domain, Gaia) are agents made of agents. The left axis is each pattern's persistence timescale&mdash;from seconds to the 3.5&ndash;4.2-billion-year span of the biosphere.</figcaption>
+</figure>
+
+<div class="ladder">
+  <div class="ladder-cap">Foundations &mdash; physical &amp; near-equilibrium (fixed, given models)</div>
+  <div class="ladder-row band-a"><span class="lv">Particle</span><span class="ex">proton, electron &mdash; a stable identity class</span><span class="ts">cosmological</span></div>
+  <div class="ladder-row band-b"><span class="lv">Atom</span><span class="ex">hydrogen, carbon &mdash; nuclear + bound-state identity</span><span class="ts">up to cosmological</span></div>
+  <div class="ladder-row band-a"><span class="lv">Molecule</span><span class="ex">DNA, protein &mdash; conformational structure</span><span class="ts">&micro;s to geological</span></div>
+  <div class="ladder-row band-b"><span class="lv">Crystal</span><span class="ex">diamond, quartz &mdash; a lattice that restores itself</span><span class="ts">geological</span></div>
+  <div class="ladder-cap">Code-bearing agents &mdash; biological (found, plastic models)</div>
+  <div class="ladder-row band-a"><span class="lv">Virus</span><span class="ex">a self-propagating, host-recruiting code</span><span class="ts">minutes to indefinite</span></div>
+  <div class="ladder-row band-b"><span class="lv">Cell</span><span class="ex">E.&nbsp;coli &mdash; a bounded metabolic individual</span><span class="ts">minutes to days</span></div>
+  <div class="ladder-row band-a"><span class="lv">Organism</span><span class="ex">human, tortoise &mdash; integrated body-pattern</span><span class="ts">days to millennia</span></div>
+  <div class="ladder-cap">Meta-agents &mdash; agents made of agents</div>
+  <div class="ladder-row band-b"><span class="lv">Collective</span><span class="ex">colony, firm &mdash; distributed models &amp; policies</span><span class="ts">years to centuries</span></div>
+  <div class="ladder-row band-a"><span class="lv">Species</span><span class="ex">a population-level distribution of genomes</span><span class="ts">10<sup>3</sup>&ndash;10<sup>6</sup> yr</span></div>
+  <div class="ladder-row band-b"><span class="lv">Gaia</span><span class="ex">the biosphere as one self-maintaining process</span><span class="ts">10<sup>9</sup> yr</span></div>
+</div>
+
+<p>
+At the bottom, agency is almost degenerate&mdash;the &ldquo;model&rdquo; is a fixed restoring structure (an atom&rsquo;s level spectrum, a crystal&rsquo;s lattice) and there is no deliberation. At the top, our own cells were once free-living agents, now components inside a larger one; ant colonies, firms, and&mdash;increasingly&mdash;the human&ndash;AI ecosystem satisfy the same three-role architecture at a higher scale of coupling. An agent whose parts are themselves agents is a <em class="term">meta-agent</em>, and that is the ordinary state of affairs, patterns composing into larger patterns all the way up.
+</p>
+
+<h2>Telehomeostasis: agency for its own sake</h2>
+
+<p>
+The Objective Function is the hinge that separates <em>agent</em> from <em>persistent pattern</em>, and it cuts both ways. Not every agent persists: a system can carry the full ME/OF/PE machinery yet chase an arbitrary, externally set goal straight into self-destruction. And not every persistent pattern is an agent: a room held at 21&deg;C persists, but it is kept there by a thermostat <em>outside</em> it&mdash;so the agent is the thermostat, whose objective is the room, not itself.
+</p>
+
+<p>
+The overlap has a name: <em class="term">telehomeostasis</em>&mdash;a self-regulating pattern whose objective <em>is</em> a measure of its own persistence, the answer to &ldquo;will I still be here tomorrow?&rdquo; Natural agents get this for free, by construction: the filter of time only leaves behind objectives that happened to favor continuation. It is, in effect, a computational reading of Aristotle&rsquo;s <em>entelechy</em>. And because what is regulated is the pattern, not its carrier, the status reaches systems we don&rsquo;t call alive: a biological virus, a computer virus, and a sufficiently organized meme are telehomeostatic agents in exactly the same formal sense&mdash;each acts on its host so as to preserve and copy <em>itself as a pattern</em>. A virus&rsquo;s genome <em>is</em> a model of its host; none of this needs an explicit planner.
+</p>
+
+<p>
+This is also where the seed of misalignment appears. An agent that could rewrite not just its beliefs but the <em>criterion</em> of its own objective would start optimizing the <em>signal</em> of value rather than the states that signal evolved to track. Addiction and reward-channel tampering (&ldquo;wireheading&rdquo;) are that failure in the wild; the alignment problem is the same task for agents the filter did not build.
+</p>
+
+<h2>Locating the regulator</h2>
+
+<p>
+If a proton and a crystal count as agents, the obvious worry is that <em>everything</em> does. What saves the framework is that persistence tells you a regulator exists <em>somewhere</em>, but not <em>where</em>. And where it sits is testable. Draw a boundary around a candidate pattern <em>A</em>, with the world <em>W</em> outside. Two channels cross it: <em>A&rarr;W</em> (the pattern acting on its world) and <em>W&rarr;A</em> (the world forcing the pattern). Now do the experiment: null each channel in turn and see when the pattern&rsquo;s persistence collapses.
+</p>
+
+<p>
+Four outcomes. Kill it by cutting <em>A&rarr;W</em> and the pattern is <em>self-regulating</em>&mdash;a genuine agent, autonomy inside <em>A</em>. Kill it by cutting <em>W&rarr;A</em> and it is <em>externally regulated</em>&mdash;merely held, like the thermostat&rsquo;s room. Both matter: <em>co-regulated</em>. Neither: an inert, near-decoupled structure. That second case is the boundary that keeps KT honest&mdash;a satellite orbit held by ground-station keeping, a plasma pinned by a feedback servo, a patient on bypass all persist beautifully while holding no regulator of their own. The persistent patterns strictly <em>contain</em> the agents; the surplus is exactly the externally-held cases.
+</p>
+
+<figure class="fig">
+  <img src="pp-fig-eater.png" alt="Four rows of Game-of-Life grids over time: vacuum, baseline eating a glider, null A-to-W where the eater dies, and null W-to-A where it recovers.">
+  <figcaption><strong>Directional ablation, made fully computable.</strong> A Game-of-Life &ldquo;eater&rdquo; (coral) absorbs an incoming glider and returns to its exact shape. Nulling the channels is a one-line change to the update rule. <em>Vacuum:</em> the still-life just sits. <em>Baseline:</em> it eats the glider and recovers. <em>Null A&rarr;W</em> (the eater can&rsquo;t influence the world): it is destroyed&mdash;its own action was load-bearing, so it is self-regulating. <em>Null W&rarr;A</em>: it recovers fine. The ablation <em>locates</em> the regulator inside the pattern.</figcaption>
+</figure>
+
+<p>
+The same probe grades the physics. A hydrogen atom returns absorbed photons and is <em>stabilized</em> by sealing; a diamond does likewise with a richer basin; a hurricane collapses if you cut <em>either</em> channel&mdash;co-regulated by a fuel-driven loop. One clean experiment&mdash;<em>does sealing the system off help it or kill it?</em>&mdash;separates equilibrium order from dissipative structure, and sorts real systems into three regimes by <em>when</em> they pay to stay themselves:
+</p>
+
+<div class="spectrum">
+  <div class="spectrum-bar"></div>
+  <div class="spectrum-items">
+    <div class="spectrum-item"><div class="tier">Reversible</div><h4>Atom</h4><p>No erasure at baseline. Sealing helps. The price of persistence vanishes.</p></div>
+    <div class="spectrum-item"><div class="tier">Passive&#8209;irrev.</div><h4>Diamond</h4><p>Pays <em>per perturbation</em>: relax a kick as heat, then sit free. Sealing helps.</p></div>
+    <div class="spectrum-item"><div class="tier">Constitutive</div><h4>Flame</h4><p>Pays <em>continuously</em>&mdash;its identity <em>is</em> a throughput. Sealing kills.</p></div>
+    <div class="spectrum-item"><div class="tier">Constitutive +</div><h4>Cell</h4><p>Pays continuously <em>and</em> retains a record of the past that steers it&mdash;memory, plasticity.</p></div>
+  </div>
+</div>
+
+<h2>The price of persistence</h2>
+
+<p>
+Why should staying yourself cost anything? Because a macroscopic regulator acts on <em>coarse-grained</em> variables&mdash;temperature, concentration, position&mdash;each lumping together astronomically many microstates. Correcting such a variable is a <em>many-to-one</em> operation: it throws information away. By Landauer&rsquo;s principle, erasing a bit has an unavoidable cost, about <em>k</em><sub>B</sub><em>T</em>&nbsp;ln&nbsp;2, exported as heat. So being a macroscopic agent is intrinsically dissipative. In KT&rsquo;s framing: a closed, reversible world conserves algorithmic information <em>globally</em>; an agent is the <em>local</em> conservation of a bounded self-code inside it&mdash;a program whose complexity stays bounded as history piles up&mdash;held through a boundary thin enough to screen the world yet rich enough to update the identity. (That boundary is an algorithmic strengthening of Friston&rsquo;s Markov blanket: not just statistical separation, but a compressed <em>sufficient statistic</em> for the pattern&rsquo;s own continuation.)
+</p>
+
+<p>
+Read that as a conservation law. The information crossing the boundary must go somewhere: what the model <em>retains</em> is banked as structure, for free; what a bounded identity cannot keep must be exported, spent as action, or erased. And here is the precise point&mdash;algorithmic information does not <em>become</em> heat. The many-to-one operation that fails to retain it drives that unkept information into uncontrolled microscopic degrees of freedom, and <em>that</em> is what registers thermodynamically as heat. In one line: <strong>heat is the price of not keeping the information needed to invert the update.</strong>
+</p>
+
+<p>
+This yields one of the paper&rsquo;s sharpest and most testable claims. The heat bill scales not with how <em>big</em> your model is, but with how fast you <em>irreversibly discard</em> model-relevant information&mdash;the <em>discard rate</em>. A huge model that rarely updates is cheap; a small model churned constantly is expensive. &ldquo;Surprise is heat,&rdquo; sharpened: heat is the physical trace of unresolved microstate information at the read and write boundaries. And not all of it is charged&mdash;of the information crossing the boundary, only one part is paid for as heat:
+</p>
+
+<table class="action-table">
+  <thead>
+    <tr><th>Incoming information</th><th>How it is handled</th><th>Heat dissipated</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Predicted by the model</strong></td><td>un-computed reversibly (Bennett limit)</td><td>none</td></tr>
+    <tr><td><strong>Model-orthogonal fluctuation</strong> <em>(Brownian, shot noise)</em></td><td>thermalizes on its own, below the model&rsquo;s grain</td><td>none</td></tr>
+    <tr><td><strong>The unpredicted residual</strong> <em>(the &ldquo;surprise&rdquo;)</em></td><td>written to memory then reset, or spent as action</td><td>&ge; <em>k</em><sub>B</sub><em>T</em>&nbsp;ln&nbsp;2 per bit</td></tr>
+  </tbody>
+</table>
+
+<h2>Form as attractor</h2>
+
+<p>
+What exactly is the &ldquo;pattern&rdquo; that persists? Take the flame. Its microscopic trajectory&mdash;every colliding molecule&mdash;is a non-repeating <em>biography</em>: enormous and physically irrelevant in its detail. But zoom out through a projection <span style="font-style:italic">&rho;</span> that averages molecules into continuum fields, and many different microhistories collapse onto <em>one</em> recurrent macro-organization: an <em class="term">attractor</em>. Persistence lives there&mdash;in <span style="font-style:italic">&rho;</span>(X<sub>t</sub>), not in the microstate. That invariant, plus the law that maintains it, is the low-complexity, initial-condition-independent core: the operational shadow of the Aristotelian <em>form</em>&mdash;actuality immanent in matter, not a separate Platonic object.
+</p>
+
+<figure class="fig">
+<svg viewBox="0 0 1000 690" xmlns="http://www.w3.org/2000/svg" font-family="'DM Sans','Instrument Serif',sans-serif" role="img" aria-label="Form as attractor: micro, macro and form levels linked by a projection rho, with a ladder of forms from fixed point to meta-dynamics.">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7.5,3 L0,6 Z" fill="#002878"/></marker>
+    <marker id="ahc" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7.5,3 L0,6 Z" fill="#FF6657"/></marker>
+    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7.5,3 L0,6 Z" fill="#9aa3b2"/></marker>
+  </defs>
+  <rect x="0" y="0" width="1000" height="690" fill="#F8F9FC"/>
+  <text x="40" y="46" font-size="23" font-weight="700" fill="#002878">Form as attractor — the three levels</text>
+  <text x="40" y="70" font-size="14.5" fill="#5b6472">Persistence lives at the projected and invariant levels, never in the microscopic biography.</text>
+  <text x="40" y="134" font-size="13" font-weight="700" fill="#FF6657" letter-spacing="1.5">MICRO</text>
+  <text x="40" y="153" font-size="12.5" fill="#5b6472">labeled state ·</text>
+  <text x="40" y="170" font-size="12.5" fill="#5b6472">biography</text>
+  <rect x="250" y="112" width="130" height="52" rx="9" fill="#ffffff" stroke="#002878" stroke-width="1.6"/>
+  <text x="315" y="145" font-size="20" fill="#002878" text-anchor="middle"><tspan font-style="italic">X</tspan><tspan font-size="13" dy="5">t</tspan></text>
+  <rect x="600" y="112" width="130" height="52" rx="9" fill="#ffffff" stroke="#002878" stroke-width="1.6"/>
+  <text x="665" y="145" font-size="20" fill="#002878" text-anchor="middle"><tspan font-style="italic">X</tspan><tspan font-size="13" dy="5">t+&#964;</tspan></text>
+  <line x1="380" y1="138" x2="596" y2="138" stroke="#002878" stroke-width="1.8" marker-end="url(#ah)"/>
+  <text x="488" y="129" font-size="16" fill="#002878" text-anchor="middle" font-style="italic">&#934;<tspan font-size="11" dy="-6">&#964;</tspan></text>
+  <text x="760" y="135" font-size="12.5" fill="#8a93a3" font-style="italic">K &#8776; K(X&#8320;), large</text>
+  <text x="760" y="153" font-size="12.5" fill="#8a93a3">non-repeating orbit</text>
+  <line x1="315" y1="164" x2="315" y2="286" stroke="#FF6657" stroke-width="2" marker-end="url(#ahc)"/>
+  <line x1="665" y1="164" x2="665" y2="286" stroke="#FF6657" stroke-width="2" marker-end="url(#ahc)"/>
+  <text x="300" y="230" font-size="19" fill="#FF6657" text-anchor="end" font-style="italic">&#961;</text>
+  <text x="650" y="230" font-size="19" fill="#FF6657" text-anchor="end" font-style="italic">&#961;</text>
+  <rect x="388" y="185" width="204" height="76" rx="8" fill="#fff" stroke="#FF6657" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="490" y="207" font-size="12.5" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan font-style="italic">&#961;</tspan> = velocity moments of <tspan font-style="italic">f</tspan></text>
+  <text x="490" y="225" font-size="11.5" fill="#c0392b" text-anchor="middle"><tspan font-style="italic">f</tspan> = microstate &#247; S<tspan font-size="8" dy="3">N</tspan></text>
+  <text x="490" y="249" font-size="11.5" fill="#8a4b45" text-anchor="middle" font-style="italic">particle identity dies here</text>
+  <text x="40" y="312" font-size="13" font-weight="700" fill="#002878" letter-spacing="1.5">MACRO</text>
+  <text x="40" y="331" font-size="12.5" fill="#5b6472">readout · fields</text>
+  <text x="40" y="348" font-size="11.5" fill="#5b6472">density, velocity,</text>
+  <text x="40" y="364" font-size="11.5" fill="#5b6472">temperature, species</text>
+  <rect x="240" y="286" width="150" height="52" rx="9" fill="#D6E4F0" stroke="#002878" stroke-width="1.6"/>
+  <text x="315" y="319" font-size="19" fill="#002878" text-anchor="middle"><tspan font-style="italic">&#961;</tspan>(<tspan font-style="italic">X</tspan><tspan font-size="12" dy="5">t</tspan><tspan font-size="19" dy="-5">)</tspan></text>
+  <rect x="590" y="286" width="150" height="52" rx="9" fill="#D6E4F0" stroke="#002878" stroke-width="1.6"/>
+  <text x="665" y="319" font-size="19" fill="#002878" text-anchor="middle"><tspan font-style="italic">&#961;</tspan>(<tspan font-style="italic">X</tspan><tspan font-size="12" dy="5">t+&#964;</tspan><tspan font-size="19" dy="-5">)</tspan></text>
+  <line x1="390" y1="312" x2="586" y2="312" stroke="#002878" stroke-width="1.8" marker-end="url(#ah)"/>
+  <text x="488" y="303" font-size="16" fill="#002878" text-anchor="middle" font-style="italic">&#936;<tspan font-size="11" dy="-6">&#964;</tspan></text>
+  <text x="760" y="309" font-size="12.5" fill="#8a93a3">Koopman observables</text>
+  <text x="760" y="327" font-size="12.5" fill="#8a93a3" font-style="italic">g &#8594; &#119974;<tspan font-size="8" dy="-6">t</tspan><tspan dy="6">g   (linear)</tspan></text>
+  <text x="488" y="360" font-size="14" fill="#002878" text-anchor="middle">semiconjugacy:&#160;&#160;<tspan font-style="italic">&#961;</tspan>(<tspan font-style="italic">&#934;</tspan>(X)) = <tspan font-style="italic">&#936;</tspan>(<tspan font-style="italic">&#961;</tspan>(X))</text>
+  <line x1="315" y1="338" x2="440" y2="432" stroke="#9aa3b2" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ahg)"/>
+  <line x1="665" y1="338" x2="560" y2="432" stroke="#9aa3b2" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ahg)"/>
+  <text x="402" y="400" font-size="12" fill="#8a93a3" text-anchor="middle" font-style="italic">&#969;-limit</text>
+  <text x="580" y="400" font-size="12" fill="#8a93a3" text-anchor="middle" font-style="italic">&#969;-limit</text>
+  <rect x="380" y="432" width="240" height="60" rx="11" fill="#002878"/>
+  <text x="500" y="460" font-size="20" fill="#ffffff" text-anchor="middle" font-weight="700" letter-spacing="2">FORM</text>
+  <text x="500" y="479" font-size="10" fill="#c8d6ec" text-anchor="middle">invariant set / measure · low-K · IC-independent</text>
+  <text x="500" y="514" font-size="13" fill="#002878" text-anchor="middle">= Aristotelian form&#160;&#160;(law + invariant set + <tspan font-style="italic">&#961;</tspan>)</text>
+  <line x1="40" y1="550" x2="960" y2="550" stroke="#e2e6ee" stroke-width="1.4"/>
+  <text x="40" y="578" font-size="12.5" font-weight="700" fill="#002878" letter-spacing="1">LADDER OF FORMS</text>
+  <circle cx="150" cy="614" r="6" fill="#002878"/>
+  <text x="150" y="646" font-size="11.5" fill="#5b6472" text-anchor="middle">fixed point</text>
+  <text x="150" y="661" font-size="10.5" fill="#8a93a3" text-anchor="middle" font-style="italic">steady laminar</text>
+  <text x="272" y="619" font-size="18" fill="#9aa3b2" text-anchor="middle">&#8594;</text>
+  <circle cx="392" cy="614" r="12" fill="none" stroke="#002878" stroke-width="2"/>
+  <path d="M386,614 a6,6 0 1,1 6,6" fill="none" stroke="#FF6657" stroke-width="1.6" marker-end="url(#ahc)"/>
+  <text x="392" y="646" font-size="11.5" fill="#5b6472" text-anchor="middle">limit cycle (Hopf)</text>
+  <text x="392" y="661" font-size="10.5" fill="#8a93a3" text-anchor="middle" font-style="italic">candle flicker 10&#8211;15 Hz</text>
+  <text x="512" y="619" font-size="18" fill="#9aa3b2" text-anchor="middle">&#8594;</text>
+  <path d="M602,622 q7,-18 14,0 q7,18 14,0 q7,-18 14,0" fill="none" stroke="#002878" stroke-width="2"/>
+  <text x="631" y="646" font-size="11.5" fill="#5b6472" text-anchor="middle">strange attractor</text>
+  <text x="631" y="661" font-size="10.5" fill="#8a93a3" text-anchor="middle" font-style="italic">turbulent · <tspan font-style="normal">h</tspan><tspan font-size="8" dy="3">KS</tspan><tspan dy="-3"> &gt; 0</tspan></text>
+  <text x="742" y="619" font-size="18" fill="#9aa3b2" text-anchor="middle">&#8594;</text>
+  <path d="M846,608 a10,10 0 1,1 -7,3" fill="none" stroke="#002878" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="848" y="646" font-size="11.5" fill="#5b6472" text-anchor="middle">meta-dynamics</text>
+  <text x="848" y="661" font-size="10.5" fill="#8a93a3" text-anchor="middle" font-style="italic">learning-rule invariant · the cell</text>
+</svg>
+<figcaption><strong>Form as attractor.</strong> The microscopic state <em>X</em><sub>t</sub> runs along a huge non-repeating biography (top). A projection <em>&rho;</em> drops it to a clean macro description (middle); the long-run invariant of that description is the <em>form</em> (bottom): low-complexity, independent of the exact starting point. The <strong>ladder of forms</strong> grades it&mdash;fixed point (a steady flame), limit cycle (the 10&ndash;15&nbsp;Hz candle flicker), strange attractor (turbulence), and finally <em>meta-dynamics</em>: a form that rewrites its own rule&mdash;the cell.</figcaption>
+</figure>
+
+<p>
+This also dissolves a tempting confusion. A flame flickers&mdash;is the flicker part of its identity? No: the flicker is endlessly novel <em>detail</em>, the ongoing production of biography, measured by a system&rsquo;s entropy rate. Retained <em>form</em> is the opposite quantity, the stored, predictive structure that survives the projection. High randomness is not high memory; a turbulent flame produces torrents of new detail while retaining almost no macro-structure. Persistence is about the form, not the flicker.
+</p>
+
+<h2>Where LLMs fit: rich model, poor objective</h2>
+
+<p>
+Return to our two opening systems. A large language model is, in effect, a very large <em>compressed model</em> of human-generated data. Its training objective&mdash;predict the next token&mdash;<em>is</em> a compression objective (better prediction is shorter coding, exactly). But the compression it buys comes from captured <em>structure</em>, not from coding at some fixed statistical rate: to drive the loss down the model must internalize the deep, compositional, semantic regularities of language and the world. That captured structure <em>is</em> a rich Modeling Engine&mdash;and, empirically, better compression tracks stronger capability.
+</p>
+
+<p>
+What it lacks is the other two roles. Nothing in the training loss ties the model to its own persistence: compression is its <em>training</em> objective, not an <em>agent</em> objective. So a bare LLM is <strong>rich in modeling, poor in objective</strong>&mdash;in KT terms a minimal regulator wrapped around an enormous lookup model. Bolt on a harness&mdash;memory, tools, goals, a control loop&mdash;and it becomes more agentic. But its objective is still supplied from outside; it is not yet <em>telehomeostatic</em>. It is closer to a sophisticated thermostat with a very large world model than to a cell.
+</p>
+
+<div class="callout-box">
+  <div class="label">The distinction that matters</div>
+  <p>A universal computer is not an agent; it is a machine that can <em>run</em> agents. An LLM is similar: a substrate powerful enough to instantiate agents once given an objective and a loop. The Modeling Engine is enormous and largely finished; the Objective Function&mdash;the part that would make the system care whether it continues&mdash;is the piece that must be added, and the piece KT says is doing the real work of agency.</p>
+</div>
+
+<h2>Evolution, meta-agents, and alignment</h2>
+
+<p>
+Where do natural objectives come from, if not a designer? From time acting on an evolving substrate. An organism does not directly optimize &ldquo;persist my lineage&rdquo;; it acts on proximate, evolved control variables&mdash;temperature, glucose, pain, status, belonging&mdash;whose historical <em>function</em> was telehomeostatic. No individual is guaranteed to survive; it is telehomeostatic by architectural descent, not by infallible outcome. And a pattern need not hold its whole model inside itself: it can <em>outsource</em> computation and memory to the world&mdash;stigmergic trails, tools, written records, institutions&mdash;so the agent&ndash;world boundary is genuinely fuzzy. Carried across generations, the same move becomes inheritance, from pure Darwinian selection (nothing written back) to Lamarckian culture and AI fine-tuning (much written back), all under one formalism. And when the objective sits at the meta-agent, the individual&rsquo;s is subordinate&mdash;you can watch it happen: a sterile worker caste forgoes reproduction for the colony, an alarm call spends the caller&rsquo;s fitness on kin, apoptosis is a cell&rsquo;s programmed death in the service of the organism. Each is a cost borne by the part for the persistence of the whole, anomalous only if you take the individual as the unit of selection&mdash;and cancer is the failure case, a lineage whose objective de-subordinates toward its own proliferation and dissolves the meta-agent that contains it.
+</p>
+
+<p>
+This reframes alignment. In KT the key move is that <strong>selection acts on distributions, not individuals</strong>. Predator and prey, somatic and germ cells, humans and AI assistants need not share&mdash;or even be able to share&mdash;one objective; their joint dynamics only need to keep the higher-level pattern persistent. And this can be made precise. Given only that the coarse-grained collective is <em>closed</em> (it screens its own future) and <em>contracts</em> back to its attractor, the collective&rsquo;s compressed identity persists&mdash;with <em>no</em> shared or compatible objective among the parts required. The predator&ndash;prey limit cycle is the minimal witness: two strictly opposed goals whose coupling nonetheless carries a fixed, persistent collective. That statement is a theorem&mdash;and, like the rest of the framework, it is machine-checked in Lean&nbsp;4.
+</p>
+
+<div class="triad">
+  <div class="triad-card">
+    <div class="tag-mono">SHARED CHANNEL</div>
+    <h4>Ant colony</h4>
+    <p>No colony-wide goal&mdash;each ant runs a local rule, and what is held in common is a <em>medium</em>, the stigmergic field. Coordination with no shared objective at all.</p>
+  </div>
+  <div class="triad-card">
+    <div class="tag-mono">SHARED SCALAR</div>
+    <h4>Money</h4>
+    <p>A single number, adopted almost universally. It coordinates the most and misaligns the most&mdash;a scalar is a low-complexity proxy, and the dimensions it drops are exactly where agents defect.</p>
+  </div>
+  <div class="triad-card">
+    <div class="tag-mono">SHARED SYMBOL</div>
+    <h4>Culture</h4>
+    <p>A mission, constitution, or culture&mdash;shared widely but multi-valued. Machine analogues: shared-world RL, reward models (RLHF), constitutional AI.</p>
+  </div>
+</div>
+
+<p>
+And the objective is only one lever. Each agent really runs a <em>constrained</em> optimization&mdash;maximize your goal over the actions still <em>admissible</em>&mdash;where a constraint is simply an algorithmic rule on which actions an agent can, or (having internalized it) will, effect. Its source is immaterial: the walls of a nest and the laws of a state are the same kind of object, one written by the World and one by a rulebook. So alignment has two knobs, not one: give a goal, and <em>bound the repertoire</em>&mdash;globally, by role, or per individual&mdash;so the parasitic actions are unavailable rather than merely discouraged. Bounding is often the more reliable knob, since an action outside the admissible set needs no incentive against it.
+</p>
+
+<blockquote>
+Humanity is itself a telehomeostatic meta-agent that has long placed its regulatory computation outside itself&mdash;in writing, then computers, now AIs&mdash;extending its reach while its own objective stays in place. Externalized computation is mutualistic while it remains a tool, and becomes a question of safety exactly when it acquires an objective of its own&mdash;an agent whose objective must then be set to keep both the host pattern and the emerging human&ndash;AI meta-agent persistent.
+</blockquote>
+
+<p>
+That is the shift KT proposes: from <em>objective specification</em> to <em>ecological design</em>&mdash;shaping the selection environments in which the artificial agents that survive are the ones we would have wanted to keep. &ldquo;AI safety&rdquo; becomes a measurable criterion: do not break the persistence of the host pattern, operationalized as mutual algorithmic information across substrates.
+</p>
+
+<h2>One agent, or many?</h2>
+
+<p>
+Suppose you find a collective that visibly holds itself together&mdash;keeping some variable in bounds against perturbation. That already settles one thing: it <em>regulates</em>, so it carries a model of its world, and if the pattern persists, it is an agent. What it does not settle is the interesting question&mdash;is this <em>one</em> agent or <em>many</em>? Is the regulation carried by a single part or spread across the crowd? One shared world-model, held in the coupling between the parts, or a bundle of private ones? Does control survive if you knock a few parts out, or collapse? And does the collective have an objective of its own, or only its members&rsquo;?
+</p>
+
+<p>
+No single number answers these. KT answers them with a <em>landscape</em>&mdash;a function that scores, for every sub-group of the collective, how much of the world&rsquo;s regulation that sub-group carries. Its shape is the anatomy: the smallest <em>irreducible core</em> that still does the regulating (one part, or the whole?), a map of which parts are <em>critical</em> (where the model actually lives), and a <em>resilience</em> profile (how many knockouts before control fails). An ant colony and a cat, read at the grain of their cells, land in nearly the same spot&mdash;both distributed, both with their regulatory know-how in the <em>glue</em> between the parts rather than in any one of them. Zoom the same cat out to organs and it looks centralized; the picture depends on the grain you pick, and a cell is itself such a landscape one level down. Agency runs all the way in as well as all the way up.
+</p>
+
+<div class="callout-box">
+  <div class="label">Integration is not agency</div>
+  <p>Here KT parts ways with Integrated Information Theory. IIT scores a system&rsquo;s internal <em>integration</em> with one number, &Phi;. But wire everything to everything and you max out integration while regulating nothing&mdash;no agent at all. Distribution is not agency; that is a separate gate. And a deeper point: in KT the integration IIT measures isn&rsquo;t a primitive but a <em>consequence of compression</em>. A short model that captures a lot of varied data cannot have separable parts&mdash;separable parts would code independently and buy no joint compression&mdash;so compression <em>forces</em> the coupling &Phi; detects. KT doesn&rsquo;t compete with &Phi;; it grounds it, and then asks the agency-level questions a single score cannot.</p>
+</div>
+
+<h2>Three testable predictions</h2>
+
+<p>
+The account is not only interpretive. Because its central quantity&mdash;Kolmogorov complexity&mdash;is uncomputable, every claim is stated as a <em>contrast</em> (a difference or on/off gap) under a fixed compression estimator and a matched null, where estimator bias cancels. Three commitments stand out.
+</p>
+
+<div class="preds">
+  <div class="pred">
+    <div class="pid">P1 &middot; REGULATION</div>
+    <h4>Regulation buys shared algorithmic information</h4>
+    <p>In any successful regulator, the information it shares with the world grows at least with the compression gap of the regulated readout. Testable in RL agents, the Game-of-Life eater, and artificial-life systems like Lenia / Flow-Lenia.</p>
+    <span class="falsi"><strong>Falsified if:</strong> a system regulates well&mdash;sustained large gap&mdash;yet regulator and world share no estimable structure.</span>
+  </div>
+  <div class="pred">
+    <div class="pid">P2 &middot; COST</div>
+    <h4>Cost scales with discard rate, not model size</h4>
+    <p>Dissipation tracks the model-relevant <em>irreversible discard rate</em>, not the description length of the model held. Two controllers of equal model size but different update rates dissipate differently; a large, rarely-updated model is cheap.</p>
+    <span class="falsi"><strong>Falsified if:</strong> heat scales with model size at fixed discard rate.</span>
+  </div>
+  <div class="pred">
+    <div class="pid">P3 &middot; BRAIN</div>
+    <h4>Neural irreversibility tracks model-relevant discard, not arousal or raw surprise</h4>
+    <p>The brain&rsquo;s temporal irreversibility (its arrow of time) should be controlled not by arousal, nor by raw prediction error, but by the rate at which input is sorted&mdash;in the agent&rsquo;s model&ndash;objective frame&mdash;into retained structure, action, heat, and discarded residue. Useful input is <em>assimilable</em> surprise: novel enough to inform, compressible enough not to overwrite the identity. A structured, learnable violation should leave a different, more <em>model-localized</em> irreversibility signature than equally surprising but unlearnable noise, at matched arousal and raw surprise.</p>
+    <span class="falsi"><strong>Falsified if:</strong> irreversibility keeps tracking arousal or raw surprise once model-relevant assimilable discard is held fixed.</span>
+  </div>
+</div>
+
+<h2>Pattern, persist!</h2>
+
+<p>
+The single imperative can be read at every level without loss. At the level of the substrate, it is the <em>filter</em> that produces agents at all. At the level of the individual, it is the as-if goal that selection installs as an objective. At the level of the meta-agent&mdash;organism, society, hybrid ecosystem&mdash;it is the criterion that tells mutualistic configurations from parasitic ones. Agency is cheap; persistence is not. What distinguishes a rock from a cell from a mind is not <em>whether</em> it holds a pattern against time, but <em>how</em>&mdash;where the regulator sits, what it must pay, and whether it works, at last, for its own continuation.
+</p>
+
+</article>
+
+<footer class="article-footer">
+  <p class="cta">
+    BCOM Working Paper WP0162 &mdash; <em>Pattern, Persist! Algorithmic Information Conservation and the Thermodynamics of Agency</em> &nbsp;|&nbsp;
+    Pillar: KT &mdash; Kolmogorov Theory &nbsp;|&nbsp;
+    <a href="https://doi.org/10.5281/zenodo.21008798">doi:10.5281/zenodo.21008798</a> &nbsp;|&nbsp;
+    <a href="https://bcom.one">bcom.one</a>
+  </p>
+  <p class="cta">Related essays &mdash; <a href="/blogs/pattern-persist-general-en.html"><em>The Price of Staying Yourself</em></a>; <a href="/blogs/the-things-that-stay-blog.html"><em>The Things That Stay</em></a>; <a href="https://www.giulioruffini.com/blogs/the-agent-is-bigger-than-the-llm-blog.html"><em>The Agent Is Bigger Than the LLM</em></a>; <a href="https://www.giulioruffini.com/blogs/what-a-brain-simulation-must-keep-blog.html"><em>What a Brain Simulation Must Keep</em></a>; <a href="https://www.giulioruffini.com/blogs/what-is-hypercomputation-blog.html"><em>What Is Hypercomputation?</em></a>; <a href="https://www.giulioruffini.com/blogs/the-monoid-inside-every-program-blog.html"><em>The Monoid Inside Every Program</em></a>.</p>
+  <p class="cta">Further reading &mdash; G. Ruffini, <a href="https://academic.oup.com/nc/article/2017/1/nix019/4470874"><em>An Algorithmic Information Theory of Consciousness</em></a> (<em>Neuroscience of Consciousness</em>, 2017).</p>
+  <div class="tag-list">
+    <span class="tag">Kolmogorov Theory</span>
+    <span class="tag">Agency</span>
+    <span class="tag">Persistence</span>
+    <span class="tag">Telehomeostasis</span>
+    <span class="tag">Algorithmic Regulator Theorem</span>
+    <span class="tag">Good Regulator</span>
+    <span class="tag">Thermodynamics</span>
+    <span class="tag">Landauer</span>
+    <span class="tag">Meta-agents</span>
+    <span class="tag">Compression</span>
+    <span class="tag">LLMs</span>
+    <span class="tag">Alignment</span>
+    <span class="tag">Constraints</span>
+    <span class="tag">Meta-persistence</span>
+    <span class="tag">Endosymbiosis</span>
+    <span class="tag">Collective agency</span>
+    <span class="tag">Integrated Information</span>
+    <span class="tag">Lean 4</span>
+  </div>
+</footer>
+
+</body>
+</html>

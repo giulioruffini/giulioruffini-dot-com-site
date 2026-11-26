@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is an Oscillation, Really? Topology, Compression, and the Circle at the Heart of Brain Rhythms</title>
+
+<!-- MathJax -->
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root {
+    --lively-blue: #002878;
+    --coral: #FF6657;
+    --light-blue: #D6E4F0;
+    --light-pink: #F5D5D5;
+    --pale-bg: #F8F9FC;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Merriweather', Georgia, serif;
+    color: #2a2a2a;
+    background: var(--white);
+    line-height: 1.8;
+    font-size: 17px;
+  }
+
+  /* ── hero ── */
+  .hero {
+    background: linear-gradient(135deg, var(--lively-blue) 0%, #003a9e 100%);
+    color: var(--white);
+    padding: 80px 24px 70px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 360px; height: 360px;
+    background: var(--coral);
+    opacity: 0.10;
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; left: -50px;
+    width: 240px; height: 240px;
+    background: var(--light-blue);
+    opacity: 0.08;
+    border-radius: 50%;
+  }
+  .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-label {
+    display: inline-block;
+    background: var(--coral);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 5px 16px;
+    border-radius: 3px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .hero .subtitle {
+    font-size: 18px;
+    opacity: 0.88;
+    max-width: 660px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+  .hero .meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+  .hero .meta a { color: var(--light-blue); text-decoration: none; }
+  .hero .meta a:hover { text-decoration: underline; }
+
+  .author-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .author-avatar {
+    width: 48px; height: 48px;
+    background: var(--coral);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+  .author-info {
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+  }
+  .author-info .name { font-weight: 600; font-size: 15px; }
+  .author-info .affiliation { font-size: 13px; opacity: 0.7; }
+  .reading-time {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+
+  /* ── layout ── */
+  .container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+  article { padding: 56px 0 80px; }
+
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--coral);
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--lively-blue);
+    margin: 52px 0 18px;
+    line-height: 1.3;
+  }
+  h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--lively-blue);
+    margin: 36px 0 12px;
+  }
+
+  p { margin-bottom: 22px; }
+
+  .pull-quote {
+    border-left: 4px solid var(--coral);
+    background: var(--pale-bg);
+    padding: 24px 28px;
+    margin: 36px 0;
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--lively-blue);
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 10px;
+    font-style: normal;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #666;
+  }
+
+  /* ── equation blocks ── */
+  .equation-block {
+    background: var(--pale-bg);
+    border: 1px solid #e0e4ec;
+    border-left: 4px solid var(--lively-blue);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin: 28px 0;
+    overflow-x: auto;
+  }
+  .equation-block .eq-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--coral);
+    margin-bottom: 10px;
+  }
+  .equation-block .eq-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #555;
+    margin-top: 12px;
+    line-height: 1.55;
+  }
+
+  /* ── concept cards ── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 32px 0 40px;
+  }
+  @media (max-width: 600px) { .concept-grid { grid-template-columns: 1fr; } }
+
+  .concept-card {
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .concept-card.blue-bg  { background: var(--light-blue); }
+  .concept-card.pink-bg  { background: var(--light-pink); }
+  .concept-card.pale-bg  { background: var(--pale-bg); border: 1px solid #e4e7ed; }
+
+  .concept-card h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--lively-blue);
+    margin-bottom: 8px;
+  }
+  .concept-card p {
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 0;
+    color: #3a3a3a;
+  }
+
+  /* ── highlight box ── */
+  .highlight-box {
+    background: var(--light-blue);
+    border-radius: 8px;
+    padding: 28px 30px;
+    margin: 36px 0;
+  }
+  .highlight-box h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--lively-blue);
+    margin-bottom: 12px;
+  }
+  .highlight-box p { font-size: 15.5px; margin-bottom: 12px; }
+  .highlight-box p:last-child { margin-bottom: 0; }
+
+  /* ── insight strip ── */
+  .insight-strip {
+    background: var(--lively-blue);
+    color: var(--white);
+    border-radius: 8px;
+    padding: 32px 30px;
+    margin: 40px 0;
+  }
+  .insight-strip .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--coral);
+    margin-bottom: 10px;
+  }
+  .insight-strip p {
+    font-size: 18px;
+    line-height: 1.65;
+    margin-bottom: 0;
+    opacity: 0.95;
+  }
+
+  /* ── definition box ── */
+  .definition-box {
+    background: var(--white);
+    border: 2px solid var(--lively-blue);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .definition-box .def-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--coral);
+    margin-bottom: 8px;
+  }
+  .definition-box p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 0;
+    color: var(--lively-blue);
+    font-style: italic;
+  }
+
+  /* ── wide card ── */
+  .wide-card {
+    background: var(--pale-bg);
+    border: 1px solid #e4e7ed;
+    border-radius: 8px;
+    padding: 28px;
+    margin: 36px 0;
+  }
+  .wide-card h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--lively-blue);
+    margin-bottom: 14px;
+  }
+
+  .model-table { width: 100%; border-collapse: collapse; font-size: 14.5px; font-family: 'Inter', sans-serif; }
+  .model-table th {
+    background: var(--lively-blue);
+    color: var(--white);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .model-table td { padding: 10px 14px; border-bottom: 1px solid #dce3ee; vertical-align: top; }
+  .model-table tr:nth-child(even) td { background: var(--light-blue); }
+  .model-table tr:nth-child(odd) td { background: var(--white); }
+
+  /* ── footer ── */
+  .blog-footer {
+    background: var(--pale-bg);
+    border-top: 1px solid #e0e4ec;
+    padding: 40px 24px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #666;
+  }
+  .blog-footer a { color: var(--lively-blue); text-decoration: none; }
+  .blog-footer a:hover { text-decoration: underline; }
+
+  article a { color: var(--coral); text-decoration: none; font-weight: 500; }
+  article a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- ════════════ HERO ════════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Foundations &amp; Theory</div>
+    <h1>What Is an Oscillation, Really? Topology, Compression, and the Circle at the Heart of Brain Rhythms</h1>
+    <p class="subtitle">We propose an algorithmic-information definition of oscillation: a signal oscillates when a circle-based model compresses it better than any simpler alternative. Here's the deep reason why.</p>
+    <div class="meta">
+      From Appendix I of <a href="https://arxiv.org/abs/2512.10982">Rosetta Stone of Neural Mass Models</a> &nbsp;|&nbsp; arXiv:2512.10982
+    </div>
+    <div class="author-block">
+      <div class="author-avatar">GR</div>
+      <div class="author-info">
+        <div class="name">Giulio Ruffini &amp; Francesca Castaldo</div>
+        <div class="affiliation">BCOM &amp; Neuroelectrics</div>
+      </div>
+    </div>
+    <div class="reading-time">9 min read</div>
+  </div>
+</header>
+
+<!-- ════════════ ARTICLE ════════════ -->
+<article>
+<div class="container">
+
+  <!-- ── THE QUESTION ── -->
+  <p class="section-label">The question</p>
+  <h2>Everyone Talks About Oscillations. But What Are They?</h2>
+
+  <p>The word <em>oscillation</em> is used constantly across neuroscience, physics, engineering, and signal processing&mdash;yet each community defines it differently. Classical physicists think of repetitive, periodic motion around equilibrium. Mathematicians insist on limit cycles with stable Floquet multipliers. Neuroscientists see "rhythmic or repetitive neural activity" at all scales. Signal processing people detect narrow-band spectral peaks above the $1/f$ background.</p>
+
+  <p>These are all valid perspectives, but they don't talk to each other very well. In our <a href="https://arxiv.org/abs/2512.10982">Rosetta Stone paper</a>, we wanted to find a deeper, unifying principle beneath all these definitions. What we arrived at, in Appendix I, surprised us with its simplicity: <strong>an oscillation is present when the data are better described starting from the baseline of circular motion than by any simpler alternative</strong>.</p>
+
+  <p>This is an idea rooted in topology, Koopman operator theory, and algorithmic information theory (AIT). Let us walk you through it.</p>
+
+  <!-- ── CLASSICAL DEFINITIONS ── -->
+  <p class="section-label">The landscape</p>
+  <h2>How Different Fields Define Oscillations</h2>
+
+  <div class="wide-card">
+    <h4>The Same Phenomenon, Four Languages</h4>
+    <table class="model-table">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Typical Definition</th>
+          <th>Key Nuance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Classical Physics</td>
+          <td>"Repetitive or periodic variation about a central value"</td>
+          <td>Emphasizes small deviations from equilibrium, strictly periodic</td>
+        </tr>
+        <tr>
+          <td>Nonlinear Dynamics</td>
+          <td>"A periodic orbit (limit cycle) satisfying $x(t+T) = x(t)$"</td>
+          <td>Formal, coordinate-free; includes self-sustained oscillators</td>
+        </tr>
+        <tr>
+          <td>Neuroscience</td>
+          <td>"Rhythmic or repetitive neural activity at all levels of the CNS"</td>
+          <td>Multi-scale; amplitude indexes population synchrony</td>
+        </tr>
+        <tr>
+          <td>Signal Processing</td>
+          <td>"A narrow-band peak above the aperiodic $1/f$ background"</td>
+          <td>No explicit periodicity required; robust for noisy data</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Each of these captures something real, but none alone is fully satisfying. The physics definition is too narrow (it excludes noisy brain rhythms). The math definition is too abstract (it says nothing about observation or measurement). The neuroscience definition is too vague. And the spectral definition is purely operational&mdash;it detects oscillations without saying what makes them oscillatory in the first place.</p>
+
+  <p>We wanted a definition that bridges all four and gets at the root cause: <em>why</em> does an oscillation show up in data at all?</p>
+
+  <!-- ── THE TOPOLOGY ── -->
+  <p class="section-label">The geometry</p>
+  <h2>It All Comes Down to a Circle</h2>
+
+  <p>Here is the key geometric insight: topologically, every limit cycle is a circle, $S^1$. Whether you're looking at a Van der Pol oscillator, a FitzHugh&ndash;Nagumo relaxation oscillator, or a cortical alpha rhythm, the attractor is a closed loop in phase space&mdash;and a closed loop is topologically equivalent to the circle group $U(1)$.</p>
+
+  <p>This is not just an analogy. The circle group $U(1)$ is the group of rotations in the plane, characterized by the single symmetry of phase-shift invariance: if $z(t)$ is a solution, so is $e^{i\phi}\,z(t)$ for any constant phase offset $\phi$. This symmetry is the defining fingerprint of oscillatory dynamics.</p>
+
+  <div class="equation-block">
+    <div class="eq-label">The Simplest Oscillator &mdash; Pure Rotation on $S^1$</div>
+    $$\dot{\theta} = \omega \qquad \Longleftrightarrow \qquad \dot{z} = i\omega\, z$$
+    <div class="eq-note">Phase advances uniformly; the trajectory lives on a circle. In the complex plane, the solution $z(t) = z_0\,e^{i\omega t}$ is just uniform rotation. This is the "Platonic" oscillation&mdash;the irreducible core of every brain rhythm.</div>
+  </div>
+
+  <p>Real oscillations are of course more complicated than pure circular motion: they have amplitude modulation, noise, burst gaps, nonlinear waveform distortions. But all of these can be viewed as <em>corrections</em> to the underlying circular template. And this is exactly what brings us to compression.</p>
+
+  <!-- ── KOOPMAN ── -->
+  <p class="section-label">The Koopman view</p>
+  <h2>Oscillation as Compression: The Koopman Eigenfunction</h2>
+
+  <p>The Koopman operator provides a beautiful bridge between nonlinear dynamics and the circle. Given a dynamical system $\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})$, the Koopman operator $\mathcal{K}^t$ acts not on states but on <em>observables</em>&mdash;functions $g(\mathbf{x})$ of the state. Even though $\mathbf{f}$ may be highly nonlinear, $\mathcal{K}^t$ is always a <strong>linear operator</strong>:</p>
+
+  <div class="equation-block">
+    <div class="eq-label">Koopman Operator</div>
+    $$(\mathcal{K}^t g)(\mathbf{x}_0) = g(\mathbf{x}(t)), \qquad \text{where } \mathbf{x}(t) = \Phi^t(\mathbf{x}_0)$$
+    <div class="eq-note">$\mathcal{K}^t$ advances any observable $g$ along the system's trajectories. It is linear and infinite-dimensional, even when the underlying dynamics are nonlinear and finite-dimensional.</div>
+  </div>
+
+  <p>For a limit cycle, the Koopman operator possesses a special eigenpair $(\psi, \lambda = i\omega)$ where $\psi$ is the <strong>Koopman eigenfunction</strong>. This eigenfunction is a "magic" coordinate transformation: while the full state $\mathbf{x}(t)$ traces a complicated orbit in $n$-dimensional phase space, the scalar observable $\psi(\mathbf{x}(t))$ simply <em>rotates in the complex plane at constant frequency</em>:</p>
+
+  <div class="equation-block">
+    <div class="eq-label">The Koopman Eigenfunction &mdash; Oscillation as Simple Rotation</div>
+    $$\psi(\mathbf{x}(t)) = e^{i\omega t}\,\psi(\mathbf{x}_0)$$
+    <div class="eq-note">The phase is $\theta(t) = \arg\psi(\mathbf{x}(t)) = \theta_0 + \omega\,t$ and the amplitude is $r(t) = |\psi(\mathbf{x}(t))|$. Finding $\psi$ compresses the entire $n$-dimensional nonlinear trajectory into a single complex number rotating on $S^1$. The level sets of $\theta = \arg\psi(\mathbf{x})$ are the system's <strong>isochrons</strong>.</div>
+  </div>
+
+  <p>This is the crucial conceptual leap: <strong>finding the Koopman eigenfunction is itself a compression</strong>. Once you know $\psi$, you can encode the full trajectory with just an initial phase $\theta_0$, a frequency $\omega$, and a small update map for the amplitude. The geometry of the circle turns nonlinear dynamics into a one-line program: <code>output = r(t) &middot; cos(&theta;(t))</code>.</p>
+
+  <div class="insight-strip">
+    <div class="label">Key Insight</div>
+    <p>The Koopman eigenfunction acts as a "magic" coordinate transformation that replaces complex, nonlinear dynamics with simple rotation on the circle $S^1$. Finding this transformation is itself an act of data compression&mdash;and this is what connects dynamical-systems theory to algorithmic information theory.</p>
+  </div>
+
+  <!-- ── AIT DEFINITION ── -->
+  <p class="section-label">The definition</p>
+  <h2>An Algorithmic-Information Definition of Oscillation</h2>
+
+  <p>Algorithmic Information Theory (AIT) measures the information content of individual objects via computation. The Kolmogorov complexity $K(x)$ of a binary string $x$ is the length of the shortest program that outputs $x$ on a universal Turing machine:</p>
+
+  <div class="equation-block">
+    <div class="eq-label">Kolmogorov Complexity</div>
+    $$K_U(x) = \min_{p \in \{0,1\}^*} \big\{\,|p|\;:\;U(p) = x\,\big\}$$
+    <div class="eq-note">The shortest program that makes a fixed universal machine $U$ output $x$ and halt. By the invariance theorem, $K(x)$ depends on the choice of $U$ only up to an additive constant.</div>
+  </div>
+
+  <p>Now consider a measured signal $x_{1:N}$. We can always encode it with a generic lossless code (LZ-77, Huffman) of length $L_{\text{raw}}$. But suppose we can also encode it as: (i) a periodic template $u_{1:T}$ with some frequency (a $U(1)$ limit-cycle model, costing $K_{\text{LC}}$ bits), plus (ii) a residual code $e$ for the modulation, burst gaps, and noise (costing $K_{\text{noise}}$ bits). If</p>
+
+  <div class="equation-block">
+    <div class="eq-label">The Compression Criterion for Oscillation</div>
+    $$K_{\text{LC}} + K_{\text{noise}} \;\ll\; L_{\text{raw}}$$
+    <div class="eq-note">If the circle-based model plus residual is substantially shorter than the unstructured description, the signal contains an oscillation. No reference model is required&mdash;the gain is measured against the raw data itself.</div>
+  </div>
+
+  <p>This gives us a precise, model-independent criterion: <strong>a signal oscillates when a periodic-template model compresses the data significantly better than any model that lacks periodic structure</strong>. The periodic template corresponds to one traversal of the Koopman phase, and the compression gain comes from exploiting the $S^1$ symmetry.</p>
+
+  <div class="definition-box">
+    <div class="def-label">Formal Definition</div>
+    <p>A dataset is said to represent an oscillation when it can be most succinctly Lie-generated from a representation of $U(1)$ (plus noise).</p>
+  </div>
+
+  <p>In other words, oscillation = compressibility via the circle. An algorithmic agent would declare: <em>"An oscillation is a detected pattern: a signal that approximately repeats."</em> The generative model is $\text{data} = M(\theta) + \text{noise}$, where $\theta \in S^1$ is the latent circular coordinate.</p>
+
+  <!-- ── WHY STUART-LANDAU ── -->
+  <p class="section-label">The emergence</p>
+  <h2>Why the Stuart&ndash;Landau Equation Is Inevitable</h2>
+
+  <p>One of the most satisfying results in the appendix is showing that the Stuart&ndash;Landau equation isn't just a convenient model&mdash;it's <em>topologically inevitable</em> for any system near a Hopf bifurcation.</p>
+
+  <p>We start with the harmonic oscillator $\dot{z} = i\omega z$ and add a generic smooth perturbation:</p>
+
+  <div class="equation-block">
+    <div class="eq-label">Perturbed Oscillator</div>
+    $$\dot{z} = (\mu + i\omega)\,z + F(z, \bar{z})$$
+    <div class="eq-note">$F$ contains all higher-order nonlinear terms. The question: which terms <em>survive</em> when we systematically simplify via coordinate changes?</div>
+  </div>
+
+  <p>Using normal-form reduction (center manifold reduction followed by near-identity coordinate transformations), we attempt to eliminate as many nonlinear terms as possible. The key tool is the Lie derivative associated with the circular rotation:</p>
+
+  <div class="equation-block">
+    <div class="eq-label">The Lie Derivative &mdash; Generator of Rotations</div>
+    $$\mathcal{L}_0 = \omega\,\frac{\partial}{\partial\theta}$$
+    <div class="eq-note">This operator encodes how functions change as we rotate around the limit cycle. To eliminate a nonlinear term $F$, we need to solve $\mathcal{L}_0 H = F - N$ for the coordinate change $H$. Terms in the kernel of $\mathcal{L}_0$ <em>cannot</em> be eliminated.</div>
+  </div>
+
+  <p>The terms that resist elimination&mdash;the <strong>resonant terms</strong>&mdash;are precisely those whose angular frequency matches the natural rotation frequency $\omega$. Geometrically, they correspond to closed but non-exact 1-forms on $S^1$, the hallmark of nontrivial topology. At third order, the only such term is $|z|^2 z$, which is $U(1)$-covariant. The result is the Stuart&ndash;Landau equation:</p>
+
+  <div class="equation-block">
+    <div class="eq-label">Stuart&ndash;Landau &mdash; The Topologically Inevitable Normal Form</div>
+    $$\dot{z} = (\mu + i\omega)\,z - (g + i\beta)\,|z|^2\,z$$
+    <div class="eq-note">$U(1)$ symmetry was never assumed&mdash;it <em>emerges</em> from the reduction. The circle topology of the limit cycle forces this form. At every odd order, only terms of the form $|z|^{2m}z$ survive, giving the general normal form $\dot{z} = (\mu + i\omega)z + z\,g(|z|^2)$.</div>
+  </div>
+
+  <p>This is a deep result: <strong>we didn't assume the system was $U(1)$-symmetric. We simply started with a generic perturbation of a linear oscillator and found that the circle's topology forces the Stuart&ndash;Landau form</strong>. The cohomological structure of $S^1$ determines which nonlinear terms can and cannot be eliminated.</p>
+
+  <div class="equation-block">
+    <div class="eq-label">Cohomological Origin of Resonant Terms</div>
+    $$H^1(\mathcal{L}_0) = \frac{\ker \mathcal{L}_0}{\operatorname{im} \mathcal{L}_0} \;\cong\; H^1_{\text{dR}}(S^1) \;\cong\; \mathbb{R}$$
+    <div class="eq-note">The first cohomology group of the circle is one-dimensional. This is why exactly one family of resonant terms survives at each order&mdash;the $|z|^{2m}z$ terms. They are genuine topological obstructions that no smooth coordinate change can remove.</div>
+  </div>
+
+  <!-- ── THE THREE LENSES ── -->
+  <p class="section-label">Synthesis</p>
+  <h2>Three Lenses, One Circle</h2>
+
+  <div class="concept-grid">
+    <div class="concept-card blue-bg">
+      <h4>Dynamical Systems Lens</h4>
+      <p>A limit cycle is a closed orbit in phase space&mdash;topologically a circle $S^1$. The Koopman eigenfunction maps the full state to uniform rotation on this circle, compressing nonlinear dynamics to phase + amplitude.</p>
+    </div>
+    <div class="concept-card pink-bg">
+      <h4>Spectral / Signal Lens</h4>
+      <p>An oscillation is a narrow-band peak above the $1/f$ background. This peak is the Fourier signature of the $S^1$ symmetry: a periodic template that compresses the data relative to broadband noise.</p>
+    </div>
+    <div class="concept-card blue-bg">
+      <h4>Information-Theoretic Lens</h4>
+      <p>A signal oscillates when a $U(1)$-based generative model (circle + corrections) achieves shorter description length than any model without periodic structure. Oscillation = compressibility via $S^1$.</p>
+    </div>
+    <div class="concept-card pink-bg">
+      <h4>Topological Lens</h4>
+      <p>The nontrivial first cohomology $H^1(S^1) \cong \mathbb{R}$ ensures that the Stuart&ndash;Landau normal form is universal: the resonant terms are topological invariants that no coordinate change can erase.</p>
+    </div>
+  </div>
+
+  <p>These four perspectives are not competing definitions&mdash;they are four windows onto the same mathematical object: <strong>the circle $S^1$ and its symmetry group $U(1)$</strong>. Every brain oscillation, from the fastest gamma ripple to the slowest infra-slow fluctuation, derives its oscillatory character from this same topological core.</p>
+
+  <!-- ── WHY IT MATTERS ── -->
+  <p class="section-label">Implications</p>
+  <h2>Why This Matters for Neuroscience</h2>
+
+  <div class="highlight-box">
+    <h4>A Principled Detection Criterion</h4>
+    <p>The compression definition gives us a model-independent way to ask "does this signal oscillate?" that works equally well for clean sinusoids, noisy cortical rhythms, and bursty intermittent oscillations. If a circle-based model compresses the data, oscillation is present. If it doesn't, it isn't&mdash;regardless of what a spectral peak might suggest.</p>
+  </div>
+
+  <div class="highlight-box" style="background: var(--light-pink); margin-top: 18px;">
+    <h4>Why All Neural Mass Models Share the Same Core</h4>
+    <p>The topological inevitability of the Stuart&ndash;Landau form explains a central theme of the Rosetta Stone paper: all neural mass models, from Kuramoto to NMM2, share a push&ndash;pull structure because they are all organized around the same circle topology. The push&ndash;pull motif <em>is</em> the $U(1)$ symmetry expressed in excitatory&ndash;inhibitory coordinates.</p>
+  </div>
+
+  <div class="highlight-box" style="background: var(--pale-bg); border: 1px solid #e0e4ec; margin-top: 18px;">
+    <h4>Connections to Information Theory and Consciousness</h4>
+    <p>The compression perspective connects neural oscillations to broader questions in computational neuroscience: oscillatory dynamics create compressible structure in neural data, which may be exploited by the brain itself for efficient coding, prediction, and communication between regions.</p>
+  </div>
+
+  <div class="insight-strip">
+    <div class="label">The Bottom Line</div>
+    <p>An oscillation is not just "a thing that repeats." It is a signal whose structure is best explained by circular motion on $S^1$&mdash;the simplest nontrivial topology. This single geometric fact unifies dynamical-systems theory, spectral analysis, Koopman operator theory, and algorithmic information theory into one coherent picture. The circle is not just a convenience; it is the topological reason brain rhythms exist at all.</p>
+  </div>
+
+  <!-- ── CITATION ── -->
+  <p class="section-label">Reference</p>
+  <p style="font-size: 15px; color: #555;">Castaldo, F., de Palma Aristides, R., Clusella, P., Garcia-Ojalvo, J., &amp; Ruffini, G. (2025). <em>Rosetta Stone of Neural Mass Models</em> &mdash; Appendix I: Oscillations, Topology and Simplicity. arXiv:2512.10982. <a href="https://arxiv.org/abs/2512.10982">https://arxiv.org/abs/2512.10982</a></p>
+
+</div>
+</article>
+
+<footer class="blog-footer">
+  <p>&copy; 2025 &nbsp;|&nbsp; <a href="https://bcom.one">bcom.one</a></p>
+</footer>
+</body>
+</html>

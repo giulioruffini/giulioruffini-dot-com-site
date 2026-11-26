@@ -1,10 +1,13 @@
 # TODO — giulioruffini.com
 
+- [x] November 26: the essays, Math Corner notes and reference pages moved from giulioruffini.github.io to this site (public/blogs, public/math); github.io forwards every old address and keeps only the collaboration pages, paper and slide files, and the chat page
 - [x] November 26: GoatCounter visit counter on www.giulioruffini.com (injected at build by scripts/add-goatcounter.mjs, app navigations counted in src/router.tsx) and on the giulioruffini.github.io pages the site links to; README section "Visit counter"
 - [x] November 23: the blog essays registered as WP0261 to WP0275 link to one another (Related essays blocks; website b9e98b6, github.io d6141881); record in WP0215 notes/2026-11-23_klaus/cross_references
 - [x] November 21: "What a Brain Simulation Must Keep" revised against the current WP0215 source and published with a Spanish edition, "Lo que una simulación cerebral debe conservar" (/blogs/what-a-brain-simulation-must-keep-blog-es.html, entry content/blog/what-a-brain-simulation-must-keep-es.md); the two pages link to each other; record in WP0215 notes/2026-11-21_klaus/blog_revision
 - [x] November 19: publish and verify the approved WP0215 blog revision, state-merging figure, and previously held hypercomputation paragraph (2f33083; successful deployment 44552701380)
 
+- [ ] decide with Giulio which github.io collaboration pages (Liquid-I meetings and docs, Trigon, Rosetta syllabus) must be private; they are readable in the public repository today, so encrypt them (StatiCrypt) or move them
+- [ ] point the Calliope records and WP folders of the blog essays that moved from github.io at their www.giulioruffini.com/blogs addresses (old links forward meanwhile)
 - [ ] when a blog WP from WP0261 to WP0275 is next versioned in Calliope, rebuild its page copy, main.md and PDF from the live page so the deposit carries the November 23 Related essays links; strip the two GoatCounter script tags from the copy (live pages carry them since November 26)
 - [ ] when the Mercadal cooperation/competition paper (bioRxiv 2025.07.09.663817) and the two Vohryzek preprints are published, replace the preprint links on /neuroscience and All Publications
 - [ ] ask Ricard Solé where the cognitive-virus paper is under review; update its entries when it is published

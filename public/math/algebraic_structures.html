@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>From Groups to Modules — A Math Note for Lucia</title>
+
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath:[['$$','$$'],['\\[','\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+<style>
+  :root{
+    --bg:#0a0e1a;
+    --bg-2:#0e1422;
+    --surface:#141b2d;
+    --surface-2:#1b2440;
+    --border:#243056;
+    --text:#e8eaf2;
+    --muted:#8b94b2;
+    --cyan:#00d4ff;
+    --pink:#ff6b9d;
+    --purple:#c084fc;
+    --green:#4ade80;
+    --red:#f87171;
+    --gold:#fbbf24;
+    --blue:#60a5fa;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Inter','SF Pro Text',-apple-system,system-ui,sans-serif;line-height:1.65;font-size:16px}
+  body{background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(0,212,255,0.08), transparent 60%),
+    radial-gradient(1000px 600px at 110% 30%, rgba(192,132,252,0.06), transparent 60%),
+    var(--bg);
+    min-height:100vh}
+  .wrap{max-width:880px;margin:0 auto;padding:48px 28px 96px}
+  header.hero{padding:48px 0 32px;border-bottom:1px solid var(--border);margin-bottom:32px}
+  h1{font-family:'Iowan Old Style','Charter','Georgia',serif;font-weight:600;font-size:2.4rem;margin:0 0 .35em;letter-spacing:-.01em;
+     background:linear-gradient(90deg,#fff 0%,var(--cyan) 60%,var(--purple) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .subtitle{color:var(--muted);font-size:1.05rem;font-style:italic;margin:0}
+  .for{margin-top:18px;color:var(--cyan);font-size:.85rem;letter-spacing:.18em;text-transform:uppercase}
+  h2{font-family:'Iowan Old Style','Charter','Georgia',serif;font-weight:600;font-size:1.5rem;margin:2.2em 0 .4em;color:#fff;border-left:3px solid var(--cyan);padding-left:.6em}
+  h2 .num{color:var(--cyan);font-weight:500;margin-right:.45em;font-variant-numeric:tabular-nums}
+  h3{font-family:'Iowan Old Style',serif;font-weight:600;font-size:1.12rem;color:var(--pink);margin:1.6em 0 .3em}
+  p{margin:.7em 0}
+  .lead{color:var(--muted);font-size:.95rem}
+  .defn,.ex,.rem{margin:1.2em 0;padding:14px 18px;border-radius:10px;background:var(--surface);border-left:3px solid var(--border)}
+  .defn{border-left-color:var(--cyan)}
+  .ex{border-left-color:var(--green)}
+  .rem{border-left-color:var(--gold)}
+  .label{font-weight:600;letter-spacing:.04em;font-size:.78rem;text-transform:uppercase;display:block;margin-bottom:.35em}
+  .defn .label{color:var(--cyan)}
+  .ex .label{color:var(--green)}
+  .rem .label{color:var(--gold)}
+  ol.axioms{padding-left:1.8em;margin:.3em 0}
+  ol.axioms li{margin:.25em 0}
+  code,.k{font-family:'JetBrains Mono','SF Mono',ui-monospace,monospace;background:#0e1422;padding:.05em .35em;border-radius:4px;color:var(--cyan);font-size:.9em}
+  hr{border:none;border-top:1px dashed var(--border);margin:2.2em 0}
+
+  /* Nav pills */
+  .pills{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 8px}
+  .pill{padding:6px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--muted);font-size:.82rem;cursor:pointer;text-decoration:none;transition:all .15s}
+  .pill:hover{color:var(--cyan);border-color:var(--cyan);transform:translateY(-1px)}
+  .pill.on{color:var(--bg);background:var(--cyan);border-color:var(--cyan);font-weight:600}
+  .pdf-badge{display:inline-flex;align-items:center;padding:8px 16px;border-radius:8px;
+    background:linear-gradient(135deg,rgba(192,132,252,.15),rgba(255,107,157,.12));
+    border:1px solid rgba(192,132,252,.5);color:var(--purple);text-decoration:none;
+    font-size:.88rem;font-weight:600;letter-spacing:.02em;transition:all .15s}
+  .pdf-badge:hover{background:linear-gradient(135deg,rgba(192,132,252,.25),rgba(255,107,157,.18));
+    border-color:var(--purple);color:#fff;transform:translateY(-1px);
+    box-shadow:0 4px 16px rgba(192,132,252,.25)}
+
+  /* Widget container */
+  .widget{margin:1.8em 0;padding:20px 22px;border-radius:12px;background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--border);box-shadow:0 1px 0 rgba(255,255,255,.02) inset, 0 10px 30px rgba(0,0,0,.25)}
+  .widget h4{margin:0 0 .2em;font-size:1.0rem;color:#fff;font-family:'Iowan Old Style',serif}
+  .widget .hint{color:var(--muted);font-size:.85rem;margin-top:.1em}
+
+  /* ----- Axiom checker ----- */
+  .axiom-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
+  @media (max-width:640px){.axiom-grid{grid-template-columns:1fr}}
+  .axiom-candidates{display:flex;flex-direction:column;gap:6px}
+  .cand{padding:9px 12px;border-radius:8px;background:#0e1422;border:1px solid var(--border);cursor:pointer;font-size:.92rem;display:flex;justify-content:space-between;align-items:center;transition:all .12s}
+  .cand:hover{border-color:var(--cyan);color:#fff}
+  .cand.active{background:rgba(0,212,255,.12);border-color:var(--cyan);color:#fff}
+  .cand .tag{font-size:.7rem;color:var(--muted)}
+  .axiom-result{background:#0e1422;border:1px solid var(--border);border-radius:10px;padding:14px}
+  .ax-row{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px dashed #1c2545;font-size:.92rem}
+  .ax-row:last-of-type{border-bottom:none}
+  .ax-mark{font-weight:700;font-family:'JetBrains Mono',monospace;width:24px;text-align:center;flex-shrink:0}
+  .ax-mark.yes{color:var(--green)}
+  .ax-mark.no{color:var(--red)}
+  .verdict{margin-top:12px;padding:10px 14px;border-radius:8px;font-weight:600;text-align:center;letter-spacing:.04em}
+  .verdict.group{background:rgba(74,222,128,.12);color:var(--green);border:1px solid rgba(74,222,128,.4)}
+  .verdict.notgroup{background:rgba(248,113,113,.10);color:var(--red);border:1px solid rgba(248,113,113,.35)}
+  .verdict.abelian{background:rgba(0,212,255,.1);color:var(--cyan);border:1px solid rgba(0,212,255,.4)}
+
+  /* ----- Z/6Z clock ----- */
+  .clock-wrap{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center;margin-top:10px}
+  @media (max-width:640px){.clock-wrap{grid-template-columns:1fr}}
+  .clock-canvas{display:block;margin:0 auto}
+  .clock-controls{display:flex;flex-direction:column;gap:12px}
+  .ctrl-row{display:flex;align-items:center;gap:10px}
+  .ctrl-row label{flex:0 0 auto;font-size:.88rem;color:var(--muted);min-width:64px}
+  .ctrl-row input[type=number]{flex:1;background:#0e1422;border:1px solid var(--border);color:#fff;padding:8px 10px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:1rem;width:100%}
+  .ctrl-row input[type=number]:focus{outline:none;border-color:var(--cyan)}
+  .btn{padding:10px 16px;border-radius:8px;border:1px solid var(--cyan);background:rgba(0,212,255,.12);color:var(--cyan);font-weight:600;cursor:pointer;font-size:.92rem;letter-spacing:.02em;transition:all .15s;font-family:inherit}
+  .btn:hover{background:var(--cyan);color:var(--bg)}
+  .btn.ghost{border-color:var(--border);background:#0e1422;color:var(--muted)}
+  .btn.ghost:hover{color:#fff;border-color:var(--muted);background:#1b2440}
+  .preset-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .preset{padding:5px 10px;border-radius:6px;background:#0e1422;border:1px solid var(--border);color:var(--muted);font-size:.78rem;cursor:pointer;font-family:'JetBrains Mono',monospace}
+  .preset:hover{color:var(--pink);border-color:var(--pink)}
+  .calc-out{margin-top:8px;background:#0e1422;border:1px solid var(--border);border-radius:8px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:1.05rem;color:#fff;min-height:46px}
+  .calc-out .arrow{color:var(--cyan)}
+  .calc-out .result{color:var(--gold);font-weight:700}
+  .calc-out .step{display:block;color:var(--muted);font-size:.85rem;margin-top:4px}
+
+  /* ----- Challenge ----- */
+  .q-card{margin-top:14px}
+  .q-stem{background:#0e1422;border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+  .q-stem .qn{color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase}
+  .q-stem .qtext{margin:.4em 0 .2em;font-size:1rem;color:#fff}
+  .q-stem .qdata{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--muted)}
+  .q-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  @media (max-width:540px){.q-opts{grid-template-columns:1fr}}
+  .q-opt{padding:10px 12px;border-radius:8px;background:#0e1422;border:1px solid var(--border);cursor:pointer;font-size:.9rem;color:var(--text);text-align:left;font-family:inherit;transition:all .12s}
+  .q-opt:hover{border-color:var(--cyan);color:#fff;background:#141b2d}
+  .q-opt.correct{background:rgba(74,222,128,.14);border-color:var(--green);color:var(--green)}
+  .q-opt.wrong{background:rgba(248,113,113,.12);border-color:var(--red);color:var(--red)}
+  .q-opt:disabled{cursor:default;opacity:.7}
+  .q-explain{margin-top:10px;padding:10px 14px;background:rgba(251,191,36,.06);border-left:3px solid var(--gold);border-radius:6px;font-size:.9rem;color:#ddd;display:none}
+  .q-explain.show{display:block}
+  .score-bar{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);font-size:.9rem;color:var(--muted)}
+  .score-bar .score{font-family:'JetBrains Mono',monospace;font-size:1rem;color:var(--gold)}
+
+  /* ----- Tower SVG ----- */
+  .tower-wrap{display:flex;justify-content:center;margin:14px 0 6px}
+  .tower svg text{font-family:'Inter',sans-serif}
+
+  /* Summary table */
+  table.summary{width:100%;border-collapse:collapse;margin-top:1em;font-size:.92rem}
+  table.summary th,table.summary td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--border)}
+  table.summary th{color:var(--muted);font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;background:#0e1422}
+  table.summary td:first-child{color:var(--cyan);font-weight:600;font-family:'Iowan Old Style',serif}
+
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="for">A Math Note · for Lucia</div>
+  <h1>From Groups to Modules</h1>
+  <p class="subtitle">A pedagogical tour of five algebraic structures.</p>
+  <p style="margin-top:18px">
+    <a class="pdf-badge" href="algebraic_structures.pdf" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Original PDF (typeset note)
+    </a>
+  </p>
+</header>
+
+<!-- ROADMAP -->
+<section>
+  <h2><span class="num">0.</span>Roadmap</h2>
+  <p>We will build five structures, in this order:</p>
+  <p style="text-align:center;font-size:1.05rem;margin:1em 0">
+    $\text{group} \longrightarrow \text{ring} \longrightarrow \text{field} \longrightarrow \text{vector space} \longrightarrow \text{module}$
+  </p>
+  <p>Each arrow adds either an operation, an axiom, or a notion of "scalar multiplication." The last arrow is the only <em>generalization</em> in the chain: a module is what you get when you take a vector space and allow the scalars to come from a ring instead of a field. That step trips most people up the first time, so we will spend extra care on it.</p>
+
+  <div class="pills" role="navigation" aria-label="Jump to section">
+    <a class="pill" href="#group">Group</a>
+    <a class="pill" href="#ring">Ring</a>
+    <a class="pill" href="#field">Field</a>
+    <a class="pill" href="#vector">Vector space</a>
+    <a class="pill" href="#module">Module</a>
+    <a class="pill" href="#challenge">Challenge</a>
+  </div>
+</section>
+
+<!-- GROUP -->
+<section id="group">
+  <h2><span class="num">1.</span>Group</h2>
+  <h3>The idea</h3>
+  <p>A group captures the bare minimum needed for an operation that can be <em>undone</em>. Think: integers under addition (you can subtract), or the symmetries of a square (you can rotate back).</p>
+
+  <div class="defn">
+    <span class="label">Definition</span>
+    A <em>group</em> $(G,\cdot)$ is a set $G$ with a binary operation $\cdot : G \times G \to G$ satisfying:
+    <ol class="axioms">
+      <li><strong>(G1) Associativity:</strong> $(a\cdot b)\cdot c = a\cdot(b\cdot c)$ for all $a,b,c\in G$.</li>
+      <li><strong>(G2) Identity:</strong> there is an element $e\in G$ with $e\cdot a = a\cdot e = a$ for all $a$.</li>
+      <li><strong>(G3) Inverses:</strong> for each $a\in G$ there is some $a^{-1}\in G$ with $a\cdot a^{-1} = a^{-1}\cdot a = e$.</li>
+    </ol>
+    If, in addition, $a\cdot b = b\cdot a$ always holds, the group is called <em>abelian</em>.
+  </div>
+
+  <div class="ex"><span class="label">Example</span> $(\mathbb{Z},+)$ is an abelian group: identity $0$, inverse of $n$ is $-n$.</div>
+  <div class="ex"><span class="label">Example</span> The six symmetries of an equilateral triangle (three rotations and three reflections) form a non-abelian group, traditionally written $S_3$.</div>
+
+  <!-- ===== INTERACTIVE: AXIOM CHECKER ===== -->
+  <div class="widget" aria-label="Group axiom checker">
+    <h4>🔬 Axiom checker — is it a group?</h4>
+    <p class="hint">Click a candidate $(\text{set},\,\text{operation})$ and watch (G1)–(G3) light up.</p>
+    <div class="axiom-grid">
+      <div class="axiom-candidates" id="candList"></div>
+      <div class="axiom-result" id="axResult">
+        <div style="color:var(--muted);font-size:.9rem;text-align:center;padding:20px 0">Pick a candidate ←</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RING -->
+<section id="ring">
+  <h2><span class="num">2.</span>Ring</h2>
+  <h3>The idea</h3>
+  <p>A group has <em>one</em> operation. But integers, polynomials, and matrices have <em>two</em> — addition and multiplication — and the two interact through distributivity. A ring axiomatizes this two-operation world.</p>
+
+  <div class="defn">
+    <span class="label">Definition</span>
+    A <em>ring</em> $(R,+,\cdot)$ is a set with two binary operations such that:
+    <ol class="axioms">
+      <li><strong>(R1)</strong> $(R,+)$ is an abelian group (its identity is written $0$).</li>
+      <li><strong>(R2)</strong> $\cdot$ is associative.</li>
+      <li><strong>(R3) Distributivity:</strong> $a\cdot(b+c) = a\cdot b + a\cdot c$ and $(a+b)\cdot c = a\cdot c + b\cdot c$.</li>
+    </ol>
+    We will assume rings have a multiplicative identity $1$ (such rings are called <em>unital</em>).
+  </div>
+
+  <div class="ex"><span class="label">Example</span> $\mathbb{Z}$ with the usual $+$ and $\times$ is the prototypical ring.</div>
+  <div class="ex"><span class="label">Example</span> Polynomials $\mathbb{R}[x]$ form a ring. So do $n\times n$ matrices over $\mathbb{R}$ (non-commutative when $n\geq 2$).</div>
+
+  <h3>What's missing?</h3>
+  <p>In a ring you can add, subtract, and multiply — but you cannot generally <em>divide</em>. There is no element $\tfrac{1}{2}$ in $\mathbb{Z}$. The next step fixes this.</p>
+</section>
+
+<!-- FIELD -->
+<section id="field">
+  <h2><span class="num">3.</span>Field</h2>
+  <h3>The idea</h3>
+  <p>A field is a ring in which division by anything nonzero is allowed. $\mathbb{Q}$, $\mathbb{R}$, and $\mathbb{C}$ are the canonical examples.</p>
+
+  <div class="defn">
+    <span class="label">Definition</span>
+    A <em>field</em> $(F,+,\cdot)$ is a commutative unital ring in which every nonzero $a\in F$ has a multiplicative inverse $a^{-1}\in F$ (so $a\cdot a^{-1} = 1$).
+  </div>
+  <p>Equivalently: $(F,+)$ <em>and</em> $(F\setminus\{0\},\cdot)$ are both abelian groups, glued by distributivity.</p>
+
+  <div class="ex"><span class="label">Example</span> $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$ are fields.</div>
+  <div class="ex"><span class="label">Example</span> For each prime $p$, the integers modulo $p$, written $\mathbb{F}_p$, form a finite field with $p$ elements.</div>
+
+  <div class="rem"><span class="label">Remark — why prime?</span>
+    In $\mathbb{Z}/6\mathbb{Z}$ the element $2$ has no inverse: there is no $x$ with $2x \equiv 1 \pmod 6$. Primality is what guarantees every nonzero element is invertible. So $\mathbb{Z}/6\mathbb{Z}$ is a ring but not a field — keep this example in mind, it will return.
+  </div>
+</section>
+
+<!-- VECTOR SPACE -->
+<section id="vector">
+  <h2><span class="num">4.</span>Vector space</h2>
+  <h3>The idea</h3>
+  <p>The setting of linear algebra: things you can add together and <em>scale by numbers</em>. The numbers ("scalars") come from a field.</p>
+
+  <div class="defn">
+    <span class="label">Definition</span>
+    Let $F$ be a field. A <em>vector space over $F$</em> is an abelian group $(V,+)$ together with an operation
+    $$F \times V \to V, \qquad (\alpha, v) \mapsto \alpha v,$$
+    called <em>scalar multiplication</em>, satisfying for all $\alpha,\beta\in F$ and $u,v\in V$:
+    <ol class="axioms">
+      <li><strong>(V1)</strong> $\alpha(u+v) = \alpha u + \alpha v$</li>
+      <li><strong>(V2)</strong> $(\alpha+\beta) v = \alpha v + \beta v$</li>
+      <li><strong>(V3)</strong> $(\alpha\beta) v = \alpha(\beta v)$</li>
+      <li><strong>(V4)</strong> $1\cdot v = v$</li>
+    </ol>
+  </div>
+
+  <div class="ex"><span class="label">Example</span> $\mathbb{R}^n$ with componentwise addition and scaling is the standard vector space over $\mathbb{R}$.</div>
+  <div class="ex"><span class="label">Example</span> Continuous functions $C([0,1],\mathbb{R})$ form an (infinite-dimensional) vector space over $\mathbb{R}$.</div>
+
+  <h3>The payoff</h3>
+  <p>Because the scalars form a field, every vector space has a <em>basis</em>, and any two bases have the same size (the <em>dimension</em>). This is what makes linear algebra so clean.</p>
+</section>
+
+<!-- MODULE -->
+<section id="module">
+  <h2><span class="num">5.</span>Module — the generalization</h2>
+  <h3>The natural question</h3>
+  <p>Look back at the vector space definition. Where did we use the fact that $F$ was a <em>field</em>, and not merely a ring? Answer: nowhere in the four axioms. We only used "field-ness" afterwards, when we wanted bases to exist.</p>
+  <p>So: what if we keep the four axioms but let the scalars come from a mere ring $R$? That object is called a <em>module</em>.</p>
+
+  <div class="defn">
+    <span class="label">Definition</span>
+    Let $R$ be a unital ring. A <em>module over $R$</em> (or an <em>$R$-module</em>) is an abelian group $(M,+)$ together with an operation
+    $$R \times M \to M, \qquad (r, m) \mapsto rm,$$
+    satisfying for all $r,s\in R$ and $m,n\in M$:
+    <ol class="axioms">
+      <li><strong>(M1)</strong> $r(m+n) = rm + rn$</li>
+      <li><strong>(M2)</strong> $(r+s)m = rm + sm$</li>
+      <li><strong>(M3)</strong> $(rs)m = r(sm)$</li>
+      <li><strong>(M4)</strong> $1\cdot m = m$</li>
+    </ol>
+  </div>
+  <p>This is literally the vector space definition with the letter $F$ replaced by the letter $R$. Nothing else changes.</p>
+
+  <h3>Reading the phrase "module over $R$"</h3>
+  <p>The phrase "$M$ is a module over the ring $R$" just names which ring is supplying the scalars. The letter $R$ is a placeholder — substitute any specific ring you like.</p>
+  <table class="summary" style="margin:1em 0">
+    <tr><td><em>vector space over $\mathbb{R}$</em></td><td>scalars are real numbers</td></tr>
+    <tr><td><em>$\mathbb{Z}$-module</em></td><td>scalars are integers</td></tr>
+    <tr><td><em>module over $R$</em></td><td>scalars come from some unspecified ring $R$</td></tr>
+  </table>
+  <p>So a "$\mathbb{Z}$-module" is not a different beast from "a module over a ring $R$." It is the special case where $R = \mathbb{Z}$.</p>
+
+  <h3>Worked example — every abelian group is a $\mathbb{Z}$-module</h3>
+  <p>Take <em>any</em> abelian group $(A,+)$. Define, for $n\in\mathbb{Z}$ and $a\in A$,
+  $$n\cdot a = \begin{cases} \underbrace{a+a+\cdots+a}_{n\text{ copies}} & n>0,\\ 0 & n=0,\\ \underbrace{(-a)+(-a)+\cdots+(-a)}_{|n|\text{ copies}} & n<0.\end{cases}$$
+  This is just <em>repeated addition</em>. The four module axioms (M1)–(M4) follow from associativity and commutativity of $+$ in $A$. So <em>every abelian group becomes a $\mathbb{Z}$-module, in exactly one natural way</em>.</p>
+
+  <!-- ===== INTERACTIVE: Z/6Z CLOCK ===== -->
+  <div class="widget" aria-label="Z mod 6 clock">
+    <h4>⏱ The $\mathbb{Z}/6\mathbb{Z}$ clock — watch a scalar act</h4>
+    <p class="hint">Pick a scalar $n\in\mathbb{Z}$ and an element $[k]\in\mathbb{Z}/6\mathbb{Z}$. Press <em>Compute</em> to animate $n\cdot[k]$ as repeated addition around the hexagonal clock.</p>
+    <div class="clock-wrap">
+      <canvas id="clockCanvas" class="clock-canvas" width="320" height="320"></canvas>
+      <div class="clock-controls">
+        <div class="ctrl-row">
+          <label for="nIn">scalar $n$</label>
+          <input type="number" id="nIn" value="3" min="-12" max="12" step="1">
+        </div>
+        <div class="ctrl-row">
+          <label for="kIn">element $[k]$</label>
+          <input type="number" id="kIn" value="2" min="0" max="5" step="1">
+        </div>
+        <div class="ctrl-row" style="gap:8px">
+          <button class="btn" id="goBtn">▶ Compute $n\cdot[k]$</button>
+          <button class="btn ghost" id="resetBtn">Reset</button>
+        </div>
+        <div class="preset-row">
+          <span style="color:var(--muted);font-size:.78rem;align-self:center">presets:</span>
+          <button class="preset" data-n="3" data-k="2">3·[2]</button>
+          <button class="preset" data-n="-1" data-k="2">−1·[2]</button>
+          <button class="preset" data-n="7" data-k="3">7·[3]</button>
+          <button class="preset" data-n="2" data-k="3">2·[3]</button>
+        </div>
+        <div class="calc-out" id="calcOut">Press <em>Compute</em> to animate.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>What is lost without a field?</h3>
+  <p>In $\mathbb{Z}/6\mathbb{Z}$ as a $\mathbb{Z}$-module, we just saw $3\cdot [2] = [0]$. There is no way to "divide by $3$" and recover $[2]$, because $3\in\mathbb{Z}$ has no multiplicative inverse in $\mathbb{Z}$. In a vector space this can never happen: if $\alpha v = 0$ with $\alpha\neq 0$, multiply by $\alpha^{-1}$ to conclude $v = 0$.</p>
+  <p>The consequence: modules need not have bases. The $\mathbb{Z}$-module $\mathbb{Z}/6\mathbb{Z}$ has no basis at all — every element is killed by $6$. When a module <em>does</em> have a basis, it is called <em>free</em>.</p>
+</section>
+
+<!-- CHALLENGE -->
+<section id="challenge">
+  <h2><span class="num">★</span>Challenge — classify the structure</h2>
+  <p>Five structures. For each, pick the strongest description that applies. Points for first-try correct.</p>
+
+  <div class="widget">
+    <div id="quiz"></div>
+    <div class="score-bar">
+      <div>Question <span id="qIdx">1</span> of <span id="qTot">5</span></div>
+      <div>Score: <span class="score" id="scoreOut">0 / 5</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY + TOWER -->
+<section id="summary">
+  <h2><span class="num">∎</span>Summary</h2>
+  <table class="summary">
+    <thead><tr><th>Structure</th><th>What it has</th><th>Key new feature</th></tr></thead>
+    <tbody>
+      <tr><td>Group</td><td>one operation</td><td>inverses (can undo)</td></tr>
+      <tr><td>Ring</td><td>two operations $(+,\cdot)$</td><td>distributivity</td></tr>
+      <tr><td>Field</td><td>two operations $(+,\cdot)$</td><td>every nonzero scalar invertible</td></tr>
+      <tr><td>Vector space</td><td>$+$ and scaling by a field</td><td>bases exist; dimension defined</td></tr>
+      <tr><td>Module</td><td>$+$ and scaling by a ring</td><td>generalizes vector space; basis may not exist</td></tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:1.4em">The hierarchy is one of progressively richer <em>scalars</em>:</p>
+
+  <div class="tower-wrap">
+    <svg class="tower" viewBox="0 0 560 240" width="100%" style="max-width:560px;height:auto">
+      <defs>
+        <radialGradient id="gR" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#c084fc" stop-opacity=".35"/>
+          <stop offset="100%" stop-color="#c084fc" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="gV" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00d4ff" stop-opacity=".35"/>
+          <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="gZ" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ff6b9d" stop-opacity=".45"/>
+          <stop offset="100%" stop-color="#ff6b9d" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- outer: R-module -->
+      <ellipse cx="280" cy="120" rx="270" ry="100" fill="url(#gR)" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <text x="280" y="32" text-anchor="middle" fill="#c084fc" font-size="14" font-style="italic">R-modules</text>
+      <!-- left: F-vector spaces -->
+      <ellipse cx="180" cy="135" rx="140" ry="70" fill="url(#gV)" stroke="#00d4ff" stroke-width="1.5"/>
+      <text x="120" y="108" text-anchor="middle" fill="#00d4ff" font-size="13" font-style="italic">F-vector spaces</text>
+      <!-- right: Z-modules = abelian groups -->
+      <ellipse cx="380" cy="135" rx="140" ry="70" fill="url(#gZ)" stroke="#ff6b9d" stroke-width="1.5"/>
+      <text x="440" y="108" text-anchor="middle" fill="#ff6b9d" font-size="13" font-style="italic">ℤ-modules = abelian groups</text>
+      <!-- intersection labels -->
+      <text x="280" y="140" text-anchor="middle" fill="#e8eaf2" font-size="11">overlap:</text>
+      <text x="280" y="158" text-anchor="middle" fill="#fbbf24" font-size="11" font-style="italic">ℚ-, ℝ-, ℂ-vec sp. ∩ abelian gps</text>
+    </svg>
+  </div>
+
+  <p style="text-align:center;font-size:1.05rem;margin:1.4em 0">$\text{abelian group} = \mathbb{Z}\text{-module} \;\subset\; R\text{-module} \;\supset\; F\text{-vector space}$</p>
+  <p>The last $\supset$ is the punchline: vector spaces are the special, well-behaved case of modules — the case where the scalars happen to form a field.</p>
+</section>
+
+<footer>
+  Math Corner · for Lucia · May 2026 ·
+  <a href="algebraic_structures.pdf" target="_blank" rel="noopener" style="color:var(--purple);text-decoration:none;border-bottom:1px dashed var(--purple)">download PDF</a>
+</footer>
+</div>
+
+<script>
+/* =====================================================================
+ * 1. AXIOM CHECKER  (Group axioms G1–G3)
+ * =================================================================== */
+const candidates = [
+  { id:'Z+',   set:'ℤ',         op:'+',     g1:1, g2:1, g3:1, ab:1,
+    note:'Identity 0, inverse of n is −n. The canonical abelian group.' },
+  { id:'N+',   set:'ℕ',         op:'+',     g1:1, g2:1, g3:0, ab:1,
+    note:'No inverses: 3 has no n∈ℕ with 3+n=0.' },
+  { id:'Zx',   set:'ℤ',         op:'×',     g1:1, g2:1, g3:0, ab:1,
+    note:'1 is the identity, but 2 has no integer inverse.' },
+  { id:'R*x',  set:'ℝ\\{0}',    op:'×',     g1:1, g2:1, g3:1, ab:1,
+    note:'Identity 1, inverse of a is 1/a. Abelian.' },
+  { id:'Z6+',  set:'ℤ/6ℤ',      op:'+ mod 6', g1:1, g2:1, g3:1, ab:1,
+    note:'Finite abelian group of order 6.' },
+  { id:'S3',   set:'S₃ (sym. of △)', op:'∘', g1:1, g2:1, g3:1, ab:0,
+    note:'A group of order 6, but non-abelian: reflection·rotation ≠ rotation·reflection.' },
+];
+const candList = document.getElementById('candList');
+candidates.forEach(c=>{
+  const div = document.createElement('div');
+  div.className = 'cand';
+  div.dataset.id = c.id;
+  div.innerHTML = `<span>(${c.set},&nbsp;${c.op})</span><span class="tag">test</span>`;
+  div.onclick = ()=>renderAxiom(c, div);
+  candList.appendChild(div);
+});
+function renderAxiom(c, el){
+  document.querySelectorAll('.cand').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+  const mk = (ok,t)=>`<div class="ax-row"><div class="ax-mark ${ok?'yes':'no'}">${ok?'✓':'✗'}</div><div>${t}</div></div>`;
+  let verdict;
+  if (c.g1 && c.g2 && c.g3) verdict = c.ab
+      ? `<div class="verdict abelian">✓ Abelian group</div>`
+      : `<div class="verdict group">✓ Group (non-abelian)</div>`;
+  else verdict = `<div class="verdict notgroup">✗ Not a group</div>`;
+  document.getElementById('axResult').innerHTML =
+    `<div style="font-family:'JetBrains Mono',monospace;color:#fff;margin-bottom:8px">(${c.set}, ${c.op})</div>` +
+    mk(c.g1, '<strong>(G1)</strong> Associativity') +
+    mk(c.g2, '<strong>(G2)</strong> Identity element') +
+    mk(c.g3, '<strong>(G3)</strong> Every element has an inverse') +
+    verdict +
+    `<div style="margin-top:8px;color:var(--muted);font-size:.85rem">${c.note}</div>`;
+}
+
+/* =====================================================================
+ * 2. Z/6Z CLOCK   — animates n·[k] as repeated addition
+ * =================================================================== */
+(function(){
+  const N = 6;
+  const cv = document.getElementById('clockCanvas');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const CX = W/2, CY = H/2;
+  const R = 115;
+
+  let currentStep = 0;       // visited [m_0=0, m_1, ..., m_n]
+  let path = [0];
+  let anim = null;
+  let endResult = null;
+
+  function pos(m){
+    const ang = -Math.PI/2 + (2*Math.PI*m)/N;
+    return [CX + R*Math.cos(ang), CY + R*Math.sin(ang)];
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // outer ring
+    ctx.beginPath(); ctx.arc(CX,CY,R,0,2*Math.PI);
+    ctx.strokeStyle = '#243056'; ctx.lineWidth = 1.5; ctx.stroke();
+
+    // path arrows so far
+    for (let i=0;i<path.length-1;i++){
+      drawArc(path[i], path[i+1], i+1);
+    }
+    // numbered nodes
+    for (let m=0;m<N;m++){
+      const [x,y] = pos(m);
+      const visited = path.includes(m);
+      const isLast = path[path.length-1] === m;
+      ctx.beginPath(); ctx.arc(x,y, isLast?20:15, 0, 2*Math.PI);
+      ctx.fillStyle = isLast ? '#fbbf24' : visited ? '#1b2440' : '#0e1422';
+      ctx.fill();
+      ctx.strokeStyle = isLast ? '#fbbf24' : visited ? '#ff6b9d' : '#243056';
+      ctx.lineWidth = isLast ? 2.5 : 1.5;
+      ctx.stroke();
+      ctx.fillStyle = isLast ? '#0a0e1a' : visited ? '#ff6b9d' : '#8b94b2';
+      ctx.font = (isLast?'700 ':'600 ') + (isLast?'15px':'13px') + " 'JetBrains Mono', monospace";
+      ctx.textAlign = 'center'; ctx.textBaseline='middle';
+      ctx.fillText('['+m+']', x, y);
+    }
+    // center label
+    ctx.fillStyle = '#8b94b2'; ctx.font = "italic 13px 'Iowan Old Style', serif";
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('ℤ / 6ℤ', CX, CY-10);
+    if (endResult!==null){
+      ctx.fillStyle = '#fbbf24'; ctx.font = "700 18px 'JetBrains Mono', monospace";
+      ctx.fillText('['+endResult+']', CX, CY+14);
+    }
+  }
+  function drawArc(a,b,stepIdx){
+    // arc from position a to position b along the circle (short way for k<=3, custom for k>3)
+    const a1 = -Math.PI/2 + (2*Math.PI*a)/N;
+    const a2 = -Math.PI/2 + (2*Math.PI*b)/N;
+    // direction: choose by the sign of the actual jump
+    // We use the recorded direction implicitly via path order — go the short way.
+    let delta = a2 - a1;
+    // normalize to (-π, π] then keep that sign of arc
+    while (delta <= -Math.PI) delta += 2*Math.PI;
+    while (delta >   Math.PI) delta -= 2*Math.PI;
+    const steps = 40;
+    ctx.beginPath();
+    for (let i=0;i<=steps;i++){
+      const t = i/steps;
+      const ang = a1 + delta*t;
+      const rr = R + 0; // arc on the ring
+      const x = CX + rr*Math.cos(ang), y = CY + rr*Math.sin(ang);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    const hue = (180 + stepIdx*25) % 360;
+    ctx.strokeStyle = `hsl(${hue},90%,60%)`;
+    ctx.lineWidth = 3; ctx.lineCap = 'round';
+    ctx.globalAlpha = 0.85;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+
+  function reset(){
+    if(anim){ clearInterval(anim); anim=null; }
+    path = [0]; currentStep=0; endResult=null; draw();
+    document.getElementById('calcOut').innerHTML = 'Press <em>Compute</em> to animate.';
+  }
+  function compute(){
+    if(anim){ clearInterval(anim); anim=null; }
+    let n = parseInt(document.getElementById('nIn').value,10);
+    let k = ((parseInt(document.getElementById('kIn').value,10) % 6) + 6) % 6;
+    document.getElementById('kIn').value = k;
+    if(isNaN(n)) n=0;
+    const total = Math.abs(n);
+    const jump = n>=0 ? k : (6 - k) % 6;   // negative scalar = add (−[k]) = add [6−k]
+    const finalRes = ((n*k) % 6 + 6) % 6;
+    path = [0]; currentStep=0; endResult=null; draw();
+
+    const out = document.getElementById('calcOut');
+    const sign = n<0 ? '(−1)·' : '';
+    out.innerHTML = `<span>${n}·[${k}] <span class="arrow">=</span> ` +
+      (n===0 ? `<span class="result">[0]</span>` :
+       n>0 ? `[${k}] + [${k}] + … + [${k}] &nbsp;(${total} copies)`
+           : `[${6-k}] + [${6-k}] + … &nbsp;(${total} copies of −[${k}])`) +
+      `</span><span class="step" id="stepLine">…</span>`;
+
+    if(total===0){
+      endResult = 0; draw();
+      document.getElementById('stepLine').innerHTML =
+        `<span style="color:var(--gold)">result: [0]</span>`;
+      return;
+    }
+    let i = 0, here = 0;
+    anim = setInterval(()=>{
+      here = (here + jump) % 6;
+      path.push(here);
+      currentStep++;
+      i++;
+      draw();
+      document.getElementById('stepLine').innerHTML =
+        `step ${i}/${total}:&nbsp; <span style="color:var(--pink)">[${path[path.length-2]}]</span> + ` +
+        `<span style="color:var(--cyan)">[${jump}]</span> = <span style="color:var(--gold)">[${here}]</span>`;
+      if(i >= total){
+        clearInterval(anim); anim=null;
+        endResult = finalRes; draw();
+        document.getElementById('stepLine').innerHTML +=
+          `&nbsp;&nbsp;<strong style="color:var(--gold)">⇒ ${n}·[${k}] = [${finalRes}]</strong>` +
+          (finalRes===0 && k!==0
+            ? `&nbsp;<span style="color:var(--red)">(killed!)</span>`
+            : '');
+      }
+    }, 380);
+  }
+  document.getElementById('goBtn').onclick = compute;
+  document.getElementById('resetBtn').onclick = reset;
+  document.querySelectorAll('.preset').forEach(b=>{
+    b.onclick = ()=>{
+      document.getElementById('nIn').value = b.dataset.n;
+      document.getElementById('kIn').value = b.dataset.k;
+      compute();
+    };
+  });
+  draw();
+})();
+
+/* =====================================================================
+ * 3. CHALLENGE  — classify the structure
+ * =================================================================== */
+const questions = [
+  {
+    qn: 'Q1',
+    text: 'The natural numbers under addition.',
+    data: '(ℕ, +)',
+    opts: ['Abelian group', 'Not a group', 'Ring', 'Field'],
+    correct: 1,
+    explain: 'No additive inverses: 3 ∈ ℕ has no n ∈ ℕ with 3 + n = 0. (G3) fails, so this is not even a group.'
+  },
+  {
+    qn: 'Q2',
+    text: 'The integers with their usual + and ×.',
+    data: '(ℤ, +, ×)',
+    opts: ['Group only', 'Ring but not a field', 'Field', 'Vector space over ℚ'],
+    correct: 1,
+    explain: 'ℤ is the prototypical ring. It is not a field — 2 has no multiplicative inverse in ℤ.'
+  },
+  {
+    qn: 'Q3',
+    text: 'Integers modulo 5, with addition and multiplication mod 5.',
+    data: '(ℤ/5ℤ, +, ×)',
+    opts: ['Ring but not field', 'Field 𝔽₅', 'Group only', 'Module that is not a ring'],
+    correct: 1,
+    explain: 'Since 5 is prime, every nonzero element has a multiplicative inverse mod 5. So ℤ/5ℤ is the finite field 𝔽₅.'
+  },
+  {
+    qn: 'Q4',
+    text: 'Pairs of real numbers, added componentwise, scaled by real numbers.',
+    data: '(ℝ², +, scalar action by ℝ)',
+    opts: ['Abelian group only', 'Ring', 'Vector space over ℝ', 'ℤ-module only'],
+    correct: 2,
+    explain: 'Scalars from a field (ℝ), the four (V1)–(V4) hold componentwise. So ℝ² is a vector space over ℝ — strongest description.'
+  },
+  {
+    qn: 'Q5',
+    text: 'Integers mod 6, with the scalar action n·[k] = "add [k] to itself n times."',
+    data: '(ℤ/6ℤ, +, scalar action by ℤ)',
+    opts: ['Vector space over ℤ', 'ℤ-module (no basis)', 'Field', 'Not a module'],
+    correct: 1,
+    explain: 'ℤ is a ring, not a field, so this is a module — specifically a ℤ-module. It has no basis at all (every element is killed by 6), so it cannot be a vector space.'
+  }
+];
+const quizEl = document.getElementById('quiz');
+const scoreEl = document.getElementById('scoreOut');
+const idxEl = document.getElementById('qIdx');
+document.getElementById('qTot').textContent = questions.length;
+let qi = 0, score = 0, attempted = false;
+function renderQ(){
+  const q = questions[qi];
+  idxEl.textContent = qi+1;
+  attempted = false;
+  quizEl.innerHTML = `
+    <div class="q-card">
+      <div class="q-stem">
+        <div class="qn">${q.qn}</div>
+        <div class="qtext">${q.text}</div>
+        <div class="qdata">${q.data}</div>
+      </div>
+      <div class="q-opts">
+        ${q.opts.map((o,i)=>`<button class="q-opt" data-i="${i}">${o}</button>`).join('')}
+      </div>
+      <div class="q-explain" id="qexp">${q.explain}</div>
+      <div style="margin-top:10px;display:flex;justify-content:flex-end">
+        <button class="btn ghost" id="nextBtn" style="display:none">${qi<questions.length-1?'Next →':'Finish'}</button>
+      </div>
+    </div>`;
+  quizEl.querySelectorAll('.q-opt').forEach(b=>{
+    b.onclick = ()=>{
+      if(attempted) return;
+      attempted = true;
+      const pick = parseInt(b.dataset.i,10);
+      const correctI = q.correct;
+      quizEl.querySelectorAll('.q-opt').forEach((btn,i)=>{
+        btn.disabled = true;
+        if(i===correctI) btn.classList.add('correct');
+        else if(i===pick) btn.classList.add('wrong');
+      });
+      if(pick===correctI) score++;
+      scoreEl.textContent = `${score} / ${questions.length}`;
+      document.getElementById('qexp').classList.add('show');
+      document.getElementById('nextBtn').style.display='inline-block';
+    };
+  });
+  const nb = document.getElementById('nextBtn');
+  if(nb) nb.onclick = ()=>{
+    if(qi < questions.length-1){ qi++; renderQ(); }
+    else{
+      let msg;
+      if(score===5) msg = '★ Perfect — Lucia-level mastery.';
+      else if(score>=4) msg = 'Excellent — one slip, but the picture is right.';
+      else if(score>=3) msg = 'Solid. Re-read §5 to lock in the field-vs-ring distinction.';
+      else msg = 'Worth another pass through the note — especially the worked example.';
+      quizEl.innerHTML = `
+        <div class="q-card" style="text-align:center;padding:24px 8px">
+          <div style="font-size:2rem;color:var(--gold);font-family:'Iowan Old Style',serif">${score} / ${questions.length}</div>
+          <div style="margin-top:8px;color:var(--muted)">${msg}</div>
+          <button class="btn" id="againBtn" style="margin-top:16px">↻ Try again</button>
+        </div>`;
+      document.getElementById('againBtn').onclick = ()=>{ qi=0; score=0; scoreEl.textContent=`0 / ${questions.length}`; renderQ(); };
+    }
+  };
+}
+renderQ();
+
+/* smooth nav */
+document.querySelectorAll('a.pill').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+});
+</script>
+</body>
+</html>
